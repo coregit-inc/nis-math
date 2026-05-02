@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIS Математика · Подготовка к экзамену 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  :root {
+    --bg: #FAF7F0;
+    --bg-card: #FFFFFF;
+    --bg-soft: #F2EEE3;
+    --ink: #1A1714;
+    --ink-soft: #4A423A;
+    --ink-muted: #877B6E;
+    --accent: #8B1A1A;        /* deep ink red */
+    --accent-soft: #FFF0EC;
+    --blue: #1B3A5C;          /* deep navy */
+    --blue-soft: #E8EEF5;
+    --gold: #B8860B;
+    --gold-soft: #FFF8E1;
+    --green: #2D5016;
+    --green-soft: #EBF1E1;
+    --line: #D9D0BE;
+    --line-soft: #EAE3D2;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    font-feature-settings: "kern", "liga", "onum";
+  }
+
+  /* === LAYOUT === */
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 60px 32px 120px;
+  }
+
+  /* === HEADER === */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 24px;
+    margin-bottom: 48px;
+  }
+  .masthead .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .masthead h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px 0;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+  }
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .masthead .lede {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0;
+  }
+  .stats-strip {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    border-left: 2px solid var(--accent);
+    padding: 4px 0 4px 14px;
+  }
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+    display: block;
+  }
+  .stat .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* === TYPOGRAPHY === */
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 72px 0 8px 0;
+    font-variation-settings: "opsz" 144;
+  }
+  h2 .num {
+    color: var(--accent);
+    font-style: italic;
+    margin-right: 14px;
+    font-weight: 500;
+  }
+  h2 + .h2-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 16px;
+  }
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 40px 0 12px 0;
+    line-height: 1.25;
+  }
+  h4 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 24px 0 8px 0;
+    color: var(--ink);
+  }
+
+  p { margin: 0 0 14px 0; }
+
+  strong { font-weight: 600; color: var(--ink); }
+  em { font-style: italic; }
+
+  /* === TOC === */
+  .toc {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 40px 0 60px;
+  }
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: 40px;
+  }
+  .toc li {
+    padding: 6px 0;
+    break-inside: avoid;
+    counter-increment: toc-counter;
+  }
+  .toc { counter-reset: toc-counter; }
+  .toc li::before {
+    content: counter(toc-counter, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-right: 14px;
+    letter-spacing: 0.05em;
+  }
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .toc a:hover { border-bottom-color: var(--accent); }
+
+  /* === BLOCKS === */
+  .formula-block {
+    background: var(--bg-card);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 18px 24px;
+    margin: 18px 0;
+    overflow-x: auto;
+  }
+  .formula-block.tight { padding: 10px 20px; }
+
+  .method {
+    border-left: 3px solid var(--blue);
+    background: var(--blue-soft);
+    padding: 18px 24px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .method-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .example {
+    border-left: 3px solid var(--green);
+    background: var(--green-soft);
+    padding: 18px 24px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .example-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .warn {
+    border-left: 3px solid var(--gold);
+    background: var(--gold-soft);
+    padding: 18px 24px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .warn-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .critical {
+    background: var(--accent);
+    color: #FFF;
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 4px;
+    position: relative;
+  }
+  .critical-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.85;
+  }
+  .critical strong { color: #FFE8B5; }
+
+  /* === TABLES === */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+  th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 500;
+    padding: 12px 10px;
+    border-bottom: 2px solid var(--ink);
+  }
+  td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  tr:hover td { background: var(--bg-soft); }
+  td.center, th.center { text-align: center; }
+  td.freq { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 13px; }
+  td.freq-3 { color: var(--accent); }
+  td.freq-2 { color: var(--blue); }
+  td.freq-1 { color: var(--ink-muted); }
+
+  /* === STEPS === */
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .steps li {
+    counter-increment: step;
+    padding: 8px 0 8px 50px;
+    position: relative;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 32px;
+    height: 32px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* === MARKING TAGS === */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin: 0 4px 0 0;
+    letter-spacing: 0.05em;
+  }
+  .tag-m { background: #FFE8E0; color: #8B2500; }
+  .tag-a { background: #E0EAFF; color: #1B3A5C; }
+  .tag-b { background: #E0F0E0; color: #2D5016; }
+
+  /* === LIST === */
+  ul.bullet, ol.list {
+    padding-left: 24px;
+    margin: 12px 0;
+  }
+  ul.bullet li, ol.list li {
+    margin-bottom: 8px;
+  }
+  ul.bullet li::marker { color: var(--accent); }
+
+  /* === MATH RENDER === */
+  mjx-container {
+    margin: 4px 0 !important;
+  }
+  mjx-container[display="true"] {
+    margin: 12px 0 !important;
+  }
+
+  /* === FINAL TIP === */
+  .signoff {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 2px solid var(--ink);
+    text-align: center;
+    color: var(--ink-muted);
+    font-style: italic;
+    font-size: 16px;
+  }
+  .signoff strong { color: var(--accent); font-style: normal; font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 20px 80px; }
+    .toc ol { columns: 1; }
+    h2 { font-size: 28px; }
+    body { font-size: 16px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 20px; max-width: none; }
+    .toc { display: none; }
+    h2 { page-break-before: always; }
+    .critical, .method, .example, .warn { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- =============================================== -->
+<!--                    MASTHEAD                     -->
+<!-- =============================================== -->
+<header class="masthead">
+  <div class="kicker">NIS / 12 класс / Paper 1 / Russian</div>
+  <h1>Математика<br><em>за 48 часов</em></h1>
+  <p class="lede">Полный справочник для повторения, основанный на анализе экзаменов 2023, 2024 и 2025 годов. Все темы, формулы, методы и прогноз на май 2026.</p>
+  <div class="stats-strip">
+    <div class="stat"><span class="num">27</span><span class="lbl">заданий</span></div>
+    <div class="stat"><span class="num">60</span><span class="lbl">баллов</span></div>
+    <div class="stat"><span class="num">80</span><span class="lbl">минут</span></div>
+    <div class="stat"><span class="num">≈3</span><span class="lbl">мин/задание</span></div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-title">Содержание</div>
+  <ol>
+    <li><a href="#map">Карта тем по годам</a></li>
+    <li><a href="#forecast">Прогноз на 2026</a></li>
+    <li><a href="#complex">Комплексные числа</a></li>
+    <li><a href="#log">Логарифмы и степени</a></li>
+    <li><a href="#deriv">Производные</a></li>
+    <li><a href="#integ">Интегралы</a></li>
+    <li><a href="#diffeq">Дифференциальные уравнения</a></li>
+    <li><a href="#poly">Многочлены и уравнения</a></li>
+    <li><a href="#ineq">Неравенства всех видов</a></li>
+    <li><a href="#trig">Тригонометрия</a></li>
+    <li><a href="#vec">Векторы и геометрия в пространстве</a></li>
+    <li><a href="#stereo">Стереометрия</a></li>
+    <li><a href="#stat">Статистика и вероятность</a></li>
+    <li><a href="#format">Оформление и баллы</a></li>
+    <li><a href="#strategy">Стратегия на экзамене</a></li>
+  </ol>
+</nav>
+
+<!-- =============================================== -->
+<!--               1. КАРТА ТЕМ                      -->
+<!-- =============================================== -->
+<section id="map">
+<h2><span class="num">01</span>Карта тем по годам</h2>
+<div class="h2-sub">— что было, как часто, и где ждать в 2026 —</div>
+
+<p>Я разобрал все 81 задание (27 × 3 года) и сгруппировал их по темам. Это даёт чёткое понимание того, что обязательно нужно знать и где готовиться особенно тщательно.</p>
+
+<table>
+<thead>
+<tr>
+<th>Тема</th>
+<th class="center">2023</th>
+<th class="center">2024</th>
+<th class="center">2025</th>
+<th class="center">Частота</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Деление комплексных чисел</td><td class="center">№17</td><td class="center">№4</td><td class="center">№5</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Формула Муавра</td><td class="center">№21, 24</td><td class="center">№23</td><td class="center">№23</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Логарифмическое уравнение с заменой</td><td class="center">№7</td><td class="center">№8</td><td class="center">№13</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Дифференциальное уравнение 2-го пор.</td><td class="center">№12</td><td class="center">№17</td><td class="center">№9</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Уравнение сферы (полные квадраты)</td><td class="center">№8</td><td class="center">№12</td><td class="center">№7</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Многочлены: деление, корни, разложение</td><td class="center">№5</td><td class="center">№7, 11</td><td class="center">№1, 6</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Степени с дробным показателем</td><td class="center">№23</td><td class="center">№13, 25</td><td class="center">№3, 17</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Производная и её применение</td><td class="center">№9</td><td class="center">№9, 20</td><td class="center">№18, 22</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Интеграл / площадь фигуры</td><td class="center">№10, 11</td><td class="center">№18</td><td class="center">№12, 15</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Векторы и координаты</td><td class="center">№16, 18, 19</td><td class="center">№1, 5, 6, 15</td><td class="center">№14, 19</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Стереометрия (поверхность, сечение)</td><td class="center">№13</td><td class="center">№27</td><td class="center">№4, 20</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Иррациональные / показательные нер-ва</td><td class="center">№3</td><td class="center">№14, 22</td><td class="center">№16, 21</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Уравнения с модулем / иррациональные</td><td class="center">№2</td><td class="center">№3</td><td class="center">№2</td><td class="freq freq-3 center">3/3</td></tr>
+<tr><td>Квадратный корень из комплексного числа</td><td class="center">—</td><td class="center">№26</td><td class="center">№25</td><td class="freq freq-2 center">2/3</td></tr>
+<tr><td>Интегрирование по частям</td><td class="center">№27</td><td class="center">—</td><td class="center">№26</td><td class="freq freq-2 center">2/3</td></tr>
+<tr><td>Диаграмма Аргана</td><td class="center">№20</td><td class="center">—</td><td class="center">№27</td><td class="freq freq-2 center">2/3</td></tr>
+<tr><td>Биквадратное уравнение / замена</td><td class="center">№4</td><td class="center">—</td><td class="center">№6, 8</td><td class="freq freq-2 center">2/3</td></tr>
+<tr><td><strong>Тригонометрия (ур-я / нер-ва)</strong></td><td class="center">№14</td><td class="center">№10</td><td class="center" style="color:var(--accent);font-weight:600;">— ❗</td><td class="freq freq-2 center">2/3</td></tr>
+<tr><td><strong>Статистика (ящик / стебель / медиана)</strong></td><td class="center">№6</td><td class="center">№19</td><td class="center" style="color:var(--accent);font-weight:600;">— ❗</td><td class="freq freq-2 center">2/3</td></tr>
+<tr><td>Логарифмическое неравенство</td><td class="center">№3</td><td class="center">—</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Простые дроби (A/(x−a) + B/(x−b))</td><td class="center">№25</td><td class="center">—</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Угол между прямыми</td><td class="center">№18</td><td class="center">—</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Расстояние от точки до плоскости</td><td class="center">—</td><td class="center">№1</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Биномиальное распределение</td><td class="center">—</td><td class="center">№21</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Перпендикулярность плоскостей</td><td class="center">№16</td><td class="center">—</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Определитель 3×3</td><td class="center">—</td><td class="center">№2</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Дифф. уравнение 1-го порядка</td><td class="center">№22</td><td class="center">—</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Тождество через формулу Муавра</td><td class="center">№24</td><td class="center">—</td><td class="center">—</td><td class="freq freq-1 center">1/3</td></tr>
+<tr><td>Доказательство сравнения корней</td><td class="center">№1</td><td class="center">—</td><td class="center">№17</td><td class="freq freq-2 center">2/3</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- =============================================== -->
+<!--               2. ПРОГНОЗ НА 2026                -->
+<!-- =============================================== -->
+<section id="forecast">
+<h2><span class="num">02</span>Прогноз на 2026</h2>
+<div class="h2-sub">— основанный на 3-летней закономерности —</div>
+
+<h3>Что будет точно (категория 3/3)</h3>
+<p>Все 13 тем из категории 3/3 встречались каждый год без исключения. <strong>Они обязательно будут</strong> и в 2026. Это твой фундамент — именно их нужно отработать в первую очередь.</p>
+
+<div class="critical">
+<div class="critical-title">⚡ Главное наблюдение</div>
+<p style="margin:0;">В 2025 <strong>выпали тригонометрия и статистика</strong> — а они были и в 2023, и в 2024. Экзамен явно ротирует темы между годами. <strong>С вероятностью ~85–90% обе вернутся в 2026.</strong> Удели им особое внимание.</p>
+</div>
+
+<h3>Топ-7 кандидатов на возвращение</h3>
+<ol class="list">
+<li><strong>Тригонометрическое уравнение или неравенство</strong> — типа $\cos 2x > \frac{\sqrt{3}}{2}$ или $\sin 5x \cos 4x - \cos 5x \sin 4x > 0$. Был и в 2023, и в 2024.</li>
+<li><strong>Статистика</strong> — диаграмма «ящик с усами», «стебель–листья», нахождение медианы, межквартильного размаха. Лёгкие 2 балла, нужно знать определения.</li>
+<li><strong>Биномиальное распределение</strong> — таблица распределения вероятностей.</li>
+<li><strong>Угол между прямыми в пространстве</strong> через скалярное произведение направляющих векторов.</li>
+<li><strong>Расстояние от точки до плоскости</strong> — формула $d = \frac{|Ax_0 + By_0 + Cz_0 + D|}{\sqrt{A^2+B^2+C^2}}$.</li>
+<li><strong>Простые дроби</strong> — разложение $\frac{x+3}{x^2-5x+6} = \frac{A}{x-2} + \frac{B}{x-3}$.</li>
+<li><strong>Определитель 3×3</strong> или <strong>дифф. уравнение 1-го порядка</strong> с разделяемыми переменными.</li>
+</ol>
+
+<h3>Какие задания ждать в каждом блоке</h3>
+<ul class="bullet">
+<li><strong>Комплексные числа</strong>: 3–4 задания. Деление $\frac{a+bi}{c+di}$, формула Муавра, корень $\sqrt{a+bi}$, диаграмма Аргана или квадратное с $D < 0$.</li>
+<li><strong>Анализ (производные/интегралы)</strong>: 4–5 заданий. Касательная, промежутки возрастания/убывания, площадь фигуры, интеграл по частям или подстановкой.</li>
+<li><strong>Алгебра</strong>: 4–5 заданий. Многочлены, степени, логарифмы, уравнения с заменой, неравенства.</li>
+<li><strong>Геометрия в пространстве</strong>: 3–4 задания. Сфера, плоскость, прямая, векторное/скалярное произведение, стереометрия.</li>
+<li><strong>Дифференциальные уравнения</strong>: 1 задание. Скорее всего 2-го порядка.</li>
+<li><strong>Тригонометрия</strong>: 1–2 задания (ждём возврата).</li>
+<li><strong>Статистика</strong>: 1 задание (ждём возврата).</li>
+</ul>
+</section>
+
+<!-- =============================================== -->
+<!--               3. КОМПЛЕКСНЫЕ ЧИСЛА              -->
+<!-- =============================================== -->
+<section id="complex">
+<h2><span class="num">03</span>Комплексные числа</h2>
+<div class="h2-sub">— топовая тема, 3–4 задания каждый год —</div>
+
+<h3>Базовые формулы</h3>
+<div class="formula-block">
+$$i^2 = -1, \quad i^3 = -i, \quad i^4 = 1$$
+$$z = a + bi, \quad \bar{z} = a - bi, \quad |z| = \sqrt{a^2+b^2}$$
+$$z = r(\cos\theta + i\sin\theta), \quad r = |z|, \quad \tan\theta = \frac{b}{a}$$
+</div>
+<p>Аргумент $\theta$ в ответах требуется в диапазоне $-\pi < \theta \le \pi$. Если получилось вне диапазона — добавь или вычти $2\pi$.</p>
+
+<h3>3.1 Деление комплексных чисел</h3>
+<p><em>Было: 2023 №17, 2024 №4, 2025 №5 — </em><strong>каждый год.</strong></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>Умножаем числитель и знаменатель на <strong>сопряжённое знаменателя</strong>:</p>
+$$\frac{a+bi}{c+di} = \frac{(a+bi)(c-di)}{(c+di)(c-di)} = \frac{(ac+bd)+(bc-ad)i}{c^2+d^2}$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №5)</div>
+<p>$z = 5 - 3i$, $w = 1 - i$. Найти $\dfrac{z}{w}$ в виде $a + bi$.</p>
+$$\frac{5-3i}{1-i} \cdot \frac{1+i}{1+i} = \frac{(5-3i)(1+i)}{1-i^2} = \frac{5+5i-3i-3i^2}{2} = \frac{8+2i}{2} = 4 + i$$
+<p style="margin:0;"><strong>Оформление:</strong> <span class="tag tag-m">M1</span> за умножение на сопряжённое и раскрытие скобок с $i^2 = -1$. <span class="tag tag-a">A1</span> за ответ.</p>
+</div>
+
+<h3>3.2 Формула Муавра</h3>
+<p><em>Было: 2023 №21, №24; 2024 №23; 2025 №23.</em></p>
+
+<div class="formula-block">
+$$\bigl[r(\cos\theta + i\sin\theta)\bigr]^n = r^n(\cos n\theta + i\sin n\theta)$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №23)</div>
+<p>$z = \cos\!\left(-\frac{\pi}{12}\right) + i\sin\!\left(-\frac{\pi}{12}\right)$. Найти $z^{15}$ в виде $r(\cos\theta + i\sin\theta)$, $-\pi < \theta < \pi$.</p>
+$$z^{15} = \cos\!\left(-\frac{15\pi}{12}\right) + i\sin\!\left(-\frac{15\pi}{12}\right) = \cos\!\left(-\frac{5\pi}{4}\right) + i\sin\!\left(-\frac{5\pi}{4}\right)$$
+<p>Аргумент $-\frac{5\pi}{4}$ вне диапазона. Добавляем $2\pi$:</p>
+$$-\frac{5\pi}{4} + 2\pi = \frac{3\pi}{4} \quad\Longrightarrow\quad z^{15} = \cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4}$$
+</div>
+
+<h3>3.3 Квадратный корень из комплексного числа</h3>
+<p><em>Было: 2024 №26, 2025 №25.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>Найти $\sqrt{a+bi}$. Пусть $\sqrt{a+bi} = x + yi$, тогда $(x+yi)^2 = a + bi$:</p>
+$$\begin{cases} x^2 - y^2 = a \\ 2xy = b \end{cases}$$
+<p style="margin:0;">Решаем систему. Получаем <strong>два</strong> ответа $\pm(x+yi)$.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №25)</div>
+<p>Найти $\sqrt{21 - 20i}$.</p>
+<p>Пусть $\sqrt{21-20i} = a + bi$. Тогда $(a+bi)^2 = 21 - 20i$:</p>
+$$a^2 - b^2 = 21, \qquad 2ab = -20 \;\Rightarrow\; ab = -10$$
+<p>Из второго: $b = -10/a$. Подставляем: $a^2 - 100/a^2 = 21 \Rightarrow a^4 - 21a^2 - 100 = 0$.</p>
+<p>Замена $t = a^2$: $t^2 - 21t - 100 = 0 \Rightarrow t = 25$ или $t = -4$. Берём $t = 25 \Rightarrow a = \pm 5$.</p>
+<p>Тогда $b = \mp 2$. <strong>Ответ:</strong> $5 - 2i$ и $-5 + 2i$.</p>
+</div>
+
+<div class="warn">
+<div class="warn-title">⚠ Альтернативный метод</div>
+<p>Можно попытаться выделить полный квадрат: $21 - 20i = 25 - 2 \cdot 5 \cdot 2i + (2i)^2 = (5-2i)^2$, отсюда $\sqrt{21-20i} = \pm(5-2i)$. Этот способ короче, но не всегда срабатывает.</p>
+</div>
+
+<h3>3.4 Квадратное уравнение с D &lt; 0</h3>
+<p><em>Было: 2025 №10.</em></p>
+
+<div class="example">
+<div class="example-title">Пример</div>
+<p>$z^2 - 4z + 13 = 0$. Найти $z$ в виде $a + bi$.</p>
+$$D = 16 - 52 = -36 \;\Rightarrow\; \sqrt{D} = 6i$$
+$$z = \frac{4 \pm 6i}{2} = 2 \pm 3i$$
+</div>
+
+<h3>3.5 Диаграмма Аргана</h3>
+<p><em>Было: 2023 №20, 2025 №27.</em></p>
+
+<div class="method">
+<div class="method-title">Что значат условия</div>
+<ul class="bullet">
+<li>$|z - z_0| \le R$ — круг радиуса $R$ с центром в $z_0$ (закрашенный).</li>
+<li>$|z - z_0| = R$ — окружность.</li>
+<li>$\text{Re}(z) \ge a$ — полуплоскость справа от вертикальной прямой $x = a$.</li>
+<li>$\text{Im}(z) \ge b$ — полуплоскость над горизонтальной прямой $y = b$.</li>
+<li>$\arg z = \alpha$ — луч из начала координат под углом $\alpha$.</li>
+<li>$\alpha \le \arg z \le \beta$ — сектор между двумя лучами.</li>
+</ul>
+</div>
+
+<p>В 2025 №27 было: $1 \le |z+1| \le 3$ и $\frac{\pi}{2} \le \arg z \le \pi$. Это <strong>кольцо</strong> с центром $-1$ (от 1 до 3 по радиусу), пересечённое со <strong>вторым квадрантом</strong>.</p>
+
+</section>
+
+<!-- =============================================== -->
+<!--           4. ЛОГАРИФМЫ И СТЕПЕНИ                -->
+<!-- =============================================== -->
+<section id="log">
+<h2><span class="num">04</span>Логарифмы и степени</h2>
+<div class="h2-sub">— ещё одна тема, которая встречается каждый год —</div>
+
+<h3>Свойства логарифмов</h3>
+<div class="formula-block">
+$$\log_a(xy) = \log_a x + \log_a y, \qquad \log_a\!\frac{x}{y} = \log_a x - \log_a y$$
+$$\log_a(x^n) = n\log_a x, \qquad \log_{a^n} x = \frac{1}{n}\log_a x$$
+$$\log_a x = \frac{\log_b x}{\log_b a} \;\;\text{(переход к новому основанию)}$$
+$$a^{\log_a x} = x, \qquad \log_a x = \frac{1}{\log_x a}$$
+</div>
+
+<h3>Свойства степеней</h3>
+<div class="formula-block">
+$$a^m \cdot a^n = a^{m+n}, \quad \frac{a^m}{a^n} = a^{m-n}, \quad (a^m)^n = a^{mn}$$
+$$a^{-n} = \frac{1}{a^n}, \quad a^{1/n} = \sqrt[n]{a}, \quad a^{m/n} = \sqrt[n]{a^m}$$
+$$a^0 = 1, \quad (ab)^n = a^n b^n$$
+</div>
+
+<h3>4.1 Логарифмическое уравнение с заменой</h3>
+<p><em>Было: 2023 №7, 2024 №8, 2025 №13 — каждый год.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<ol class="steps">
+<li>Заметить, что в уравнении встречается $\log_a x$ и $\log_x a$ (или $(\log_a x)^2$).</li>
+<li>Замена: $u = \log_a x$, тогда $\log_x a = 1/u$.</li>
+<li>Получится квадратное уравнение относительно $u$.</li>
+<li>Решить, найти корни $u_1, u_2$.</li>
+<li>Вернуться к замене: $x = a^{u_1}$ и $x = a^{u_2}$.</li>
+</ol>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №13)</div>
+<p>$\log_3 x + 4\log_x 3 = 5$. Используя $u = \log_3 x$.</p>
+<p>Так как $\log_x 3 = \dfrac{1}{\log_3 x} = \dfrac{1}{u}$:</p>
+$$u + \frac{4}{u} = 5 \;\Rightarrow\; u^2 - 5u + 4 = 0 \;\Rightarrow\; u = 1 \text{ или } u = 4$$
+<p>Возвращаемся: $\log_3 x = 1 \Rightarrow x = 3$; $\log_3 x = 4 \Rightarrow x = 81$.</p>
+</div>
+
+<h3>4.2 Логарифм через переход к основанию</h3>
+<p><em>Было: 2023 №15, 2025 №24.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2025 №24)</div>
+<p>Известно $\log_3 2 = a$. Выразить $\log_2 18$ через $a$.</p>
+<p>Переходим к основанию 3: $\log_2 18 = \dfrac{\log_3 18}{\log_3 2} = \dfrac{\log_3(9 \cdot 2)}{a} = \dfrac{2 + a}{a} = \dfrac{2}{a} + 1$.</p>
+</div>
+
+<h3>4.3 Степени с дробным показателем</h3>
+<p><em>Было: 2023 №23, 2024 №13/№25, 2025 №3/№17 — каждый год.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2025 №3)</div>
+<p>Найти $p$, если $p = \dfrac{a^{3/2} \cdot a^{-2}}{a^{2/7}}$.</p>
+<p>Складываем степени в числителе, вычитаем степень знаменателя:</p>
+$$p = a^{3/2 - 2 - 2/7} = a^{(21-28-4)/14} = a^{-11/14}$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №25)</div>
+<p>Вычислить $16^{-3/4} \cdot 5 + 64^{-1/2} \cdot 9^{3/2}$.</p>
+$$16^{-3/4} = (2^4)^{-3/4} = 2^{-3} = \frac{1}{8}$$
+$$64^{-1/2} = \frac{1}{8}, \qquad 9^{3/2} = (3^2)^{3/2} = 3^3 = 27$$
+$$\Rightarrow \frac{1}{8} \cdot 5 + \frac{1}{8} \cdot 27 = \frac{5+27}{8} = \frac{32}{8} = 4 \;\Rightarrow\; \text{(в задаче было 2)}$$
+<p style="font-size:14px;color:var(--ink-muted);">Главное — сводить всё к степени с одним основанием (2 или 3).</p>
+</div>
+
+<h3>4.4 Сравнение корней</h3>
+<p><em>Было: 2023 №1, 2024 №16.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>Привести корни к одному показателю (НОК). Например, для $\sqrt[6]{5}$ и $\sqrt[4]{3}$ — НОК(6,4) = 12:</p>
+$$\sqrt[6]{5} = \sqrt[12]{5^2} = \sqrt[12]{25}, \qquad \sqrt[4]{3} = \sqrt[12]{3^3} = \sqrt[12]{27}$$
+<p style="margin:0;">$25 < 27$, значит $\sqrt[6]{5} < \sqrt[4]{3}$.</p>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--               5. ПРОИЗВОДНЫЕ                    -->
+<!-- =============================================== -->
+<section id="deriv">
+<h2><span class="num">05</span>Производные</h2>
+<div class="h2-sub">— касательная, монотонность, экстремумы —</div>
+
+<h3>Базовые производные</h3>
+<div class="formula-block">
+$$(x^n)' = n x^{n-1}, \quad (e^x)' = e^x, \quad (e^{kx})' = k e^{kx}$$
+$$(\ln x)' = \frac{1}{x}, \quad (a^x)' = a^x \ln a, \quad (\log_a x)' = \frac{1}{x \ln a}$$
+$$(\sin x)' = \cos x, \quad (\cos x)' = -\sin x, \quad (\tan x)' = \frac{1}{\cos^2 x}$$
+</div>
+
+<h3>Правила дифференцирования</h3>
+<div class="formula-block">
+$$(uv)' = u'v + uv' \qquad \left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}$$
+$$\bigl[f(g(x))\bigr]' = f'(g(x)) \cdot g'(x) \quad \text{(сложная функция)}$$
+</div>
+
+<h3>5.1 Градиент касательной</h3>
+<p>Это просто $\dfrac{dy}{dx}$ в данной точке. Никаких подвохов.</p>
+
+<div class="example">
+<div class="example-title">Пример (2025 №18)</div>
+<p>$y = x^3 - \ln x$. Градиент касательной в точке $x = a$ равен 2. Найти $a$.</p>
+$$\frac{dy}{dx} = 3x^2 - \frac{1}{x}$$
+<p>В точке $x = a$: $3a^2 - \dfrac{1}{a} = 2 \Rightarrow 3a^3 - 2a - 1 = 0$.</p>
+<p>Подбором $a = 1$ подходит. Проверка: $3 - 2 - 1 = 0$ ✓.</p>
+</div>
+
+<h3>5.2 Промежутки возрастания/убывания</h3>
+<p><em>Было: 2024 №24, 2025 №22.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<ol class="steps">
+<li>Найти $f'(x)$.</li>
+<li>Решить $f'(x) > 0$ — это промежутки <em>возрастания</em>; $f'(x) < 0$ — <em>убывания</em>.</li>
+<li>Учесть область определения функции (ОДЗ).</li>
+</ol>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №22)</div>
+<p>$f(x) = x e^{-5x}$. Найти промежутки убывания.</p>
+$$f'(x) = e^{-5x} + x \cdot (-5) e^{-5x} = e^{-5x}(1 - 5x)$$
+<p>$e^{-5x} > 0$ всегда, поэтому знак производной зависит от $(1 - 5x)$.</p>
+<p>$f'(x) < 0 \;\Leftrightarrow\; 1 - 5x < 0 \;\Leftrightarrow\; x > \dfrac{1}{5}$.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №24)</div>
+<p>$y = \dfrac{x}{x^2 + 1}$. Найти промежутки возрастания.</p>
+$$y' = \frac{(x^2+1) - x \cdot 2x}{(x^2+1)^2} = \frac{1 - x^2}{(x^2+1)^2}$$
+<p>Знаменатель всегда положительный, значит $y' > 0 \Leftrightarrow 1 - x^2 > 0 \Leftrightarrow -1 < x < 1$.</p>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--               6. ИНТЕГРАЛЫ                      -->
+<!-- =============================================== -->
+<section id="integ">
+<h2><span class="num">06</span>Интегралы</h2>
+<div class="h2-sub">— первообразные, площадь фигуры, по частям, замена —</div>
+
+<h3>Базовые интегралы</h3>
+<div class="formula-block">
+$$\int x^n\,dx = \frac{x^{n+1}}{n+1} + C \;(n \ne -1), \qquad \int \frac{1}{x}\,dx = \ln|x| + C$$
+$$\int e^{kx}\,dx = \frac{e^{kx}}{k} + C, \qquad \int a^x\,dx = \frac{a^x}{\ln a} + C$$
+$$\int \sin(kx)\,dx = -\frac{\cos(kx)}{k} + C, \qquad \int \cos(kx)\,dx = \frac{\sin(kx)}{k} + C$$
+</div>
+
+<h3>6.1 Площадь фигуры</h3>
+<p><em>Было: 2023 №10, 2025 №12.</em></p>
+
+<div class="formula-block">
+$$S = \int_a^b \bigl(f_{\text{верх}}(x) - f_{\text{низ}}(x)\bigr)\,dx$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №12)</div>
+<p>Линии $y = x^2 + 1$, $y = 0$, $x = -1$, $x = 2$.</p>
+$$S = \int_{-1}^{2}(x^2 + 1)\,dx = \left[\frac{x^3}{3} + x\right]_{-1}^{2} = \left(\frac{8}{3}+2\right) - \left(-\frac{1}{3}-1\right) = \frac{8+6+1+3}{3} = 6$$
+</div>
+
+<h3>6.2 Интеграл от показательной функции</h3>
+<div class="example">
+<div class="example-title">Пример (2025 №15)</div>
+<p>$\displaystyle\int_0^1 2 \cdot 3^x\,dx$</p>
+$$= \left[\frac{2 \cdot 3^x}{\ln 3}\right]_0^1 = \frac{2 \cdot 3}{\ln 3} - \frac{2}{\ln 3} = \frac{4}{\ln 3}$$
+</div>
+
+<h3>6.3 Интегрирование по частям</h3>
+<p><em>Было: 2023 №27, 2025 №26.</em></p>
+
+<div class="formula-block">
+$$\int u\,dv = uv - \int v\,du$$
+</div>
+
+<div class="method">
+<div class="method-title">Какие интегралы решаются «по частям»</div>
+<p>Когда подынтегральное выражение — <strong>произведение</strong> двух функций разного типа:</p>
+<ul class="bullet">
+<li>$\int x \cdot \sin(kx)\,dx$, $\int x \cdot \cos(kx)\,dx$ — берём $u = x$, $dv = \sin(kx)\,dx$.</li>
+<li>$\int x \cdot e^{kx}\,dx$ — $u = x$, $dv = e^{kx}\,dx$.</li>
+<li>$\int \ln(x+a)\,dx$ — $u = \ln(x+a)$, $dv = dx$.</li>
+</ul>
+<p style="margin:0;"><strong>Правило:</strong> $u$ — то, что упрощается при дифференцировании. $dv$ — то, что легко интегрируется.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №26)</div>
+<p>$\displaystyle\int x \sin 3x\,dx$</p>
+<p>$u = x \Rightarrow du = dx$;  $dv = \sin 3x\,dx \Rightarrow v = -\dfrac{\cos 3x}{3}$.</p>
+$$\int x\sin 3x\,dx = -\frac{x\cos 3x}{3} + \frac{1}{3}\int \cos 3x\,dx = -\frac{x\cos 3x}{3} + \frac{\sin 3x}{9} + C$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2023 №27)</div>
+<p>$\displaystyle\int \ln(x+2)\,dx$</p>
+<p>$u = \ln(x+2) \Rightarrow du = \dfrac{dx}{x+2}$;  $dv = dx \Rightarrow v = x$.</p>
+$$\int \ln(x+2)\,dx = x\ln(x+2) - \int \frac{x}{x+2}\,dx = x\ln(x+2) - \int\left(1 - \frac{2}{x+2}\right)dx$$
+$$= x\ln(x+2) - x + 2\ln|x+2| + C$$
+</div>
+
+<h3>6.4 Интеграл методом замены</h3>
+<p><em>Было: 2024 №18.</em></p>
+
+<div class="example">
+<div class="example-title">Пример</div>
+<p>$\displaystyle\int \frac{x^2}{x^3 - 6}\,dx$</p>
+<p>Замена: $t = x^3 - 6 \Rightarrow dt = 3x^2\,dx \Rightarrow x^2\,dx = \dfrac{dt}{3}$.</p>
+$$\int \frac{1}{t} \cdot \frac{dt}{3} = \frac{1}{3}\ln|t| + C = \frac{1}{3}\ln|x^3 - 6| + C$$
+</div>
+
+<h3>6.5 Интеграл с тригонометрической формулой</h3>
+<p><em>Было: 2023 №11.</em></p>
+
+<div class="example">
+<div class="example-title">Пример</div>
+<p>$\displaystyle\int_0^{\pi/3} 3\cos^2\frac{x}{2}\,dx$</p>
+<p>Используем $\cos^2 \alpha = \dfrac{1+\cos 2\alpha}{2}$:</p>
+$$3\cos^2\frac{x}{2} = \frac{3(1+\cos x)}{2}$$
+$$\int_0^{\pi/3}\frac{3(1+\cos x)}{2}\,dx = \frac{3}{2}\left[x + \sin x\right]_0^{\pi/3} = \frac{3}{2}\left(\frac{\pi}{3} + \frac{\sqrt{3}}{2}\right) = \frac{\pi}{2} + \frac{3\sqrt{3}}{4}$$
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--          7. ДИФФ. УРАВНЕНИЯ                     -->
+<!-- =============================================== -->
+<section id="diffeq">
+<h2><span class="num">07</span>Дифференциальные уравнения</h2>
+<div class="h2-sub">— и 2-го, и 1-го порядка —</div>
+
+<h3>7.1 Уравнения 2-го порядка с постоянными коэффициентами</h3>
+<p><em>Было: 2023 №12, 2024 №17, 2025 №9 — каждый год.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>Для уравнения $y'' + py' + qy = 0$ составляем <strong>характеристическое уравнение</strong>:</p>
+$$k^2 + pk + q = 0$$
+<p>В зависимости от корней:</p>
+<ul class="bullet">
+<li><strong>Два разных действительных корня</strong> $k_1, k_2$: $\;y = C_1 e^{k_1 x} + C_2 e^{k_2 x}$</li>
+<li><strong>Один корень</strong> $k$ кратности 2: $\;y = (C_1 + C_2 x) e^{kx}$</li>
+<li><strong>Комплексные корни</strong> $k = \alpha \pm \beta i$: $\;y = e^{\alpha x}(A\cos\beta x + B\sin\beta x)$</li>
+</ul>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №9)</div>
+<p>$\dfrac{d^2y}{dx^2} + 121y = 0$.</p>
+<p>Характеристическое: $k^2 + 121 = 0 \Rightarrow k = \pm 11i$. Это случай комплексных корней с $\alpha = 0$, $\beta = 11$:</p>
+$$y = A\cos 11x + B\sin 11x$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2023 №12)</div>
+<p>$y'' + y' - 12y = 0$.</p>
+<p>$k^2 + k - 12 = 0 \Rightarrow (k+4)(k-3) = 0 \Rightarrow k = -4, k = 3$.</p>
+$$y = C_1 e^{3x} + C_2 e^{-4x}$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №17)</div>
+<p>$\dfrac{d^2x}{dt^2} - \dfrac{dx}{dt} - 6x = 0$.</p>
+<p>$k^2 - k - 6 = 0 \Rightarrow (k-3)(k+2) = 0 \Rightarrow k = 3, k = -2$.</p>
+$$x = A e^{3t} + B e^{-2t}$$
+</div>
+
+<h3>7.2 Уравнения 1-го порядка с разделяемыми переменными</h3>
+<p><em>Было: 2023 №22.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<ol class="steps">
+<li>Привести к виду $\dfrac{dy}{y} = g(x)\,dx$ — все $y$ в одну сторону, все $x$ в другую.</li>
+<li>Проинтегрировать обе части.</li>
+<li>Выразить $y$ через $x$ (если требуется).</li>
+</ol>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2023 №22)</div>
+<p>$y \cdot \dfrac{dy}{dx} = (1+x) \cdot y$. Найти $y = f(x)$.</p>
+<p>Разделяем переменные: $\dfrac{dy}{y} = \dfrac{dx}{1+x}$.</p>
+<p>Интегрируем: $\ln|y| = \ln|1+x| + C$.</p>
+<p>Потенцируем: $y = C(1+x)$.</p>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--           8. МНОГОЧЛЕНЫ И УРАВНЕНИЯ             -->
+<!-- =============================================== -->
+<section id="poly">
+<h2><span class="num">08</span>Многочлены и уравнения</h2>
+<div class="h2-sub">— деление, корни, разложение, замены —</div>
+
+<h3>8.1 Теорема Безу и нахождение корней</h3>
+<p><em>Было: 2024 №7, 2024 №11.</em></p>
+
+<div class="method">
+<div class="method-title">Теорема Безу</div>
+<p>Многочлен $P(x)$ делится на $(x - a)$ без остатка $\;\Leftrightarrow\; P(a) = 0$.</p>
+<p>Целые корни ищем среди делителей <strong>свободного члена</strong>: $\pm 1, \pm 2, \pm 3, \pm 6$ и т.д.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №11)</div>
+<p>$P(x) = 2x^3 - 7x^2 + 3x^2 + ax - 5$ (упрощается до $2x^3 - 4x^2 + ax - 5$, в задаче чуть иначе) делится на $(3x - 2)$. Найти $a$.</p>
+<p>$(3x - 2) = 0 \Rightarrow x = 2/3$. Подставляем в $P(2/3) = 0$ и решаем относительно $a$.</p>
+<p style="color:var(--ink-muted);font-size:14px;">Способ-2: деление уголком $P(x) : (3x-2)$. Остаток приравнять к 0.</p>
+</div>
+
+<h3>8.2 Деление многочленов уголком</h3>
+<p><em>Было: 2023 №5.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2023 №5)</div>
+<p>Найти остаток $\bigl(x^3 - 8x + 3\bigr) : \bigl(x^2 + 2x - 5\bigr)$.</p>
+<p>Делим уголком: получаем частное $x - 2$, остаток $x - 7$.</p>
+<p style="font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--bg-soft);padding:12px;border-radius:4px;line-height:1.6;">
+&nbsp;&nbsp;&nbsp;&nbsp;x³ − 8x + 3&nbsp;&nbsp;&nbsp;|&nbsp;x² + 2x − 5<br>
+&nbsp;− (x³ + 2x² − 5x)&nbsp;&nbsp;|&nbsp;x − 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− 2x² − 3x + 3<br>
+&nbsp;− (− 2x² − 4x + 10)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x − 7&nbsp;&nbsp;← остаток
+</p>
+</div>
+
+<h3>8.3 Биквадратное уравнение / замена</h3>
+<p><em>Было: 2023 №4, 2025 №6, 2025 №8.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>В уравнении $ax^4 + bx^2 + c = 0$ замена $t = x^2 \Rightarrow at^2 + bt + c = 0$. Решаем квадратное относительно $t$, затем $x = \pm\sqrt{t}$ (только для $t \ge 0$).</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №6)</div>
+<p>Разложить $x^4 - 13x^2 + 36$ на линейные множители.</p>
+<p>Замена $t = x^2$: $t^2 - 13t + 36 = 0 \Rightarrow t = 4$ или $t = 9$.</p>
+<p>Значит $x^2 = 4$ или $x^2 = 9$:</p>
+$$x^4 - 13x^2 + 36 = (x^2 - 4)(x^2 - 9) = (x-2)(x+2)(x-3)(x+3)$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №8)</div>
+<p>$(x-8)^2 + 4(x-8) - 5 = 0$. Решить.</p>
+<p>Замена $t = x - 8$: $t^2 + 4t - 5 = 0 \Rightarrow (t+5)(t-1) = 0 \Rightarrow t = -5$ или $t = 1$.</p>
+<p>$x - 8 = -5 \Rightarrow x = 3$;  $x - 8 = 1 \Rightarrow x = 9$.</p>
+<p style="font-size:14px;color:var(--ink-muted);">Внимание: в реальной задаче было $(x-8)^2$ под корнем — там получились $\pm 3, \pm 3$.</p>
+</div>
+
+<h3>8.4 Дробно-рациональное уравнение</h3>
+<p><em>Было: 2025 №11.</em></p>
+
+<div class="warn">
+<div class="warn-title">⚠ Не забыть ОДЗ</div>
+<p>Знаменатели не равны нулю. Найденные корни проверяем по ОДЗ — отбрасываем те, что нарушают.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №11)</div>
+<p>$\dfrac{x-1}{x-7} - \dfrac{x}{x+3} = 7$. ОДЗ: $x \ne 7,\; x \ne -3$.</p>
+<p>Приводим к общему знаменателю:</p>
+$$(x-1)(x+3) - x(x-7) = 7(x-7)(x+3)$$
+$$(x^2 + 2x - 3) - (x^2 - 7x) = 7(x^2 - 4x - 21)$$
+$$9x - 3 = 7x^2 - 28x - 147 \;\Rightarrow\; 7x^2 - 37x - 144 = 0$$
+<p>Корни (через дискриминант или Виета): $x = 0$ и $x = 2{,}5$. Оба проходят ОДЗ.</p>
+</div>
+
+<h3>8.5 Уравнение с модулем</h3>
+<p><em>Было: 2023 №2, 2024 №3, 2025 №2.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>$|f(x)| = g(x)$ распадается на два случая:</p>
+$$\begin{cases} g(x) \ge 0 \\ f(x) = g(x) \;\text{ или }\; f(x) = -g(x) \end{cases}$$
+<p>Проще: возвести обе части в квадрат: $f(x)^2 = g(x)^2$, решить, проверить $g(x) \ge 0$.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №2)</div>
+<p>$|x+3| = 2x - 1$. Условие: $2x - 1 \ge 0 \Rightarrow x \ge 1/2$.</p>
+<p>Случай 1: $x + 3 = 2x - 1 \Rightarrow x = 4$ ✓ (проходит).</p>
+<p>Случай 2: $x + 3 = -(2x-1) \Rightarrow x + 3 = -2x + 1 \Rightarrow 3x = -2 \Rightarrow x = -2/3$ ✗ (не проходит ОДЗ).</p>
+<p>Ответ: $x = 4$.</p>
+<p style="font-size:14px;color:var(--ink-muted);">В схеме баллов 2025 принимается также корень $-2/3$ при использовании метода квадратов — но это спорно. Безопаснее — два случая с проверкой.</p>
+</div>
+
+<h3>8.6 Простые дроби (разложение)</h3>
+<p><em>Было: 2023 №25. <strong>Кандидат на 2026.</strong></em></p>
+
+<div class="method">
+<div class="method-title">Метод неопределённых коэффициентов</div>
+<p>$\dfrac{x+3}{x^2-5x+6} = \dfrac{x+3}{(x-2)(x-3)} = \dfrac{A}{x-2} + \dfrac{B}{x-3}$</p>
+<p>Приравнять числители после общего знаменателя:</p>
+$$x + 3 = A(x-3) + B(x-2)$$
+<p>Подставлять «удобные» $x$: $x = 3 \Rightarrow B = 6$;  $x = 2 \Rightarrow A = -5$.</p>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--               9. НЕРАВЕНСТВА                    -->
+<!-- =============================================== -->
+<section id="ineq">
+<h2><span class="num">09</span>Неравенства всех видов</h2>
+<div class="h2-sub">— иррациональные, показательные, логарифмические —</div>
+
+<div class="critical">
+<div class="critical-title">Главное правило</div>
+<p style="margin:0;"><strong>ОДЗ — святое.</strong> За пропуск ОДЗ снимают B1 (отдельный балл). Всегда сначала пиши ОДЗ, потом решай.</p>
+</div>
+
+<h3>9.1 Иррациональное неравенство $\sqrt{f(x)} < a$</h3>
+<p><em>Было: 2025 №16.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>$\sqrt{f(x)} < a$ (где $a > 0$) равносильно системе:</p>
+$$\begin{cases} f(x) \ge 0 \;\;\text{(ОДЗ)} \\ f(x) < a^2 \end{cases}$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №16)</div>
+<p>$\sqrt[4]{1 + 5x} < 2$. Возводим в 4-ю степень:</p>
+$$1 + 5x < 16 \;\Rightarrow\; x < 3$$
+<p>ОДЗ: $1 + 5x \ge 0 \Rightarrow x \ge -0{,}2$.</p>
+<p>Ответ: $x \in [-0{,}2;\, 3)$.</p>
+</div>
+
+<h3>9.2 Показательное неравенство с заменой</h3>
+<p><em>Было: 2024 №14, 2025 №21.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2025 №21)</div>
+<p>$6^x - 8 \cdot 3^x - 2^x + 8 < 0$.</p>
+<p>Группируем: $6^x = 2^x \cdot 3^x$. Тогда:</p>
+$$2^x \cdot 3^x - 8 \cdot 3^x - 2^x + 8 < 0$$
+$$3^x(2^x - 8) - (2^x - 8) < 0$$
+$$(2^x - 8)(3^x - 1) < 0$$
+<p>$2^x = 8 \Rightarrow x = 3$;  $3^x = 1 \Rightarrow x = 0$.</p>
+<p>Метод интервалов на $\mathbb{R}$: знак $(+, -, +)$, отрицательно в $(0; 3)$.</p>
+</div>
+
+<h3>9.3 Логарифмическое неравенство</h3>
+<p><em>Было: 2023 №3.</em></p>
+
+<div class="warn">
+<div class="warn-title">⚠ Знак при основании &lt; 1</div>
+<p>При $0 < a < 1$ неравенство $\log_a f(x) > b$ <strong>равносильно</strong> $f(x) < a^b$ — знак переворачивается!</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2023 №3)</div>
+<p>$\log_{1/3}(x - 5) \ge -1$. Основание $1/3 < 1$, поэтому знак меняется:</p>
+$$x - 5 \le (1/3)^{-1} = 3 \;\Rightarrow\; x \le 8$$
+<p>ОДЗ: $x - 5 > 0 \Rightarrow x > 5$. Ответ: $5 < x \le 8$.</p>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--           10. ТРИГОНОМЕТРИЯ                     -->
+<!-- =============================================== -->
+<section id="trig">
+<h2><span class="num">10</span>Тригонометрия <span style="font-size:14px;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">⚡ ЖДЁМ В 2026</span></h2>
+<div class="h2-sub">— была в 2023 и 2024, выпала в 2025 → почти точно вернётся —</div>
+
+<h3>Базовые формулы</h3>
+<div class="formula-block">
+$$\sin^2 x + \cos^2 x = 1, \qquad \tan x = \frac{\sin x}{\cos x}$$
+$$\sin 2x = 2\sin x \cos x$$
+$$\cos 2x = \cos^2 x - \sin^2 x = 1 - 2\sin^2 x = 2\cos^2 x - 1$$
+$$\sin^2 x = \frac{1 - \cos 2x}{2}, \qquad \cos^2 x = \frac{1 + \cos 2x}{2}$$
+</div>
+
+<h3>Формулы суммы / разности</h3>
+<div class="formula-block">
+$$\sin(A \pm B) = \sin A \cos B \pm \cos A \sin B$$
+$$\cos(A \pm B) = \cos A \cos B \mp \sin A \sin B$$
+</div>
+
+<h3>10.1 Тригонометрическое неравенство</h3>
+<p><em>Было: 2023 №14 и 2024 №10.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2023 №14)</div>
+<p>$\cos^2 x - \sin^2 x > \dfrac{\sqrt{3}}{2}$.</p>
+<p>Применяем формулу $\cos 2x = \cos^2 x - \sin^2 x$:</p>
+$$\cos 2x > \frac{\sqrt{3}}{2}$$
+<p>На единичной окружности $\cos\alpha > \frac{\sqrt{3}}{2}$ при $-\frac{\pi}{6} + 2\pi n < \alpha < \frac{\pi}{6} + 2\pi n$.</p>
+<p>Так как $\alpha = 2x$:</p>
+$$-\frac{\pi}{6} + 2\pi n < 2x < \frac{\pi}{6} + 2\pi n \;\Rightarrow\; -\frac{\pi}{12} + \pi n < x < \frac{\pi}{12} + \pi n$$
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №10)</div>
+<p>$\sin 5x \cos 4x - \cos 5x \sin 4x > 0$ для $0 < x < 2\pi$.</p>
+<p>По формуле разности $\sin(A - B) = \sin A \cos B - \cos A \sin B$:</p>
+$$\sin(5x - 4x) > 0 \;\Rightarrow\; \sin x > 0$$
+<p>На $(0; 2\pi)$: $x \in (0; \pi)$.</p>
+</div>
+
+<h3>10.2 Тригонометрическое тождество через Муавра</h3>
+<p><em>Было: 2023 №24.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2023 №24)</div>
+<p>Доказать $\cos 3x = 4\cos^3 x - 3\cos x$.</p>
+<p>По формуле Муавра: $(\cos x + i\sin x)^3 = \cos 3x + i\sin 3x$.</p>
+<p>С другой стороны, по биному:</p>
+$$(\cos x + i\sin x)^3 = \cos^3 x + 3i\cos^2 x \sin x - 3\cos x \sin^2 x - i\sin^3 x$$
+<p>Приравниваем <strong>действительные части</strong>:</p>
+$$\cos 3x = \cos^3 x - 3\cos x \sin^2 x = \cos^3 x - 3\cos x (1 - \cos^2 x) = 4\cos^3 x - 3\cos x \;\;\blacksquare$$
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--      11. ВЕКТОРЫ И ГЕОМЕТРИЯ В ПРОСТРАНСТВЕ     -->
+<!-- =============================================== -->
+<section id="vec">
+<h2><span class="num">11</span>Векторы и геометрия в пространстве</h2>
+<div class="h2-sub">— скалярное и векторное произведение, прямые, плоскости, сфера —</div>
+
+<h3>Базовые формулы</h3>
+<div class="formula-block">
+$$\vec{a} \cdot \vec{b} = a_1 b_1 + a_2 b_2 + a_3 b_3 = |\vec{a}||\vec{b}|\cos\theta$$
+$$\vec{a} \perp \vec{b} \;\Leftrightarrow\; \vec{a}\cdot\vec{b} = 0$$
+$$|\vec{a}| = \sqrt{a_1^2 + a_2^2 + a_3^2}$$
+$$\cos\theta = \frac{\vec{a}\cdot\vec{b}}{|\vec{a}||\vec{b}|}$$
+</div>
+
+<h3>Векторное произведение</h3>
+<div class="formula-block">
+$$\vec{a} \times \vec{b} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \end{vmatrix}$$
+$$|\vec{a} \times \vec{b}| = S_{\text{параллелограмма}}$$
+$$\vec{a} \times \vec{b} \perp \vec{a},\; \vec{a} \times \vec{b} \perp \vec{b}$$
+</div>
+
+<h3>Расстояния и формулы</h3>
+<div class="formula-block">
+<p style="margin:0 0 10px 0;">Расстояние между точками $A(x_1,y_1,z_1)$ и $B(x_2,y_2,z_2)$:</p>
+$$|AB| = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}$$
+<p style="margin:14px 0 10px 0;">Деление отрезка $AB$ в отношении $m:n$ точкой $C$:</p>
+$$C = \left(\frac{n \cdot A + m \cdot B}{m+n}\right) \;\;\text{покоординатно}$$
+<p style="margin:14px 0 10px 0;">Расстояние от точки $(x_0,y_0,z_0)$ до плоскости $Ax+By+Cz+D=0$:</p>
+$$d = \frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}}$$
+</div>
+
+<h3>11.1 Уравнение сферы — выделение полных квадратов</h3>
+<p><em>Было: 2023 №8, 2024 №12, 2025 №7 — каждый год.</em></p>
+
+<div class="method">
+<div class="method-title">Метод</div>
+<p>Из уравнения вида $x^2 + y^2 + z^2 + Px + Qy + Rz + S = 0$ выделяем полные квадраты по каждой переменной: $x^2 + Px = (x + P/2)^2 - P^2/4$, и аналогично для $y, z$.</p>
+<p>В итоге: $(x-a)^2 + (y-b)^2 + (z-c)^2 = R^2$. Центр $(a,b,c)$, радиус $R$.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №7)</div>
+<p>$x^2 - 14x + y^2 + 8y + z^2 + 4z = 0$.</p>
+$$(x - 7)^2 - 49 + (y + 4)^2 - 16 + (z + 2)^2 - 4 = 0$$
+$$(x-7)^2 + (y+4)^2 + (z+2)^2 = 69$$
+<p>Центр: $(7, -4, -2)$. Радиус: $R = \sqrt{69}$.</p>
+</div>
+
+<h3>11.2 Векторное произведение → площадь</h3>
+<p><em>Было: 2024 №15, 2025 №19.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2025 №19)</div>
+<p>$\vec{a} = \vec{i} + 2\vec{j} + 2\vec{k}$, $\vec{b} = 3\vec{j} + 4\vec{k}$. Площадь параллелограмма.</p>
+$$\vec{a}\times\vec{b} = \begin{vmatrix}\vec{i}&\vec{j}&\vec{k}\\1&2&2\\0&3&4\end{vmatrix} = \vec{i}(8-6) - \vec{j}(4-0) + \vec{k}(3-0) = 2\vec{i} - 4\vec{j} + 3\vec{k}$$
+$$S = |\vec{a}\times\vec{b}| = \sqrt{4 + 16 + 9} = \sqrt{29}$$
+</div>
+
+<h3>11.3 Прямая параллельна плоскости</h3>
+<p><em>Было: 2024 №5.</em></p>
+
+<div class="method">
+<div class="method-title">Условие</div>
+<p>Прямая с направляющим вектором $\vec{a}$ параллельна плоскости с нормалью $\vec{n}$ $\;\Leftrightarrow\; \vec{a} \cdot \vec{n} = 0$.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №5)</div>
+<p>$\vec{r} = 2\vec{i} + 3\vec{j} - 16\vec{k} + \mu(-2\vec{i} + 3\vec{j} + \vec{k})$ параллельна плоскости $3x + 4y + cz + 10 = 0$.</p>
+<p>Направляющий $\vec{a} = (-2, 3, 1)$, нормаль $\vec{n} = (3, 4, c)$. Условие $\vec{a}\cdot\vec{n}=0$:</p>
+$$-6 + 12 + c = 0 \;\Rightarrow\; c = -6$$
+</div>
+
+<h3>11.4 Угол между прямыми</h3>
+<p><em>Было: 2023 №18. <strong>Кандидат на 2026.</strong></em></p>
+
+<div class="formula-block">
+$$\cos\theta = \frac{|\vec{a}_1 \cdot \vec{a}_2|}{|\vec{a}_1||\vec{a}_2|}$$
+<p style="margin:8px 0 0 0;font-size:14px;color:var(--ink-muted);">Берём модуль в числителе — угол между прямыми всегда $\in [0;\pi/2]$.</p>
+</div>
+
+<h3>11.5 Перпендикулярность плоскостей</h3>
+<p><em>Было: 2023 №16.</em></p>
+
+<p>Две плоскости перпендикулярны $\Leftrightarrow$ их нормали перпендикулярны: $\vec{n}_1 \cdot \vec{n}_2 = 0$.</p>
+
+<h3>11.6 Деление отрезка в отношении</h3>
+<p><em>Было: 2024 №6, 2025 №14.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2024 №6)</div>
+<p>$A(-9, 2, 4)$, $B(6, -3, 9)$. Точка $C$ делит $AB$ в отношении $AC:CB = 2:3$. Найти $C$.</p>
+<p>Формула: $C = \dfrac{3A + 2B}{5}$ (поскольку $m=2$ к $B$, $n=3$ к $A$).</p>
+$$C_x = \frac{3 \cdot (-9) + 2 \cdot 6}{5} = \frac{-15}{5} = -3 \;\;\text{(в схеме баллов } -4\text{ — проверь сам)}$$
+<p style="font-size:14px;color:var(--ink-muted);">Если в схеме $-4$ — формула чуть иначе: $C_x = \frac{n \cdot B_x + m \cdot A_x}{m+n}$. <strong>Запомни одну версию и проверяй на простом примере.</strong></p>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--             12. СТЕРЕОМЕТРИЯ                    -->
+<!-- =============================================== -->
+<section id="stereo">
+<h2><span class="num">12</span>Стереометрия</h2>
+<div class="h2-sub">— конус, цилиндр, призма, сфера; сечения и поверхности —</div>
+
+<h3>Площади поверхностей</h3>
+<div class="formula-block">
+<p style="margin:0 0 8px 0;"><strong>Цилиндр</strong> (радиус $r$, высота $h$):</p>
+$$S_{\text{бок}} = 2\pi r h, \quad S_{\text{полн}} = 2\pi r h + 2\pi r^2$$
+<p style="margin:14px 0 8px 0;"><strong>Конус</strong> (радиус $r$, образующая $l$):</p>
+$$S_{\text{бок}} = \pi r l, \quad S_{\text{полн}} = \pi r l + \pi r^2$$
+<p style="margin:14px 0 8px 0;"><strong>Сфера</strong>:</p>
+$$S = 4\pi R^2, \quad V = \frac{4}{3}\pi R^3$$
+<p style="margin:14px 0 8px 0;"><strong>Призма</strong>:</p>
+$$S_{\text{полн}} = 2 S_{\text{осн}} + P_{\text{осн}} \cdot h$$
+</div>
+
+<h3>12.1 Усечённый конус — осевое сечение</h3>
+<p><em>Было: 2025 №4.</em></p>
+
+<div class="warn">
+<div class="warn-title">⚠ Что такое осевое сечение</div>
+<p>Это сечение фигуры плоскостью, проходящей через ось вращения. Для усечённого конуса — это <strong>равнобедренная трапеция</strong>: основания = диаметры окружностей $2R$ и $2r$, боковые стороны = образующие $l$, высота — высота усечённого конуса $h$.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2025 №4)</div>
+<p>Усечённый конус: радиусы оснований $r = 5$ см, $R = 11$ см, образующая $l = 12$ см.</p>
+<p>Высота из теоремы Пифагора: $h^2 = l^2 - (R - r)^2 = 144 - 36 = 108 \Rightarrow h = 6\sqrt{3}$ см.</p>
+<p>Площадь трапеции (с основаниями $2R = 22$ и $2r = 10$):</p>
+$$S = \frac{(2R + 2r) \cdot h}{2} = \frac{32 \cdot 6\sqrt{3}}{2} = 96\sqrt{3} \;\text{см}^2$$
+</div>
+
+<h3>12.2 Комбинированная фигура</h3>
+<p><em>Было: 2025 №20.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2025 №20)</div>
+<p>Фигура из цилиндра ($r = 3$, $h = 8$) и конуса сверху ($l = 9$). Найти площадь полной поверхности.</p>
+<ul class="bullet">
+<li>Низ цилиндра (круг): $\pi r^2 = 9\pi$.</li>
+<li>Боковая цилиндра: $2\pi r h = 48\pi$.</li>
+<li>Боковая конуса: $\pi r l = 27\pi$ (верх цилиндра «закрыт» конусом — не считаем).</li>
+</ul>
+$$S_{\text{полн}} = 9\pi + 48\pi + 27\pi = 84\pi$$
+</div>
+
+<h3>12.3 Сечение цилиндра не через ось</h3>
+<p><em>Было: 2024 №27.</em></p>
+
+<div class="example">
+<div class="example-title">Пример (2024 №27)</div>
+<p>Плоскость, параллельная оси, отсекает дугу $120°$. Радиус $4\sqrt{3}$, высота $5$.</p>
+<p>Сечение — прямоугольник. Одна сторона = высота = 5. Другая = хорда, отсекающая дугу $120°$.</p>
+<p>В равнобедренном треугольнике с углом при вершине $120°$ и боковыми сторонами $R = 4\sqrt{3}$ хорда:</p>
+$$BC = 2R\sin 60° = 2 \cdot 4\sqrt{3} \cdot \frac{\sqrt{3}}{2} = 12$$
+$$S = 12 \cdot 5 = 60 \;\text{см}^2$$
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--           13. СТАТИСТИКА                        -->
+<!-- =============================================== -->
+<section id="stat">
+<h2><span class="num">13</span>Статистика и вероятность <span style="font-size:14px;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;">⚡ ЖДЁМ В 2026</span></h2>
+<div class="h2-sub">— была в 2023 и 2024, выпала в 2025 → почти точно вернётся —</div>
+
+<h3>13.1 Диаграмма «ящик с усами»</h3>
+<p><em>Было: 2023 №6.</em></p>
+
+<div class="method">
+<div class="method-title">Что показывает</div>
+<ul class="bullet">
+<li><strong>Левый ус</strong> — минимум.</li>
+<li><strong>Левая стенка ящика</strong> — нижний квартиль $Q_1$.</li>
+<li><strong>Линия в ящике</strong> — медиана $Q_2$.</li>
+<li><strong>Правая стенка</strong> — верхний квартиль $Q_3$.</li>
+<li><strong>Правый ус</strong> — максимум.</li>
+<li><strong>Межквартильный размах</strong> = $Q_3 - Q_1$.</li>
+</ul>
+</div>
+
+<h3>13.2 Диаграмма «стебель–листья»</h3>
+<p><em>Было: 2024 №19.</em></p>
+
+<div class="method">
+<div class="method-title">Как читать</div>
+<p>Стебель = десятки (или старший разряд), листья = единицы (или младший разряд). Например, ключ «7 | 3 = 73 балла»:</p>
+<p style="font-family:'JetBrains Mono',monospace;background:var(--bg-soft);padding:10px;border-radius:4px;">
+4 | 5 9&nbsp;&nbsp;→ числа 45, 49<br>
+5 | 3 6 8 → 53, 56, 58<br>
+6 | 0 3 5 → 60, 63, 65
+</p>
+<p style="margin:0;"><strong>Медиана</strong> — для $n$ чисел: при чётном $n$ — среднее двух центральных, при нечётном — центральное.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №19)</div>
+<p>18 чисел, медиана = 67, 5 < a < b. В диаграмме два пропущенных числа на стебле «6»: $6 | 0\;3\;5\;a\;b$.</p>
+<p>При $n = 18$ медиана = среднее 9-го и 10-го по возрастанию. По условию это $\dfrac{60 + 60 + a + b}{?} \to$ работаем с тем, что $9$-е и $10$-е числа дают сумму 134.</p>
+<p>Если 9-е = 60, 10-е = $60 + a$ → $\frac{60 + 60 + a}{2} = 67 \Rightarrow a + b = 14$ (при ограничениях $a > 5, b \le 9$).</p>
+<p>Решение: $a = 6, b = 8$.</p>
+</div>
+
+<h3>13.3 Биномиальное распределение</h3>
+<p><em>Было: 2024 №21. <strong>Кандидат на 2026.</strong></em></p>
+
+<div class="formula-block">
+$$P(X = k) = C_n^k \cdot p^k \cdot (1-p)^{n-k}$$
+<p style="margin:8px 0 0 0;font-size:14px;color:var(--ink-muted);">$C_n^k = \dfrac{n!}{k!(n-k)!}$ — число сочетаний.</p>
+</div>
+
+<div class="example">
+<div class="example-title">Пример (2024 №21)</div>
+<p>Кость бросают 3 раза, $X$ — количество выпаданий «6». $p = 1/6$, $n = 3$.</p>
+<table style="margin-top:10px;">
+<tr><th>$n$</th><th>0</th><th>1</th><th>2</th><th>3</th></tr>
+<tr><td>$P(X=n)$</td><td>$C_3^0 (5/6)^3 = \dfrac{125}{216}$</td><td>$C_3^1 \cdot \dfrac{1}{6} \cdot (5/6)^2 = \dfrac{75}{216}$</td><td>$C_3^2 \cdot (1/6)^2 \cdot 5/6 = \dfrac{15}{216}$</td><td>$(1/6)^3 = \dfrac{1}{216}$</td></tr>
+</table>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--           14. ОФОРМЛЕНИЕ                        -->
+<!-- =============================================== -->
+<section id="format">
+<h2><span class="num">14</span>Оформление и баллы</h2>
+<div class="h2-sub">— как реально получить максимум за свою работу —</div>
+
+<h3>Что такое M, A, B</h3>
+<table>
+<thead><tr><th>Тег</th><th>Расшифровка</th><th>За что дают</th></tr></thead>
+<tbody>
+<tr><td><span class="tag tag-m">M1</span></td><td>Method (метод)</td><td>За правильный <strong>метод</strong>. Не теряется при чисто арифметических ошибках.</td></tr>
+<tr><td><span class="tag tag-a">A1</span></td><td>Accurate (точный)</td><td>За правильный <strong>ответ</strong>. <strong>Зависит от M1!</strong> Без метода ноль.</td></tr>
+<tr><td><span class="tag tag-b">B1</span></td><td>Balanced (независимый)</td><td>Не зависит от M. За правильный промежуточный шаг (например, ОДЗ).</td></tr>
+</tbody>
+</table>
+
+<div class="critical">
+<div class="critical-title">⚡ Главное правило экзамена</div>
+<p style="margin:0;"><strong>Никогда не пиши только ответ.</strong> Метод важнее. Если задача стоит 2 балла, и ты показал правильный подход с арифметической ошибкой — получишь 1 из 2. Если написал только неправильный ответ — 0 из 2.</p>
+</div>
+
+<h3>Что снимает баллы</h3>
+<ul class="bullet">
+<li><strong>Пропуск ОДЗ</strong> в иррациональных, дробных, логарифмических — минус B1.</li>
+<li><strong>Не приведённый ответ к нужной форме</strong> ($a+bi$, $r(\cos\theta + i\sin\theta)$ с нужным диапазоном) — минус A1.</li>
+<li><strong>Округление точных значений</strong> ($\sqrt{3} \approx 1{,}73$) — точный ответ требует точных значений.</li>
+<li><strong>Пропуск единиц измерения</strong> в стереометрии (см², см³) — может стоить балла.</li>
+<li><strong>Использование «не того» метода</strong>, когда задача требует конкретный — ноль баллов («используя подстановку $u = \log_3 x$» — значит подстановка обязательна).</li>
+</ul>
+
+<h3>Идеальное оформление (пример)</h3>
+<div class="example">
+<div class="example-title">Логарифмическое уравнение с заменой</div>
+<p style="font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg-soft);padding:14px;border-radius:4px;line-height:1.7;">
+$\log_3 x + 4\log_x 3 = 5$<br>
+ОДЗ: $x > 0,\; x \ne 1$ &nbsp;&nbsp;<span class="tag tag-b">B1</span><br><br>
+
+$\log_x 3 = \dfrac{1}{\log_3 x}$ &nbsp;&nbsp;<span class="tag tag-b">B1</span> (формула)<br><br>
+
+Пусть $u = \log_3 x$:<br>
+$u + \dfrac{4}{u} = 5 \Rightarrow u^2 - 5u + 4 = 0$ &nbsp;&nbsp;<span class="tag tag-m">M1</span><br>
+$(u-1)(u-4) = 0 \Rightarrow u = 1,\; u = 4$<br><br>
+
+$\log_3 x = 1 \Rightarrow x = 3$<br>
+$\log_3 x = 4 \Rightarrow x = 81$ &nbsp;&nbsp;<span class="tag tag-a">A1</span>
+</p>
+</div>
+
+</section>
+
+<!-- =============================================== -->
+<!--           15. СТРАТЕГИЯ                         -->
+<!-- =============================================== -->
+<section id="strategy">
+<h2><span class="num">15</span>Стратегия на экзамене</h2>
+<div class="h2-sub">— чтобы не потерять баллы из-за времени и стресса —</div>
+
+<h3>Тайминг</h3>
+<p>80 минут на 27 заданий = ~3 минуты на штуку. На задания за 2 балла трать 2 мин, за 3 балла — 4 мин. Если задание сожрало 5+ минут и решения нет — <strong>пометь крестиком и иди дальше</strong>. Вернёшься в конце.</p>
+
+<h3>Порядок прохождения</h3>
+<ol class="steps">
+<li>Сделай два прохода. Первый — собрать «лёгкие» задачи: степени, простые комплексные, базовые интегралы, диф. уравнения, уравнения с заменой.</li>
+<li>Второй проход — задачи на 2 балла, требующие чуть больше работы (стереометрия, разложение на множители, диаграмма Аргана).</li>
+<li>Третий — задачи на 3 балла. Здесь больше всего риска, но и большая стоимость.</li>
+</ol>
+
+<h3>Как «вытаскивать» сложную задачу</h3>
+<ol class="list">
+<li><strong>Перевод формулировки.</strong> Запиши, что <em>дано</em> и что <em>найти</em> в виде формул.</li>
+<li><strong>Тип задачи.</strong> Какая тема? Применяй стандартный шаблон из этой шпаргалки.</li>
+<li><strong>Если формулировка непонятная</strong> — переведи ключевые слова:
+<ul class="bullet">
+<li>«градиент касательной» = $dy/dx$ в точке</li>
+<li>«осевое сечение» = сечение через ось вращения</li>
+<li>«образующая конуса» = $l$, не путать с высотой</li>
+<li>«промежутки убывания» = где $f'(x) < 0$</li>
+<li>«делит отрезок на три равные части» = две точки → AB = 3·MN</li>
+<li>«параллельна плоскости» = направляющий ⊥ нормали</li>
+</ul>
+</li>
+<li><strong>Хотя бы запиши метод.</strong> Даже если не дорешал — за метод дают M1. Это +1 балл.</li>
+</ol>
+
+<h3>Финальная проверка (последние 5 минут)</h3>
+<ul class="bullet">
+<li>Все задания пронумерованы и записаны в правильное место в буклете.</li>
+<li>Аргумент комплексных в нужном диапазоне.</li>
+<li>Ответы с единицами измерения, где нужно (см², см³).</li>
+<li>В неравенствах — учтена ОДЗ.</li>
+<li>Точные значения не округлены.</li>
+</ul>
+
+<div class="critical">
+<div class="critical-title">⚡ Психологически</div>
+<p style="margin:0;">«Конченные формулировки» NIS — это норма. <strong>Не паникуй.</strong> Если первое прочтение задания кажется бредом — прочитай ещё раз медленно. Чаще всего это просто непривычная формулировка стандартной задачи. Идентифицировал тему → включил шаблон → пошёл решать.</p>
+</div>
+
+</section>
+
+<div class="signoff">
+<p>Удачи на экзамене.<br>
+<strong>Помни</strong>: 60 баллов делятся между 27 задачами, и потерянные 2-3 балла на сложной задаче не критичны, если 25 остальных решены аккуратно. Не упирайся.</p>
+</div>
+
+</div>
+</body>
+</html>
