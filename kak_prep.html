@@ -32,6 +32,31 @@
   }
   .container{max-width:1180px;margin:0 auto;padding:0 28px}
 
+  /* LANG SWITCHER */
+  .lang-switch{
+    position:fixed;top:16px;right:20px;z-index:100;
+    display:flex;gap:0;
+    border:2px solid var(--ink);
+    background:var(--bg);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+  .lang-btn{
+    padding:8px 14px;cursor:pointer;border:none;
+    background:none;color:var(--muted);font-weight:600;
+    font-family:inherit;font-size:inherit;letter-spacing:inherit;
+    transition:all .2s;
+  }
+  .lang-btn.active{background:var(--ink);color:var(--bg)}
+  .lang-btn:hover:not(.active){color:var(--ink)}
+
+  [data-lang="ru"]{display:none}
+  body.lang-ru [data-lang="kk"]{display:none}
+  body.lang-ru [data-lang="ru"]{display:block}
+  body.lang-ru section[data-lang="ru"].active{display:block}
+  body.lang-ru section[data-lang="kk"]{display:none!important}
+
   /* HEADER */
   header{
     border-bottom:2px solid var(--ink);
@@ -219,7 +244,7 @@
   }
   .topic-body ul{list-style:none}
   .topic-body li{padding:3px 0;color:var(--ink)}
-  .topic-body li::before{content:"— ";color:var(--accent);margin-right:4px}
+  .topic-body li::before{content:"\2014 ";color:var(--accent);margin-right:4px}
 
   /* TEMPLATE / FRAMEWORK */
   .frame{
@@ -301,22 +326,44 @@
 </head>
 <body>
 
+<!-- LANGUAGE SWITCHER -->
+<div class="lang-switch">
+  <button class="lang-btn active" data-lang-btn="kk">QAZ</button>
+  <button class="lang-btn" data-lang-btn="ru">RUS</button>
+</div>
+
 <div class="container">
 
-<header>
+<!-- ============ KAZAKH HEADER ============ -->
+<header data-lang="kk">
   <div class="top-meta">
-    <span><span class="dot"></span>Назарбаев Зияткерлік мектептері · IGCSE</span>
-    <span>NIS · G12 · KIMW · 60 балл</span>
+    <span><span class="dot"></span>Назарбаев Зияткерлік мектептері · AS-level</span>
+    <span>NIS · G12 · ҚТ · 60 балл</span>
   </div>
-  <h1>Қазіргі әлемдегі<br>Қазақстан <em>— дайындық</em></h1>
+  <h1>Қазақстан тарихы<br><em>— дайындық</em></h1>
   <div class="sub">
     <span class="badge">12 сынып</span>
     <span><strong>Емтихан жұмысы 1</strong> · 2 сағат · 60 балл</span>
-    <span>2018–2021 талдау</span>
+    <span>2023–2025 материалдар негізінде</span>
   </div>
 </header>
 
-<nav class="tabs">
+<!-- ============ RUSSIAN HEADER ============ -->
+<header data-lang="ru">
+  <div class="top-meta">
+    <span><span class="dot"></span>Назарбаев Интеллектуальные школы · AS-level</span>
+    <span>NIS · G12 · ИК · 60 баллов</span>
+  </div>
+  <h1>История Казахстана<br><em>— подготовка</em></h1>
+  <div class="sub">
+    <span class="badge">12 класс</span>
+    <span><strong>Экзамен 1</strong> · 2 часа · 60 баллов</span>
+    <span>На основе материалов 2023–2025</span>
+  </div>
+</header>
+
+<!-- ============ KAZAKH NAV ============ -->
+<nav class="tabs" data-lang="kk">
   <button class="tab active" data-tab="struct"><span class="num">01</span>Құрылым</button>
   <button class="tab" data-tab="ao"><span class="num">02</span>Бағалау</button>
   <button class="tab" data-tab="topics"><span class="num">03</span>Тақырыптар</button>
@@ -325,22 +372,37 @@
   <button class="tab" data-tab="check"><span class="num">06</span>Чек-лист</button>
 </nav>
 
-<!-- 01 STRUCTURE -->
-<section id="struct" class="active">
+<!-- ============ RUSSIAN NAV ============ -->
+<nav class="tabs" data-lang="ru">
+  <button class="tab active" data-tab="struct"><span class="num">01</span>Структура</button>
+  <button class="tab" data-tab="ao"><span class="num">02</span>Критерии</button>
+  <button class="tab" data-tab="topics"><span class="num">03</span>Темы</button>
+  <button class="tab" data-tab="frame"><span class="num">04</span>Шаблоны</button>
+  <button class="tab" data-tab="phrases"><span class="num">05</span>Клише</button>
+  <button class="tab" data-tab="check"><span class="num">06</span>Чек-лист</button>
+</nav>
+
+<!-- =============================== -->
+<!-- ========== KAZAKH CONTENT ========== -->
+<!-- =============================== -->
+
+<!-- 01 STRUCTURE KK -->
+<section id="struct" class="active" data-lang="kk">
   <h2>Емтихан <span class="accent">құрылымы</span></h2>
-  <p class="section-lead">Барлығы 60 балл. <strong>А бөлімінен</strong> бір сұрақ + <strong>В бөлімінен</strong> бір сұрақ таңдайсыз. Уақыт жоспары: А — 50 мин, В — 60 мин, тексеру — 10 мин.</p>
+  <p class="section-lead">Барлығы 60 балл. <strong>А бөлімінен</strong> бір сұрақ + <strong>В бөлімінен</strong> бір сұрақ таңдайсыз. Уақыт: А — 50 мин, В — 60 мин, тексеру — 10 мин.</p>
 
   <div class="grid-2">
     <div class="card dark">
       <span class="card-num">A</span>
       <h4>А бөлімі · 30 балл</h4>
-      <h3>Мәтін + 3 сұрақ</h3>
-      <p>Екі сұрақтан біреуін таңдайсыз. Әр сұрақ: дереккөз мәтіні + (a)(b)(c) тапсырмалары.</p>
+      <h3>Мәтін + 2 сұрақ</h3>
+      <p>Екі сұрақтан біреуін таңдайсыз. Әр сұрақ: дереккөз мәтіні (300 сөзге дейін) + (a)(b) тапсырмалары.</p>
       <ul>
-        <li><strong>(a)</strong> Ұғымды сипаттау · <strong>5 балл</strong></li>
-        <li><strong>(b)</strong> Себебін түсіндіру · <strong>10 балл</strong></li>
-        <li><strong>(c)</strong> Пікірмен келісу/келіспеу · <strong>15 балл</strong></li>
+        <li><strong>(a)</strong> Ұғымды сипаттау · <strong>5 балл</strong> · тек БМ1</li>
+        <li><strong>(b)</strong> Себебін түсіндіру · <strong>10 балл</strong> · БМ1+2+3</li>
+        <li><strong>(c)</strong> Пікірмен келісу/келіспеу · <strong>15 балл</strong> · БМ1+2+3</li>
       </ul>
+      <p style="margin-top:14px;color:var(--gold);font-weight:600">2023 және 2025: (с) сұрағы тапсырылмаған!</p>
     </div>
     <div class="card accent">
       <span class="card-num">B</span>
@@ -367,7 +429,7 @@
     <div class="marks">10<span>(b) · БМ1+2+3</span></div>
     <div>
       <h3>Неліктен / қалай — түсіндіру</h3>
-      <p>4 балл — мазмұнды білу, 4 балл — талдау, 2 балл — презентация. Кемінде <strong>3 нақты себеп</strong> + мысалмен дәлелдеу.</p>
+      <p>4 балл — мазмұнды білу (БМ1), 4 балл — талдау (БМ2), 2 балл — презентация (БМ3). Кемінде <strong>3 нақты себеп</strong> + мысалмен дәлелдеу.</p>
     </div>
   </div>
   <div class="struct">
@@ -380,22 +442,22 @@
 
   <div class="marquee">
     <div class="marquee-track">
-      ҚАЗАҚСТАН <span>·</span> ЭКОНОМИКА <span>·</span> САЯСАТ <span>·</span> МӘДЕНИЕТ <span>·</span> ҚАУІПСІЗДІК <span>·</span> ЖАҺАНДАНУ <span>·</span> ӘЛЕУМЕТТІК САЯСАТ <span>·</span> ИНТЕГРАЦИЯ <span>·</span>
+      ҚАЗАҚСТАН <span>&middot;</span> ЭКОНОМИКА <span>&middot;</span> САЯСАТ <span>&middot;</span> МӘДЕНИЕТ <span>&middot;</span> ЖАҢҒЫРУ <span>&middot;</span> ӘЛЕУМЕТТІК САЯСАТ <span>&middot;</span> ИНТЕГРАЦИЯ <span>&middot;</span> РЕФОРМА <span>&middot;</span>
     </div>
   </div>
 </section>
 
-<!-- 02 ASSESSMENT OBJECTIVES -->
-<section id="ao">
+<!-- 02 ASSESSMENT OBJECTIVES KK -->
+<section id="ao" data-lang="kk">
   <h2>Бағалау <span class="accent">міндеттері</span></h2>
   <p class="section-lead">Әр сұрақта тексерушілер БМ1 / БМ2 / БМ3 бойынша балл қояды. Үшеуі үшін жазу керек.</p>
 
   <div class="grid-3">
     <div class="card">
       <span class="card-num">01</span>
-      <h4>БМ1</h4>
+      <h4>БМ1 · 38%</h4>
       <h3>Білу және түсіну</h3>
-      <p>Институттарды, үрдістерді, тұжырымдамаларды, теорияларды біл.</p>
+      <p>Институттарды, үрдістерді, тұжырымдамаларды біл.</p>
       <ul>
         <li>Нақты <strong>фактілер</strong> (заң, бағдарлама, жыл, сан)</li>
         <li>Контекстік <strong>білім</strong> (11–12 сынып бағдарламасы)</li>
@@ -404,7 +466,7 @@
     </div>
     <div class="card">
       <span class="card-num">02</span>
-      <h4>БМ2</h4>
+      <h4>БМ2 · 45%</h4>
       <h3>Талдау, бағалау, мәселе шешу</h3>
       <p>Ең көп балл осы бойынша — терең талдау керек.</p>
       <ul>
@@ -415,66 +477,134 @@
     </div>
     <div class="card">
       <span class="card-num">03</span>
-      <h4>БМ3</h4>
+      <h4>БМ3 · 17%</h4>
       <h3>Коммуникация, презентация</h3>
       <p>Ой бір-бірімен байланысты, логикалық, сауатты болуы керек.</p>
       <ul>
-        <li>Кіріспе → негізгі бөлім → <strong>қорытынды</strong></li>
+        <li>Кіріспе &rarr; негізгі бөлім &rarr; <strong>қорытынды</strong></li>
         <li>Тыныс белгілері мен <strong>грамматика</strong></li>
         <li>Бір абзацта — <strong>бір ой</strong></li>
       </ul>
     </div>
   </div>
 
-  <h4>(c) сұрағының жоғары балл критерийлері</h4>
+  <h4>(c) / В бөлімі — жоғары балл критерийлері</h4>
   <table>
     <tr><th>Балл</th><th>БМ1</th><th>БМ2</th><th>БМ3</th></tr>
     <tr><td>4 / 7-8 / 3</td><td>Анықталған мазмұнды өте жақсы біледі</td><td>Жан-жақты талдау + теңдестірілген дәлел</td><td>Анық, бірізді, логикалық</td></tr>
     <tr><td>3 / 5-6 / —</td><td>Жақсы біледі</td><td>Жақсы талдау</td><td>—</td></tr>
-    <tr><td>2 / 3-4 / 2</td><td>Жеткілікті біледі</td><td>Жеткілікті талдау</td><td>Бірізділігі әлсіз</td></tr>
+    <tr><td>2 / 3-4 / 2</td><td>Жеткілікті біледі</td><td>Жеткілікті талдау</td><td>Аздап қателер жіберуі мүмкін</td></tr>
     <tr><td>1 / 1-2 / 1</td><td>Аздап біледі</td><td>Аз талдау</td><td>Қателер бар</td></tr>
+    <tr><td>0 / 0 / 0</td><td>Білмейді</td><td>Талдау жоқ</td><td>Жүйесіз, түсініксіз</td></tr>
   </table>
 </section>
 
-<!-- 03 TOPICS -->
-<section id="topics">
+<!-- 03 TOPICS KK -->
+<section id="topics" data-lang="kk">
   <h2>Негізгі <span class="accent">тақырыптар</span></h2>
-  <p class="section-lead">2018–2021 емтихандарының талдауы. Әр тақырыпта: <strong>мәні</strong>, <strong>мысал/факт</strong>, <strong>екі жақ</strong>.</p>
+  <p class="section-lead">2023–2025 емтихан материалдары негізінде. Әр тақырыпта: <strong>мәні</strong>, <strong>мысал/факт</strong>, <strong>екі жақ</strong>.</p>
 
   <div class="topic open" onclick="this.classList.toggle('open')">
     <div class="topic-head">
       <span class="topic-num">01</span>
-      <span class="topic-title">Экономикалық даму және реформалар</span>
+      <span class="topic-title">Экономиканы әртараптандыру</span>
       <span class="topic-toggle">+</span>
     </div>
     <div class="topic-body">
-      <div class="row"><strong>Мәні</strong><div>Жекешелендіру · бәсекеге қабілеттілік · инвестиция · əртараптандыру · мұнайға тәуелділікті азайту</div></div>
+      <div class="row"><strong>Мәні</strong><div>Бір өнімге негізделген экономикадан көпсалалы өндіріске өту. Жаңа экономикалық саясат арқылы жаңаша даму үлгісіне көшу.</div></div>
       <div class="row"><strong>Фактілер</strong><ul>
-        <li>2016–2020 жекешелендірудің кешенді жоспары</li>
+        <li>Жоғары деңгейде өңделген өнім шығаратын кластер құру</li>
         <li>«Нұрлы жол» инфрақұрылым бағдарламасы</li>
-        <li>«Бизнестің жол картасы 2025»</li>
-        <li>АХҚО — Астана халықаралық қаржы орталығы</li>
+        <li>«Бизнес-2025» кәсіпкерлікті қолдау бағдарламасы</li>
+        <li>«Цифрлық Қазақстан» — цифровизация мен жасанды интеллект</li>
+        <li>Баламалы энергия көздері (жел, күн энергиясы)</li>
+        <li>Импорт алмастыру стратегиясы</li>
       </ul></div>
-      <div class="row"><strong>Жақтау</strong><div>Шетелдік инвестициялар, ЖІӨ өсімі, монополияны азайту, жаңа технологиялар</div></div>
-      <div class="row"><strong>Қарсы</strong><div>Мұнай бағасының ауытқуы, теңге девальвациясы, сыбайлас жемқорлық, бюрократия</div></div>
+      <div class="row"><strong>Жақтау</strong><div>ЖІӨ өсімі, монополияны азайту, жаңа технологиялар, экспорт әлеуеті, жұмыс орындары</div></div>
+      <div class="row"><strong>Қарсы</strong><div>Мұнай бағасына тәуелділік, теңге девальвациясы, шикізатқа тәуелді экономика, валюта бағамының әсері</div></div>
     </div>
   </div>
 
   <div class="topic" onclick="this.classList.toggle('open')">
     <div class="topic-head">
       <span class="topic-num">02</span>
+      <span class="topic-title">Саяси жаңғыру және реформалар</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Мәні</strong><div>Қоғамды демократияландыру, сайлау жүйесін реформалау, халықтың билікке қолжетімділігін арттыру.</div></div>
+      <div class="row"><strong>Фактілер</strong><ul>
+        <li>Сайлау жүйесіндегі реформалар — ауыл әкімдерінің тікелей сайлануы (2021)</li>
+        <li>Бейбіт шерулерді ұйымдастыру тәртібін өзгерту</li>
+        <li>Конституцияға өзгерістер енгізу</li>
+        <li>«Халық үніне құлақ асатын мемлекет» тұжырымдамасы</li>
+        <li>Ұлттық Құрылтай кеңесі</li>
+        <li>Партия мүшелігі талабын 40 мыңнан 20 мыңға азайту</li>
+        <li>Адам құқықтары жөніндегі уәкіл — омбудсмен</li>
+      </ul></div>
+      <div class="row"><strong>Жақтау</strong><div>Плюрализм, либерализм, жариялылық, халықтың билікке тікелей қатысуы, ашық диалог</div></div>
+      <div class="row"><strong>Қарсы</strong><div>Жемқорлық, трайбализм, ашықтық пен жариялылықтың төмендігі, кейбір реформалардың формальді сипаты</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">03</span>
+      <span class="topic-title">Отандық мәдениет саласындағы саясат</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Мәні</strong><div>Полимәдениеттілікті дамыту, мәдени мұраны сақтау, ұлттық код, жастарды мәдениетке баулу.</div></div>
+      <div class="row"><strong>Фактілер</strong><ul>
+        <li>Қазақстан халқы Ассамблеясы (ҚХА, 1995 ж.)</li>
+        <li>«Мәдени мұра» бағдарламасы</li>
+        <li>«Рухани жаңғыру» — латын әліпбиі, Туған жер, «Ұлы даланың жеті қыры»</li>
+        <li>«Болашақ» халықаралық стипендия бағдарламасы</li>
+        <li>Әлемдік және дәстүрлі діндер лидерлерінің съезі</li>
+        <li>Конфессияаралық диалог, этносаралық келісім</li>
+      </ul></div>
+      <div class="row"><strong>Жақтау</strong><div>Ұлтаралық бейбітшілік, бірлік, мәдени алмасу, ұлттық тілді дамыту</div></div>
+      <div class="row"><strong>Қарсы</strong><div>Мәдени ошақтардың қолжетімсіздігі (ауыл vs қала), қаржы тапшылығы, уақыт тапшылығы, жастардың мәдениетке қызығушылығының төмендеуі</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">04</span>
+      <span class="topic-title">Жаңа экономикалық бағдар</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Мәні</strong><div>Экономиканы басқару жүйесін жаңғырту, мемлекеттің экономикаға араласуын азайту, инновациялық экономикаға көшу.</div></div>
+      <div class="row"><strong>Фактілер</strong><ul>
+        <li>Өңдеу өнеркәсібін дамыту, отандық өндірісшілерді қолдау</li>
+        <li>Кіші және орта бизнесті дамыту</li>
+        <li>«Жасыл экономика», баламалы энергия көздеріне көшу</li>
+        <li>«Инновациялық индустрияландыру» бағдарламасы</li>
+        <li>Атом энергетикасын қолдану мәселесі</li>
+        <li>Инвестициялық тартымдылықты арттыру, АХҚО</li>
+        <li>Төртінші индустриалды революция, цифрландыру</li>
+      </ul></div>
+      <div class="row"><strong>Жақтау</strong><div>Дамыған 30 елдің қатарына қосылу, халықтың әл-ауқатын көтеру, еңбек қоғамын құру</div></div>
+      <div class="row"><strong>Қарсы</strong><div>Қаржылық сауаттылықтың төмендігі, экономикалық санкциялар, геосаяси тұрақсыздық, шикізатқа тәуелділік</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">05</span>
       <span class="topic-title">Сыртқы саясат және интеграция</span>
       <span class="topic-toggle">+</span>
     </div>
     <div class="topic-body">
-      <div class="row"><strong>Мәні</strong><div>Көпвекторлы саясат · ұлттық мүдде · аймақтық көшбасшылық · халықаралық рөл</div></div>
+      <div class="row"><strong>Мәні</strong><div>Көпвекторлы саясат, ұлттық мүдде, аймақтық көшбасшылық, халықаралық рөл.</div></div>
       <div class="row"><strong>Ұйымдар</strong><ul>
-        <li><strong>ЕАЭО</strong> — Еуразиялық Экономикалық Одақ (Ресей, Беларусь, Қырғызстан, Армения)</li>
+        <li><strong>ЕАЭО</strong> — Еуразиялық Экономикалық Одақ</li>
         <li><strong>ШЫҰ</strong> — Шанхай Ынтымақтастық Ұйымы</li>
         <li><strong>ТМД</strong> — Тәуелсіз Мемлекеттер Достастығы</li>
-        <li><strong>БҰҰ, ЕҚЫҰ, ИЫҰ</strong> — төрағалық еткен</li>
+        <li><strong>БҰҰ, ЕҚЫҰ, ИЫҰ</strong></li>
       </ul></div>
-      <div class="row"><strong>Бастамалар</strong><div>«Бір белдеу — бір жол», G-Global, ЭКСПО-2017, Ядросыз әлем</div></div>
+      <div class="row"><strong>Бастамалар</strong><div>«Бір белдеу — бір жол», G-Global, ЭКСПО-2017, Ядросыз әлем, еркін сауда айналымы</div></div>
       <div class="row"><strong>Жақтау</strong><div>Сауда көлемі, жаңа нарық, дипломатиялық бедел, қауіпсіздік</div></div>
       <div class="row"><strong>Қарсы</strong><div>Ресейге тәуелділік, санкциялардың әсері, бірыңғай валюта тәуекелі</div></div>
     </div>
@@ -482,118 +612,60 @@
 
   <div class="topic" onclick="this.classList.toggle('open')">
     <div class="topic-head">
-      <span class="topic-num">03</span>
-      <span class="topic-title">Ұлттық қауіпсіздік (ішкі/сыртқы)</span>
+      <span class="topic-num">06</span>
+      <span class="topic-title">Ұлттық қауіпсіздік</span>
       <span class="topic-toggle">+</span>
     </div>
     <div class="topic-body">
       <div class="row"><strong>Сыртқы</strong><ul>
         <li>Терроризм, экстремизм, есірткі трафик</li>
         <li>Кибершабуылдар, ақпараттық соғыс</li>
-        <li>Санкциялар, мұнай бағасы</li>
+        <li>Экономикалық санкциялар</li>
         <li>Трансшекаралық экологиялық мәселелер</li>
       </ul></div>
       <div class="row"><strong>Ішкі</strong><ul>
         <li>Сыбайлас жемқорлық, көлеңкелі экономика</li>
         <li>Жұмыссыздық, кедейшілік, теңсіздік</li>
         <li>Девальвация, инфляция</li>
-        <li>Әлеуметтік желілер арқылы радикализм</li>
+        <li>Деструктивті діни ұйымдар</li>
       </ul></div>
-      <div class="row"><strong>Шешім</strong><div>ҰҚК, «Қазақстан халқы Ассамблеясы», Әлемдік және дәстүрлі діндер съезі</div></div>
-    </div>
-  </div>
-
-  <div class="topic" onclick="this.classList.toggle('open')">
-    <div class="topic-head">
-      <span class="topic-num">04</span>
-      <span class="topic-title">Әлеуметтік саясат және адам капиталы</span>
-      <span class="topic-toggle">+</span>
-    </div>
-    <div class="topic-body">
-      <div class="row"><strong>Мәні</strong><div>Білім · денсаулық · зейнетақы · жұмыспен қамту · тұрғын үй · теңдік</div></div>
-      <div class="row"><strong>Бағдарламалар</strong><ul>
-        <li>«Президенттің бес әлеуметтік бастамасы» (2018)</li>
-        <li>«Болашақ» — шетелде білім алу</li>
-        <li>«Нұрлы жер» — тұрғын үй</li>
-        <li>«Рухани жаңғыру», «100 нақты қадам»</li>
-      </ul></div>
-      <div class="row"><strong>Жақтау</strong><div>Сауаттылық деңгейі, ауылдық жерде өмір сүру сапасы, әйелдер құқығы (48% экон. белсенді)</div></div>
-      <div class="row"><strong>Қарсы</strong><div>Аймаққа қарай теңсіздік, ауыз су, инфрақұрылым, бағдарламалардың орындалуын бақылаудың әлсіздігі</div></div>
-    </div>
-  </div>
-
-  <div class="topic" onclick="this.classList.toggle('open')">
-    <div class="topic-head">
-      <span class="topic-num">05</span>
-      <span class="topic-title">Жаһандану және цифрландыру</span>
-      <span class="topic-toggle">+</span>
-    </div>
-    <div class="topic-body">
-      <div class="row"><strong>Мегатрендтер</strong><ul>
-        <li>Цифрландыру (барлық сала)</li>
-        <li>Энергетикалық революция</li>
-        <li>Урбанизация</li>
-        <li>Жаһандық еңбек нарығының өзгеруі</li>
-      </ul></div>
-      <div class="row"><strong>Қазақстан</strong><div>«Цифрлық Қазақстан» бағдарламасы · электрондық үкімет · 85% сауаттылық мақсаты</div></div>
-      <div class="row"><strong>+ әсер</strong><div>Шетелдік мамандар, инновация, жаңа жұмыс орны, технология трансфері</div></div>
-      <div class="row"><strong>− әсер</strong><div>Ғұламалардың жылыстауы (brain drain), арзан жұмыс күші, адам саудасы, қаржы шоғырлануы</div></div>
-    </div>
-  </div>
-
-  <div class="topic" onclick="this.classList.toggle('open')">
-    <div class="topic-head">
-      <span class="topic-num">06</span>
-      <span class="topic-title">Мәдениет және ұлтаралық келісім</span>
-      <span class="topic-toggle">+</span>
-    </div>
-    <div class="topic-body">
-      <div class="row"><strong>Мәні</strong><div>130-дан астам ұлт · төрт «Т» (trust, tradition, transparency, tolerance) · мәдени мұра</div></div>
-      <div class="row"><strong>Институт</strong><ul>
-        <li><strong>ҚХА</strong> — Қазақстан халқы Ассамблеясы (1995)</li>
-        <li>Әлемдік және дәстүрлі діндер лидерлерінің съезі</li>
-        <li>«Мәдени мұра» бағдарламасы</li>
-        <li>«Рухани жаңғыру» (латын әліпбиі, Туған жер)</li>
-      </ul></div>
-      <div class="row"><strong>Қауіп</strong><div>Деструктивті діни ұйымдар, жаһандану — ұлттық мәдениеттің еруі, ұлтаралық шиеленіс</div></div>
+      <div class="row"><strong>Шешім</strong><div>ҰҚК, ҚХА, Әлемдік діндер съезі, энергетикалық қауіпсіздік, халықты газбен қамту</div></div>
     </div>
   </div>
 
   <div class="topic" onclick="this.classList.toggle('open')">
     <div class="topic-head">
       <span class="topic-num">07</span>
-      <span class="topic-title">Атқарушы билік және азамат</span>
+      <span class="topic-title">Әлеуметтік саясат және адам капиталы</span>
       <span class="topic-toggle">+</span>
     </div>
     <div class="topic-body">
-      <div class="row"><strong>Тиімді</strong><ul>
-        <li>Ашықтық: әкімдердің есебі, сенім телефондары, қабылдау күндері</li>
-        <li>«Электронды үкімет» қызметтері</li>
-        <li>«Бизнестің жол картасы», жұмыспен қамту орталықтары</li>
-        <li>Әкімдер, мәслихат депутаттарын сайлау</li>
+      <div class="row"><strong>Мәні</strong><div>Білім, денсаулық, зейнетақы, жұмыспен қамту, тұрғын үй, теңдік.</div></div>
+      <div class="row"><strong>Бағдарламалар</strong><ul>
+        <li>«Президенттің бес әлеуметтік бастамасы» (2018)</li>
+        <li>«Болашақ» — шетелде білім алу</li>
+        <li>«Нұрлы жер» — тұрғын үй</li>
+        <li>«100 нақты қадам»</li>
+        <li>Адами капиталды дамыту, кәсіпкерлік арқылы еңбек қоғамы</li>
       </ul></div>
-      <div class="row"><strong>Тиімсіз</strong><ul>
-        <li>Сыбайлас жемқорлық</li>
-        <li>Халықтың органдарға сенімсіздігі</li>
-        <li>Қызмет бабын асыра пайдалану</li>
-        <li>Ауыз су, инфрақұрылым мәселелерінің шешілмеуі</li>
-      </ul></div>
+      <div class="row"><strong>Жақтау</strong><div>Сауаттылық деңгейі, ауылдағы өмір сапасы, әйелдер құқығы</div></div>
+      <div class="row"><strong>Қарсы</strong><div>Аймақтық теңсіздік, ауыз су, инфрақұрылым, бағдарламалардың орындалуын бақылаудың әлсіздігі</div></div>
     </div>
   </div>
 </section>
 
-<!-- 04 FRAMEWORK -->
-<section id="frame">
+<!-- 04 FRAMEWORK KK -->
+<section id="frame" data-lang="kk">
   <h2>Жауап <span class="accent">үлгілері</span></h2>
   <p class="section-lead">Әр тапсырма түрі үшін дайын скелет. Тақырыпты ғана ауыстырып, ішін толтыр.</p>
 
   <h3 style="margin-bottom:14px">(a) Ұғымды сипаттау · 5 балл</h3>
   <div class="frame">
     <div class="label">2-3 минут · 4-5 пункт</div>
-    <div class="quote">«[Ұғым] деген — бұл ... Бұл ұғымға кіретіндер: біріншіден, ... Екіншіден, ... Сонымен қатар, ... Мысалы, Қазақстанда ...»</div>
+    <div class="quote">&laquo;[Ұғым] деген — бұл ... Бұл ұғымға кіретіндер: біріншіден, ... Екіншіден, ... Сонымен қатар, ... Мысалы, Қазақстанда ...&raquo;</div>
     <ol>
-      <li><strong>2 пункт</strong> — мәтіннен (көшіріп жазба, өз сөзіңмен)</li>
-      <li><strong>2 пункт</strong> — өз білімнен (заң, бағдарлама, мысал)</li>
+      <li><strong>2-3 пункт</strong> — мәтіннен (көшіріп жазба, өз сөзіңмен)</li>
+      <li><strong>2-3 пункт</strong> — өз білімнен (заң, бағдарлама, мысал)</li>
       <li><strong>1 пункт</strong> — нақты Қазақстандық мысал</li>
     </ol>
   </div>
@@ -601,10 +673,10 @@
   <h3 style="margin-bottom:14px;margin-top:30px">(b) Неліктен... · 10 балл</h3>
   <div class="frame">
     <div class="label">10-12 минут · 3 себеп · ~250 сөз</div>
-    <div class="quote">«[Тұжырым] Қазақстан үшін бірнеше себептермен маңызды.<br><br>Біріншіден, ... Мысалы, ... Бұл [салдар].<br><br>Екіншіден, ... Бұл [салдар].<br><br>Үшіншіден, ... Жалпы, ... көздейді.»</div>
+    <div class="quote">&laquo;[Тұжырым] Қазақстан үшін бірнеше себептермен маңызды.<br><br>Біріншіден, ... Мысалы, ... Бұл [салдар].<br><br>Екіншіден, ... Бұл [салдар].<br><br>Үшіншіден, ... Жалпы, ... көздейді.&raquo;</div>
     <ol>
       <li><strong>3 нақты себеп</strong> — әрқайсысы бөлек абзац</li>
-      <li>Әр себеп үшін: <strong>тұжырым → түсіндіру → мысал</strong></li>
+      <li>Әр себеп үшін: <strong>тұжырым &rarr; түсіндіру &rarr; мысал</strong></li>
       <li>Қысқа <strong>қорытынды</strong> сөйлем</li>
     </ol>
   </div>
@@ -612,7 +684,7 @@
   <h3 style="margin-bottom:14px;margin-top:30px">(c) «Қаншалықты келісесіз?» · 15 балл</h3>
   <div class="frame">
     <div class="label">25-30 минут · 4-5 абзац · ~450 сөз</div>
-    <div class="quote">«[Тұжырым] деген пікір өзекті болып табылады. Менің ойымша, [позиция: жартылай / толық / келіспеймін]. Себебін төменде дәлелдеймін.<br><br>Жақтайтын дәлелдер: ...<br><br>Алайда, кері жағынан қарасақ: ...<br><br>Қорытынды: ...»</div>
+    <div class="quote">&laquo;[Тұжырым] деген пікір өзекті болып табылады. Менің ойымша, [позиция]. Себебін төменде дәлелдеймін.<br><br>Жақтайтын дәлелдер: ...<br><br>Алайда, кері жағынан қарасақ: ...<br><br>Қорытынды: ...&raquo;</div>
     <ol>
       <li><strong>Кіріспе</strong> — пікірді өз сөзіңмен қайталау + позиция</li>
       <li><strong>2-3 жақтайтын</strong> аргумент (мысалмен)</li>
@@ -624,69 +696,85 @@
   <h3 style="margin-bottom:14px;margin-top:30px">В бөлімі эссе · 30 балл</h3>
   <div class="frame">
     <div class="label">55-60 минут · 5-6 абзац · ~700 сөз</div>
-    <div class="quote">Кіріспе (контекст + позиция) → 3 жақтайтын абзац → 3 қарсы абзац → теңдестірілген қорытынды.</div>
+    <div class="quote">Кіріспе (контекст + позиция) &rarr; 3 жақтайтын абзац &rarr; 3 қарсы абзац &rarr; теңдестірілген қорытынды.</div>
     <ol>
-      <li>Әр абзац: <strong>тұжырым → дәлел → мысал → қорытынды сөйлем</strong></li>
+      <li>Әр абзац: <strong>тұжырым &rarr; дәлел &rarr; мысал &rarr; қорытынды сөйлем</strong></li>
       <li>11 және 12 сынып <strong>екі</strong> бағдарлама бойынша білім</li>
       <li>Кемінде <strong>3 нақты дерек</strong> (жыл, бағдарлама, сан)</li>
       <li>Қорытындыда — <strong>өз шешіміңіз</strong>, екі жақты білгеніңіз көрінсін</li>
     </ol>
   </div>
+
+  <div class="card dark" style="margin-top:30px">
+    <h4>2023-2025 нақты сұрақтар</h4>
+    <h3 style="margin-bottom:12px">Емтиханда шыққан тақырыптар</h3>
+    <ul>
+      <li><strong>2023 (a):</strong> Отандық мәдениет саласындағы мемлекеттік саясаттың бағыттарын сипаттаңыз</li>
+      <li><strong>2023 (b):</strong> Халықтың біраз бөлігінің мәдени қажеттіліктері неліктен толық қанағаттандырылмағанын түсіндіріңіз</li>
+      <li><strong>2023 (c):</strong> Мәдени саланың басты мақсаты — полимәдениеттілікті дамытуға бағытталған</li>
+      <li><strong>2025 (a):</strong> Экономиканы әртараптандыру ұғымы нені білдіретінін сипаттаңыз</li>
+      <li><strong>2025 (b):</strong> Ел экономикасын толық қамтамасыз ете алатын жағдайға жету жолдарын түсіндіріңіз</li>
+      <li><strong>2025 (c):</strong> Жаңа экономикалық бағдар елімізге жағымды өзгерістер алып келеді</li>
+      <li><strong>2025 2-сұрақ (a):</strong> Саяси жаңғыру ұғымы нені білдіреді</li>
+      <li><strong>2025 2-сұрақ (b):</strong> Сайлау жүйесіндегі реформалар арқылы халықтың билікке қолжетімділігі</li>
+      <li><strong>2025 2-сұрақ (c):</strong> Мемлекеттегі саяси өзгерістер табысты жүзеге асырылуда</li>
+    </ul>
+  </div>
 </section>
 
-<!-- 05 PHRASE BANK -->
-<section id="phrases">
+<!-- 05 PHRASE BANK KK -->
+<section id="phrases" data-lang="kk">
   <h2>Дайын <span class="accent">тіркестер</span></h2>
   <p class="section-lead">Эссеге қаңқа болатын тұрақты тіркестер. Жатта да, орынды қолдан.</p>
 
   <div class="phrases">
     <div class="ph-group">
       <h4>Кіріспе</h4>
-      <p>«... мәселесі қазіргі таңда өзекті...»</p>
-      <p>«Бұл тұжырыммен жартылай келісемін»</p>
-      <p>«Мәселенің екі жағын қарастырайық»</p>
-      <p>«Тарихи тұрғыдан алғанда...»</p>
+      <p>&laquo;... мәселесі қазіргі таңда өзекті...&raquo;</p>
+      <p>&laquo;Бұл тұжырыммен жартылай келісемін&raquo;</p>
+      <p>&laquo;Мәселенің екі жағын қарастырайық&raquo;</p>
+      <p>&laquo;Тарихи тұрғыдан алғанда...&raquo;</p>
     </div>
     <div class="ph-group">
       <h4>Аргумент енгізу</h4>
-      <p>«Біріншіден / екіншіден / үшіншіден»</p>
-      <p>«Сонымен қатар / оған қоса»</p>
-      <p>«Атап айтқанда...»</p>
-      <p>«Мысал ретінде келтірсек...»</p>
+      <p>&laquo;Біріншіден / екіншіден / үшіншіден&raquo;</p>
+      <p>&laquo;Сонымен қатар / оған қоса&raquo;</p>
+      <p>&laquo;Атап айтқанда...&raquo;</p>
+      <p>&laquo;Мысал ретінде келтірсек...&raquo;</p>
     </div>
     <div class="ph-group">
       <h4>Қарсы пікір</h4>
-      <p>«Алайда, кері жағынан қарасақ...»</p>
-      <p>«Дегенмен, мынаны ескерген жөн...»</p>
-      <p>«Бұл пікірге қарсы дәлел келтірсек...»</p>
-      <p>«Сонда да...»</p>
+      <p>&laquo;Алайда, кері жағынан қарасақ...&raquo;</p>
+      <p>&laquo;Дегенмен, мынаны ескерген жөн...&raquo;</p>
+      <p>&laquo;Бұл пікірге қарсы дәлел келтірсек...&raquo;</p>
+      <p>&laquo;Сонда да...&raquo;</p>
     </div>
     <div class="ph-group">
       <h4>Талдау</h4>
-      <p>«Бұл — ... салдары»</p>
-      <p>«Бұл құбылыс ... білдіреді»</p>
-      <p>«Себептері мен зардаптары...»</p>
-      <p>«Ұқсас жағдай ... көрінеді»</p>
+      <p>&laquo;Бұл — ... салдары&raquo;</p>
+      <p>&laquo;Бұл құбылыс ... білдіреді&raquo;</p>
+      <p>&laquo;Себептері мен зардаптары...&raquo;</p>
+      <p>&laquo;Ұқсас жағдай ... көрінеді&raquo;</p>
     </div>
     <div class="ph-group">
       <h4>Дәлелдеу</h4>
-      <p>«Дерек көзі ретінде ... көрсетуге болады»</p>
-      <p>«Статистикалық мәлімет бойынша...»</p>
-      <p>«... жылы қабылданған заңға сәйкес»</p>
-      <p>«Президент Жолдауында...»</p>
+      <p>&laquo;Дерек көзі ретінде ... көрсетуге болады&raquo;</p>
+      <p>&laquo;Статистикалық мәлімет бойынша...&raquo;</p>
+      <p>&laquo;... жылы қабылданған заңға сәйкес&raquo;</p>
+      <p>&laquo;Президент Жолдауында...&raquo;</p>
     </div>
     <div class="ph-group">
       <h4>Қорытынды</h4>
-      <p>«Барлығын қорытындыласақ...»</p>
-      <p>«Сонымен, тұжырымның екі жағы бар...»</p>
-      <p>«Менің ұстанымымша...»</p>
-      <p>«Болашақта... болуы тиіс»</p>
+      <p>&laquo;Барлығын қорытындыласақ...&raquo;</p>
+      <p>&laquo;Сонымен, тұжырымның екі жағы бар...&raquo;</p>
+      <p>&laquo;Менің ұстанымымша...&raquo;</p>
+      <p>&laquo;Болашақта... болуы тиіс&raquo;</p>
     </div>
   </div>
 </section>
 
-<!-- 06 CHECKLIST -->
-<section id="check">
+<!-- 06 CHECKLIST KK -->
+<section id="check" data-lang="kk">
   <h2>Емтихан күні <span class="accent">чек-лист</span></h2>
   <p class="section-lead">Жауапты тапсырар алдында осы тізімнен өт. Әр пункт — балл деген сөз.</p>
 
@@ -703,7 +791,7 @@
       <h4>Тапсырар алдында</h4>
       <label><input type="checkbox"><span><strong>Кіріспе</strong> + <strong>қорытынды</strong> бар</span></label>
       <label><input type="checkbox"><span>Кемінде <strong>3 нақты дерек</strong> (жыл/бағдарлама/сан) келтірдім</span></label>
-      <label><input type="checkbox"><span>Тұжырымның <strong>екі жағын</strong> жаздым (с-бөлімде)</span></label>
+      <label><input type="checkbox"><span>Тұжырымның <strong>екі жағын</strong> жаздым</span></label>
       <label><input type="checkbox"><span>Әр абзацта <strong>бір негізгі ой</strong> бар</span></label>
       <label><input type="checkbox"><span>Қазақстандық <strong>нақты мысал</strong> кірді</span></label>
       <label><input type="checkbox"><span>Грамматика, тыныс белгілерін тексердім</span></label>
@@ -715,29 +803,505 @@
     <h4>Соңғы кеңес</h4>
     <h3 style="margin-bottom:12px">Үш қателіктен сақ бол</h3>
     <ul>
-      <li><strong>1.</strong> Тек мәтіннен көшіру — өз білім жоқ → БМ1 төмен</li>
-      <li><strong>2.</strong> Бір жақты жазу — қарсы дәлел жоқ → БМ2 төмен</li>
-      <li><strong>3.</strong> Қорытынды жоқ — позиция түсініксіз → БМ3 төмен</li>
+      <li><strong>1.</strong> Тек мәтіннен көшіру — өз білім жоқ &rarr; БМ1 төмен</li>
+      <li><strong>2.</strong> Бір жақты жазу — қарсы дәлел жоқ &rarr; БМ2 төмен</li>
+      <li><strong>3.</strong> Қорытынды жоқ — позиция түсініксіз &rarr; БМ3 төмен</li>
     </ul>
   </div>
 </section>
 
-<footer>
-  <span>NIS · ҚӘҚ 12 · Дайындық v1</span>
-  <span>2018 / 2019 / 2020 / 2021 негізінде</span>
-  <span>Сәттілік ✦</span>
+<!-- =============================== -->
+<!-- ========== RUSSIAN CONTENT ========== -->
+<!-- =============================== -->
+
+<!-- 01 STRUCTURE RU -->
+<section id="struct-ru" data-lang="ru">
+  <h2>Структура <span class="accent">экзамена</span></h2>
+  <p class="section-lead">Всего 60 баллов. Выбираете <strong>1 вопрос из Раздела А</strong> + <strong>1 вопрос из Раздела B</strong>. Время: A — 50 мин, B — 60 мин, проверка — 10 мин.</p>
+
+  <div class="grid-2">
+    <div class="card dark">
+      <span class="card-num">A</span>
+      <h4>Раздел А · 30 баллов</h4>
+      <h3>Текст + 2 вопроса</h3>
+      <p>Выбираете один из двух вопросов. Каждый: текст-источник (до 300 слов) + задания (a)(b).</p>
+      <ul>
+        <li><strong>(a)</strong> Описать понятие · <strong>5 баллов</strong> · только ЦО1</li>
+        <li><strong>(b)</strong> Объяснить причины · <strong>10 баллов</strong> · ЦО1+2+3</li>
+        <li><strong>(c)</strong> Согласие/несогласие · <strong>15 баллов</strong> · ЦО1+2+3</li>
+      </ul>
+      <p style="margin-top:14px;color:var(--gold);font-weight:600">2023 и 2025: вопрос (с) не задавался!</p>
+    </div>
+    <div class="card accent">
+      <span class="card-num">B</span>
+      <h4>Раздел B · 30 баллов</h4>
+      <h3>Развёрнутое эссе</h3>
+      <p>Выбираете один из трёх вопросов. Полное, сбалансированное эссе.</p>
+      <ul>
+        <li>ЦО1 (Знание) — <strong>10 баллов</strong></li>
+        <li>ЦО2 (Анализ) — <strong>15 баллов</strong></li>
+        <li>ЦО3 (Презентация) — <strong>5 баллов</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>Раздел А · подробно</h4>
+  <div class="struct">
+    <div class="marks">5<span>(a) · ЦО1</span></div>
+    <div>
+      <h3>Описание понятия</h3>
+      <p>2-3 пункта из текста + 2-3 пункта из собственных знаний. За <strong>подробный</strong> пункт — до 2 баллов.</p>
+    </div>
+  </div>
+  <div class="struct">
+    <div class="marks">10<span>(b) · ЦО1+2+3</span></div>
+    <div>
+      <h3>Почему / как — объяснение</h3>
+      <p>4 балла — знание (ЦО1), 4 балла — анализ (ЦО2), 2 балла — презентация (ЦО3). Минимум <strong>3 причины</strong> + примеры.</p>
+    </div>
+  </div>
+  <div class="struct">
+    <div class="marks">15<span>(c) · ЦО1+2+3</span></div>
+    <div>
+      <h3>«Насколько вы согласны?»</h3>
+      <p>4 балла — знание, 8 баллов — анализ, 3 балла — презентация. <strong>Двусторонний</strong> аргумент + ваш вывод обязателен.</p>
+    </div>
+  </div>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      КАЗАХСТАН <span>&middot;</span> ЭКОНОМИКА <span>&middot;</span> ПОЛИТИКА <span>&middot;</span> КУЛЬТУРА <span>&middot;</span> МОДЕРНИЗАЦИЯ <span>&middot;</span> СОЦИАЛЬНАЯ ПОЛИТИКА <span>&middot;</span> ИНТЕГРАЦИЯ <span>&middot;</span> РЕФОРМЫ <span>&middot;</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 ASSESSMENT RU -->
+<section id="ao-ru" data-lang="ru">
+  <h2>Критерии <span class="accent">оценивания</span></h2>
+  <p class="section-lead">Каждый ответ оценивается по ЦО1 / ЦО2 / ЦО3. Нужно писать для всех трёх.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <span class="card-num">01</span>
+      <h4>ЦО1 · 38%</h4>
+      <h3>Знание и понимание</h3>
+      <p>Знай институты, процессы, концепции.</p>
+      <ul>
+        <li>Конкретные <strong>факты</strong> (закон, программа, год, цифра)</li>
+        <li>Контекстные <strong>знания</strong> (программа 11-12 класса)</li>
+        <li>Охватить <strong>все требования</strong> вопроса</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="card-num">02</span>
+      <h4>ЦО2 · 45%</h4>
+      <h3>Анализ, оценка, решение проблем</h3>
+      <p>Наибольший вес — нужен глубокий анализ.</p>
+      <ul>
+        <li>Параллели, <strong>связи</strong>, сходства/различия</li>
+        <li>Политический · экономический · социальный <strong>синтез</strong></li>
+        <li><strong>Обе стороны</strong> аргумента</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="card-num">03</span>
+      <h4>ЦО3 · 17%</h4>
+      <h3>Коммуникация, презентация</h3>
+      <p>Мысли связные, логичные, грамотные.</p>
+      <ul>
+        <li>Введение &rarr; основная часть &rarr; <strong>заключение</strong></li>
+        <li>Пунктуация и <strong>грамматика</strong></li>
+        <li>Один абзац — <strong>одна мысль</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>Критерии высокого балла (c) / Раздел B</h4>
+  <table>
+    <tr><th>Балл</th><th>ЦО1</th><th>ЦО2</th><th>ЦО3</th></tr>
+    <tr><td>4 / 7-8 / 3</td><td>Отлично знает содержание</td><td>Всесторонний анализ + сбалансированный аргумент</td><td>Ясно, последовательно, логично</td></tr>
+    <tr><td>3 / 5-6 / —</td><td>Хорошо знает</td><td>Хороший анализ</td><td>—</td></tr>
+    <tr><td>2 / 3-4 / 2</td><td>Достаточно знает</td><td>Достаточный анализ</td><td>Незначительные ошибки</td></tr>
+    <tr><td>1 / 1-2 / 1</td><td>Немного знает</td><td>Мало анализа</td><td>Есть ошибки</td></tr>
+    <tr><td>0 / 0 / 0</td><td>Не знает</td><td>Анализа нет</td><td>Бессистемно, неясно</td></tr>
+  </table>
+</section>
+
+<!-- 03 TOPICS RU -->
+<section id="topics-ru" data-lang="ru">
+  <h2>Основные <span class="accent">темы</span></h2>
+  <p class="section-lead">На основе экзаменационных материалов 2023-2025. По каждой теме: <strong>суть</strong>, <strong>факты</strong>, <strong>обе стороны</strong>.</p>
+
+  <div class="topic open" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">01</span>
+      <span class="topic-title">Диверсификация экономики</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Суть</strong><div>Переход от моноотраслевой экономики к многоотраслевому производству. Новая экономическая политика, переход к новой модели развития.</div></div>
+      <div class="row"><strong>Факты</strong><ul>
+        <li>Создание кластеров высокопереработанной продукции</li>
+        <li>Программа «Нурлы жол» (инфраструктура)</li>
+        <li>«Бизнес-2025» — поддержка предпринимательства</li>
+        <li>«Цифровой Казахстан» — цифровизация и ИИ</li>
+        <li>Альтернативные источники энергии (ветер, солнце)</li>
+        <li>Стратегия импортозамещения</li>
+      </ul></div>
+      <div class="row"><strong>За</strong><div>Рост ВВП, снижение монополий, новые технологии, экспортный потенциал, рабочие места</div></div>
+      <div class="row"><strong>Против</strong><div>Зависимость от цен на нефть, девальвация тенге, сырьевая зависимость, влияние курса валют</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">02</span>
+      <span class="topic-title">Политическая модернизация и реформы</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Суть</strong><div>Демократизация общества, реформа избирательной системы, повышение доступа населения к власти.</div></div>
+      <div class="row"><strong>Факты</strong><ul>
+        <li>Прямые выборы акимов сёл (с 2021 г.)</li>
+        <li>Изменение порядка организации мирных шествий</li>
+        <li>Поправки в Конституцию</li>
+        <li>Концепция «Слышащего государства»</li>
+        <li>Национальный Курултай</li>
+        <li>Снижение порога для партий с 40 000 до 20 000 членов</li>
+        <li>Уполномоченный по правам человека — омбудсмен</li>
+      </ul></div>
+      <div class="row"><strong>За</strong><div>Плюрализм, либерализм, гласность, прямое участие народа, открытый диалог</div></div>
+      <div class="row"><strong>Против</strong><div>Коррупция, трайбализм, низкая прозрачность, формальный характер некоторых реформ</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">03</span>
+      <span class="topic-title">Культурная политика государства</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Суть</strong><div>Развитие поликультурности, сохранение культурного наследия, национальный код, приобщение молодёжи к культуре.</div></div>
+      <div class="row"><strong>Факты</strong><ul>
+        <li>Ассамблея народа Казахстана (АНК, 1995 г.)</li>
+        <li>Программа «Культурное наследие»</li>
+        <li>«Рухани жангыру» — латиница, Туган жер, «Семь граней Великой степи»</li>
+        <li>Международная стипендия «Болашак»</li>
+        <li>Съезд лидеров мировых и традиционных религий</li>
+        <li>Межконфессиональный диалог, межэтническое согласие</li>
+      </ul></div>
+      <div class="row"><strong>За</strong><div>Межнациональный мир, единство, культурный обмен, развитие государственного языка</div></div>
+      <div class="row"><strong>Против</strong><div>Недоступность учреждений культуры (село vs город), дефицит финансирования, нехватка времени, снижение интереса молодёжи</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">04</span>
+      <span class="topic-title">Новый экономический курс</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Суть</strong><div>Модернизация системы управления экономикой, снижение вмешательства государства, переход к инновационной экономике.</div></div>
+      <div class="row"><strong>Факты</strong><ul>
+        <li>Развитие обрабатывающей промышленности, поддержка отечественных производителей</li>
+        <li>Развитие малого и среднего бизнеса</li>
+        <li>«Зелёная экономика», переход на альтернативные источники энергии</li>
+        <li>Программа «Инновационной индустриализации»</li>
+        <li>Вопрос атомной энергетики</li>
+        <li>Повышение инвестиционной привлекательности, МФЦА</li>
+        <li>Четвёртая промышленная революция, цифровизация</li>
+      </ul></div>
+      <div class="row"><strong>За</strong><div>Вхождение в 30 развитых стран, повышение благосостояния, создание общества труда</div></div>
+      <div class="row"><strong>Против</strong><div>Низкая финансовая грамотность, экономические санкции, геополитическая нестабильность, сырьевая зависимость</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">05</span>
+      <span class="topic-title">Внешняя политика и интеграция</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Суть</strong><div>Многовекторная политика, национальные интересы, региональное лидерство, международная роль.</div></div>
+      <div class="row"><strong>Организации</strong><ul>
+        <li><strong>ЕАЭС</strong> — Евразийский экономический союз</li>
+        <li><strong>ШОС</strong> — Шанхайская организация сотрудничества</li>
+        <li><strong>СНГ</strong> — Содружество Независимых Государств</li>
+        <li><strong>ООН, ОБСЕ, ОИС</strong></li>
+      </ul></div>
+      <div class="row"><strong>Инициативы</strong><div>«Один пояс — один путь», G-Global, ЭКСПО-2017, Мир без ядерного оружия, свободная торговля</div></div>
+      <div class="row"><strong>За</strong><div>Объём торговли, новые рынки, дипломатический авторитет, безопасность</div></div>
+      <div class="row"><strong>Против</strong><div>Зависимость от России, эффект санкций, риск единой валюты</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">06</span>
+      <span class="topic-title">Национальная безопасность</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Внешние</strong><ul>
+        <li>Терроризм, экстремизм, наркотрафик</li>
+        <li>Кибератаки, информационная война</li>
+        <li>Экономические санкции</li>
+        <li>Трансграничные экологические проблемы</li>
+      </ul></div>
+      <div class="row"><strong>Внутренние</strong><ul>
+        <li>Коррупция, теневая экономика</li>
+        <li>Безработица, бедность, неравенство</li>
+        <li>Девальвация, инфляция</li>
+        <li>Деструктивные религиозные организации</li>
+      </ul></div>
+      <div class="row"><strong>Решения</strong><div>КНБ, АНК, Съезд мировых религий, энергетическая безопасность, газификация</div></div>
+    </div>
+  </div>
+
+  <div class="topic" onclick="this.classList.toggle('open')">
+    <div class="topic-head">
+      <span class="topic-num">07</span>
+      <span class="topic-title">Социальная политика и человеческий капитал</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <div class="row"><strong>Суть</strong><div>Образование, здравоохранение, пенсии, занятость, жильё, равенство.</div></div>
+      <div class="row"><strong>Программы</strong><ul>
+        <li>«Пять социальных инициатив Президента» (2018)</li>
+        <li>«Болашак» — обучение за рубежом</li>
+        <li>«Нурлы жер» — жильё</li>
+        <li>«100 конкретных шагов»</li>
+        <li>Развитие человеческого капитала, общество труда через предпринимательство</li>
+      </ul></div>
+      <div class="row"><strong>За</strong><div>Уровень грамотности, качество жизни на селе, права женщин</div></div>
+      <div class="row"><strong>Против</strong><div>Региональное неравенство, питьевая вода, инфраструктура, слабый контроль исполнения программ</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 FRAMEWORK RU -->
+<section id="frame-ru" data-lang="ru">
+  <h2>Шаблоны <span class="accent">ответов</span></h2>
+  <p class="section-lead">Готовый скелет для каждого типа задания. Меняй тему — заполняй содержание.</p>
+
+  <h3 style="margin-bottom:14px">(a) Описать понятие · 5 баллов</h3>
+  <div class="frame">
+    <div class="label">2-3 минуты · 4-5 пунктов</div>
+    <div class="quote">&laquo;[Понятие] — это ... Данное понятие включает: во-первых, ... Во-вторых, ... Кроме того, ... Например, в Казахстане ...&raquo;</div>
+    <ol>
+      <li><strong>2-3 пункта</strong> — из текста (своими словами)</li>
+      <li><strong>2-3 пункта</strong> — из собственных знаний (закон, программа, пример)</li>
+      <li><strong>1 пункт</strong> — конкретный казахстанский пример</li>
+    </ol>
+  </div>
+
+  <h3 style="margin-bottom:14px;margin-top:30px">(b) Почему... · 10 баллов</h3>
+  <div class="frame">
+    <div class="label">10-12 минут · 3 причины · ~250 слов</div>
+    <div class="quote">&laquo;[Тезис] важен для Казахстана по нескольким причинам.<br><br>Во-первых, ... Например, ... Это приводит к [следствие].<br><br>Во-вторых, ... Это [следствие].<br><br>В-третьих, ... В целом, ... направлено на ...&raquo;</div>
+    <ol>
+      <li><strong>3 причины</strong> — каждая в отдельном абзаце</li>
+      <li>На каждую причину: <strong>тезис &rarr; объяснение &rarr; пример</strong></li>
+      <li>Краткое <strong>заключение</strong></li>
+    </ol>
+  </div>
+
+  <h3 style="margin-bottom:14px;margin-top:30px">(c) «Насколько вы согласны?» · 15 баллов</h3>
+  <div class="frame">
+    <div class="label">25-30 минут · 4-5 абзацев · ~450 слов</div>
+    <div class="quote">&laquo;[Утверждение] является актуальным. На мой взгляд, [позиция: частично / полностью / не согласен]. Ниже приведу аргументы.<br><br>Аргументы «за»: ...<br><br>Однако, с другой стороны: ...<br><br>Вывод: ...&raquo;</div>
+    <ol>
+      <li><strong>Введение</strong> — перефразировать тезис + позиция</li>
+      <li><strong>2-3 аргумента «за»</strong> (с примерами)</li>
+      <li><strong>2-3 аргумента «против»</strong> (с примерами)</li>
+      <li><strong>Заключение</strong> — сбалансированный, аргументированный вывод</li>
+    </ol>
+  </div>
+
+  <h3 style="margin-bottom:14px;margin-top:30px">Раздел B · эссе · 30 баллов</h3>
+  <div class="frame">
+    <div class="label">55-60 минут · 5-6 абзацев · ~700 слов</div>
+    <div class="quote">Введение (контекст + позиция) &rarr; 3 абзаца «за» &rarr; 3 абзаца «против» &rarr; сбалансированное заключение.</div>
+    <ol>
+      <li>Каждый абзац: <strong>тезис &rarr; аргумент &rarr; пример &rarr; вывод</strong></li>
+      <li>Знания из программы <strong>11 и 12</strong> классов</li>
+      <li>Минимум <strong>3 конкретных факта</strong> (год, программа, цифра)</li>
+      <li>В заключении — <strong>ваше решение</strong>, видно знание обеих сторон</li>
+    </ol>
+  </div>
+
+  <div class="card dark" style="margin-top:30px">
+    <h4>Вопросы 2023-2025</h4>
+    <h3 style="margin-bottom:12px">Реальные темы экзаменов</h3>
+    <ul>
+      <li><strong>2023 (a):</strong> Опишите направления гос. политики в сфере отечественной культуры</li>
+      <li><strong>2023 (b):</strong> Объясните, почему культурные потребности части населения не удовлетворяются полностью</li>
+      <li><strong>2023 (c):</strong> Главная цель культурной сферы — развитие поликультурности</li>
+      <li><strong>2025 (a):</strong> Опишите, что означает понятие «диверсификация экономики»</li>
+      <li><strong>2025 (b):</strong> Объясните пути достижения полного обеспечения экономики страны</li>
+      <li><strong>2025 (c):</strong> Новый экономический курс приносит позитивные изменения</li>
+      <li><strong>2025 Q2 (a):</strong> Что означает понятие «политическая модернизация»</li>
+      <li><strong>2025 Q2 (b):</strong> Доступ населения к власти через реформы избирательной системы</li>
+      <li><strong>2025 Q2 (c):</strong> Политические изменения в государстве успешно реализуются</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 05 PHRASE BANK RU -->
+<section id="phrases-ru" data-lang="ru">
+  <h2>Готовые <span class="accent">клише</span></h2>
+  <p class="section-lead">Устойчивые выражения-каркас для эссе. Выучи и используй в нужном месте.</p>
+
+  <div class="phrases">
+    <div class="ph-group">
+      <h4>Введение</h4>
+      <p>&laquo;Проблема ... является актуальной на сегодняшний день...&raquo;</p>
+      <p>&laquo;С данным утверждением я частично согласен&raquo;</p>
+      <p>&laquo;Рассмотрим обе стороны данного вопроса&raquo;</p>
+      <p>&laquo;С исторической точки зрения...&raquo;</p>
+    </div>
+    <div class="ph-group">
+      <h4>Ввод аргумента</h4>
+      <p>&laquo;Во-первых / во-вторых / в-третьих&raquo;</p>
+      <p>&laquo;Кроме того / помимо этого&raquo;</p>
+      <p>&laquo;В частности...&raquo;</p>
+      <p>&laquo;В качестве примера можно привести...&raquo;</p>
+    </div>
+    <div class="ph-group">
+      <h4>Контраргумент</h4>
+      <p>&laquo;Однако, с другой стороны...&raquo;</p>
+      <p>&laquo;Тем не менее, стоит учесть...&raquo;</p>
+      <p>&laquo;Контраргументом является...&raquo;</p>
+      <p>&laquo;Несмотря на это...&raquo;</p>
+    </div>
+    <div class="ph-group">
+      <h4>Анализ</h4>
+      <p>&laquo;Это является следствием...&raquo;</p>
+      <p>&laquo;Данное явление свидетельствует о...&raquo;</p>
+      <p>&laquo;Причины и последствия...&raquo;</p>
+      <p>&laquo;Аналогичная ситуация наблюдается в...&raquo;</p>
+    </div>
+    <div class="ph-group">
+      <h4>Доказательства</h4>
+      <p>&laquo;В качестве источника можно указать...&raquo;</p>
+      <p>&laquo;Согласно статистическим данным...&raquo;</p>
+      <p>&laquo;В соответствии с законом, принятым в ... году&raquo;</p>
+      <p>&laquo;В Послании Президента...&raquo;</p>
+    </div>
+    <div class="ph-group">
+      <h4>Заключение</h4>
+      <p>&laquo;Подводя итог...&raquo;</p>
+      <p>&laquo;Таким образом, у данного тезиса есть две стороны...&raquo;</p>
+      <p>&laquo;На мой взгляд...&raquo;</p>
+      <p>&laquo;В будущем... должно быть&raquo;</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 CHECKLIST RU -->
+<section id="check-ru" data-lang="ru">
+  <h2>Чек-лист <span class="accent">на экзамен</span></h2>
+  <p class="section-lead">Перед сдачей ответа пройдись по этому списку. Каждый пункт — это баллы.</p>
+
+  <div class="check">
+    <div class="check-col">
+      <h4>Перед написанием</h4>
+      <label><input type="checkbox"><span>Прочитал вопрос <strong>2 раза</strong>, отметил ключевые слова</span></label>
+      <label><input type="checkbox"><span>Понял, <strong>что именно спрашивают</strong> (описать / объяснить / оценить)</span></label>
+      <label><input type="checkbox"><span>Прочитал текст-источник, подчеркнул важные строки</span></label>
+      <label><input type="checkbox"><span>Составил краткий <strong>план</strong> (3 «за» + 3 «против»)</span></label>
+      <label><input type="checkbox"><span>Распределил время: А — 50 мин, B — 60 мин</span></label>
+    </div>
+    <div class="check-col">
+      <h4>Перед сдачей</h4>
+      <label><input type="checkbox"><span>Есть <strong>введение</strong> + <strong>заключение</strong></span></label>
+      <label><input type="checkbox"><span>Минимум <strong>3 конкретных факта</strong> (год/программа/цифра)</span></label>
+      <label><input type="checkbox"><span>Написал <strong>обе стороны</strong> аргумента</span></label>
+      <label><input type="checkbox"><span>В каждом абзаце — <strong>одна основная мысль</strong></span></label>
+      <label><input type="checkbox"><span>Есть <strong>конкретный казахстанский пример</strong></span></label>
+      <label><input type="checkbox"><span>Проверил грамматику и пунктуацию</span></label>
+      <label><input type="checkbox"><span>Написан номер центра/кандидата</span></label>
+    </div>
+  </div>
+
+  <div class="card dark" style="margin-top:30px">
+    <h4>Последний совет</h4>
+    <h3 style="margin-bottom:12px">Три ошибки, которых нужно избегать</h3>
+    <ul>
+      <li><strong>1.</strong> Только копировать из текста — нет своих знаний &rarr; ЦО1 низкий</li>
+      <li><strong>2.</strong> Писать односторонне — нет контраргументов &rarr; ЦО2 низкий</li>
+      <li><strong>3.</strong> Нет заключения — позиция неясна &rarr; ЦО3 низкий</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =============================== -->
+
+<footer data-lang="kk">
+  <span>NIS · ҚТ 12 · Дайындық v2</span>
+  <span>2023 / 2025 материалдар негізінде</span>
+</footer>
+
+<footer data-lang="ru">
+  <span>NIS · ИК 12 · Подготовка v2</span>
+  <span>На основе материалов 2023 / 2025</span>
 </footer>
 
 </div>
 
 <script>
+  // Tab switching
   document.querySelectorAll('.tab').forEach(t=>{
     t.addEventListener('click',()=>{
-      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-      document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));
+      const nav = t.closest('nav');
+      nav.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
       t.classList.add('active');
-      document.getElementById(t.dataset.tab).classList.add('active');
+      const tabId = t.dataset.tab;
+      const isRu = document.body.classList.contains('lang-ru');
+      // Hide all sections
+      document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));
+      // Show the correct section
+      if(isRu){
+        const ruSection = document.getElementById(tabId+'-ru');
+        if(ruSection) ruSection.classList.add('active');
+        else document.getElementById(tabId)?.classList.add('active');
+      } else {
+        document.getElementById(tabId)?.classList.add('active');
+      }
       window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // Language switching
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const lang = btn.dataset.langBtn;
+      if(lang === 'ru'){
+        document.body.classList.add('lang-ru');
+      } else {
+        document.body.classList.remove('lang-ru');
+      }
+      // Reset to first tab
+      document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      const visibleNav = lang === 'ru'
+        ? document.querySelector('nav[data-lang="ru"]')
+        : document.querySelector('nav[data-lang="kk"]');
+      const firstTab = visibleNav.querySelector('.tab');
+      firstTab.classList.add('active');
+      const tabId = firstTab.dataset.tab;
+      if(lang === 'ru'){
+        const ruSection = document.getElementById(tabId+'-ru');
+        if(ruSection) ruSection.classList.add('active');
+        else document.getElementById(tabId)?.classList.add('active');
+      } else {
+        document.getElementById(tabId)?.classList.add('active');
+      }
     });
   });
 </script>
