@@ -51,11 +51,11 @@
   .lang-btn.active{background:var(--ink);color:var(--bg)}
   .lang-btn:hover:not(.active){color:var(--ink)}
 
-  [data-lang="ru"]{display:none}
-  body.lang-ru [data-lang="kk"]{display:none}
-  body.lang-ru [data-lang="ru"]{display:block}
-  body.lang-ru section[data-lang="ru"].active{display:block}
-  body.lang-ru section[data-lang="kk"]{display:none!important}
+  /* Language visibility */
+  .lang-kk [data-lang="ru"]{display:none!important}
+  .lang-kk section[data-lang="kk"].active{display:block!important}
+  .lang-ru [data-lang="kk"]{display:none!important}
+  .lang-ru section[data-lang="ru"].active{display:block!important}
 
   /* HEADER */
   header{
@@ -324,7 +324,7 @@
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
 </style>
 </head>
-<body>
+<body class="lang-kk">
 
 <!-- LANGUAGE SWITCHER -->
 <div class="lang-switch">
@@ -1253,24 +1253,34 @@
 </div>
 
 <script>
+  function switchTab(tabId){
+    const isRu = document.body.classList.contains('lang-ru');
+    document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));
+    if(isRu){
+      const ruSection = document.getElementById(tabId+'-ru');
+      if(ruSection) ruSection.classList.add('active');
+      else document.getElementById(tabId)?.classList.add('active');
+    } else {
+      document.getElementById(tabId)?.classList.add('active');
+    }
+  }
+
   // Tab switching
   document.querySelectorAll('.tab').forEach(t=>{
     t.addEventListener('click',()=>{
       const nav = t.closest('nav');
       nav.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
       t.classList.add('active');
+      // Sync tab in other nav
       const tabId = t.dataset.tab;
-      const isRu = document.body.classList.contains('lang-ru');
-      // Hide all sections
-      document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));
-      // Show the correct section
-      if(isRu){
-        const ruSection = document.getElementById(tabId+'-ru');
-        if(ruSection) ruSection.classList.add('active');
-        else document.getElementById(tabId)?.classList.add('active');
-      } else {
-        document.getElementById(tabId)?.classList.add('active');
-      }
+      document.querySelectorAll('nav.tabs').forEach(n=>{
+        if(n !== nav){
+          n.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+          const match = n.querySelector('[data-tab="'+tabId+'"]');
+          if(match) match.classList.add('active');
+        }
+      });
+      switchTab(tabId);
       window.scrollTo({top:0,behavior:'smooth'});
     });
   });
@@ -1281,27 +1291,13 @@
       document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       const lang = btn.dataset.langBtn;
-      if(lang === 'ru'){
-        document.body.classList.add('lang-ru');
-      } else {
-        document.body.classList.remove('lang-ru');
-      }
-      // Reset to first tab
-      document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      const visibleNav = lang === 'ru'
-        ? document.querySelector('nav[data-lang="ru"]')
-        : document.querySelector('nav[data-lang="kk"]');
-      const firstTab = visibleNav.querySelector('.tab');
-      firstTab.classList.add('active');
-      const tabId = firstTab.dataset.tab;
-      if(lang === 'ru'){
-        const ruSection = document.getElementById(tabId+'-ru');
-        if(ruSection) ruSection.classList.add('active');
-        else document.getElementById(tabId)?.classList.add('active');
-      } else {
-        document.getElementById(tabId)?.classList.add('active');
-      }
+      document.body.classList.remove('lang-kk','lang-ru');
+      document.body.classList.add('lang-'+lang);
+      // Get current active tab
+      const visibleNav = document.querySelector('nav[data-lang="'+lang+'"]');
+      const activeTab = visibleNav.querySelector('.tab.active');
+      const tabId = activeTab ? activeTab.dataset.tab : 'struct';
+      switchTab(tabId);
     });
   });
 </script>
