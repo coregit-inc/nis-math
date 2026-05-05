@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics МЭСК · Detailed Prep · Grades 11–12</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --paper: #fbf9f3;
+    --ink: #1a1814;
+    --muted: #5a5448;
+    --accent: #b8341c;
+    --accent-soft: #e8d9c0;
+    --rule: #d4cbb8;
+    --highlight: #fff4a6;
+    --formula-bg: #fdfaf0;
+    --green: #4a7c4a;
+    --green-bg: #e8f3e8;
+    --blue: #2c5282;
+    --blue-bg: #ebf3fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 14.5px;
+  }
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1.8rem 2rem 1.2rem;
+    border-bottom: 4px double var(--accent);
+  }
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 0.6rem;
+  }
+  .masthead h1 {
+    font-family: 'Didot', 'Bodoni 72', 'Bodoni MT', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .masthead .sub {
+    font-style: italic;
+    color: var(--accent-soft);
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 4rem;
+  }
+  nav.toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0 2.5rem;
+    columns: 3;
+    column-gap: 1.5rem;
+    font-size: 0.85rem;
+  }
+  nav.toc h3 {
+    column-span: all;
+    font-family: 'Didot', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.3rem;
+  }
+  nav.toc a {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.22rem 0;
+    break-inside: avoid;
+  }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+  nav.toc .num {
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  section { margin-bottom: 3rem; }
+  h2 {
+    font-family: 'Didot', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--accent);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
+  h2 .chapter-num {
+    font-family: 'Didot', serif;
+    font-size: 1rem;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  h3 {
+    font-family: 'Didot', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.4rem 0 0.5rem;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding-left: 0.6rem;
+  }
+  h4 {
+    font-family: 'Didot', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0.9rem 0 0.3rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  p { margin-bottom: 0.7rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  @media (max-width: 800px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    nav.toc { columns: 2; }
+    .masthead h1 { font-size: 2rem; }
+  }
+  .formula {
+    background: var(--formula-bg);
+    border: 1px solid var(--rule);
+    padding: 0.6rem 1rem;
+    margin: 0.6rem 0;
+    border-radius: 3px;
+    overflow-x: auto;
+  }
+  .definition {
+    background: var(--paper);
+    border-left: 4px solid var(--accent);
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+    font-style: italic;
+  }
+  .definition strong { font-style: normal; color: var(--accent); }
+  .key {
+    background: var(--highlight);
+    padding: 0.1rem 0.3rem;
+    font-weight: 600;
+    border-radius: 2px;
+  }
+  ul, ol { padding-left: 1.5rem; margin: 0.5rem 0 0.8rem; }
+  li { margin-bottom: 0.35rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 600;
+    font-family: 'Didot', serif;
+  }
+  tbody tr:nth-child(even) { background: var(--paper); }
+  .warn {
+    background: #fff4e0;
+    border: 1px dashed var(--accent);
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+    border-radius: 3px;
+  }
+  .warn::before { content: "⚠ "; font-weight: bold; color: var(--accent); }
+  .tip {
+    background: var(--green-bg);
+    border-left: 4px solid var(--green);
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+    border-radius: 3px;
+  }
+  .tip::before { content: "💡 "; }
+  .why {
+    background: var(--blue-bg);
+    border-left: 4px solid var(--blue);
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+    border-radius: 3px;
+  }
+  .why::before { content: "❓ "; font-weight: 600; color: var(--blue); }
+  .derivation {
+    background: var(--paper);
+    border: 1px dashed var(--rule);
+    padding: 0.8rem 1rem;
+    margin: 0.6rem 0;
+    font-size: 0.95rem;
+    border-radius: 3px;
+  }
+  .derivation h4 {
+    margin-top: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    font-style: italic;
+  }
+  .back-to-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.3rem;
+    border: 2px solid var(--accent);
+    z-index: 100;
+  }
+  .back-to-top:hover { transform: translateY(-3px); }
+  .topic-intro {
+    font-style: italic;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.8rem;
+  }
+  @media print {
+    .back-to-top { display: none; }
+    body { font-size: 10.5pt; line-height: 1.4; }
+    section { page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead" id="top">
+  <div class="masthead-top">
+    <span>МЭСК · Physics · NIS</span>
+    <span>Detailed Edition · Theory + Formulas</span>
+  </div>
+  <h1>Physics Exam Prep</h1>
+  <div class="sub">Полный конспект: теория, выводы, концепции · Grades 11 &amp; 12</div>
+</header>
+
+<div class="container">
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <a href="#units"><span class="num">01</span>Physical Quantities &amp; Measurement</a>
+  <a href="#kinematics"><span class="num">02</span>Kinematics</a>
+  <a href="#dynamics"><span class="num">03</span>Forces &amp; Momentum</a>
+  <a href="#circular"><span class="num">04</span>Circular Motion &amp; Gravitation</a>
+  <a href="#fluids"><span class="num">05</span>Fluids (Statics &amp; Dynamics)</a>
+  <a href="#solids"><span class="num">06</span>Deforming Solids</a>
+  <a href="#shm"><span class="num">07</span>Oscillations (SHM)</a>
+  <a href="#molecular"><span class="num">08</span>Molecular Physics</a>
+  <a href="#thermo"><span class="num">09</span>Thermodynamics</a>
+  <a href="#optics"><span class="num">10</span>Geometrical Optics</a>
+  <a href="#waves"><span class="num">11</span>Waves</a>
+  <a href="#stationary"><span class="num">12</span>Stationary Waves</a>
+  <a href="#superposition"><span class="num">13</span>Interference &amp; Diffraction</a>
+  <a href="#em"><span class="num">14</span>EM Oscillations &amp; Waves</a>
+  <a href="#ac"><span class="num">15</span>Alternating Current</a>
+  <a href="#charged"><span class="num">16</span>Charged Particles</a>
+  <a href="#quantum"><span class="num">17</span>Quantum Physics</a>
+  <a href="#nuclear"><span class="num">18</span>Nuclear Physics</a>
+  <a href="#particles"><span class="num">19</span>Particles &amp; QFT</a>
+  <a href="#constants"><span class="num">★</span>Constants &amp; Tips</a>
+</nav>
+
+<!-- ========== 01 UNITS ========== -->
+<section id="units">
+  <h2><span class="chapter-num">01</span>Physical Quantities &amp; Measurement</h2>
+  <p class="topic-intro">Foundation of physics: how we describe the physical world quantitatively, and how reliable our measurements are.</p>
+
+  <h3>SI Base Units</h3>
+  <p>The SI (Système International) system is built on <strong>seven base units</strong>, from which all others are derived:</p>
+  <table>
+    <tr><th>Quantity</th><th>Unit</th><th>Symbol</th></tr>
+    <tr><td>Length</td><td>metre</td><td>m</td></tr>
+    <tr><td>Mass</td><td>kilogram</td><td>kg</td></tr>
+    <tr><td>Time</td><td>second</td><td>s</td></tr>
+    <tr><td>Amount of substance</td><td>mole</td><td>mol</td></tr>
+    <tr><td>Thermodynamic temperature</td><td>kelvin</td><td>K</td></tr>
+    <tr><td>Electric current</td><td>ampere</td><td>A</td></tr>
+    <tr><td>Luminous intensity</td><td>candela</td><td>cd</td></tr>
+  </table>
+  <p><strong>Derived units</strong> are combinations of base units: e.g., N = kg·m·s⁻², J = kg·m²·s⁻², W = kg·m²·s⁻³, V = kg·m²·s⁻³·A⁻¹, C = A·s.</p>
+
+  <h3>Vectors and Scalars</h3>
+  <div class="definition"><strong>Vector:</strong> quantity with both magnitude and direction (displacement, velocity, acceleration, force, momentum, field strength).</div>
+  <div class="definition"><strong>Scalar:</strong> quantity with magnitude only (distance, speed, mass, energy, time).</div>
+  <p>Vector addition methods:</p>
+  <ul>
+    <li><strong>Triangle method:</strong> place vectors head-to-tail; resultant runs from start to end</li>
+    <li><strong>Parallelogram method:</strong> draw vectors from common origin; resultant = diagonal</li>
+    <li><strong>Resolution:</strong> any vector $F$ at angle α can be split into components $F\cos\alpha$ (horizontal) and $F\sin\alpha$ (vertical)</li>
+  </ul>
+
+  <h3>Checking Equations (Homogeneity)</h3>
+  <p>An equation is <strong>homogeneous</strong> ("balanced") when every term has the same base units. If not, the equation is wrong. Example: in $v = u + at$, every term has units m·s⁻¹.</p>
+
+  <h3>Errors in Measurement</h3>
+  <div class="grid-2">
+    <div class="definition"><strong>Systematic error:</strong> constant offset in all readings (e.g., zero error of an instrument). Reduces <strong>accuracy</strong>. Cannot be eliminated by averaging. Fix: <em>correct reading = reading obtained − zero error</em>.</div>
+    <div class="definition"><strong>Random error:</strong> readings scattered about the true value (parallax, observer reaction). Reduces <strong>precision</strong>. Fix: repeat experiment and take average.</div>
+  </div>
+
+  <h3>Accuracy vs Precision</h3>
+  <ul>
+    <li><strong>Accuracy:</strong> how close measurements are to the true value</li>
+    <li><strong>Precision:</strong> how close repeated measurements are to each other (small random error)</li>
+  </ul>
+
+  <h3>Calculating Uncertainties</h3>
+  <p>For repeated measurements $x_1, x_2, ..., x_n$:</p>
+  <div class="formula">$$x_{mean} = \frac{x_1+x_2+\cdots+x_n}{n}, \quad \Delta x = \frac{x_{max}-x_{min}}{2}$$</div>
+  <p>Result: $x = x_{mean} \pm \Delta x$. <strong>Percentage uncertainty:</strong> $\varepsilon = \frac{\Delta x}{x_{mean}} \times 100\%$.</p>
+
+  <h4>Combining uncertainties</h4>
+  <ul>
+    <li><strong>Addition/subtraction:</strong> add absolute uncertainties</li>
+    <li><strong>Multiplication/division:</strong> add percentage (relative) uncertainties</li>
+    <li><strong>Powers ($x^n$):</strong> multiply the percentage uncertainty by $n$</li>
+    <li><strong>Logarithms:</strong> if $y = \ln x$, then $\Delta y = \ln(x_{max}) - \ln(x_{mean})$</li>
+  </ul>
+
+  <h3>Significant Figures</h3>
+  <ul>
+    <li>Leftmost non-zero digit is most significant</li>
+    <li>Without a decimal: rightmost non-zero is least significant</li>
+    <li>With a decimal: rightmost digit is least significant (even if zero)</li>
+    <li><strong>Add/subtract:</strong> answer matches fewest decimal places</li>
+    <li><strong>Multiply/divide:</strong> answer matches fewest significant figures</li>
+  </ul>
+
+  <h3>Linearizing Non-linear Relationships</h3>
+  <table>
+    <tr><th>Relationship</th><th>Plot</th><th>Gradient</th><th>Y-intercept</th></tr>
+    <tr><td>$y = mx + c$</td><td>$y$ vs $x$</td><td>$m$</td><td>$c$</td></tr>
+    <tr><td>$y = ax^n$</td><td>$\ln y$ vs $\ln x$</td><td>$n$</td><td>$\ln a$</td></tr>
+    <tr><td>$y = ae^{kx}$</td><td>$\ln y$ vs $x$</td><td>$k$</td><td>$\ln a$</td></tr>
+  </table>
+</section>
+
+<!-- ========== 02 KINEMATICS ========== -->
+<section id="kinematics">
+  <h2><span class="chapter-num">02</span>Kinematics</h2>
+  <p class="topic-intro">Description of motion without considering its causes.</p>
+
+  <h3>Key Quantities</h3>
+  <div class="definition"><strong>Displacement:</strong> distance in a specified direction from start to finish (vector).</div>
+  <div class="definition"><strong>Distance:</strong> total path length traveled (scalar).</div>
+  <div class="definition"><strong>Velocity:</strong> displacement per unit time = $\Delta s / \Delta t$ (vector).</div>
+  <div class="definition"><strong>Speed:</strong> distance per unit time (scalar).</div>
+  <div class="definition"><strong>Acceleration:</strong> change in velocity per unit time = $(v - u)/t$ (vector).</div>
+
+  <h3>Equations of Uniformly Accelerated Motion (SUVAT)</h3>
+  <div class="formula">$$v = u + at \qquad s = \frac{(u+v)t}{2}$$ $$s = ut + \tfrac{1}{2}at^2 \qquad v^2 = u^2 + 2as$$</div>
+  <p>Where $u$ = initial velocity, $v$ = final velocity, $a$ = acceleration, $t$ = time, $s$ = displacement.</p>
+
+  <h3>Motion Graphs</h3>
+  <table>
+    <tr><th>Graph type</th><th>Gradient</th><th>Area under curve</th></tr>
+    <tr><td>Displacement vs time</td><td>velocity</td><td>—</td></tr>
+    <tr><td>Velocity vs time</td><td>acceleration</td><td>displacement</td></tr>
+    <tr><td>Acceleration vs time</td><td>—</td><td>change in velocity</td></tr>
+  </table>
+  <p>Curve <strong>shape</strong> tells you the motion type: straight line = uniform; concave up = increasing rate; concave down = decreasing rate.</p>
+
+  <h3>Free Fall</h3>
+  <p>Motion under gravity alone (air resistance negligible), $g = 9.81$ m/s².</p>
+  <div class="formula">$$v = u + gt, \quad h = ut + \tfrac{1}{2}gt^2, \quad v^2 = u^2 + 2gh$$</div>
+  <p>From rest ($u = 0$): $v = gt$, $h = gt^2/2$, $v = \sqrt{2gh}$, $t = \sqrt{2h/g}$.</p>
+
+  <h3>Projectile Motion</h3>
+  <p>Motion with constant horizontal velocity AND constant vertical acceleration $g$ downward (assuming negligible air resistance).</p>
+  <p><strong>Horizontal</strong> (no force, $a_x = 0$):</p>
+  <div class="formula">$$v_{0x} = v_0\cos\alpha, \quad v_x = v_0\cos\alpha = \text{const}, \quad x = v_0\cos\alpha \cdot t$$</div>
+  <p><strong>Vertical</strong> (gravity, $a_y = -g$):</p>
+  <div class="formula">$$v_{0y} = v_0\sin\alpha, \quad v_y = v_0\sin\alpha - gt, \quad y = v_0\sin\alpha \cdot t - \tfrac{1}{2}gt^2$$</div>
+
+  <div class="tip"><strong>Key insights:</strong>
+  <ul>
+    <li>Path is a <strong>parabola</strong></li>
+    <li>Horizontal and vertical motions are <strong>independent</strong> but share the <strong>same time</strong></li>
+    <li>At maximum height: $v_y = 0$, but $v_x \neq 0$</li>
+    <li>Vertical velocity is greatest at launch and just before impact</li>
+  </ul>
+  </div>
+</section>
+
+<!-- ========== 03 DYNAMICS ========== -->
+<section id="dynamics">
+  <h2><span class="chapter-num">03</span>Forces &amp; Momentum</h2>
+  <p class="topic-intro">Why objects accelerate, and how their interactions are governed by conservation laws.</p>
+
+  <h3>Linear Momentum</h3>
+  <div class="definition"><strong>Momentum</strong> $p = mv$. Vector quantity, units kg·m/s. Direction same as velocity.</div>
+
+  <h3>Newton's Second Law (general form)</h3>
+  <div class="definition">The net force on an object equals the rate of change of its linear momentum, in the same direction.</div>
+  <div class="formula">$$F = \frac{\Delta p}{\Delta t} = \frac{m\Delta v}{\Delta t} = ma$$</div>
+  <p>The "ma" form assumes constant mass. For variable-mass systems (e.g., rockets), use the momentum form.</p>
+
+  <h3>Impulse</h3>
+  <div class="definition"><strong>Impulse</strong> = force × time = change in momentum: $F \cdot \Delta t = \Delta p$. Units: N·s = kg·m/s.</div>
+  <p>Geometrically: <strong>area under a force-time graph</strong> equals impulse.</p>
+
+  <h3>Conservation of Momentum</h3>
+  <div class="definition">In a closed system (no external forces), the total momentum in any direction is constant.</div>
+  <div class="formula">$$m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2$$</div>
+  <p>Momentum is conserved in <strong>both</strong> elastic and inelastic collisions.</p>
+
+  <h3>Types of Collisions</h3>
+  <div class="grid-2">
+    <div class="definition"><strong>Elastic collision:</strong> total kinetic energy conserved. Equivalent test: relative speed of approach = relative speed of separation: $u_1 - u_2 = v_2 - v_1$.</div>
+    <div class="definition"><strong>Inelastic collision:</strong> some KE converted to heat, sound, deformation. Momentum still conserved. <strong>Perfectly inelastic:</strong> objects stick together after collision.</div>
+  </div>
+
+  <div class="why">
+    <strong>Why does momentum conservation work?</strong> By Newton's third law, internal forces in a closed system come in equal and opposite pairs. Their impulses cancel, so total momentum cannot change unless an external force acts.
+  </div>
+</section>
+
+<!-- ========== 04 CIRCULAR & GRAVITATION ========== -->
+<section id="circular">
+  <h2><span class="chapter-num">04</span>Circular Motion &amp; Gravitation</h2>
+  <p class="topic-intro">Motion along curved paths and the universal force that keeps planets in orbit.</p>
+
+  <h3>Uniform Circular Motion</h3>
+  <p>Object moving at constant speed along a circle. Velocity direction changes constantly → <strong>acceleration exists</strong>.</p>
+  <div class="formula">$$T = \frac{1}{f}, \quad \omega = \frac{2\pi}{T} = 2\pi f, \quad v = \omega r$$</div>
+
+  <h3>Centripetal Acceleration &amp; Force</h3>
+  <div class="formula">$$a_c = \frac{v^2}{r} = \omega^2 r, \quad F_c = ma_c = \frac{mv^2}{r}$$</div>
+  <ul>
+    <li>Velocity is always <strong>tangential</strong> to the circle</li>
+    <li>Acceleration points toward the <strong>center</strong> of the circle</li>
+    <li>$\vec{v} \perp \vec{a}$ at every point</li>
+  </ul>
+  <div class="warn">"Centripetal force" is not a new force — it is the <strong>net resultant</strong> force (gravity, tension, normal, friction, etc.) that produces circular motion.</div>
+
+  <h3>Newton's Law of Gravitation</h3>
+  <div class="definition">Two point masses attract each other with a force proportional to the product of their masses and inversely proportional to the square of their separation.</div>
+  <div class="formula">$$F = \frac{Gm_1m_2}{r^2}, \quad G = 6.67\times 10^{-11} \text{ N·m}^2/\text{kg}^2$$</div>
+
+  <h3>Gravitational Field Strength</h3>
+  <div class="definition"><strong>g</strong> at a point = gravitational force per unit mass on a small test mass at that point.</div>
+  <div class="formula">$$g = \frac{F}{m} = \frac{GM}{r^2}$$</div>
+  <p>Field lines point toward the source mass; their density indicates field strength.</p>
+
+  <h3>Gravitational Potential Energy &amp; Potential</h3>
+  <div class="definition"><strong>Gravitational potential</strong> $\varphi$ at a point = work done per unit mass in bringing a small mass from infinity to that point.</div>
+  <div class="formula">$$E_p = -\frac{GMm}{r}, \quad \varphi = -\frac{GM}{r}$$</div>
+  <div class="why"><strong>Why negative?</strong> By convention, potential at infinity is zero. Work done <em>by</em> gravity in bringing mass from infinity is positive, so the potential closer to the mass is below zero.</div>
+
+  <h3>Circular Orbits</h3>
+  <p>Gravity provides the centripetal force:</p>
+  <div class="derivation">
+    <h4>Derivation</h4>
+    <p>$\frac{GMm}{r^2} = \frac{mv^2}{r} \Rightarrow v^2 = \frac{GM}{r} \Rightarrow v = \sqrt{\frac{GM}{r}}$</p>
+    <p>Also $v = 2\pi r/T$, so $\frac{4\pi^2 r^2}{T^2} = \frac{GM}{r} \Rightarrow T^2 = \frac{4\pi^2 r^3}{GM}$ (Kepler's third law).</p>
+  </div>
+
+  <h3>Geostationary &amp; Polar Satellites</h3>
+  <table>
+    <tr><th>Feature</th><th>Geostationary</th><th>Polar</th></tr>
+    <tr><td>Period</td><td>24 hours</td><td>~100 minutes</td></tr>
+    <tr><td>Orbit</td><td>Equatorial, ~36,000 km</td><td>Polar, ~100 km</td></tr>
+    <tr><td>Direction</td><td>West → East</td><td>Pole to pole</td></tr>
+    <tr><td>Use</td><td>TV, comms (fixed dishes)</td><td>GPS, weather, mapping</td></tr>
+    <tr><td>Coverage</td><td>Stationary above one spot; poor at poles</td><td>Whole Earth over time</td></tr>
+    <tr><td>Time delay</td><td>~0.24 s each way (noticeable)</td><td>Negligible</td></tr>
+  </table>
+
+  <h3>Escape Velocity</h3>
+  <div class="definition">Minimum velocity needed to escape a gravitational field to infinity.</div>
+  <div class="derivation">
+    <h4>Derivation</h4>
+    <p>At escape, total energy = 0: $\frac{1}{2}mv^2 - \frac{GMm}{r} = 0 \Rightarrow v_{esc} = \sqrt{\frac{2GM}{r}}$</p>
+    <p>For Earth: $v_{esc} \approx 11.2$ km/s.</p>
+  </div>
+</section>
+
+<!-- ========== 05 FLUIDS ========== -->
+<section id="fluids">
+  <h2><span class="chapter-num">05</span>Fluids</h2>
+  <p class="topic-intro">Substances that can flow — liquids and gases. Same physics, different applications.</p>
+
+  <h3>Density and Pressure</h3>
+  <div class="formula">$$\rho = \frac{m}{V}, \quad p = \frac{F}{A}$$</div>
+  <p><strong>Relative density</strong> = ρ(substance) / ρ(water at 4°C). Dimensionless.</p>
+
+  <h3>Pressure in a Static Fluid</h3>
+  <div class="formula">$$p = \rho g h$$</div>
+  <ul>
+    <li>Pressure increases with depth</li>
+    <li>All points at the same depth in the same fluid are at the same pressure</li>
+    <li>Force from pressure is always <strong>perpendicular</strong> to the surface, regardless of orientation</li>
+  </ul>
+
+  <h3>Pascal's Principle</h3>
+  <div class="definition">Any pressure applied to an enclosed fluid is transmitted undiminished to every part of the fluid and to the walls of the container.</div>
+  <p><strong>Application — hydraulics:</strong> $\frac{F_1}{A_1} = \frac{F_2}{A_2}$. Small force on small piston produces large force on large piston.</p>
+
+  <h3>Archimedes' Principle</h3>
+  <div class="definition">An object immersed in a fluid experiences an upward force (upthrust) equal to the weight of the fluid it displaces.</div>
+  <div class="formula">$$F_{up} = \rho_{fluid} \cdot V_{displaced} \cdot g$$</div>
+
+  <h3>Manometer &amp; Balancing Columns</h3>
+  <p>For a U-tube with two immiscible liquids, points at the same level in the lower fluid are at the same pressure: $\rho_1 h_1 = \rho_2 h_2$.</p>
+
+  <h3>Fluid Dynamics — Key Concepts</h3>
+  <div class="definition"><strong>Incompressible fluid:</strong> density doesn't change with pressure. Liquids are essentially incompressible.</div>
+  <div class="definition"><strong>Viscosity</strong> ($\eta$): a fluid's resistance to flow due to internal friction. Decreases with temperature for liquids.</div>
+  <div class="definition"><strong>Ideal fluid:</strong> incompressible AND non-viscous (η = 0).</div>
+
+  <h3>Streamlines &amp; Types of Flow</h3>
+  <ul>
+    <li><strong>Streamline:</strong> a curve tangent to fluid velocity at every point. Streamlines never cross.</li>
+    <li><strong>Steady flow:</strong> velocity at every point is constant in time</li>
+    <li><strong>Laminar flow:</strong> fluid moves in parallel layers without mixing</li>
+    <li><strong>Turbulent flow:</strong> chaotic, eddies, velocity fluctuates</li>
+  </ul>
+  <div class="formula">$$R_e = \frac{\rho v D}{\eta}$$</div>
+  <p>Reynolds number $R_e &lt; 2000$ → laminar; $R_e &gt; 3000\text{–}5000$ → turbulent.</p>
+
+  <h3>Equation of Continuity</h3>
+  <p>For incompressible fluid in steady flow, mass flow rate is constant:</p>
+  <div class="formula">$$A_1 v_1 = A_2 v_2$$</div>
+  <p>Where pipe narrows, fluid speeds up.</p>
+
+  <h3>Bernoulli's Equation</h3>
+  <div class="definition">For incompressible, non-viscous fluid in steady flow: pressure + KE per unit volume + PE per unit volume = constant along a streamline. (This is energy conservation.)</div>
+  <div class="formula">$$p + \tfrac{1}{2}\rho v^2 + \rho g h = \text{const}$$</div>
+  <p><strong>Bernoulli's principle:</strong> where speed is high, pressure is low (and vice versa). Explains lift on aircraft wings, curveballs, and venturi tubes.</p>
+  <div class="warn">Validity: incompressible, non-viscous, steady flow. For horizontal flow, height term drops out.</div>
+
+  <h3>Torricelli's Theorem</h3>
+  <p>Speed of fluid leaving a hole at depth $h$ below the surface (open tank):</p>
+  <div class="formula">$$v = \sqrt{2g\Delta h}$$</div>
+  <p>Same as if fluid had fallen freely through that height.</p>
+
+  <h3>Pitot-Static Tube</h3>
+  <p>Measures fluid velocity. Combines a Pitot tube (facing flow, stagnation point) with a static tube (perpendicular). The pressure difference relates to velocity:</p>
+  <div class="formula">$$v = \sqrt{\frac{2(p_2 - p_1)}{\rho}}$$</div>
+  <p>Used in aircraft airspeed indicators.</p>
+</section>
+
+<!-- ========== 06 SOLIDS ========== -->
+<section id="solids">
+  <h2><span class="chapter-num">06</span>Deforming Solids</h2>
+  <p class="topic-intro">How solids respond to applied forces, and the energy stored in their deformation.</p>
+
+  <h3>Compressive vs Tensile Forces</h3>
+  <ul>
+    <li><strong>Tensile:</strong> pull on opposite ends → object stretches</li>
+    <li><strong>Compressive:</strong> push on opposite ends → object compresses</li>
+  </ul>
+
+  <h3>Elastic vs Plastic Behavior</h3>
+  <div class="definition"><strong>Elastic:</strong> object returns to original shape when force removed.</div>
+  <div class="definition"><strong>Plastic:</strong> permanent deformation remains after force is removed.</div>
+
+  <h3>Hooke's Law</h3>
+  <div class="definition">For a spring within its limit of proportionality, the extension is directly proportional to the applied force.</div>
+  <div class="formula">$$F = -k\Delta l$$</div>
+  <p>$k$ = spring constant (N/m). The minus sign: restoring force opposes the displacement.</p>
+  <p>On a force-extension graph: <strong>P = limit of proportionality</strong> (Hooke's law fails beyond P), <strong>E = elastic limit</strong> (plastic deformation begins beyond E).</p>
+
+  <h3>Stress, Strain, Young Modulus</h3>
+  <div class="formula">$$\sigma = \frac{F}{A} \quad \text{(stress, Pa)}$$ $$\varepsilon = \frac{\Delta l}{l_0} \quad \text{(strain, dimensionless)}$$ $$E = \frac{\sigma}{\varepsilon} \quad \text{(Young modulus, Pa)}$$</div>
+  <p>Young modulus is a material property — independent of object shape/size.</p>
+
+  <h3>Determining Young Modulus (Experiment)</h3>
+  <ol>
+    <li>Measure original length $l_0$ with metre ruler</li>
+    <li>Measure wire diameter with micrometer (multiple positions, average); $A = \pi d^2/4$</li>
+    <li>Hang masses, measure extension with reference mark and ruler</li>
+    <li>Plot $F$ vs $\Delta l$; gradient = $k = EA/l_0$</li>
+    <li>Calculate $E = \text{gradient} \times l_0 / A$</li>
+  </ol>
+
+  <h3>Brittle vs Ductile Materials</h3>
+  <div class="grid-2">
+    <div class="definition"><strong>Brittle</strong> (glass, cast iron): elastic up to breaking point, no plastic region. Snap suddenly.</div>
+    <div class="definition"><strong>Ductile</strong> (copper, gold): show plastic flow before breaking. Can be drawn into wires, hammered into shapes.</div>
+  </div>
+
+  <h3>Elastic Potential Energy</h3>
+  <div class="formula">$$E_{elastic} = \tfrac{1}{2}k(\Delta l)^2 = \tfrac{1}{2}F\Delta l$$</div>
+  <p>This is the area under the F-x graph (for a Hookean spring, a triangle).</p>
+</section>
+
+<!-- ========== 07 SHM ========== -->
+<section id="shm">
+  <h2><span class="chapter-num">07</span>Oscillations (SHM)</h2>
+  <p class="topic-intro">Periodic motion that repeats: pendulums, springs, atoms in solids, and the basis of all wave physics.</p>
+
+  <h3>Definitions</h3>
+  <div class="definition"><strong>Free oscillation:</strong> oscillation without external driving force or resistive forces. Frequency = natural frequency.</div>
+  <div class="definition"><strong>Forced oscillation:</strong> oscillation under a periodic external driving force.</div>
+  <div class="definition"><strong>Period (T):</strong> time for one complete oscillation. <strong>Frequency (f):</strong> oscillations per second; $f = 1/T$.</div>
+  <div class="definition"><strong>Amplitude (A):</strong> maximum displacement from equilibrium.</div>
+
+  <h3>Simple Harmonic Motion (SHM)</h3>
+  <div class="definition">A body executes SHM if its acceleration is directly proportional to its displacement from equilibrium and always directed toward equilibrium.</div>
+  <div class="formula">$$a = -\omega^2 x$$</div>
+  <p>The minus sign means restoring direction. SHM has two key properties:</p>
+  <ul>
+    <li>$x$, $v$, $a$ vary sinusoidally with time</li>
+    <li>Period (frequency) is independent of amplitude</li>
+  </ul>
+
+  <h3>Equations of Motion</h3>
+  <div class="formula">$$x = A\sin\omega t$$ $$v = A\omega\cos\omega t \quad (v_{max} = A\omega)$$ $$a = -A\omega^2\sin\omega t \quad (a_{max} = A\omega^2)$$</div>
+  <p>Velocity = gradient of x-t graph; acceleration = gradient of v-t graph.</p>
+
+  <h3>Period of Specific SHM Systems</h3>
+  <div class="grid-2">
+    <div class="formula">Mass-spring: $$T = 2\pi\sqrt{\frac{m}{k}}$$ Independent of amplitude AND of gravity.</div>
+    <div class="formula">Simple pendulum: $$T = 2\pi\sqrt{\frac{l}{g}}$$ Independent of mass, valid for small angles only.</div>
+  </div>
+  <div class="derivation">
+    <h4>Why mass-spring SHM</h4>
+    <p>$F = -kx$ and $F = ma$ → $a = -\frac{k}{m}x$. Compare with $a = -\omega^2 x$ → $\omega^2 = k/m$ → $T = 2\pi/\omega = 2\pi\sqrt{m/k}$.</p>
+  </div>
+
+  <h3>Energy in SHM</h3>
+  <p>For free SHM, total energy is constant; KE and PE alternate.</p>
+  <ul>
+    <li>KE maximum at $x = 0$ (equilibrium): $KE_{max} = \tfrac{1}{2}mA^2\omega^2$</li>
+    <li>PE maximum at $x = \pm A$ (extremes)</li>
+    <li>Total: $E = \tfrac{1}{2}m\omega^2 A^2$ (constant)</li>
+  </ul>
+
+  <h3>Damping</h3>
+  <p>When resistive forces present, mechanical energy converts to thermal energy, amplitude decreases (exponentially for light damping).</p>
+  <ul>
+    <li><strong>Light damping:</strong> amplitude decays exponentially over many oscillations</li>
+    <li><strong>Critical damping:</strong> system returns to equilibrium in shortest time without oscillating (e.g., car suspension)</li>
+    <li><strong>Heavy (over) damping:</strong> very slow return to equilibrium, no oscillation</li>
+  </ul>
+
+  <h3>Resonance</h3>
+  <div class="definition">Large amplitude increase when driving frequency equals (or is very close to) the natural frequency of the system.</div>
+  <p><strong>Useful resonance:</strong> MRI, microwave ovens (water natural freq), quartz watches, musical instruments.</p>
+  <p><strong>Avoid resonance:</strong> bridge oscillations (Tacoma Narrows), building sway in earthquakes/wind, vibration in machinery. Solutions: tuned mass dampers, stiffening, streamlining.</p>
+</section>
+
+<!-- ========== 08 MOLECULAR ========== -->
+<section id="molecular">
+  <h2><span class="chapter-num">08</span>Molecular Physics</h2>
+  <p class="topic-intro">Macroscopic gas behavior emerging from microscopic molecular motion.</p>
+
+  <h3>Key Definitions</h3>
+  <div class="definition"><strong>Mole:</strong> amount of substance containing the same number of atoms as 12 g of carbon-12.</div>
+  <div class="definition"><strong>Avogadro constant:</strong> $N_A = 6.02 \times 10^{23}$ mol⁻¹.</div>
+  <div class="definition"><strong>Standard temperature and pressure (STP):</strong> $T = 273$ K, $p = 1.013 \times 10^5$ Pa. 1 mole of any ideal gas occupies 22.4 L at STP.</div>
+
+  <h3>Useful Relationships</h3>
+  <div class="formula">$$N = nN_A, \quad n = \frac{N}{N_A} = \frac{m}{M}, \quad m_0 = \frac{M}{N_A}$$</div>
+
+  <h3>Kinetic Theory of Gases — Assumptions of the Ideal Gas</h3>
+  <ol>
+    <li>Random molecular motion</li>
+    <li>Negligible intermolecular forces (except in collisions)</li>
+    <li>Molecule volume is negligible compared to container volume</li>
+    <li>Molecules are identical, hard spheres</li>
+    <li>All collisions (between molecules and with walls) are perfectly elastic</li>
+    <li>Between collisions, molecules move in straight lines at constant speed</li>
+    <li>Newtonian mechanics applies</li>
+  </ol>
+
+  <h3>Kinetic Theory Equation</h3>
+  <div class="formula">$$pV = \tfrac{1}{3}Nm_0\overline{v^2}$$</div>
+  <p>From which $p = \tfrac{1}{3}\rho \overline{v^2}$ where $\rho = Nm_0/V$.</p>
+
+  <h3>Cause of Gas Pressure</h3>
+  <p>Molecules collide with container walls. Each collision changes the molecule's momentum, exerting a force (Newton's 2nd/3rd law). The average force per unit area is the pressure. Pressure depends on:</p>
+  <ul>
+    <li>Average molecular speed (kinetic energy)</li>
+    <li>Number of molecules striking unit area per unit time</li>
+  </ul>
+
+  <h3>Ideal Gas Equation</h3>
+  <div class="formula">$$pV = nRT = NkT$$</div>
+  <p>$R = 8.31$ J/(mol·K), $k = R/N_A = 1.38 \times 10^{-23}$ J/K (Boltzmann constant).</p>
+
+  <h3>Connection: Temperature and Kinetic Energy</h3>
+  <div class="derivation">
+    <h4>Derivation</h4>
+    <p>Equate $pV = \tfrac{1}{3}Nm_0\overline{v^2}$ and $pV = NkT$:</p>
+    <p>$\tfrac{1}{3}m_0\overline{v^2} = kT \Rightarrow \tfrac{1}{2}m_0\overline{v^2} = \tfrac{3}{2}kT$</p>
+  </div>
+  <div class="formula">$$\langle E_K \rangle = \frac{3kT}{2}, \quad v_{rms} = \sqrt{\overline{v^2}} = \sqrt{\frac{3kT}{m_0}}$$</div>
+  <div class="key">Temperature is a measure of the average translational kinetic energy of molecules.</div>
+
+  <h3>Gas Laws</h3>
+  <table>
+    <tr><th>Law</th><th>Constant</th><th>Equation</th><th>Graph</th></tr>
+    <tr><td>Boyle–Mariotte</td><td>T, n</td><td>$pV = $ const</td><td>Hyperbola (isotherm)</td></tr>
+    <tr><td>Charles (KZ: Gay-Lussac)</td><td>p, n</td><td>$V/T = $ const</td><td>Line through origin (in K)</td></tr>
+    <tr><td>Gay-Lussac (KZ: Charles)</td><td>V, n</td><td>$p/T = $ const</td><td>Line through origin (in K)</td></tr>
+  </table>
+
+  <h3>Dalton's Law of Partial Pressures</h3>
+  <p>Total pressure of a non-reacting gas mixture = sum of partial pressures: $p = p_1 + p_2 + \cdots + p_n$.</p>
+
+  <h3>Absolute Zero (T = 0 K)</h3>
+  <p>The lowest possible temperature. At absolute zero, kinetic energy of atoms/molecules is minimum (zero in classical view) and internal energy is minimum.</p>
+</section>
+
+<!-- ========== 09 THERMO ========== -->
+<section id="thermo">
+  <h2><span class="chapter-num">09</span>Thermodynamics</h2>
+  <p class="topic-intro">Energy transfers, heat engines, and the fundamental directionality of nature (entropy).</p>
+
+  <h3>Internal Energy</h3>
+  <div class="definition"><strong>Internal energy U</strong> = sum of kinetic and potential energies of all molecules.</div>
+  <p>For an <strong>ideal gas</strong>: intermolecular forces = 0 → no PE. Internal energy depends only on temperature:</p>
+  <div class="formula">$$U_{\text{monoatomic}} = \tfrac{3}{2}nRT$$ $$U_{\text{diatomic}} = \tfrac{5}{2}nRT$$ $$U_{\text{polyatomic}} = \tfrac{6}{2}nRT$$</div>
+  <p>For monoatomic ideal gas: $\Delta U = \tfrac{3}{2}nR\Delta T$.</p>
+
+  <h3>Work Done by/on a Gas (Isobaric)</h3>
+  <div class="formula">$$W_{by\, gas} = p\Delta V$$</div>
+  <p>On a p–V diagram, the <strong>area under the curve</strong> = magnitude of work done.</p>
+
+  <h3>First Law of Thermodynamics</h3>
+  <div class="definition">Increase in internal energy = heat supplied to system + work done on system.</div>
+  <div class="formula">$$\Delta U = Q + W_{on}$$</div>
+  <ul>
+    <li>Gas expands → work done on system is <strong>negative</strong></li>
+    <li>Gas compressed → work done on system is <strong>positive</strong></li>
+    <li>Heat added → $Q &gt; 0$; heat removed → $Q &lt; 0$</li>
+  </ul>
+
+  <h3>Thermodynamic Processes</h3>
+  <table>
+    <tr><th>Process</th><th>Constant</th><th>Key relation</th></tr>
+    <tr><td>Isothermal</td><td>T</td><td>$pV$ = const, $\Delta U = 0$</td></tr>
+    <tr><td>Isobaric</td><td>p</td><td>$V/T$ = const, $W = p\Delta V$</td></tr>
+    <tr><td>Isochoric</td><td>V</td><td>$p/T$ = const, $W = 0$</td></tr>
+    <tr><td>Adiabatic</td><td>Q = 0</td><td>$pV^\gamma$ = const, $\Delta U = W_{on}$</td></tr>
+  </table>
+  <p><strong>Adiabatic compression:</strong> temperature rises (gas heating in diesel engines). <strong>Adiabatic expansion:</strong> temperature falls.</p>
+
+  <h3>Second Law of Thermodynamics</h3>
+  <p>Several equivalent statements:</p>
+  <ul>
+    <li>It is impossible to convert thermal energy completely into work (η &lt; 100%)</li>
+    <li>Heat does not flow spontaneously from cold to hot</li>
+    <li>The entropy of an isolated system never decreases: $\Delta S \geq 0$</li>
+  </ul>
+
+  <h3>Heat Engines</h3>
+  <p>A heat engine takes heat from a hot reservoir, converts part to work, dumps the rest to a cold reservoir.</p>
+  <div class="formula">$$W = Q_H - Q_C, \quad \eta = \frac{W}{Q_H} = \frac{Q_H - Q_C}{Q_H}$$</div>
+
+  <h3>Carnot Engine (max efficiency)</h3>
+  <p>An idealized reversible engine. Carnot cycle: 2 isothermals + 2 adiabatics. Maximum possible efficiency between two reservoirs:</p>
+  <div class="formula">$$\eta_{Carnot} = \frac{T_H - T_C}{T_H}$$</div>
+  <p>$\eta_{real} &lt; \eta_{Carnot}$ because real engines have friction, heat loss, and irreversible processes.</p>
+
+  <h3>Entropy</h3>
+  <div class="definition"><strong>Entropy</strong> $S$ is a measure of disorder. Change in entropy: $\Delta S = Q/T$.</div>
+  <ul>
+    <li>Entropy ↑ when heat added to system</li>
+    <li>Reversible processes: $\Delta S = 0$. Real processes: $\Delta S &gt; 0$</li>
+    <li>Natural processes move toward greater disorder</li>
+    <li>For non-isolated system: $\Delta S_{system} + \Delta S_{environment} \geq 0$</li>
+  </ul>
+
+  <h3>Vapours &amp; Surface Tension (briefly)</h3>
+  <p><strong>Saturated vapour:</strong> vapour in equilibrium with its liquid. Saturated vapour pressure (SVP) increases with T but is independent of V (because more vapour can simply condense if compressed). Doesn't obey gas laws.</p>
+  <p><strong>Surface tension</strong> $\sigma = F/l$ — tangential force per unit length in a liquid surface. Decreases with temperature.</p>
+</section>
+
+<!-- ========== 10 OPTICS ========== -->
+<section id="optics">
+  <h2><span class="chapter-num">10</span>Geometrical Optics</h2>
+  <p class="topic-intro">Light traced as rays — useful when wavelength is much smaller than apparatus.</p>
+
+  <h3>Spherical Mirrors — Definitions</h3>
+  <ul>
+    <li><strong>C (centre of curvature):</strong> centre of the sphere</li>
+    <li><strong>P (pole):</strong> centre of the mirror surface</li>
+    <li><strong>F (focal point):</strong> where parallel rays converge (concave) or appear to diverge from (convex)</li>
+    <li><strong>r:</strong> radius of curvature; $f = r/2$</li>
+  </ul>
+
+  <h3>Real vs Virtual Images</h3>
+  <div class="definition"><strong>Real image:</strong> light rays actually converge there; can be projected on a screen.</div>
+  <div class="definition"><strong>Virtual image:</strong> rays only appear to come from that point; cannot be projected on a screen.</div>
+
+  <h3>Mirror &amp; Lens Equation</h3>
+  <div class="formula">$$\frac{1}{d_o} + \frac{1}{d_i} = \frac{1}{f}$$</div>
+  <p>Sign conventions:</p>
+  <ul>
+    <li>$d_o$: positive for real object (in front of lens/mirror)</li>
+    <li>$d_i$: positive for real image (in front of mirror; opposite side for lens)</li>
+    <li>$f$: positive for converging (concave mirror, convex lens); negative for diverging</li>
+  </ul>
+
+  <h3>Magnification</h3>
+  <div class="formula">$$m = \frac{h_i}{h_o} = -\frac{d_i}{d_o}$$</div>
+  <ul>
+    <li>$|m| &gt; 1$: image larger than object</li>
+    <li>$m &gt; 0$: image upright; $m &lt; 0$: image inverted</li>
+  </ul>
+
+  <h3>Wavefronts &amp; Huygens' Principle</h3>
+  <div class="definition"><strong>Wavefront:</strong> surface where all points have the same phase. <strong>Ray:</strong> direction of wave travel, perpendicular to wavefront.</div>
+  <div class="definition"><strong>Huygens' principle:</strong> Every point on a wavefront acts as a source of secondary wavelets. The new wavefront is the tangent envelope of all wavelets.</div>
+
+  <h3>Snell's Law (Refraction)</h3>
+  <div class="formula">$$n_1\sin\theta_1 = n_2\sin\theta_2, \quad n = \frac{c}{v}, \quad \frac{\sin\theta_1}{\sin\theta_2} = \frac{v_1}{v_2} = \frac{n_2}{n_1}$$</div>
+
+  <h3>Total Internal Reflection</h3>
+  <p>When light goes from denser to less dense medium ($n_1 &gt; n_2$), and angle of incidence exceeds critical angle:</p>
+  <div class="formula">$$\sin\theta_c = \frac{n_2}{n_1}$$</div>
+  <p>Used in: optic fibres, prismatic binoculars, periscopes.</p>
+
+  <h3>Refraction Through a Plane-Parallel Plate</h3>
+  <p>Emerging ray is <strong>parallel</strong> to incident ray but <strong>laterally shifted</strong> by:</p>
+  <div class="formula">$$x = \frac{d \sin(i_1 - r)}{\cos r}$$</div>
+
+  <h3>Prism: Deviation &amp; Dispersion</h3>
+  <p>White light entering a prism is split because $n$ depends on wavelength: violet refracts more than red. This is <strong>dispersion</strong>.</p>
+
+  <h3>Lenses</h3>
+  <p>Lens maker's equation:</p>
+  <div class="formula">$$\frac{1}{f} = \left(\frac{n_L}{n_M}-1\right)\left(\frac{1}{R_1} - \frac{1}{R_2}\right)$$</div>
+
+  <h3>Power of a Lens</h3>
+  <div class="formula">$$P = \frac{1}{f}$$</div>
+  <p>Units: dioptre (m⁻¹). Converging lens: P &gt; 0. Diverging: P &lt; 0.</p>
+
+  <h3>Two-Lens Systems</h3>
+  <p>Image of first lens = object for second lens. If image of lens 1 is behind lens 2, it's a <strong>virtual object</strong> for lens 2 ($d_o &lt; 0$). Total magnification: $m = m_1 \cdot m_2$.</p>
+
+  <h3>Lens Aberrations</h3>
+  <div class="grid-2">
+    <div class="definition"><strong>Spherical aberration:</strong> outer rays focus closer than central rays → blurred image. <strong>Fix:</strong> aperture/diaphragm to block outer rays, or aspheric lens design.</div>
+    <div class="definition"><strong>Chromatic aberration:</strong> different wavelengths focus at different points (violet closer than red). <strong>Fix:</strong> achromatic doublet — convex crown glass + concave flint glass — corrects two wavelengths to same focus.</div>
+  </div>
+</section>
+
+<!-- ========== 11 WAVES ========== -->
+<section id="waves">
+  <h2><span class="chapter-num">11</span>Waves</h2>
+  <p class="topic-intro">Disturbances that transport energy without transporting matter.</p>
+
+  <h3>Mechanical vs Electromagnetic Waves</h3>
+  <div class="grid-2">
+    <div class="definition"><strong>Mechanical waves</strong> require a medium (water waves, sound, waves on a string). They are oscillations propagating through an elastic medium.</div>
+    <div class="definition"><strong>Electromagnetic waves</strong> need no medium (radio, light, X-rays, γ). All travel at $c = 3\times 10^8$ m/s in vacuum.</div>
+  </div>
+
+  <h3>Wave Properties</h3>
+  <ul>
+    <li><strong>Progressive wave:</strong> carries energy from one point to another</li>
+    <li><strong>Wavelength (λ):</strong> distance between adjacent points in phase</li>
+    <li><strong>Frequency (f):</strong> oscillations per second; $f = 1/T$</li>
+    <li><strong>Amplitude (A):</strong> maximum displacement from equilibrium</li>
+    <li><strong>Phase difference:</strong> two points one λ apart differ by 0° (in phase)</li>
+    <li><strong>Intensity:</strong> $I \propto A^2$ (power per unit area)</li>
+  </ul>
+
+  <h3>Wave Equation</h3>
+  <div class="formula">$$v = f\lambda$$</div>
+
+  <h3>Transverse vs Longitudinal</h3>
+  <ul>
+    <li><strong>Transverse:</strong> oscillation perpendicular to wave direction (all EM waves, waves on a string)</li>
+    <li><strong>Longitudinal:</strong> oscillation parallel to wave direction (sound waves)</li>
+  </ul>
+
+  <h3>Diffraction</h3>
+  <div class="definition">Spreading of waves when passing through a gap or around an obstacle.</div>
+  <p>Diffraction is significant when gap width is comparable to wavelength. Larger gap → less spread; shorter wavelength → less spread.</p>
+</section>
+
+<!-- ========== 12 STATIONARY ========== -->
+<section id="stationary">
+  <h2><span class="chapter-num">12</span>Stationary Waves</h2>
+  <p class="topic-intro">When two equal waves traveling in opposite directions superpose, a stationary wave forms.</p>
+
+  <h3>Formation</h3>
+  <div class="definition">A <strong>stationary (standing) wave</strong> forms from superposition of two waves with same speed, frequency, and amplitude traveling in opposite directions.</div>
+  <p>Typically formed by reflection of a progressive wave at a boundary.</p>
+
+  <h3>Nodes and Antinodes</h3>
+  <ul>
+    <li><strong>Node:</strong> point of zero displacement (always, at all times)</li>
+    <li><strong>Antinode:</strong> point of maximum amplitude</li>
+    <li>Adjacent nodes are λ/2 apart; same for adjacent antinodes</li>
+    <li>Node-to-antinode distance = λ/4</li>
+  </ul>
+
+  <h3>Stationary vs Progressive Wave</h3>
+  <table>
+    <tr><th>Property</th><th>Stationary</th><th>Progressive</th></tr>
+    <tr><td>Energy transport</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Amplitude</td><td>Varies with position</td><td>Same everywhere</td></tr>
+    <tr><td>Phase</td><td>Same between adjacent nodes; flips across node</td><td>Continuously varies along wave</td></tr>
+    <tr><td>Crests</td><td>Don't move</td><td>Move with wave speed</td></tr>
+  </table>
+
+  <h3>Strings (Both Ends Fixed)</h3>
+  <p>Both ends are nodes. Allowed wavelengths: $\lambda_n = 2L/n$ ($n = 1, 2, 3, \ldots$).</p>
+  <div class="formula">$$f_n = \frac{nv}{2L}$$</div>
+  <p>$f_1$ = fundamental (first harmonic); $f_2 = 2f_1$ (second harmonic); etc. <strong>All harmonics</strong> present.</p>
+
+  <h3>Air Columns — One End Closed</h3>
+  <p>Closed end is a displacement node, open end is an antinode. Allowed wavelengths: $\lambda_n = 4L/n$ ($n = 1, 3, 5, \ldots$ — only odd).</p>
+  <div class="formula">$$f_n = \frac{nv}{4L} \quad (n = 1, 3, 5, \ldots)$$</div>
+
+  <h3>Air Columns — Both Ends Open</h3>
+  <p>Both ends are antinodes. Allowed wavelengths: $\lambda_n = 2L/n$ ($n = 1, 2, 3, \ldots$).</p>
+  <div class="formula">$$f_n = \frac{nv}{2L} \quad (n = 1, 2, 3, \ldots)$$</div>
+
+  <h3>Measuring Wavelength of Sound (Kundt's Tube)</h3>
+  <p>A loudspeaker drives a tube with fine powder. At nodes (zero air motion), powder accumulates; at antinodes (max motion) it's blown away. Measure node-to-node distance = λ/2.</p>
+
+  <h3>End Correction (Eliminating Errors)</h3>
+  <p>The antinode at an open tube end is slightly beyond the tube. Using two resonance lengths ($l_1$ and $l_2$) eliminates this systematic error: $\lambda = 2(l_2 - l_1)$.</p>
+</section>
+
+<!-- ========== 13 SUPERPOSITION ========== -->
+<section id="superposition">
+  <h2><span class="chapter-num">13</span>Interference &amp; Diffraction</h2>
+  <p class="topic-intro">When waves meet, their displacements add — leading to interference patterns that reveal the wave nature of light.</p>
+
+  <h3>Principle of Superposition</h3>
+  <div class="definition">When two or more waves meet at a point, the resultant displacement equals the algebraic (vector) sum of the individual displacements.</div>
+
+  <h3>Coherence</h3>
+  <div class="definition"><strong>Coherent waves:</strong> same frequency AND constant phase difference. Required to produce a stable interference pattern.</div>
+  <p>Two waves can interfere if: same type, same direction of polarization, meet at the same point.</p>
+
+  <h3>Constructive vs Destructive Interference</h3>
+  <ul>
+    <li><strong>Constructive:</strong> path difference = $n\lambda$ (waves arrive in phase, add up)</li>
+    <li><strong>Destructive:</strong> path difference = $(n + \tfrac{1}{2})\lambda$ (waves arrive out of phase, cancel)</li>
+  </ul>
+
+  <h3>Young's Double-Slit Experiment</h3>
+  <p>Thomas Young (1801) showed light is a wave by demonstrating two-slit interference.</p>
+  <div class="formula">$$\lambda = \frac{ax}{D}$$</div>
+  <p>Where $a$ = slit separation, $x$ = fringe spacing, $D$ = distance from slits to screen. (Uses small-angle approximation: $\sin\theta \approx \tan\theta$.)</p>
+  <div class="derivation">
+    <h4>Why this formula</h4>
+    <p>For first-order constructive: $a\sin\theta = \lambda$. Fringe position on screen: $x = D\tan\theta$. Small angles: $\sin\theta \approx \tan\theta$, so $\lambda/x = a/D$ → $\lambda = ax/D$.</p>
+  </div>
+
+  <h3>Diffraction Grating</h3>
+  <p>Many parallel slits with equal spacing $d$ (grating spacing or grating element).</p>
+  <div class="formula">$$d\sin\theta = n\lambda \quad (n = 0, 1, 2, \ldots)$$</div>
+  <p>$n$ = order of maximum. <strong>Why gratings beat double-slits:</strong></p>
+  <ul>
+    <li>Bright maxima are <strong>much sharper</strong> (intensity scales as $N^2$)</li>
+    <li>Wider angular separation → more accurate measurements</li>
+    <li>$d$ can be measured more precisely (lines per mm)</li>
+  </ul>
+
+  <h3>White Light Through a Grating</h3>
+  <p>Each order produces a continuous spectrum. From $d\sin\theta = n\lambda$: longer wavelength → larger angle. Red diffracts more than violet (opposite to a prism!).</p>
+</section>
+
+<!-- ========== 14 EM ========== -->
+<section id="em">
+  <h2><span class="chapter-num">14</span>Electromagnetic Oscillations &amp; Waves</h2>
+  <p class="topic-intro">Charge, current, and field oscillations — the source and nature of all EM radiation.</p>
+
+  <h3>Free EM Oscillations (LC Circuit)</h3>
+  <p>An ideal LC circuit (no resistance) oscillates between energy stored in capacitor (E-field) and inductor (B-field).</p>
+  <div class="formula">$$T = 2\pi\sqrt{LC}, \quad \omega = \frac{1}{\sqrt{LC}}, \quad f = \frac{1}{2\pi\sqrt{LC}}$$</div>
+  <p>Charge and current oscillate sinusoidally:</p>
+  <div class="formula">$$q = q_{max}\cos\omega t, \quad I = -I_{max}\sin\omega t, \quad I_{max} = \omega q_{max}$$</div>
+
+  <h3>Energy Conservation in LC Circuit</h3>
+  <div class="formula">$$E_{total} = \frac{q^2}{2C} + \frac{LI^2}{2} = \frac{q_{max}^2}{2C} = \frac{LI_{max}^2}{2} = \text{const}$$</div>
+
+  <h3>Forced EM Oscillations</h3>
+  <p>An RLC circuit driven by an external EMF $\varepsilon = \varepsilon_0 \cos\omega t$ undergoes forced oscillations. Resonance occurs at $\omega = 1/\sqrt{LC}$.</p>
+
+  <h3>Nature of EM Waves</h3>
+  <ul>
+    <li>Produced by accelerating charges</li>
+    <li>Consist of changing E and B fields, perpendicular to each other AND to direction of travel: $\vec{E} \perp \vec{B} \perp \vec{c}$</li>
+    <li><strong>Transverse</strong> waves</li>
+    <li>E and B fields oscillate <strong>in phase</strong></li>
+    <li>Travel through vacuum at $c = 3 \times 10^8$ m/s</li>
+    <li>Different EM waves differ only in frequency/wavelength</li>
+  </ul>
+
+  <h3>EM Spectrum</h3>
+  <table>
+    <tr><th>Type</th><th>Generation</th><th>Use</th></tr>
+    <tr><td>Radio</td><td>Electrical oscillations</td><td>Communication</td></tr>
+    <tr><td>Microwaves</td><td>Klystrons, magnetrons</td><td>Radar, ovens, comms</td></tr>
+    <tr><td>Infrared</td><td>Atomic/molecular vibrations</td><td>Heating, night vision</td></tr>
+    <tr><td>Visible</td><td>Atomic transitions (380–760 nm)</td><td>Vision, photosynthesis</td></tr>
+    <tr><td>Ultraviolet</td><td>Atomic transitions, Sun</td><td>Sterilization, photoelectric</td></tr>
+    <tr><td>X-rays</td><td>Fast electron deceleration</td><td>Medical imaging, cancer therapy</td></tr>
+    <tr><td>Gamma</td><td>Nuclear transitions</td><td>Cancer treatment, sterilization</td></tr>
+  </table>
+
+  <h3>Modulation (Communications)</h3>
+  <div class="definition"><strong>Modulation:</strong> varying amplitude or frequency of a carrier wave in synchrony with an information signal.</div>
+  <p><strong>Why modulate?</strong> Shorter aerials needed; longer transmission range; less interference; multiple stations in same region; less attenuation; less power needed.</p>
+  <div class="grid-2">
+    <div class="definition"><strong>AM (Amplitude Modulation):</strong> carrier amplitude varies with signal; carrier frequency constant. Bandwidth = $2f_M$.</div>
+    <div class="definition"><strong>FM (Frequency Modulation):</strong> carrier frequency varies with signal; carrier amplitude constant.</div>
+  </div>
+
+  <h3>AM vs FM</h3>
+  <table>
+    <tr><th>Feature</th><th>AM</th><th>FM</th></tr>
+    <tr><td>Range</td><td>Long (up to 1000 km)</td><td>Short (~30 km, line-of-sight)</td></tr>
+    <tr><td>Cost</td><td>Cheaper</td><td>More expensive</td></tr>
+    <tr><td>Quality</td><td>Lower (noise affects amplitude)</td><td>Higher (noise doesn't affect frequency)</td></tr>
+    <tr><td>Bandwidth</td><td>Smaller</td><td>Larger</td></tr>
+    <tr><td>Stations possible</td><td>More in given band</td><td>Fewer</td></tr>
+  </table>
+
+  <h3>Analogue vs Digital Signals</h3>
+  <p><strong>Analogue:</strong> continuous variation matching the original signal. <strong>Digital:</strong> series of discrete pulses (0s and 1s).</p>
+  <p><strong>Advantages of digital:</strong></p>
+  <ul>
+    <li>Noise eliminated (pulses regenerated cleanly)</li>
+    <li>Error checking via extra data</li>
+    <li>More secure (encryption)</li>
+    <li>More information per channel (greater bandwidth use)</li>
+    <li>Compatible with computers</li>
+  </ul>
+
+  <h3>ADC and DAC; Sampling</h3>
+  <p>Analogue-to-digital converter samples the signal at regular intervals. Each sample is converted to a binary number. Digital-to-analogue converter reverses the process.</p>
+  <ul>
+    <li>More bits per sample → smaller voltage steps (better quality)</li>
+    <li>Higher sampling frequency → smaller time gaps</li>
+    <li><strong>Nyquist:</strong> sampling frequency must be &gt; 2× highest signal frequency</li>
+  </ul>
+
+  <h3>Communication Channels Compared</h3>
+  <table>
+    <tr><th>Channel</th><th>Bandwidth</th><th>Attenuation</th><th>Security</th></tr>
+    <tr><td>Wire pairs</td><td>~500 kHz</td><td>High</td><td>Low (cross-talk)</td></tr>
+    <tr><td>Coaxial cable</td><td>~50 MHz</td><td>Medium</td><td>Medium</td></tr>
+    <tr><td>Microwave link</td><td>~1 GHz</td><td>Low (line-of-sight)</td><td>Encoded only</td></tr>
+    <tr><td>Optic fibre</td><td>Very high</td><td>Very low</td><td>High (impossible to tap)</td></tr>
+  </table>
+
+  <h3>Signal Attenuation</h3>
+  <div class="formula">$$\text{number of dB} = 10\lg\left(\frac{P_2}{P_1}\right)$$</div>
+  <p>Negative dB = attenuation; positive = amplification. Signal-to-noise ratio also measured in dB.</p>
+
+  <h3>Satellite Communications</h3>
+  <p><strong>Geostationary:</strong> stays above one point; used for TV broadcast, comms; ~0.24 s delay each way; doesn't work well at poles. <strong>Polar (LEO):</strong> short delays, used for GPS, weather, mapping; needs tracked dishes.</p>
+</section>
+
+<!-- ========== 15 AC ========== -->
+<section id="ac">
+  <h2><span class="chapter-num">15</span>Alternating Current</h2>
+  <p class="topic-intro">Sinusoidally varying voltage and current — the basis of power grids worldwide.</p>
+
+  <h3>Faraday's Law of Electromagnetic Induction</h3>
+  <div class="definition">The induced EMF is proportional to the rate of change of magnetic flux linkage.</div>
+  <div class="formula">$$\varepsilon = -N\frac{\Delta\Phi}{\Delta t}$$</div>
+
+  <h3>Lenz's Law</h3>
+  <div class="definition">The direction of induced current opposes the change in magnetic flux that produces it. (Conservation of energy.)</div>
+
+  <h3>AC Generator</h3>
+  <p>A coil rotates in a magnetic field. As it rotates, flux through it changes:</p>
+  <div class="formula">$$\Phi = BA\cos\omega t \Rightarrow \varepsilon = NBA\omega\sin\omega t = \varepsilon_0\sin\omega t$$</div>
+  <p>$\varepsilon_0 = NBA\omega$ — peak EMF.</p>
+
+  <h3>AC Equations</h3>
+  <div class="formula">$$I = I_0\sin\omega t, \quad V = V_0\sin\omega t$$</div>
+  <p>Period $T = 1/f = 2\pi/\omega$.</p>
+
+  <h3>RMS (Root Mean Square)</h3>
+  <div class="definition"><strong>RMS</strong> value of AC = the DC value that would produce the same average power in a resistor.</div>
+  <div class="formula">$$I_{rms} = \frac{I_0}{\sqrt{2}}, \quad V_{rms} = \frac{V_0}{\sqrt{2}}$$</div>
+  <div class="derivation">
+    <h4>Why √2</h4>
+    <p>Average of $\sin^2\omega t$ over a cycle = 1/2. So $\langle P\rangle = \langle I^2 R\rangle = I_0^2 R/2 = (I_0/\sqrt{2})^2 R$. Thus $I_{rms} = I_0/\sqrt{2}$.</p>
+  </div>
+
+  <h3>Average AC Power</h3>
+  <div class="formula">$$\langle P\rangle = I_{rms}V_{rms} = \frac{I_0V_0}{2}$$</div>
+
+  <h3>Transformers</h3>
+  <p>Two coils on a soft iron core. AC in primary creates changing flux in core, which induces EMF in secondary.</p>
+  <div class="formula">$$\frac{V_S}{V_P} = \frac{N_S}{N_P}, \quad I_PV_P = I_SV_S \text{ (ideal)}$$</div>
+  <p><strong>Step-up:</strong> $N_S &gt; N_P$ → higher voltage, lower current. <strong>Step-down:</strong> opposite.</p>
+
+  <h3>Transformer Design Choices</h3>
+  <ul>
+    <li><strong>Iron core</strong> (ferromagnetic): improves flux linkage</li>
+    <li><strong>Continuous loop:</strong> minimizes flux loss</li>
+    <li><strong>Laminated core:</strong> reduces eddy currents → less heat loss</li>
+    <li><strong>Low-resistance copper coils:</strong> reduces $I^2R$ losses</li>
+  </ul>
+
+  <h3>Why High-Voltage Power Transmission</h3>
+  <div class="formula">$$P_{loss} = \frac{P_{station}^2}{V^2}R$$</div>
+  <p>Doubling V → losses ÷ 4. Quintupling V → losses ÷ 25. Massive economic savings — fewer power plants needed.</p>
+
+  <h3>AC Through Pure Components</h3>
+  <table>
+    <tr><th>Element</th><th>Reactance</th><th>Phase relation</th></tr>
+    <tr><td>Resistor R</td><td>$R$ (Ohm)</td><td>I and V in phase</td></tr>
+    <tr><td>Capacitor C</td><td>$X_C = \frac{1}{\omega C}$</td><td>I leads V by π/2 (CIVIL: in C, I before V)</td></tr>
+    <tr><td>Inductor L</td><td>$X_L = \omega L$</td><td>V leads I by π/2 (in L, V before I)</td></tr>
+  </table>
+  <div class="tip"><strong>Mnemonic CIVIL:</strong> In <u>C</u>apacitor, <u>I</u> leads <u>V</u>; <u>I</u>n <u>L</u> (inductor) — V leads I.</div>
+  <p>For C and L alone, no average power dissipated — they store and return energy.</p>
+
+  <h3>Series RLC Circuit</h3>
+  <div class="formula">$$Z = \sqrt{R^2 + (X_L - X_C)^2}, \quad V_0 = I_0 Z, \quad \tan\varphi = \frac{X_L - X_C}{R}$$</div>
+  <p><strong>Power factor:</strong> $\cos\varphi = R/Z$.</p>
+  <p><strong>Resonance</strong> when $X_L = X_C$, i.e. $\omega = 1/\sqrt{LC}$. At resonance: $Z$ is minimum, $I$ is maximum, $\varphi = 0$.</p>
+
+  <h3>Rectification</h3>
+  <p>Conversion of AC to DC using diodes (which conduct in one direction only).</p>
+  <ul>
+    <li><strong>Half-wave:</strong> single diode; only positive half-cycles pass; output is on for half the time</li>
+    <li><strong>Full-wave (bridge):</strong> 4 diodes; both half-cycles produce output in same direction; doubles efficiency</li>
+  </ul>
+
+  <h3>Smoothing</h3>
+  <p>Capacitor in parallel with load smooths the rectified output. Time constant $\tau = RC$ should be much larger than the AC period.</p>
+  <p>Capacitor charges during voltage peaks, discharges through load between peaks → output has small "ripple" rather than going to zero.</p>
+</section>
+
+<!-- ========== 16 CHARGED ========== -->
+<section id="charged">
+  <h2><span class="chapter-num">16</span>Charged Particles</h2>
+  <p class="topic-intro">How electrons and ions move in fields — basis of CRTs, mass spectrometers, and particle accelerators.</p>
+
+  <h3>Millikan's Oil Drop Experiment</h3>
+  <p>Goal: determine the elementary charge $e$.</p>
+  <p><strong>Procedure:</strong></p>
+  <ol>
+    <li>Spray oil drops between two horizontal parallel plates (drops charge by friction or X-ray ionization)</li>
+    <li>Without field: drop falls; measure terminal velocity $v$ → use Stokes' law to find mass $m$</li>
+    <li>Apply electric field $E = V/d$; adjust until drop stationary: $mg = qE = qV/d$</li>
+    <li>Calculate $q = mgd/V$</li>
+  </ol>
+  <div class="key">Result: Charge is <strong>quantized</strong> — always an integer multiple of $e = 1.6 \times 10^{-19}$ C.</div>
+
+  <h3>Charged Particle in a Uniform Electric Field</h3>
+  <p>Force is constant: $F = qE$. Acceleration: $a = qE/m$.</p>
+  <p>If charge enters perpendicular to field with velocity $v$:</p>
+  <div class="formula">$$y = \frac{1}{2}\frac{qE}{mv^2}x^2$$</div>
+  <p><strong>Path is parabolic</strong> (analogous to projectile motion). Kinetic energy <strong>changes</strong> (work is done by the field).</p>
+
+  <h3>Charged Particle in a Uniform Magnetic Field</h3>
+  <p>Magnetic force on a moving charge:</p>
+  <div class="formula">$$F = qvB\sin\alpha$$</div>
+  <p>α = angle between $\vec{v}$ and $\vec{B}$. Direction by Fleming's left-hand rule (for positive charge).</p>
+  <div class="key">Magnetic force is always perpendicular to velocity → does <strong>no work</strong> → kinetic energy unchanged.</div>
+
+  <h3>Circular Motion in a Magnetic Field</h3>
+  <p>If $\vec{v} \perp \vec{B}$, the magnetic force provides centripetal force:</p>
+  <div class="formula">$$qvB = \frac{mv^2}{r} \Rightarrow r = \frac{mv}{qB}, \quad T = \frac{2\pi m}{qB}$$</div>
+  <ul>
+    <li>Faster particles → larger circles ($r \propto v$)</li>
+    <li>Heavier particles → larger circles ($r \propto m$)</li>
+    <li>Stronger field → tighter circles ($r \propto 1/B$)</li>
+    <li>If velocity not perpendicular: helical path</li>
+  </ul>
+
+  <h3>Crossed E and B Fields (Velocity Selector)</h3>
+  <p>If E and B are perpendicular and produce opposing forces on a charge, only particles with the right velocity pass straight through:</p>
+  <div class="formula">$$qE = qvB \Rightarrow v = \frac{E}{B}$$</div>
+  <p>Used in mass spectrometers to filter beams by velocity, regardless of charge or mass.</p>
+
+  <h3>Specific Charge of the Electron (e/m)</h3>
+  <p>Electrons accelerated through PD $V_a$ acquire velocity $v$ from $eV_a = \tfrac{1}{2}mv^2$, so:</p>
+  <div class="formula">$$\frac{e}{m} = \frac{v^2}{2V_a}$$</div>
+  <p>With crossed fields ($v = E/B$):</p>
+  <div class="formula">$$\frac{e}{m} = \frac{E^2}{2V_a B^2}$$</div>
+</section>
+
+<!-- ========== 17 QUANTUM ========== -->
+<section id="quantum">
+  <h2><span class="chapter-num">17</span>Quantum Physics</h2>
+  <p class="topic-intro">The breakdown of classical physics at atomic scales — and the bizarre new rules that took its place. <strong>Likely a major МЭСК focus.</strong></p>
+
+  <h3>Wave Theory of Light (classical)</h3>
+  <p>By the late 19th century, light was firmly believed to be a wave because it shows reflection, refraction, diffraction, interference, and polarization. Maxwell showed light is an electromagnetic wave. But then...</p>
+
+  <h3>The Photoelectric Effect</h3>
+  <div class="definition"><strong>Photoelectric effect:</strong> emission of electrons from a metal surface when EM radiation hits it.</div>
+  <p><strong>Experimental observations</strong> (which classical wave theory could NOT explain):</p>
+  <ol>
+    <li>Emission is <strong>instantaneous</strong> — no delay even at low intensity</li>
+    <li>Below a <strong>threshold frequency</strong> $f_0$, no emission occurs, regardless of intensity or duration</li>
+    <li>Above $f_0$, increasing <strong>intensity</strong> increases the <strong>number</strong> of electrons but NOT their KE</li>
+    <li>Increasing <strong>frequency</strong> increases the <strong>maximum KE</strong> of emitted electrons</li>
+    <li>Different metals have different threshold frequencies</li>
+    <li>Each photon interacts with one electron (1-to-1)</li>
+  </ol>
+
+  <div class="why">
+    <strong>Why classical wave theory fails:</strong>
+    <ul>
+      <li>Predicts: any frequency works if intense enough or long enough — <em>wrong</em></li>
+      <li>Predicts: intensity increases KE — <em>wrong</em></li>
+      <li>Predicts: time delay needed for low-intensity light — <em>wrong</em></li>
+    </ul>
+  </div>
+
+  <h3>Photon Theory (Planck &amp; Einstein)</h3>
+  <p>Planck (1901): EM energy comes in discrete packets (quanta). Einstein (1905): these packets persist as <strong>photons</strong>.</p>
+  <div class="formula">$$E = hf = \frac{hc}{\lambda}, \quad h = 6.63\times 10^{-34} \text{ J·s}$$</div>
+  <p>1 eV = $1.6 \times 10^{-19}$ J = energy gained by an electron through 1 V.</p>
+
+  <h3>Einstein's Photoelectric Equation</h3>
+  <p>One photon transfers ALL its energy to one electron. If frequency too low, no electron escapes. Excess energy becomes the electron's kinetic energy:</p>
+  <div class="formula">$$hf = \Phi + \tfrac{1}{2}mv_{max}^2$$</div>
+  <ul>
+    <li><strong>Work function $\Phi$:</strong> minimum energy to escape the metal surface</li>
+    <li><strong>Threshold frequency:</strong> $f_0 = \Phi/h$</li>
+    <li><strong>Stopping potential:</strong> $eV_s = \tfrac{1}{2}mv_{max}^2$</li>
+  </ul>
+  <div class="formula">$$hf = hf_0 + eV_s$$</div>
+
+  <h3>Plotting KE vs Frequency</h3>
+  <p>A graph of $\tfrac{1}{2}mv_{max}^2$ vs $f$ gives:</p>
+  <ul>
+    <li>Straight line with <strong>gradient = h</strong> (Planck's constant)</li>
+    <li>X-intercept = $f_0$ (threshold frequency)</li>
+    <li>Y-intercept = $-\Phi$ (work function)</li>
+  </ul>
+
+  <h3>Wave-Particle Duality of Light</h3>
+  <p><strong>Wave evidence:</strong> diffraction, interference, polarization. <strong>Particle evidence:</strong> photoelectric effect, Compton effect.</p>
+  <div class="key">Light propagates as a wave but interacts with matter as a particle (photon).</div>
+
+  <h3>De Broglie Hypothesis (1924)</h3>
+  <div class="definition">All moving particles have an associated wave. The wavelength is given by</div>
+  <div class="formula">$$\lambda = \frac{h}{p} = \frac{h}{mv}$$</div>
+  <p>For an electron accelerated through PD $V$: $eV = \tfrac{1}{2}mv^2 \Rightarrow v = \sqrt{2eV/m}$, so:</p>
+  <div class="formula">$$\lambda = \frac{h}{\sqrt{2meV}}$$</div>
+
+  <h3>Davisson-Germer Experiment (1927)</h3>
+  <p>Confirmed de Broglie. Beam of electrons scattered from a nickel crystal showed diffraction maxima at angles predicted by treating electrons as waves with wavelength $\lambda = h/p$.</p>
+  <p>For electron diffraction by graphite: $r \propto \lambda \propto 1/\sqrt{V}$ (ring radius decreases as accelerating voltage increases).</p>
+
+  <h3>Why Classical Physics Fails for Atoms</h3>
+  <p>An orbiting electron is constantly accelerating. By Maxwell's equations, accelerated charges radiate EM waves and lose energy. So the electron should spiral into the nucleus in nanoseconds. Atoms shouldn't exist. They do. Classical physics is <strong>wrong</strong> at atomic scale.</p>
+
+  <h3>Bohr's Postulates (1913)</h3>
+  <p><strong>Postulate 1:</strong> Electrons exist only in certain fixed orbits (stationary states) where they don't radiate. Angular momentum is quantized:</p>
+  <div class="formula">$$mvr = n\frac{h}{2\pi}, \quad n = 1, 2, 3, \ldots$$</div>
+  <p><strong>Postulate 2:</strong> When an electron transitions from higher to lower orbit, the energy difference is emitted as a photon:</p>
+  <div class="formula">$$hf = E_2 - E_1$$</div>
+
+  <h3>Hydrogen Energy Levels</h3>
+  <p>Combining Bohr's postulates with Coulomb's law and centripetal force:</p>
+  <div class="formula">$$E_n = -\frac{me^4}{8\varepsilon_0^2 h^2}\cdot\frac{1}{n^2} = -\frac{13.6 \text{ eV}}{n^2}$$</div>
+  <p>$E_1 = -13.6$ eV (ground state), $E_2 = -3.4$ eV, $E_3 = -1.51$ eV, ..., $E_\infty = 0$.</p>
+  <ul>
+    <li>Energies are <strong>quantized</strong> (only specific values allowed)</li>
+    <li><strong>Ground state:</strong> $n = 1$, lowest energy, atom is stable</li>
+    <li><strong>Excited state:</strong> electron in higher level (atom unstable, returns spontaneously)</li>
+    <li>Negative because we set zero at infinity (electron unbound)</li>
+  </ul>
+
+  <h3>Spectra — Three Types</h3>
+  <table>
+    <tr><th>Type</th><th>Source</th><th>Appearance</th></tr>
+    <tr><td>Continuous</td><td>Hot dense matter (solid, liquid, dense gas)</td><td>All wavelengths</td></tr>
+    <tr><td>Emission line</td><td>Hot, low-pressure gas</td><td>Bright lines on dark background</td></tr>
+    <tr><td>Absorption line</td><td>Cool gas in front of continuous source</td><td>Dark lines on continuous spectrum</td></tr>
+  </table>
+
+  <p><strong>Why line spectra exist:</strong> electron transitions between discrete energy levels emit/absorb photons at specific frequencies $f = (E_2 - E_1)/h$. Each line corresponds to one transition. Line spectra are <strong>direct evidence</strong> of discrete energy levels in atoms.</p>
+
+  <h3>Successes &amp; Failures of Bohr's Model</h3>
+  <p><strong>Successes:</strong> Explained hydrogen spectrum exactly; explained atomic stability; worked for one-electron ions (He⁺).</p>
+  <p><strong>Failures:</strong> Couldn't explain multi-electron atoms; couldn't predict line intensities; couldn't account for fine structure (each level splits into closely-spaced sub-levels).</p>
+
+  <h3>Band Theory of Solids</h3>
+  <p>When atoms come together in a crystal, individual energy levels broaden into <strong>bands</strong>:</p>
+  <ul>
+    <li><strong>Valence band:</strong> uppermost filled (or partly filled) band</li>
+    <li><strong>Conduction band:</strong> lowest unfilled (or partly filled) band</li>
+    <li><strong>Forbidden band (band gap):</strong> energies not allowed for electrons</li>
+  </ul>
+
+  <h3>Conductors, Semiconductors, Insulators</h3>
+  <table>
+    <tr><th>Material</th><th>Forbidden band</th><th>Conduction</th></tr>
+    <tr><td>Conductor</td><td>None — bands overlap</td><td>Electrons free to move</td></tr>
+    <tr><td>Semiconductor</td><td>Small (~1 eV)</td><td>Some electrons jump to conduction band at room T</td></tr>
+    <tr><td>Insulator</td><td>Wide</td><td>No electrons in conduction band</td></tr>
+  </table>
+
+  <p>In <strong>intrinsic semiconductors</strong>, electrons jumping leave <strong>holes</strong> (positive charge carriers) in the valence band. As T increases, more electrons promoted → resistance decreases. <strong>LDR</strong> (light-dependent resistor) works similarly — photons promote electrons.</p>
+</section>
+
+<!-- ========== 18 NUCLEAR ========== -->
+<section id="nuclear">
+  <h2><span class="chapter-num">18</span>Nuclear Physics</h2>
+  <p class="topic-intro">The structure of the atomic nucleus, radioactive decay, and the energy released by nuclear reactions.</p>
+
+  <h3>Rutherford's α-Scattering (1911)</h3>
+  <p>Geiger and Marsden fired α-particles at thin gold foil. Most passed straight through; some deflected; a tiny fraction (~1 in 8000) bounced back at &gt;90°.</p>
+  <p><strong>Conclusions:</strong></p>
+  <ul>
+    <li>Most of the atom is empty space</li>
+    <li>Mass and positive charge concentrated in a tiny <strong>nucleus</strong> (~10⁻¹⁵ m, 99.9% of mass)</li>
+    <li>Electrons orbit the nucleus (analogy to solar system)</li>
+  </ul>
+
+  <h3>Nuclear Notation</h3>
+  <p>$^A_Z X$ where:</p>
+  <ul>
+    <li><strong>A = nucleon (mass) number:</strong> total protons + neutrons</li>
+    <li><strong>Z = atomic (proton) number:</strong> defines element</li>
+    <li><strong>N = A − Z:</strong> number of neutrons</li>
+  </ul>
+  <div class="definition"><strong>Isotopes:</strong> same Z, different A (same element, different neutron count). E.g., $^1_1$H, $^2_1$H (deuterium), $^3_1$H (tritium).</div>
+
+  <h3>Subatomic Particles</h3>
+  <table>
+    <tr><th>Particle</th><th>Charge</th><th>Mass (u)</th></tr>
+    <tr><td>Proton</td><td>+e</td><td>1.0073</td></tr>
+    <tr><td>Neutron</td><td>0</td><td>1.0087</td></tr>
+    <tr><td>Electron</td><td>−e</td><td>0.000549</td></tr>
+  </table>
+  <p>1 u = $1.66 \times 10^{-27}$ kg = 931 MeV/c².</p>
+
+  <h3>Conservation Laws in Nuclear Reactions</h3>
+  <ul>
+    <li>Nucleon number conserved</li>
+    <li>Charge conserved</li>
+    <li>Total energy conserved (including mass-energy)</li>
+    <li>Total momentum conserved</li>
+  </ul>
+
+  <h3>Properties of α, β, γ Radiation</h3>
+  <table>
+    <tr><th></th><th>α</th><th>β⁻</th><th>γ</th></tr>
+    <tr><td>What is it</td><td>$^4_2$He nucleus</td><td>Fast electron</td><td>EM photon</td></tr>
+    <tr><td>Charge</td><td>+2e</td><td>−e</td><td>0</td></tr>
+    <tr><td>Mass</td><td>4 u</td><td>~u/1840</td><td>0</td></tr>
+    <tr><td>Speed</td><td>~10⁶ m/s</td><td>~10⁸ m/s</td><td>c = 3×10⁸ m/s</td></tr>
+    <tr><td>Ionizing</td><td>Strong</td><td>Medium</td><td>Weak</td></tr>
+    <tr><td>Range in air</td><td>~5 cm</td><td>~30 cm</td><td>Many m</td></tr>
+    <tr><td>Stopped by</td><td>Paper / few cm air</td><td>Few mm metal</td><td>Reduced by lead/concrete</td></tr>
+  </table>
+
+  <h3>Why α is Most Ionizing</h3>
+  <p>Greater charge AND mass, slower speed → more interaction with atoms → more ionizations per cm. β: lighter and faster, less ionizing. γ: no charge, weakest ionization.</p>
+
+  <h3>Behavior in E and B Fields</h3>
+  <ul>
+    <li><strong>α:</strong> small deflection (heavy)</li>
+    <li><strong>β:</strong> large deflection in opposite direction (light, opposite charge)</li>
+    <li><strong>γ:</strong> no deflection (no charge)</li>
+  </ul>
+
+  <h3>Decay Equations</h3>
+  <p><strong>α decay:</strong> $^A_Z X \to {}^{A-4}_{Z-2}Y + {}^4_2$He</p>
+  <p><strong>β⁻ decay:</strong> $^A_Z X \to {}^{\,\,A}_{Z+1}Y + {}^{\,0}_{-1}e$ (a neutron becomes a proton + electron + antineutrino)</p>
+  <p><strong>γ emission:</strong> nucleus drops to lower energy state, A and Z unchanged</p>
+
+  <h3>Spontaneous &amp; Random Nature of Decay</h3>
+  <ul>
+    <li><strong>Spontaneous:</strong> not affected by chemical reactions, T, P, or other nuclei</li>
+    <li><strong>Random:</strong> impossible to predict which nucleus decays when; each nucleus has the same probability per unit time</li>
+  </ul>
+
+  <h3>Activity, Decay Constant, Half-Life</h3>
+  <div class="definition"><strong>Decay constant λ:</strong> probability of decay per unit time. Property of the nuclide.</div>
+  <div class="definition"><strong>Activity A:</strong> number of decays per second. Unit: becquerel (Bq).</div>
+  <div class="formula">$$A = \lambda N$$</div>
+  <p>Number of undecayed nuclei follows exponential decay:</p>
+  <div class="formula">$$N = N_0 e^{-\lambda t}, \quad A = A_0 e^{-\lambda t}$$</div>
+  <div class="definition"><strong>Half-life $t_{1/2}$:</strong> time for half the nuclei to decay.</div>
+  <div class="formula">$$t_{1/2} = \frac{\ln 2}{\lambda} = \frac{0.693}{\lambda}$$</div>
+
+  <h3>Background Radiation Correction</h3>
+  <p>Measured count rate $R$ from a sample is generally less than activity (detector misses most decays). Always subtract <strong>background count rate</strong> before analysis.</p>
+
+  <h3>Mass-Energy Equivalence</h3>
+  <div class="formula">$$E = mc^2$$</div>
+  <p>Energy equivalent of 1 u: 931 MeV. Tiny mass changes correspond to huge energies on nuclear scales.</p>
+
+  <h3>Mass Defect &amp; Binding Energy</h3>
+  <div class="definition"><strong>Mass defect</strong> $\Delta m$ = (mass of separated nucleons) − (mass of nucleus). Always positive.</div>
+  <div class="definition"><strong>Binding energy</strong> $E_B = \Delta m c^2$ — the energy required to separate all nucleons from the nucleus to infinity.</div>
+
+  <h3>Binding Energy Per Nucleon</h3>
+  <p>Best measure of nuclear stability. Plot of BE/nucleon vs A:</p>
+  <ul>
+    <li>Rises steeply for light nuclei</li>
+    <li>Peaks near $^{56}$Fe (~8.8 MeV/nucleon) — most stable</li>
+    <li>Falls slowly for heavy nuclei</li>
+  </ul>
+  <p><strong>Light nuclei + Light nuclei → bigger:</strong> moves up the curve → fusion releases energy</p>
+  <p><strong>Heavy nucleus → two medium nuclei:</strong> moves up the curve → fission releases energy</p>
+
+  <h3>Nuclear Fission</h3>
+  <p>A heavy nucleus splits into two lighter ones, releasing neutrons and energy. Example:</p>
+  <div class="formula">$$^{235}_{\,92}\text{U} + n \to {}^{141}_{\,56}\text{Ba} + {}^{92}_{36}\text{Kr} + 3n + \text{energy}$$</div>
+
+  <h3>Chain Reaction &amp; Reactors</h3>
+  <p>Neutrons released in one fission trigger further fissions → exponential chain. <strong>Atomic bomb:</strong> uncontrolled chain reaction. <strong>Reactor:</strong> controlled.</p>
+  <p><strong>Reactor components:</strong></p>
+  <ul>
+    <li><strong>Fuel rods:</strong> uranium-235 (or plutonium)</li>
+    <li><strong>Moderator</strong> (water, graphite, heavy water): slows down neutrons so they can cause more fission</li>
+    <li><strong>Control rods</strong> (cadmium, boron, hafnium): absorb neutrons; raised/lowered to control reaction rate</li>
+    <li><strong>Heat exchanger:</strong> transfers thermal energy to water → steam → turbines → electricity</li>
+  </ul>
+
+  <h3>Nuclear Fusion</h3>
+  <p>Two light nuclei combine to form a heavier one. Example:</p>
+  <div class="formula">$$^2_1\text{H} + {}^2_1\text{H} \to {}^3_2\text{He} + n + \text{energy}$$</div>
+  <p>Requires extreme T (10⁷–10⁸ K) and P to overcome electrostatic repulsion. <strong>Source of stellar energy</strong> via the proton-proton chain.</p>
+
+  <h3>Stellar Fusion</h3>
+  <p>In the Sun, four protons effectively become a helium-4 nucleus (with positrons, neutrinos, and gamma rays released). Heavier elements (up to Fe) form in larger stars. Elements heavier than Fe form in supernovas.</p>
+</section>
+
+<!-- ========== 19 PARTICLES ========== -->
+<section id="particles">
+  <h2><span class="chapter-num">19</span>Elementary Particles &amp; QFT</h2>
+  <p class="topic-intro">Beyond protons and neutrons: the deepest known structure of matter.</p>
+
+  <h3>Quantum Field Theory &amp; Mediating Particles</h3>
+  <p>In QFT, fundamental forces act through the exchange of <strong>virtual particles</strong> (mediators). These exist briefly and aren't directly detectable.</p>
+
+  <h3>Four Fundamental Forces</h3>
+  <table>
+    <tr><th>Force</th><th>Range</th><th>Strength</th><th>Mediator</th><th>Observed?</th></tr>
+    <tr><td>Strong nuclear</td><td>&lt;10⁻¹⁵ m</td><td>1</td><td>Gluon</td><td>Indirectly</td></tr>
+    <tr><td>Electromagnetic</td><td>∞</td><td>10⁻²</td><td>Photon</td><td>Yes</td></tr>
+    <tr><td>Weak nuclear</td><td>&lt;10⁻¹⁸ m</td><td>10⁻⁶</td><td>W±, Z⁰</td><td>Yes</td></tr>
+    <tr><td>Gravitational</td><td>∞</td><td>10⁻³⁸</td><td>Graviton (?)</td><td>No</td></tr>
+  </table>
+
+  <h3>Two Classifications</h3>
+  <div class="grid-2">
+    <div class="definition"><strong>By interaction:</strong> Leptons (no strong force) vs Hadrons (feel strong force)</div>
+    <div class="definition"><strong>By spin:</strong> Fermions (half-integer spin) vs Bosons (integer spin)</div>
+  </div>
+
+  <h3>Leptons (6 types)</h3>
+  <ul>
+    <li>Electron $e^-$ (stable)</li>
+    <li>Muon $\mu^-$ (~2.2 μs lifetime)</li>
+    <li>Tauon $\tau^-$</li>
+    <li>Three corresponding neutrinos: $\nu_e, \nu_\mu, \nu_\tau$ (nearly massless)</li>
+  </ul>
+
+  <h3>Hadrons</h3>
+  <p>Composite particles made of quarks. Two subtypes:</p>
+  <ul>
+    <li><strong>Baryons</strong> (3 quarks): proton (uud), neutron (udd), Λ⁰, Σ⁺, etc. Half-integer spin → fermions.</li>
+    <li><strong>Mesons</strong> (quark + antiquark): pions (π⁺, π⁰), kaons (K⁺, K⁰), etc. Integer spin → bosons.</li>
+  </ul>
+
+  <h3>Six Quarks</h3>
+  <table>
+    <tr><th>Generation</th><th>Quark</th><th>Charge</th></tr>
+    <tr><td rowspan="2">First</td><td>up (u)</td><td>+2/3 e</td></tr>
+    <tr><td>down (d)</td><td>−1/3 e</td></tr>
+    <tr><td rowspan="2">Second</td><td>charm (c)</td><td>+2/3 e</td></tr>
+    <tr><td>strange (s)</td><td>−1/3 e</td></tr>
+    <tr><td rowspan="2">Third</td><td>top (t)</td><td>+2/3 e</td></tr>
+    <tr><td>bottom (b)</td><td>−1/3 e</td></tr>
+  </table>
+  <p>Each quark has a corresponding antiquark with opposite charge.</p>
+
+  <h3>Composition Examples</h3>
+  <ul>
+    <li><strong>Proton (uud):</strong> +2/3 + 2/3 − 1/3 = +1 e ✓</li>
+    <li><strong>Neutron (udd):</strong> +2/3 − 1/3 − 1/3 = 0 ✓</li>
+    <li><strong>Antiproton:</strong> ūūd̄</li>
+    <li><strong>π⁺:</strong> ud̄</li>
+  </ul>
+
+  <h3>Beta Decay at Quark Level</h3>
+  <p><strong>β⁻ decay</strong> (neutron → proton):</p>
+  <div class="formula">$$d \to u + W^- \to u + e^- + \bar{\nu}_e$$</div>
+  <p><strong>β⁺ decay</strong> (proton → neutron):</p>
+  <div class="formula">$$u \to d + W^+ \to d + e^+ + \nu_e$$</div>
+  <p>Mediated by the weak nuclear force (via W bosons).</p>
+
+  <h3>The Standard Model</h3>
+  <p>Comprehensive theory describing matter and three fundamental forces (not gravity yet). Key features:</p>
+  <ul>
+    <li>12 fundamental fermions: 6 quarks + 6 leptons (plus their antiparticles)</li>
+    <li>Force-mediating bosons: photon, gluons, W±, Z⁰, and the Higgs boson</li>
+    <li>Electroweak unification: EM and weak forces merge at high energies</li>
+    <li>Quantum chromodynamics (QCD) describes strong force via "color charge" and gluons</li>
+  </ul>
+</section>
+
+<!-- ========== CONSTANTS ========== -->
+<section id="constants">
+  <h2><span class="chapter-num">★</span>Constants &amp; Exam Strategy</h2>
+
+  <h3>Physical Constants</h3>
+  <table>
+    <tr><th>Name</th><th>Symbol</th><th>Value</th></tr>
+    <tr><td>Speed of light in vacuum</td><td>$c$</td><td>$3.00 \times 10^8$ m/s</td></tr>
+    <tr><td>Acceleration due to gravity</td><td>$g$</td><td>$9.81$ m/s²</td></tr>
+    <tr><td>Gravitational constant</td><td>$G$</td><td>$6.67 \times 10^{-11}$ N·m²/kg²</td></tr>
+    <tr><td>Planck constant</td><td>$h$</td><td>$6.63 \times 10^{-34}$ J·s</td></tr>
+    <tr><td>Boltzmann constant</td><td>$k$</td><td>$1.38 \times 10^{-23}$ J/K</td></tr>
+    <tr><td>Avogadro constant</td><td>$N_A$</td><td>$6.02 \times 10^{23}$ mol⁻¹</td></tr>
+    <tr><td>Universal gas constant</td><td>$R$</td><td>$8.31$ J/(mol·K)</td></tr>
+    <tr><td>Elementary charge</td><td>$e$</td><td>$1.60 \times 10^{-19}$ C</td></tr>
+    <tr><td>Electron mass</td><td>$m_e$</td><td>$9.11 \times 10^{-31}$ kg</td></tr>
+    <tr><td>Proton mass</td><td>$m_p$</td><td>$1.673 \times 10^{-27}$ kg</td></tr>
+    <tr><td>Neutron mass</td><td>$m_n$</td><td>$1.675 \times 10^{-27}$ kg</td></tr>
+    <tr><td>Atomic mass unit</td><td>$u$</td><td>$1.66 \times 10^{-27}$ kg = 931 MeV/c²</td></tr>
+    <tr><td>Vacuum permittivity</td><td>$\varepsilon_0$</td><td>$8.85 \times 10^{-12}$ F/m</td></tr>
+    <tr><td>Coulomb constant</td><td>$k = 1/(4\pi\varepsilon_0)$</td><td>$9.0 \times 10^9$ N·m²/C²</td></tr>
+  </table>
+
+  <h3>Useful Conversions</h3>
+  <ul>
+    <li>1 eV = $1.6 \times 10^{-19}$ J</li>
+    <li>1 u = 931 MeV</li>
+    <li>0°C = 273.15 K</li>
+    <li>STP: $T = 273$ K, $p = 1.013 \times 10^5$ Pa, $V_m = 22.4$ L/mol</li>
+  </ul>
+
+  <h3>SI Prefixes</h3>
+  <table>
+    <tr><th>Prefix</th><th>Symbol</th><th>Power</th><th>Prefix</th><th>Symbol</th><th>Power</th></tr>
+    <tr><td>tera</td><td>T</td><td>10¹²</td><td>milli</td><td>m</td><td>10⁻³</td></tr>
+    <tr><td>giga</td><td>G</td><td>10⁹</td><td>micro</td><td>μ</td><td>10⁻⁶</td></tr>
+    <tr><td>mega</td><td>M</td><td>10⁶</td><td>nano</td><td>n</td><td>10⁻⁹</td></tr>
+    <tr><td>kilo</td><td>k</td><td>10³</td><td>pico</td><td>p</td><td>10⁻¹²</td></tr>
+    <tr><td>centi</td><td>c</td><td>10⁻²</td><td>femto</td><td>f</td><td>10⁻¹⁵</td></tr>
+  </table>
+
+  <h3>Exam Strategy</h3>
+  <ol>
+    <li><strong>Read carefully.</strong> Watch for "max", "min", "ratio", "change in", "magnitude". Underline.</li>
+    <li><strong>Convert to SI</strong> before any calculation: cm → m, g → kg, MeV → J, etc.</li>
+    <li><strong>Sketch a diagram</strong> for force/motion problems. Free-body diagrams clarify which forces matter.</li>
+    <li><strong>Sign conventions</strong> matter for vectors. Pick a positive direction and stick with it.</li>
+    <li><strong>Use conservation laws first</strong> (energy, momentum, charge). Often shortcut to the answer.</li>
+    <li><strong>Significant figures:</strong> match the data given (usually 2–3 SF). Don't write 9 digits.</li>
+    <li><strong>Units check</strong> on every answer. If units don't work out, the answer is wrong.</li>
+    <li><strong>RMS, not peak</strong>, in AC power calculations.</li>
+    <li><strong>Don't forget the minus sign</strong> in gravitational PE, Lenz's law, SHM (a = −ω²x).</li>
+    <li><strong>Magnetic force does no work</strong> on a moving charge (perpendicular to velocity).</li>
+    <li><strong>Photoelectric:</strong> if $f &lt; f_0$, no emission — period. Don't try to "build up" energy.</li>
+    <li><strong>Mass defect:</strong> always (separated parts) − (combined nucleus). Positive.</li>
+  </ol>
+
+  <h3>Common Patterns</h3>
+  <ul>
+    <li><strong>Inverse square law</strong> ($1/r^2$): gravitational F, electric F, field strengths g and E, intensity</li>
+    <li><strong>Inverse first power</strong> ($1/r$): potentials φ (gravitational, negative) and V (electric)</li>
+    <li><strong>Exponential decay</strong>: radioactive nuclei N, capacitor discharge, damped oscillation amplitude</li>
+    <li><strong>Sinusoidal</strong>: SHM displacement, AC voltage/current, EM wave fields, photon emission frequencies</li>
+  </ul>
+
+  <h3>Common Pitfalls</h3>
+  <ul>
+    <li>Using degrees in $\sin\omega t$ when ω is in rad/s</li>
+    <li>Mixing up f and ω (factor of 2π!)</li>
+    <li>Confusing nucleon number A with atomic number Z</li>
+    <li>Forgetting that force-extension graph area = elastic PE only for linear (Hookean) springs</li>
+    <li>Treating Bernoulli's equation as if applicable to viscous or compressible flow</li>
+    <li>Forgetting to subtract background count rate in radioactive activity calculations</li>
+    <li>Mixing "frequency" and "angular frequency" in SHM equations</li>
+  </ul>
+</section>
+
+<footer>
+  Detailed prep · NIS Physics 11–12 · Source: Bizhanov booklets (NIS Taldykorgan, 2019)<br>
+  Удачи на МЭСКе! Помни: концепция важнее формулы — формулу можно вывести, концепцию надо понять. 🎯
+</footer>
+
+</div>
+
+<a href="#top" class="back-to-top" title="Back to top">↑</a>
+
+</body>
+</html>
