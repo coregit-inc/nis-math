@@ -303,6 +303,15 @@ window.MathJax = {
   }
   .exam-q::before { content: "📝 "; }
   .exam-q strong { color: #7b1fa2; }
+  .formula-ex {
+    background: #f0f4ff;
+    border-left: 3px solid #5c7cfa;
+    padding: 0.5rem 0.9rem;
+    margin: 0.3rem 0 0.7rem 1rem;
+    font-size: 0.88rem;
+    border-radius: 0 3px 3px 0;
+  }
+  .formula-ex::before { content: "✏️ Example: "; font-weight: 700; color: #364fc7; }
   @media print {
     .back-to-top { display: none; }
     body { font-size: 10.5pt; line-height: 1.4; }
@@ -1863,7 +1872,18 @@ window.MathJax = {
   <h3>1. Кинематика (Q1 — каждый год, ~12 баллов)</h3>
   <div class="given">$s = ut + \tfrac{1}{2}at^2$ — $s$ перемещение (м), $u$ нач. скорость (м/с), $a$ ускорение (м/с²), $t$ время (с)<br>
   $v^2 = u^2 + 2as$ — $v$ конечная скорость (м/с)</div>
-  <div class="memorize">$v = u + at$ &nbsp;(не дают!)<br>$s = \frac{(u+v)t}{2}$ — среднее двух скоростей × время</div>
+  <div class="formula-ex">A car starts from rest and accelerates uniformly at $a = 2.0$ m/s² for 8.0 s. Find the distance travelled.<br>
+  $u=0$, $a=2.0$, $t=8.0$ → $s = 0 + \tfrac{1}{2}(2.0)(8.0)^2 = \textbf{64 m}$.<br>
+  Find its final speed: $v^2 = 0 + 2(2.0)(64) = 256$ → $v = \textbf{16 m/s}$.</div>
+
+  <div class="memorize">$v = u + at$ &nbsp;(не дают!)</div>
+  <div class="formula-ex">A ball is thrown vertically upward at $u = 20$ m/s. How long until it stops momentarily?<br>
+  $v = 0$, $a = -9.81$ m/s² → $0 = 20 + (-9.81)t$ → $t = 20/9.81 = \textbf{2.04 s}$.</div>
+
+  <div class="memorize">$s = \frac{(u+v)t}{2}$ — среднее двух скоростей × время</div>
+  <div class="formula-ex">A train decelerates from 30 m/s to 10 m/s in 5.0 s. Find the distance covered.<br>
+  $s = \frac{(30+10)(5.0)}{2} = \textbf{100 m}$.</div>
+
   <div class="memorize">Определение: <em>Uniform acceleration</em> = rate of change of velocity (скорость изменяется одинаково за равные промежутки времени)</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q1):</strong> Тело стартует с покоя, проезжает 90 м за 6 с с равномерным ускорением, затем движется с постоянной скоростью 30 м по горизонтали.<br>
@@ -1872,11 +1892,27 @@ window.MathJax = {
 
   <!-- FLUIDS -->
   <h3>2. Жидкости (Q2 — каждый год, ~9 баллов)</h3>
-  <div class="given">$\frac{1}{2}\rho v^2 + h\rho g + p = \text{const}$ — Бернулли: $\rho$ плотность (кг/м³), $v$ скорость потока (м/с), $h$ высота (м), $g$ = 9.81 м/с², $p$ давление (Па)<br>
-  $v = \sqrt{2gh}$ — Торричелли: $v$ скорость истечения (м/с), $h$ высота столба жидкости (м)</div>
+  <div class="given">$\frac{1}{2}\rho v^2 + h\rho g + p = \text{const}$ — Бернулли: $\rho$ плотность (кг/м³), $v$ скорость потока (м/с), $h$ высота (м), $g$ = 9.81 м/с², $p$ давление (Па)</div>
+  <div class="formula-ex">Water ($\rho = 1000$ kg/m³) flows through a horizontal pipe. At point A: $v_A = 2.0$ m/s, $p_A = 250$ kPa. At a narrower point B: $v_B = 6.0$ m/s. Find $p_B$.<br>
+  Same height ($h_A = h_B$): $p_A + \tfrac{1}{2}\rho v_A^2 = p_B + \tfrac{1}{2}\rho v_B^2$<br>
+  $250000 + \tfrac{1}{2}(1000)(4) = p_B + \tfrac{1}{2}(1000)(36)$ → $p_B = 250000 + 2000 - 18000 = \textbf{234 kPa}$.</div>
+
+  <div class="given">$v = \sqrt{2gh}$ — Торричелли: $v$ скорость истечения (м/с), $h$ высота столба жидкости (м)</div>
+  <div class="formula-ex">A water tank has a small hole 3.0 m below the surface. Find the speed of the escaping water.<br>
+  $v = \sqrt{2(9.81)(3.0)} = \sqrt{58.9} = \textbf{7.7 m/s}$.</div>
+
   <div class="memorize">$Q = Av$ — объёмный расход (м³/с) = площадь сечения (м²) × скорость потока (м/с)</div>
+  <div class="formula-ex">Water flows at 4.0 m/s through a pipe of diameter 0.10 m. Find the volume flow rate.<br>
+  $A = \pi(0.05)^2 = 7.85 \times 10^{-3}$ m². $Q = (7.85 \times 10^{-3})(4.0) = \textbf{0.031 m³/s}$.</div>
+
   <div class="memorize">$A_1 v_1 = A_2 v_2$ — уравнение непрерывности: что втекает = что вытекает</div>
+  <div class="formula-ex">A pipe narrows from diameter 8.0 cm to 4.0 cm. If the speed at the wide end is 1.5 m/s, find the speed at the narrow end.<br>
+  $A_1 v_1 = A_2 v_2$ → $\pi(0.04)^2(1.5) = \pi(0.02)^2 v_2$ → $v_2 = 1.5 \times (0.04/0.02)^2 = \textbf{6.0 m/s}$.</div>
+
   <div class="memorize">$p = \rho g h$ — гидростатическое давление: $\rho$ плотность жидкости, $h$ глубина от поверхности</div>
+  <div class="formula-ex">A diver is 25 m below the surface of seawater ($\rho = 1025$ kg/m³). Find the pressure due to the water alone.<br>
+  $p = (1025)(9.81)(25) = \textbf{251\,000 \text{ Pa} \approx 251 \text{ kPa}}$.</div>
+
   <div class="memorize">Условия идеальной жидкости: несжимаемая, невязкая, ламинарное течение</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q2):</strong> ГЭС, труба d=0.20 м, расход Q=1.0 м³/с, глубина h=80 м.<br>
@@ -1884,16 +1920,44 @@ window.MathJax = {
 
   <!-- MOMENTUM + GRAVITATION -->
   <h3>3. Импульс + Гравитация (Q3 — каждый год, ~11 баллов)</h3>
-  <div class="given">$F = \frac{GMm}{r^2}$ — $F$ сила притяжения (Н), $G$ = 6.67×10⁻¹¹ Н·м²/кг², $M$ и $m$ массы тел (кг), $r$ расстояние между центрами (м)<br>
-  $\Phi = -\frac{GM}{r}$ — грав. потенциал (Дж/кг), минус = притяжение<br>
-  $v = \omega r$ — линейная скорость (м/с), $\omega$ угловая скорость (рад/с), $r$ радиус (м)<br>
+  <div class="given">$F = \frac{GMm}{r^2}$ — $F$ сила притяжения (Н), $G$ = 6.67×10⁻¹¹ Н·м²/кг², $M$ и $m$ массы тел (кг), $r$ расстояние между центрами (м)</div>
+  <div class="formula-ex">Find the gravitational force between the Earth ($M = 5.97\times10^{24}$ kg) and a 70 kg person on the surface ($r = 6.37\times10^6$ m).<br>
+  $F = \frac{(6.67\times10^{-11})(5.97\times10^{24})(70)}{(6.37\times10^6)^2} = \textbf{687 N}$ (≈ their weight $mg$).</div>
+
+  <div class="given">$\Phi = -\frac{GM}{r}$ — грав. потенциал (Дж/кг), минус = притяжение</div>
+  <div class="formula-ex">Find the gravitational potential at the surface of Mars ($M = 6.42\times10^{23}$ kg, $r = 3.39\times10^6$ m).<br>
+  $\Phi = -\frac{(6.67\times10^{-11})(6.42\times10^{23})}{3.39\times10^6} = \textbf{-1.26\times10^7 \text{ J/kg}}$.</div>
+
+  <div class="given">$v = \omega r$ — линейная скорость (м/с), $\omega$ угловая скорость (рад/с), $r$ радиус (м)<br>
   $a = \omega^2 r$ — центростремительное ускорение (м/с²)</div>
+  <div class="formula-ex">A satellite orbits at $r = 7.0\times10^6$ m with period $T = 5800$ s. Find its speed and centripetal acceleration.<br>
+  $\omega = 2\pi/5800 = 1.08\times10^{-3}$ rad/s. $v = \omega r = (1.08\times10^{-3})(7.0\times10^6) = \textbf{7580 m/s}$.<br>
+  $a = \omega^2 r = (1.08\times10^{-3})^2(7.0\times10^6) = \textbf{8.2 m/s²}$.</div>
+
   <div class="memorize">$p = mv$ — импульс (кг·м/с) = масса × скорость</div>
+  <div class="formula-ex">A 0.45 kg football is kicked from rest and leaves the foot at 20 m/s. Find the impulse delivered.<br>
+  $\Delta p = mv - mu = (0.45)(20) - 0 = \textbf{9.0 N·s}$.</div>
+
   <div class="memorize">$E_p = -\frac{GMm}{r} = m\Phi$ — грав. потенц. энергия (Дж). Дают только $\Phi$, НЕ $E_p$!</div>
+  <div class="formula-ex">A 500 kg satellite orbits Earth ($M = 5.97\times10^{24}$ kg) at $r = 4.22\times10^7$ m. Find its gravitational PE.<br>
+  $E_p = -\frac{(6.67\times10^{-11})(5.97\times10^{24})(500)}{4.22\times10^7} = \textbf{-4.72\times10^9 \text{ J}}$.</div>
+
   <div class="memorize">$\omega = \frac{2\pi}{T}$ — $T$ период обращения (с)</div>
+  <div class="formula-ex">The Moon orbits Earth with a period of 27.3 days. Find its angular velocity.<br>
+  $T = 27.3 \times 86400 = 2.36\times10^6$ s. $\omega = 2\pi / (2.36\times10^6) = \textbf{2.66\times10^{-6} \text{ rad/s}}$.</div>
+
   <div class="memorize">$v_{\text{орб}} = \sqrt{\frac{GM}{r}}$ — орбитальная скорость. Вывод: $\frac{GMm}{r^2} = \frac{mv^2}{r}$</div>
+  <div class="formula-ex">Find the orbital speed of a satellite at height 400 km above Earth ($R = 6.37\times10^6$ m, $M = 5.97\times10^{24}$ kg).<br>
+  $r = 6.37\times10^6 + 4.0\times10^5 = 6.77\times10^6$ m. $v = \sqrt{\frac{(6.67\times10^{-11})(5.97\times10^{24})}{6.77\times10^6}} = \textbf{7670 m/s}$.</div>
+
   <div class="memorize">$T^2 = \frac{4\pi^2 r^3}{GM}$ — 3-й закон Кеплера: связь периода и радиуса орбиты</div>
+  <div class="formula-ex">Find the orbital radius of a geostationary satellite ($T = 86400$ s, $M = 5.97\times10^{24}$ kg).<br>
+  $r^3 = \frac{GMT^2}{4\pi^2} = \frac{(6.67\times10^{-11})(5.97\times10^{24})(86400)^2}{4\pi^2} = 7.53\times10^{22}$ → $r = \textbf{4.22\times10^7 \text{ m} \approx 42\,200 \text{ km}}$.</div>
+
   <div class="memorize">$v_{\text{esc}} = \sqrt{\frac{2GM}{r}}$ — 2-я космическая скорость (скорость убегания)</div>
+  <div class="formula-ex">Find the escape velocity from Earth's surface ($M = 5.97\times10^{24}$ kg, $R = 6.37\times10^6$ m).<br>
+  $v_{esc} = \sqrt{\frac{2(6.67\times10^{-11})(5.97\times10^{24})}{6.37\times10^6}} = \textbf{11\,200 \text{ m/s} \approx 11.2 \text{ km/s}}$.</div>
+
   <div class="memorize">Геостац. орбита: T=24 ч, над экватором, ~42000 км от центра Земли</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q3):</strong> Ракета выводит спутник на геостац. орбиту. M=6.0×10²⁴ кг.<br>
@@ -1903,14 +1967,34 @@ window.MathJax = {
   <!-- GAS + THERMODYNAMICS -->
   <h3>4. Газы + Термодинамика (Q4 — каждый год, ~10 баллов)</h3>
   <div class="given">$p = \frac{NkT}{V}$ — $p$ давление (Па), $N$ число молекул, $k$ = 1.38×10⁻²³ Дж/К, $T$ температура (К), $V$ объём (м³)<br>
-  $p = \frac{1}{3}nm\langle v^2\rangle$ — $n$ концентрация (1/м³), $m$ масса молекулы (кг), $\langle v^2\rangle$ средний квадрат скорости<br>
-  $W = p\Delta V$ — работа газа (Дж) = давление × изменение объёма<br>
+  $p = \frac{1}{3}nm\langle v^2\rangle$ — $n$ концентрация (1/м³), $m$ масса молекулы (кг), $\langle v^2\rangle$ средний квадрат скорости</div>
+  <div class="formula-ex">A container of volume $0.050$ m³ holds $2.0\times10^{24}$ molecules of nitrogen ($m = 4.65\times10^{-26}$ kg) at $T = 300$ K. Find the pressure.<br>
+  $p = NkT/V = (2.0\times10^{24})(1.38\times10^{-23})(300)/(0.050) = \textbf{166\,000 \text{ Pa} \approx 166 \text{ kPa}}$.<br>
+  Find the rms speed: $\frac{1}{3}nm\langle v^2\rangle = p$ → $\langle v^2\rangle = 3p/(nm)$ → $v_{rms} = \sqrt{3kT/m} = \sqrt{3(1.38\times10^{-23})(300)/(4.65\times10^{-26})} = \textbf{517 \text{ m/s}}$.</div>
+
+  <div class="given">$W = p\Delta V$ — работа газа (Дж) = давление × изменение объёма<br>
   $\Delta U = \Delta Q - \Delta W$ — 1-й закон термодинамики: $\Delta U$ изменение внутр. энергии, $\Delta Q$ подведённое тепло, $\Delta W$ работа газа</div>
+  <div class="formula-ex">A gas expands at constant pressure $p = 1.0\times10^5$ Pa from $V_1 = 2.0\times10^{-3}$ m³ to $V_2 = 5.0\times10^{-3}$ m³. It absorbs $Q = 600$ J of heat. Find the change in internal energy.<br>
+  $W = p\Delta V = (1.0\times10^5)(3.0\times10^{-3}) = 300$ J. $\Delta U = Q - W = 600 - 300 = \textbf{300 J}$.</div>
+
   <div class="memorize">$pV = nRT$ — $n$ кол-во вещества (моль), $R$ = 8.31 Дж/(моль·К)</div>
+  <div class="formula-ex">Find the volume occupied by 0.50 mol of gas at 20 °C and $1.01\times10^5$ Pa.<br>
+  $T = 20 + 273 = 293$ K. $V = nRT/p = (0.50)(8.31)(293)/(1.01\times10^5) = \textbf{0.012 \text{ m}^3 = 12 \text{ L}}$.</div>
+
   <div class="memorize">$\frac{V_1}{T_1} = \frac{V_2}{T_2}$ — закон Шарля (p=const). &nbsp; $p_1V_1 = p_2V_2$ — Бойля-Мариотта (T=const)</div>
+  <div class="formula-ex">A gas at $V_1 = 3.0$ L and $T_1 = 300$ K is heated to $T_2 = 450$ K at constant pressure. Find $V_2$.<br>
+  $V_2 = V_1 T_2 / T_1 = 3.0 \times 450/300 = \textbf{4.5 L}$.<br>
+  If instead temperature is constant and pressure doubles ($p_2 = 2p_1$), find $V_2$: $V_2 = p_1 V_1/p_2 = 3.0/2 = \textbf{1.5 L}$.</div>
+
   <div class="memorize">$\frac{1}{2}m\langle v^2\rangle = \frac{3}{2}kT$ — средняя КЕ одной молекулы = 3/2 kT</div>
+  <div class="formula-ex">Find the average kinetic energy of a gas molecule at room temperature ($T = 293$ K).<br>
+  $\langle E_K\rangle = \tfrac{3}{2}kT = \tfrac{3}{2}(1.38\times10^{-23})(293) = \textbf{6.07\times10^{-21} \text{ J}}$.</div>
+
   <div class="memorize">Свойства идеального газа: молекулы — точки, нет межмолекулярных сил, упругие столкновения, хаотическое движение</div>
+
   <div class="memorize">$\eta = \frac{T_H - T_C}{T_H}$ — КПД Карно: $T_H$ темп. нагревателя (К), $T_C$ темп. холодильника (К)</div>
+  <div class="formula-ex">A heat engine operates between $T_H = 600$ K and $T_C = 300$ K. Find the maximum possible efficiency.<br>
+  $\eta = (600 - 300)/600 = \textbf{0.50 = 50\%}$. If it absorbs $Q_H = 2000$ J per cycle, the maximum work is $W = \eta Q_H = \textbf{1000 J}$.</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q4):</strong> Шприц, V₁=12 см³, T₁=20°C → V₂=14 см³, T₂=69°C, p=const. Q=0.70 Дж.<br>
   <em>Что просят:</em> (a) V₁/T₁=V₂/T₂ [2], (b) свойства идеального газа [2], (c) W=pΔV=100000×2×10⁻⁶=0.20 Дж, ΔU=Q-W=0.50 Дж [2+2].<br>
@@ -1919,13 +2003,36 @@ window.MathJax = {
   <!-- AC CIRCUITS -->
   <h3>5. Переменный ток / RLC (Q5 — каждый год, ~10 баллов)</h3>
   <div class="given">$x = x_{\max}\sin\omega t$ — $x$ мгновенное значение тока или напряжения, $x_{\max}$ амплитуда (пиковое), $\omega$ угловая частота (рад/с), $t$ время (с)</div>
+  <div class="formula-ex">An AC supply has $V_0 = 325$ V and $f = 50$ Hz. Find the instantaneous voltage at $t = 0.003$ s.<br>
+  $\omega = 2\pi(50) = 314$ rad/s. $V = 325\sin(314 \times 0.003) = 325\sin(0.942) = 325 \times 0.809 = \textbf{263 V}$.</div>
+
   <div class="memorize">$\omega = 2\pi f$ — $f$ частота (Гц). Критично для всех расчётов AC!</div>
+  <div class="formula-ex">The UK mains supply has $f = 50$ Hz. Find $\omega$. If the period of an AC signal is 0.020 s, confirm the frequency.<br>
+  $\omega = 2\pi(50) = \textbf{314 \text{ rad/s}}$. $f = 1/T = 1/0.020 = 50$ Hz ✓.</div>
+
   <div class="memorize">$X_C = \frac{1}{\omega C}$ — ёмкостное сопротивление (Ом): $C$ ёмкость (Ф)</div>
+  <div class="formula-ex">A $22\;\mu$F capacitor is connected to a 50 Hz AC supply. Find its reactance.<br>
+  $\omega = 2\pi(50) = 314$ rad/s. $X_C = 1/(314 \times 22\times10^{-6}) = \textbf{145 \;\Omega}$.</div>
+
   <div class="memorize">$X_L = \omega L$ — индуктивное сопротивление (Ом): $L$ индуктивность (Гн)</div>
+  <div class="formula-ex">A coil of inductance $L = 0.30$ H is connected to a 50 Hz supply. Find its reactance.<br>
+  $X_L = (314)(0.30) = \textbf{94.2\;\Omega}$.</div>
+
   <div class="memorize">$Z = \sqrt{R^2 + (X_L - X_C)^2}$ — импеданс (Ом): полное сопротивление RLC цепи. $R$ активное сопротивление</div>
+  <div class="formula-ex">A series RLC circuit has $R = 50\;\Omega$, $X_L = 120\;\Omega$, $X_C = 80\;\Omega$. Find the impedance and phase angle.<br>
+  $Z = \sqrt{50^2 + (120-80)^2} = \sqrt{2500 + 1600} = \textbf{64\;\Omega}$. $\tan\varphi = (X_L - X_C)/R = 40/50 = 0.80$ → $\varphi = \textbf{38.7°}$ (V leads I).</div>
+
   <div class="memorize">$I_{\text{rms}} = \frac{I_0}{\sqrt{2}}$, &nbsp; $V_{\text{rms}} = \frac{V_0}{\sqrt{2}}$ — действующие (среднеквадратичные) значения; $I_0$, $V_0$ — пиковые</div>
+  <div class="formula-ex">An AC supply has peak voltage $V_0 = 325$ V and peak current $I_0 = 2.0$ A. Find the rms values.<br>
+  $V_{rms} = 325/\sqrt{2} = \textbf{230 V}$. $I_{rms} = 2.0/\sqrt{2} = \textbf{1.41 A}$.</div>
+
   <div class="memorize">$\langle P\rangle = I_{\text{rms}}V_{\text{rms}} = \frac{I_0 V_0}{2}$ — средняя мощность (Вт)</div>
+  <div class="formula-ex">Using the rms values above, find the average power dissipated (purely resistive load).<br>
+  $\langle P\rangle = (230)(1.41) = \textbf{324 W}$. Or equivalently: $I_0 V_0 / 2 = (2.0)(325)/2 = 325$ W (≈ same, small rounding).</div>
+
   <div class="memorize">Резонанс: $X_L = X_C$ → $\omega = \frac{1}{\sqrt{LC}}$ → Z минимален = R, ток максимален</div>
+  <div class="formula-ex">An RLC circuit has $L = 0.20$ H and $C = 50\;\mu$F. Find the resonant frequency.<br>
+  $\omega_0 = 1/\sqrt{LC} = 1/\sqrt{(0.20)(50\times10^{-6})} = 1/\sqrt{10^{-5}} = 316$ rad/s → $f_0 = 316/(2\pi) = \textbf{50.3 \text{ Hz}}$.</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q5):</strong> R=40 Ом, L=0.40 Гн, C=17 мкФ, V₀=25 В, f=50 Гц.<br>
   <em>Решение:</em> ω=2π×50=314 рад/с. X_C=1/(314×17×10⁻⁶)≈187 Ом. X_L=314×0.40≈126 Ом. Z=√(40²+(126-187)²)≈73 Ом. I_rms=(25/√2)/73≈0.24 А.<br>
@@ -1934,9 +2041,20 @@ window.MathJax = {
   <!-- TRANSFORMER + RECTIFICATION -->
   <h3>6. Трансформатор + Выпрямление (Q6 — каждый год, ~10 баллов)</h3>
   <div class="given">Формул трансформатора в справочнике нет — всё учить</div>
+
   <div class="memorize">$\frac{N_s}{N_p} = \frac{V_s}{V_p}$ — $N_s$ витки вторичной обмотки, $N_p$ витки первичной, $V_s$ и $V_p$ напряжения соответствующих обмоток</div>
+  <div class="formula-ex">A step-down transformer has $N_p = 4600$ turns and input $V_p = 230$ V rms. The output is $V_s = 12$ V. Find $N_s$.<br>
+  $N_s = N_p \times V_s/V_p = 4600 \times 12/230 = \textbf{240 \text{ turns}}$.</div>
+
   <div class="memorize">$V_{\text{rms}} = \frac{V_0}{\sqrt{2}}$ — $V_0$ пиковое напряжение, $V_{\text{rms}}$ действующее</div>
+  <div class="formula-ex">A transformer secondary gives $V_0 = 17.0$ V peak. Find the rms voltage. What peak-to-peak voltage would you see on an oscilloscope?<br>
+  $V_{rms} = 17.0/\sqrt{2} = \textbf{12.0 V}$. Peak-to-peak = $2 \times 17.0 = \textbf{34.0 V}$.</div>
+
   <div class="memorize">$P_{\text{loss}} = I^2R = \frac{P^2}{V^2}R$ — потери в проводах (Вт): $I$ ток (А), $R$ сопротивление провода (Ом), $P$ передаваемая мощность, $V$ напряжение передачи</div>
+  <div class="formula-ex">A power station transmits $P = 500$ kW through cables of total resistance $R = 4.0\;\Omega$. Compare losses at $V = 25$ kV vs $V = 250$ kV.<br>
+  At 25 kV: $P_{loss} = (500000)^2 \times 4.0 / (25000)^2 = \textbf{1600 W}$.<br>
+  At 250 kV: $P_{loss} = (500000)^2 \times 4.0 / (250000)^2 = \textbf{16 W}$. Losses reduced by factor of 100 (V increased ×10).</div>
+
   <div class="memorize">Мостовой выпрямитель: 4 диода → full-wave. Конденсатор параллельно нагрузке → сглаживание</div>
   <div class="memorize">Сгорел один диод → full-wave превращается в half-wave (период пульсаций удваивается)</div>
 
@@ -1946,11 +2064,27 @@ window.MathJax = {
 
   <!-- OPTICS -->
   <h3>7. Оптика (Q7 — каждый год, ~8 баллов)</h3>
-  <div class="given">$\frac{1}{f} = \frac{1}{u} + \frac{1}{v}$ — формула тонкой линзы: $f$ фокусное расстояние (м), $u$ расстояние от предмета до линзы, $v$ расстояние от линзы до изображения<br>
-  $\frac{1}{f} = \left(\frac{n - n_0}{n_0}\right)\left(\frac{1}{R_1} - \frac{1}{R_2}\right)$ — линзмейкера: $n$ показатель преломления линзы, $n_0$ среды, $R_1$, $R_2$ радиусы кривизны поверхностей</div>
+  <div class="given">$\frac{1}{f} = \frac{1}{u} + \frac{1}{v}$ — формула тонкой линзы: $f$ фокусное расстояние (м), $u$ расстояние от предмета до линзы, $v$ расстояние от линзы до изображения</div>
+  <div class="formula-ex">An object is placed 30 cm from a converging lens of focal length $f = 20$ cm. Find the image distance and state whether the image is real or virtual.<br>
+  $1/v = 1/f - 1/u = 1/20 - 1/30 = (3-2)/60 = 1/60$ → $v = \textbf{60 cm}$ (positive → real, inverted image).</div>
+
+  <div class="given">$\frac{1}{f} = \left(\frac{n - n_0}{n_0}\right)\left(\frac{1}{R_1} - \frac{1}{R_2}\right)$ — линзмейкера: $n$ показатель преломления линзы, $n_0$ среды, $R_1$, $R_2$ радиусы кривизны поверхностей</div>
+  <div class="formula-ex">A plano-convex lens ($n = 1.50$) has a curved surface of radius $R_1 = 0.20$ m and a flat surface ($R_2 = \infty$). Find $f$ in air ($n_0 = 1.00$).<br>
+  $1/f = (1.50/1.00 - 1)(1/0.20 - 0) = (0.50)(5.0) = 2.5$ → $f = \textbf{0.40 m}$.<br>
+  In water ($n_0 = 1.33$): $1/f = (1.50/1.33 - 1)(5.0) = (0.128)(5.0) = 0.64$ → $f = \textbf{1.56 m}$ (much longer).</div>
+
   <div class="memorize">$n_1\sin\theta_1 = n_2\sin\theta_2$ — закон Снелля (НЕ дают!): $n_1$, $n_2$ показатели преломления сред, $\theta_1$ угол падения, $\theta_2$ угол преломления</div>
+  <div class="formula-ex">Light passes from glass ($n_1 = 1.50$) into water ($n_2 = 1.33$) at an angle of incidence $\theta_1 = 40°$. Find the angle of refraction.<br>
+  $\sin\theta_2 = n_1\sin\theta_1/n_2 = 1.50 \times \sin 40° / 1.33 = 1.50 \times 0.643 / 1.33 = 0.725$ → $\theta_2 = \textbf{46.5°}$.</div>
+
   <div class="memorize">$\sin\theta_c = \frac{n_2}{n_1}$ — критический угол полного внутр. отражения ($n_1 > n_2$)</div>
+  <div class="formula-ex">Find the critical angle for light going from glass ($n = 1.50$) into air ($n = 1.00$).<br>
+  $\sin\theta_c = 1.00/1.50 = 0.667$ → $\theta_c = \textbf{41.8°}$. Any angle above this → total internal reflection.</div>
+
   <div class="memorize">$m = \frac{h_i}{h_o} = -\frac{v}{u}$ — увеличение: $h_i$ высота изображения, $h_o$ высота предмета. Минус = перевёрнутое</div>
+  <div class="formula-ex">An object 3.0 cm tall is placed 30 cm from a converging lens ($f = 20$ cm). The image forms at $v = 60$ cm (from above). Find the image height.<br>
+  $m = -v/u = -60/30 = -2.0$ → $h_i = m \times h_o = (-2.0)(3.0) = \textbf{-6.0 cm}$ (inverted, twice as tall).</div>
+
   <div class="memorize">Сферическая аберрация: краевые лучи фокусируются ближе → размытие. Хроматическая: разные λ → разные фокусы</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q7):</strong> Плосковыпуклая линза, n=1.5, R=20 см.<br>
@@ -1960,12 +2094,31 @@ window.MathJax = {
   <!-- CHARGED PARTICLES -->
   <h3>8. Заряженные частицы (Q8 — каждый год, ~11 баллов)</h3>
   <div class="given">Формул по заряженным частицам в справочнике нет — всё учить</div>
+
   <div class="memorize">$F = qE$ — сила (Н) на заряд $q$ (Кл) в электрическом поле $E$ (В/м или Н/Кл)</div>
+  <div class="formula-ex">An electron ($q = 1.6\times10^{-19}$ C) enters a uniform field $E = 5.0\times10^4$ V/m. Find the force on the electron and its acceleration ($m = 9.11\times10^{-31}$ kg).<br>
+  $F = (1.6\times10^{-19})(5.0\times10^4) = \textbf{8.0\times10^{-15} N}$. $a = F/m = 8.0\times10^{-15}/9.11\times10^{-31} = \textbf{8.8\times10^{15} \text{ m/s}^2}$.</div>
+
   <div class="memorize">$F = qvB\sin\alpha$ — сила Лоренца (НЕ дают!): $v$ скорость частицы (м/с), $B$ магнитная индукция (Тл), $\alpha$ угол между $\vec{v}$ и $\vec{B}$</div>
+  <div class="formula-ex">A proton ($q = 1.6\times10^{-19}$ C) moves at $v = 3.0\times10^6$ m/s perpendicular to a field $B = 0.25$ T. Find the magnetic force.<br>
+  $\alpha = 90°$, $\sin 90° = 1$. $F = (1.6\times10^{-19})(3.0\times10^6)(0.25)(1) = \textbf{1.2\times10^{-13} N}$.</div>
+
   <div class="memorize">$v = \frac{E}{B}$ — селектор скоростей: при qE=qvB частица летит прямо. $E$ поле (В/м), $B$ индукция (Тл)</div>
+  <div class="formula-ex">A velocity selector uses $E = 3.0\times10^5$ V/m and $B = 6.0\times10^{-3}$ T. What speed of particle passes through undeflected?<br>
+  $v = E/B = 3.0\times10^5 / 6.0\times10^{-3} = \textbf{5.0\times10^7 \text{ m/s}}$.</div>
+
   <div class="memorize">$r = \frac{mv}{qB}$ — радиус кругового движения в магн. поле: $m$ масса (кг), $v$ скорость, $q$ заряд, $B$ индукция</div>
+  <div class="formula-ex">An electron ($m = 9.11\times10^{-31}$ kg) enters a field $B = 0.040$ T at $v = 5.0\times10^7$ m/s perpendicular to B. Find the radius of its circular path.<br>
+  $r = mv/(qB) = (9.11\times10^{-31})(5.0\times10^7)/((1.6\times10^{-19})(0.040)) = \textbf{0.071 m = 7.1 cm}$.</div>
+
   <div class="memorize">$\frac{e}{m} = \frac{v}{Br}$ — удельный заряд электрона (Кл/кг)</div>
+  <div class="formula-ex">Using the values above ($v = 5.0\times10^7$ m/s, $B = 0.040$ T, $r = 0.071$ m), calculate the specific charge.<br>
+  $e/m = v/(Br) = 5.0\times10^7 / (0.040 \times 0.071) = \textbf{1.76\times10^{11} \text{ C/kg}}$.</div>
+
   <div class="memorize">$eV = \frac{1}{2}mv^2$ — энергия ускорения: $e$ заряд (Кл), $V$ разность потенциалов (В), $m$ масса, $v$ скорость</div>
+  <div class="formula-ex">An electron is accelerated from rest through a PD of $V = 2000$ V. Find its final speed.<br>
+  $v = \sqrt{2eV/m} = \sqrt{2(1.6\times10^{-19})(2000)/(9.11\times10^{-31})} = \textbf{2.65\times10^7 \text{ m/s}}$.</div>
+
   <div class="memorize">Правило левой руки Флеминга (для + заряда). Для электрона — сила в противоположную сторону</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q8):</strong> Селектор: B₁=6.00 мТл, E=300 кВ/м. Затем B₂=40.0 мТл.<br>
@@ -1975,11 +2128,29 @@ window.MathJax = {
   <!-- PHOTOELECTRIC -->
   <h3>9. Фотоэффект (Q9 — каждый год, ~10 баллов)</h3>
   <div class="given">Формул по фотоэффекту в справочнике нет — всё учить</div>
+
   <div class="memorize">$E = hf = \frac{hc}{\lambda}$ — энергия фотона (Дж): $h$ = 6.63×10⁻³⁴ Дж·с, $f$ частота (Гц), $c$ скорость света, $\lambda$ длина волны (м)</div>
+  <div class="formula-ex">Find the energy of a photon of UV light with $\lambda = 250$ nm.<br>
+  $E = hc/\lambda = (6.63\times10^{-34})(3.0\times10^8)/(250\times10^{-9}) = \textbf{7.95\times10^{-19} J} = 7.95\times10^{-19}/(1.6\times10^{-19}) = \textbf{4.97 eV}$.</div>
+
   <div class="memorize">$hf = \Phi + \frac{1}{2}mv^2_{\max}$ — ур-ние Эйнштейна: $\Phi$ работа выхода (Дж), $m$ масса электрона, $v_{\max}$ макс. скорость фотоэлектрона</div>
+  <div class="formula-ex">UV light of $f = 1.2\times10^{15}$ Hz hits a metal with $\Phi = 4.0\times10^{-19}$ J. Find the maximum KE and speed of emitted electrons.<br>
+  $E_K = hf - \Phi = (6.63\times10^{-34})(1.2\times10^{15}) - 4.0\times10^{-19} = 7.96\times10^{-19} - 4.0\times10^{-19} = \textbf{3.96\times10^{-19} J}$.<br>
+  $v_{max} = \sqrt{2E_K/m} = \sqrt{2(3.96\times10^{-19})/(9.11\times10^{-31})} = \textbf{9.3\times10^5 \text{ m/s}}$.</div>
+
   <div class="memorize">$\Phi = hf_0$ — работа выхода через пороговую частоту $f_0$ (минимальная частота для выбивания электрона)</div>
+  <div class="formula-ex">The threshold frequency for sodium is $f_0 = 5.6\times10^{14}$ Hz. Find the work function in eV.<br>
+  $\Phi = hf_0 = (6.63\times10^{-34})(5.6\times10^{14}) = 3.71\times10^{-19}$ J $= 3.71\times10^{-19}/(1.6\times10^{-19}) = \textbf{2.32 eV}$.</div>
+
   <div class="memorize">$eV_s = \frac{1}{2}mv^2_{\max}$ — задерживающий потенциал $V_s$ (В) останавливает самые быстрые электроны</div>
+  <div class="formula-ex">Photoelectrons have maximum KE of $3.2\times10^{-19}$ J. Find the stopping potential.<br>
+  $V_s = E_K/e = 3.2\times10^{-19} / 1.6\times10^{-19} = \textbf{2.0 V}$.</div>
+
   <div class="memorize">$\lambda = \frac{h}{p} = \frac{h}{mv}$ — длина волны де Бройля: $p$ импульс частицы (кг·м/с)</div>
+  <div class="formula-ex">An electron is accelerated through $V = 5000$ V. Find its de Broglie wavelength.<br>
+  $v = \sqrt{2eV/m} = \sqrt{2(1.6\times10^{-19})(5000)/(9.11\times10^{-31})} = 4.19\times10^7$ m/s.<br>
+  $\lambda = h/(mv) = 6.63\times10^{-34}/((9.11\times10^{-31})(4.19\times10^7)) = \textbf{1.74\times10^{-11} m = 0.017 nm}$.</div>
+
   <div class="memorize"><strong>Work function</strong> — минимальная энергия фотона для выбивания электрона с поверхности металла</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q9):</strong> График $E_{\max}$ vs $f$. Найти $f_0$, $\Phi$, нарисовать линию для другого металла.<br>
@@ -1990,12 +2161,25 @@ window.MathJax = {
   <h3>10. Ядерная физика (Q10 — каждый год, ~9 баллов)</h3>
   <div class="given">$x = x_0 e^{-\lambda t}$ — $x$ число нераспавшихся ядер (или активность), $x_0$ начальное значение, $\lambda$ постоянная распада (с⁻¹), $t$ время (с)<br>
   $\lambda = \frac{0.693}{t_{1/2}}$ — связь постоянной распада и периода полураспада $t_{1/2}$</div>
+  <div class="formula-ex">A sample has initial activity $A_0 = 800$ Bq and half-life $t_{1/2} = 6.0$ hours. Find the activity after 18 hours.<br>
+  $\lambda = 0.693/6.0 = 0.1155$ h$^{-1}$. $A = 800 \times e^{-0.1155 \times 18} = 800 \times e^{-2.079} = 800 \times 0.125 = \textbf{100 Bq}$ (or simply: 18 h = 3 half-lives → $800/2^3 = 100$ Bq).</div>
+
   <div class="memorize">$A = \lambda N$ — активность (Бк = распадов/с): $\lambda$ постоянная распада, $N$ число нераспавшихся ядер</div>
+  <div class="formula-ex">A sample contains $N = 5.0\times10^{20}$ atoms of Co-60 ($t_{1/2} = 5.27$ years). Find its activity.<br>
+  $\lambda = 0.693/(5.27 \times 3.156\times10^7) = 4.17\times10^{-9}$ s$^{-1}$. $A = \lambda N = (4.17\times10^{-9})(5.0\times10^{20}) = \textbf{2.08\times10^{12} Bq}$.</div>
+
   <div class="memorize">$E = mc^2$, &nbsp; $\Delta E = \Delta m \cdot c^2$ — дефект массы $\Delta m$ (кг) × $c^2$, или $\Delta m$ (u) × 931 МэВ</div>
+  <div class="formula-ex">The mass defect of a He-4 nucleus is $\Delta m = 0.0304$ u. Find the binding energy in MeV and in joules.<br>
+  $E_B = 0.0304 \times 931 = \textbf{28.3 MeV}$. In joules: $28.3 \times 10^6 \times 1.6\times10^{-19} = \textbf{4.53\times10^{-12} J}$.</div>
+
   <div class="memorize"><strong>Half-life</strong> — время, за которое число нераспавшихся ядер уменьшается вдвое</div>
+
   <div class="memorize">Кварки: p = uud (+2/3+2/3−1/3 = +1), n = udd (+2/3−1/3−1/3 = 0)</div>
   <div class="memorize">β⁻: n→p+e⁻+ν̄ₑ (Z+1, A без изменений). На кварках: d→u+W⁻</div>
   <div class="memorize">Подсчёт кварков: каждый протон = 2u+1d, каждый нейтрон = 1u+2d</div>
+  <div class="formula-ex">Iodine-131 ($Z = 53$, $A = 131$) has 53 protons and 78 neutrons. Count the total up and down quarks.<br>
+  Up quarks: $53 \times 2 + 78 \times 1 = \textbf{184}$. Down quarks: $53 \times 1 + 78 \times 2 = \textbf{209}$.</div>
+
   <div class="memorize">α, β, γ: ионизация (α>β>γ), проникающая способность (γ>β>α)</div>
 
   <div class="exam-q"><strong>Типичная задача (2025 Q10):</strong> I-131, A=510 Бк/кг, предел 170 Бк/кг.<br>
@@ -2005,9 +2189,20 @@ window.MathJax = {
   <!-- DEFORMING SOLIDS -->
   <h3>11. Деформация твёрдых тел (бывает на Paper 2, ~8 баллов)</h3>
   <div class="given">Формул по деформации в справочнике нет — всё учить наизусть</div>
+
   <div class="memorize">$F = k\Delta l$ — закон Гука: $F$ приложенная сила (Н), $k$ жёсткость пружины (Н/м), $\Delta l$ удлинение (м)</div>
+  <div class="formula-ex">A spring with $k = 40$ N/m is stretched by a force of $F = 6.0$ N. Find the extension.<br>
+  $\Delta l = F/k = 6.0/40 = \textbf{0.15 m = 15 cm}$. Elastic PE stored: $E = \tfrac{1}{2}k(\Delta l)^2 = \tfrac{1}{2}(40)(0.15)^2 = \textbf{0.45 J}$.</div>
+
   <div class="memorize">$\sigma = \frac{F}{A}$ — напряжение (Па): сила на единицу площади. &nbsp; $\varepsilon = \frac{\Delta l}{l_0}$ — деформация (безразм.): удлинение / начальная длина</div>
+  <div class="formula-ex">A wire of diameter 0.50 mm and original length 2.0 m is stretched by 1.2 mm under a load of 50 N. Find the stress and strain.<br>
+  $A = \pi(0.25\times10^{-3})^2 = 1.96\times10^{-7}$ m². $\sigma = 50/(1.96\times10^{-7}) = \textbf{2.55\times10^8 \text{ Pa}}$.<br>
+  $\varepsilon = 1.2\times10^{-3}/2.0 = \textbf{6.0\times10^{-4}}$.</div>
+
   <div class="memorize">$E = \frac{\sigma}{\varepsilon} = \frac{Fl_0}{A\Delta l}$ — модуль Юнга (Па): свойство МАТЕРИАЛА, не объекта. $A$ площадь сечения (м²), $l_0$ начальная длина (м)</div>
+  <div class="formula-ex">Using the stress and strain from above, find the Young modulus of the wire material.<br>
+  $E = \sigma/\varepsilon = 2.55\times10^8 / 6.0\times10^{-4} = \textbf{4.25\times10^{11} \text{ Pa}}$.<br>
+  Or directly: $E = Fl_0/(A\Delta l) = (50)(2.0)/((1.96\times10^{-7})(1.2\times10^{-3})) = 4.25\times10^{11}$ Pa ✓.</div>
 
   <div class="exam-q"><strong>Типичная задача:</strong> Проволока l₀=2.0 м, d=0.5 мм, F=50 Н, Δl=1.2 мм.<br>
   <em>Что просят:</em> (a) A=π(d/2)²=1.96×10⁻⁷ м² [1], (b) E=Fl₀/(AΔl)≈4.25×10¹¹ Па [2], (c) описать эксперимент [3], (d) нарисовать F-Δl график с пределами P и E [2].<br>
@@ -2015,11 +2210,23 @@ window.MathJax = {
 
   <!-- SHM / OSCILLATIONS -->
   <h3>12. Колебания / SHM (был в 2023 Q4, ~10 баллов)</h3>
-  <div class="given">$a = -\omega^2 x$ — $a$ ускорение (м/с²), $\omega$ угловая частота (рад/с), $x$ смещение от равновесия (м). Минус = к равновесию<br>
-  $x = A\sin\omega t$ — $A$ амплитуда (м), $t$ время (с)<br>
-  $T = 2\pi\sqrt{m/k}$ — период пружинного маятника: $m$ масса (кг), $k$ жёсткость (Н/м)<br>
+  <div class="given">$a = -\omega^2 x$ — $a$ ускорение (м/с²), $\omega$ угловая частота (рад/с), $x$ смещение от равновесия (м). Минус = к равновесию</div>
+  <div class="formula-ex">A mass oscillates with SHM of angular frequency $\omega = 5.0$ rad/s. When displacement is $x = 0.030$ m, find the acceleration.<br>
+  $a = -\omega^2 x = -(5.0)^2(0.030) = \textbf{-0.75 m/s²}$ (directed toward equilibrium).</div>
+
+  <div class="given">$x = A\sin\omega t$ — $A$ амплитуда (м), $t$ время (с)</div>
+  <div class="formula-ex">A system oscillates with $A = 0.040$ m and $\omega = 5.0$ rad/s. Find the displacement at $t = 0.20$ s.<br>
+  $x = 0.040\sin(5.0 \times 0.20) = 0.040\sin(1.0) = 0.040 \times 0.841 = \textbf{0.034 m}$.</div>
+
+  <div class="given">$T = 2\pi\sqrt{m/k}$ — период пружинного маятника: $m$ масса (кг), $k$ жёсткость (Н/м)<br>
   $T = 2\pi\sqrt{l/g}$ — период математического маятника: $l$ длина нити (м)</div>
+  <div class="formula-ex">A 0.20 kg mass is on a spring with $k = 5.0$ N/m. Find the period. A pendulum of length 1.0 m — find its period.<br>
+  Spring: $T = 2\pi\sqrt{0.20/5.0} = 2\pi\sqrt{0.04} = 2\pi(0.20) = \textbf{1.26 s}$.<br>
+  Pendulum: $T = 2\pi\sqrt{1.0/9.81} = 2\pi(0.319) = \textbf{2.01 s}$.</div>
+
   <div class="memorize">$v_{\max} = A\omega$ — макс. скорость (при x=0). &nbsp; $a_{\max} = A\omega^2$ — макс. ускорение (при x=±A)</div>
+  <div class="formula-ex">A mass oscillates with $A = 0.040$ m and $\omega = 5.0$ rad/s. Find $v_{max}$ and $a_{max}$.<br>
+  $v_{max} = (0.040)(5.0) = \textbf{0.20 m/s}$. $a_{max} = (0.040)(5.0)^2 = \textbf{1.0 m/s²}$.</div>
 
   <div class="exam-q"><strong>Типичная задача (2023 Q4):</strong> Груз на пружине, m=0.20 кг, k=5.0 Н/м, A=4.0 см.<br>
   <em>Что просят:</em> (a) определение SHM [2], (b) ω=√(k/m)=5.0 рад/с, T=2π/ω=1.26 с [2], (c) v_max=Aω=0.20 м/с [2], (d) x-t и v-t графики [4].<br>
@@ -2028,7 +2235,11 @@ window.MathJax = {
   <!-- WAVES -->
   <h3>13. Волны (бывает на Paper 2, ~6 баллов)</h3>
   <div class="given">Формул по волнам в справочнике нет — всё учить</div>
+
   <div class="memorize">$v = f\lambda$ — скорость волны (м/с) = частота (Гц) × длина волны (м)</div>
+  <div class="formula-ex">A sound wave has frequency $f = 440$ Hz and wavelength $\lambda = 0.77$ m. Find the speed of sound. A radio wave has $f = 100$ MHz — find its wavelength.<br>
+  Sound: $v = (440)(0.77) = \textbf{340 m/s}$.<br>
+  Radio: $\lambda = c/f = (3.0\times10^8)/(100\times10^6) = \textbf{3.0 m}$.</div>
 
   <div class="exam-q"><strong>Типичная задача:</strong> Звук f=440 Гц, v=340 м/с. Найти λ.<br>
   <em>Что просят:</em> (a) λ=v/f=0.77 м [1], (b) поперечная vs продольная [2], (c) дифракция звука за углом (λ~1м ≈ размер щели) [2].<br>
@@ -2037,9 +2248,18 @@ window.MathJax = {
   <!-- STATIONARY WAVES -->
   <h3>14. Стоячие волны (бывает на Paper 2, ~8 баллов)</h3>
   <div class="given">Формул по стоячим волнам в справочнике нет — всё учить</div>
+
   <div class="memorize">Струна (оба конца фикс.): $f_n = \frac{nv}{2L}$ — $n$ номер гармоники (1,2,3...), $v$ скорость волны (м/с), $L$ длина струны (м)</div>
+  <div class="formula-ex">A guitar string of length $L = 0.65$ m has wave speed $v = 330$ m/s. Find the fundamental frequency and the 3rd harmonic.<br>
+  $f_1 = v/(2L) = 330/(2 \times 0.65) = \textbf{254 Hz}$. $f_3 = 3f_1 = \textbf{762 Hz}$.</div>
+
   <div class="memorize">Труба (один конец закрыт): $f_n = \frac{nv}{4L}$ — только нечётные $n$ (1,3,5...)</div>
+  <div class="formula-ex">A closed pipe of length $L = 0.85$ m. Speed of sound = 340 m/s. Find the fundamental and the next possible harmonic.<br>
+  $f_1 = v/(4L) = 340/(4 \times 0.85) = \textbf{100 Hz}$. Next harmonic: $n = 3$ → $f_3 = 3 \times 100 = \textbf{300 Hz}$ (no 2nd harmonic!).</div>
+
   <div class="memorize">Расстояние узел–узел = $\lambda/2$, &nbsp; узел–пучность = $\lambda/4$</div>
+  <div class="formula-ex">In a standing wave, adjacent nodes are measured to be 0.45 m apart. Find the wavelength and, if $v = 340$ m/s, the frequency.<br>
+  $\lambda = 2 \times 0.45 = \textbf{0.90 m}$. $f = v/\lambda = 340/0.90 = \textbf{378 Hz}$.</div>
 
   <div class="exam-q"><strong>Типичная задача:</strong> Труба L=0.85 м, один конец закрыт, v=340 м/с.<br>
   <em>Что просят:</em> (a) f₁=v/(4L)=100 Гц [2], (b) f₃=3f₁=300 Гц (2-й гармоники нет!) [2], (c) нарисовать моды [3], (d) end correction: $\lambda = 2(l_2 - l_1)$ [2].<br>
@@ -2048,8 +2268,15 @@ window.MathJax = {
   <!-- INTERFERENCE & DIFFRACTION -->
   <h3>15. Интерференция и дифракция (бывает на Paper 2, ~8 баллов)</h3>
   <div class="given">Формул по интерференции/дифракции в справочнике нет — всё учить</div>
+
   <div class="memorize">$\lambda = \frac{ax}{D}$ — двойная щель Юнга: $a$ расстояние между щелями (м), $x$ расстояние между полосами на экране (м), $D$ расстояние щели→экран (м)</div>
+  <div class="formula-ex">In Young's experiment, slit separation $a = 0.50$ mm, screen distance $D = 1.5$ m, fringe spacing $x = 1.8$ mm. Find the wavelength.<br>
+  $\lambda = ax/D = (0.50\times10^{-3})(1.8\times10^{-3})/(1.5) = \textbf{6.0\times10^{-7} m = 600 nm}$ (orange light).</div>
+
   <div class="memorize">$d\sin\theta = n\lambda$ — дифракционная решётка: $d$ период решётки (м), $\theta$ угол дифракции, $n$ порядок максимума (0,1,2...)</div>
+  <div class="formula-ex">A grating has 600 lines/mm. Light of $\lambda = 550$ nm is used. Find the angle of the 1st order maximum and the highest visible order.<br>
+  $d = 1/(600\times10^3) = 1.67\times10^{-6}$ m. $\sin\theta_1 = \lambda/d = 550\times10^{-9}/1.67\times10^{-6} = 0.330$ → $\theta_1 = \textbf{19.3°}$.<br>
+  Max order: $n \leq d/\lambda = 1.67\times10^{-6}/550\times10^{-9} = 3.03$ → $n_{max} = \textbf{3}$.</div>
 
   <div class="exam-q"><strong>Типичная задача:</strong> Решётка 600 линий/мм, λ=550 нм.<br>
   <em>Что просят:</em> (a) d=1/600000=1.67×10⁻⁶ м [1], (b) макс. порядок n≤d/λ=3.03→n=3 [2], (c) θ₁: sinθ=λ/d=0.330→θ=19.3° [2], (d) когерентность = одна частота + постоянная разность фаз [2].<br>
@@ -2058,7 +2285,11 @@ window.MathJax = {
   <!-- EM OSCILLATIONS & COMMUNICATIONS -->
   <h3>16. ЭМ колебания и связь (был в 2023 Q9, ~10 баллов)</h3>
   <div class="given">Формул по связи в справочнике нет — всё учить</div>
+
   <div class="memorize">$f_{\text{LC}} = \frac{1}{2\pi\sqrt{LC}}$ — собственная частота LC контура (Гц): $L$ индуктивность (Гн), $C$ ёмкость (Ф)</div>
+  <div class="formula-ex">An LC circuit has $L = 2.0$ mH and $C = 5.0$ nF. Find the resonant frequency.<br>
+  $f = 1/(2\pi\sqrt{LC}) = 1/(2\pi\sqrt{(2.0\times10^{-3})(5.0\times10^{-9})}) = 1/(2\pi\sqrt{10^{-11}}) = 1/(2\pi \times 3.16\times10^{-6}) = \textbf{50.3 \text{ kHz}}$.</div>
+
   <div class="memorize">AM: амплитуда несущей меняется, частота постоянна. FM: частота меняется, амплитуда постоянна. FM качественнее, но меньше дальность</div>
 
   <div class="exam-q"><strong>Типичная задача (2023 Q9):</strong> AM-сигнал, несущая 1.2 МГц, аудио до 5 кГц.<br>
