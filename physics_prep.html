@@ -269,6 +269,40 @@ window.MathJax = {
     padding-bottom: 0.6rem;
     margin-bottom: 0.8rem;
   }
+  .exam-box {
+    background: #fef3f0;
+    border: 2px solid var(--accent);
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+  }
+  .exam-box h4 { color: var(--accent); margin-top: 0; font-size: 1rem; }
+  .exam-box h4::before { content: "📋 "; }
+  .given {
+    background: #e8f5e9;
+    border-left: 4px solid #4a7c4a;
+    padding: 0.5rem 0.8rem;
+    margin: 0.4rem 0;
+    font-size: 0.9rem;
+  }
+  .given::before { content: "✅ ДАЮТ: "; font-weight: 700; color: #2e7d32; }
+  .memorize {
+    background: #fff3e0;
+    border-left: 4px solid #e65100;
+    padding: 0.5rem 0.8rem;
+    margin: 0.4rem 0;
+    font-size: 0.9rem;
+  }
+  .memorize::before { content: "🧠 УЧИТЬ: "; font-weight: 700; color: #e65100; }
+  .exam-q {
+    background: #f3e5f5;
+    border-left: 4px solid #7b1fa2;
+    padding: 0.6rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+  .exam-q::before { content: "📝 "; }
+  .exam-q strong { color: #7b1fa2; }
   @media print {
     .back-to-top { display: none; }
     body { font-size: 10.5pt; line-height: 1.4; }
@@ -311,6 +345,7 @@ window.MathJax = {
   <a href="#quantum"><span class="num">17</span>Quantum Physics</a>
   <a href="#nuclear"><span class="num">18</span>Nuclear Physics</a>
   <a href="#particles"><span class="num">19</span>Particles &amp; QFT</a>
+  <a href="#examguide"><span class="num">🎯</span>Paper 2: Формулы + Типичные задачи</a>
   <a href="#constants"><span class="num">★</span>Constants &amp; Tips</a>
 </nav>
 
@@ -1552,6 +1587,185 @@ window.MathJax = {
     <li>Electroweak unification: EM and weak forces merge at high energies</li>
     <li>Quantum chromodynamics (QCD) describes strong force via "color charge" and gluons</li>
   </ul>
+</section>
+
+<!-- ========== EXAM GUIDE ========== -->
+<section id="examguide">
+  <h2><span class="chapter-num">🎯</span>Paper 2: Формулы, которые НЕ дают + Типичные задачи</h2>
+  <p class="topic-intro">Анализ на основе реального Paper 2 (May 2025). Здесь — ВСЕ формулы, которых нет в справочнике экзамена, но которые нужны для решения задач. Плюс типичные паттерны заданий по каждой теме.</p>
+
+  <div class="warn">На экзамене дают: 13 констант (стр. 2) и ~20 формул (стр. 3). Но около 40% нужных формул <strong>НЕ в справочнике</strong> — их надо знать наизусть.</div>
+
+  <!-- KINEMATICS -->
+  <h3>1. Кинематика (Q1 — каждый год, ~12 баллов)</h3>
+  <div class="given">$s = ut + \tfrac{1}{2}at^2$, &nbsp; $v^2 = u^2 + 2as$</div>
+  <div class="memorize">$v = u + at$ &nbsp;(не дают!), &nbsp; $s = \frac{(u+v)t}{2}$</div>
+  <div class="memorize">Определение: <em>Uniform acceleration</em> = rate of change of velocity (скорость изменяется одинаково за равные промежутки времени)</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q1):</strong> Тело стартует с покоя, проезжает 90 м за 6 с с равномерным ускорением, затем движется с постоянной скоростью 30 м по горизонтали.<br>
+  <em>Что просят:</em> (a) определение ускорения [2], (b) вычислить a из s=1/2·at² [2], (c) v-t график [4], (d) силы на наклонной плоскости [2+2].<br>
+  <strong>Подход:</strong> u=0, s=90, t=6 → a=2s/t²=5.0 m/s². v=at=30 m/s. График: прямая от 0 до (6,30), затем горизонтальная до t=7.</div>
+
+  <!-- FLUIDS -->
+  <h3>2. Жидкости (Q2 — каждый год, ~9 баллов)</h3>
+  <div class="given">$\frac{1}{2}\rho v^2 + h\rho g + p = \text{const}$ (Бернулли), &nbsp; $v = \sqrt{2gh}$ (Торричелли)</div>
+  <div class="memorize">$Q = Av$ (объёмный расход = площадь × скорость)</div>
+  <div class="memorize">$A_1 v_1 = A_2 v_2$ (уравнение непрерывности)</div>
+  <div class="memorize">$A = \pi r^2$ (площадь сечения трубы)</div>
+  <div class="memorize">$p = \rho g h$ (гидростатическое давление)</div>
+  <div class="memorize">Условия идеальной жидкости: несжимаемая, невязкая, ламинарное течение</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q2):</strong> ГЭС, труба d=0.20 м, расход Q=1.0 м³/с, глубина h=80 м.<br>
+  <em>Что просят:</em> (a) скорость воды в трубе: v=Q/A=Q/(πr²)≈32 м/с [2], (b) вывести формулу Торричелли из mgh=1/2mv² [3], (c) объяснить разницу скоростей (турбина забирает энергию) [1], (d) изменится ли скорость при расширении трубы (нет — по Торричелли v зависит только от h) [2].</div>
+
+  <!-- MOMENTUM + GRAVITATION -->
+  <h3>3. Импульс + Гравитация (Q3 — каждый год, ~11 баллов)</h3>
+  <div class="given">$F = \frac{GMm}{r^2}$, &nbsp; $\Phi = -\frac{GM}{r}$, &nbsp; $v = \omega r$, &nbsp; $a = \omega^2 r$</div>
+  <div class="memorize">$p = mv$ (импульс)</div>
+  <div class="memorize">$E_p = -\frac{GMm}{r} = m\Phi$ &nbsp;(грав. потенциальная энергия — дают только $\Phi$, НЕ $E_p$!)</div>
+  <div class="memorize">$\omega = \frac{2\pi}{T}$ &nbsp;(угловая скорость через период)</div>
+  <div class="memorize">$v_{orbit} = \sqrt{\frac{GM}{r}}$ &nbsp;(вывод: $\frac{GMm}{r^2} = \frac{mv^2}{r}$)</div>
+  <div class="memorize">$T^2 = \frac{4\pi^2 r^3}{GM}$ &nbsp;(3-й закон Кеплера — вывести)</div>
+  <div class="memorize">$v_{esc} = \sqrt{\frac{2GM}{r}}$ (2-я космическая скорость)</div>
+  <div class="memorize">Почему $E_p = mgh$ не работает для спутников: g не постоянно, поле неоднородно на больших расстояниях</div>
+  <div class="memorize">Свойства геостац. орбиты: T=24 ч, над экватором, неподвижен относительно Земли, ~42000 км от центра</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q3):</strong> Ракета выводит спутник на геостац. орбиту. M_Earth=6.0×10²⁴ кг.<br>
+  <em>Что просят:</em> (a) объяснить ускорение ракеты через импульс газов/3-й закон Ньютона [2], (b) найти радиус орбиты из GMm/r²=mω²r → r=(GMT²/4π²)^(1/3)≈42000 км [4], (c) E_p=-GMm/r≈-1.91×10⁹ Дж [1], (d) почему mgh не подходит [2].<br>
+  <strong>Ключ:</strong> Приравниваете гравитационную силу к центростремительной. Вывод по цепочке: ω→v→r или сразу r из T.</div>
+
+  <!-- GAS + THERMODYNAMICS -->
+  <h3>4. Газы + Термодинамика (Q4 — каждый год, ~10 баллов)</h3>
+  <div class="given">$p = \frac{NkT}{V}$, &nbsp; $p = \frac{1}{3}nm\langle v^2\rangle$, &nbsp; $W = p\Delta V$, &nbsp; $\Delta U = \Delta Q - \Delta W$</div>
+  <div class="memorize">$pV = nRT$ &nbsp;(можно вывести из $p = NkT/V$, но лучше помнить)</div>
+  <div class="memorize">$\frac{V_1}{T_1} = \frac{V_2}{T_2}$ (закон Шарля, p=const), &nbsp; $p_1V_1 = p_2V_2$ (Бойля-Мариотта, T=const)</div>
+  <div class="memorize">$\frac{1}{2}m\langle v^2\rangle = \frac{3}{2}kT$ (связь температуры и КЕ)</div>
+  <div class="memorize">Свойства идеального газа (слова): молекулы — точки, нет межмолекулярных сил, упругие столкновения, хаотическое движение</div>
+  <div class="memorize">$\eta = \frac{T_H - T_C}{T_H}$ (КПД цикла Карно)</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q4):</strong> Шприц, V₁=12 см³, T₁=20°C → V₂=14 см³, T₂=69°C, p=const. Q=0.70 Дж.<br>
+  <em>Что просят:</em> (a) показать согласованность через V₁/T₁=V₂/T₂ [2], (b) свойства идеального газа [2], (c) W=pΔV=100×2×10⁻⁶=0.20 Дж [2], ΔU=Q-W=0.50 Дж [2], (d) в реальности Q больше из-за теплопотерь [2].<br>
+  <strong>Ключ:</strong> Переводить °C в K! 20°C=293K, 69°C=342K. Давление с манометра в Па (100 кПа).</div>
+
+  <!-- AC CIRCUITS -->
+  <h3>5. Переменный ток / RLC (Q5 — каждый год, ~10 баллов)</h3>
+  <div class="given">$x = x_{max}\sin\omega t$ (ток/напряжение)</div>
+  <div class="memorize">$\omega = 2\pi f$ &nbsp;(КРИТИЧНО — нужно для всех расчётов!)</div>
+  <div class="memorize">$X_C = \frac{1}{\omega C}$ &nbsp;(ёмкостное реактивное сопротивление)</div>
+  <div class="memorize">$X_L = \omega L$ &nbsp;(индуктивное реактивное сопротивление)</div>
+  <div class="memorize">$Z = \sqrt{R^2 + (X_L - X_C)^2}$ &nbsp;(импеданс)</div>
+  <div class="memorize">$I_{rms} = \frac{I_0}{\sqrt{2}}$, &nbsp; $V_{rms} = \frac{V_0}{\sqrt{2}}$ &nbsp;(действующие значения)</div>
+  <div class="memorize">$\langle P\rangle = I_{rms}V_{rms} = \frac{I_0 V_0}{2}$ &nbsp;(средняя мощность)</div>
+  <div class="memorize">Резонанс: $X_L = X_C$ → $\omega = \frac{1}{\sqrt{LC}}$ → Z минимален, I максимален</div>
+  <div class="memorize">Фазорная диаграмма: R горизонтально, X_L вверх, X_C вниз. Если X_C>X_L — результирующий вектор вниз.</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q5):</strong> R=40 Ω, L=0.40 H, C=17 μF, V₀=25 В, f=50 Гц.<br>
+  <em>Решение:</em> ω=2π×50=314 рад/с. X_C=1/(314×17×10⁻⁶)≈187 Ω. X_L=314×0.40≈126 Ω. Z=√(40²+(126-187)²)=√(1600+3721)≈73 Ω. I_rms=(25/√2)/73≈0.24 А.<br>
+  <strong>Ключ:</strong> Не забывай делить V₀ на √2 для I_rms! Фазор: X_C>X_L → ток опережает напряжение.</div>
+
+  <!-- TRANSFORMER + RECTIFICATION -->
+  <h3>6. Трансформатор + Выпрямление (Q6 — каждый год, ~10 баллов)</h3>
+  <div class="memorize">$\frac{N_s}{N_p} = \frac{V_s}{V_p}$ &nbsp;(коэффициент трансформации)</div>
+  <div class="memorize">$V_{rms} = \frac{V_0}{\sqrt{2}}$ — нужно для перевода пикового ↔ действующего</div>
+  <div class="memorize">$P_{loss} = I^2R = \frac{P^2}{V^2}R$ — потери при передаче энергии</div>
+  <div class="memorize">Мостовой выпрямитель: 4 диода, full-wave. Конденсатор параллельно нагрузке для сглаживания.</div>
+  <div class="memorize">Если диод сгорел → full-wave → half-wave (период удваивается)</div>
+  <div class="memorize">Больше R → больше τ=RC → меньше пульсации (более гладкий выход)</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q6):</strong> Трансформатор: N_s=200, вход 220 В rms, выход 12 В пиковое.<br>
+  <em>Решение:</em> V₁_rms=220, V₂_peak=12 → V₂_rms=12/√2≈8.49. N_p/N_s=V_p/V_s → N_p=200×220/8.49≈5185.<br>
+  <strong>Также просят:</strong> нарисовать 4 диода (A положительный), добавить конденсатор, описать эффект увеличения R и поломки диода.</div>
+
+  <!-- OPTICS -->
+  <h3>7. Оптика (Q7 — каждый год, ~8 баллов)</h3>
+  <div class="given">$\frac{1}{f} = \frac{1}{u} + \frac{1}{v}$, &nbsp; $\frac{1}{f} = \left(\frac{n - n_0}{n_0}\right)\left(\frac{1}{R_1} - \frac{1}{R_2}\right)$</div>
+  <div class="memorize">$n_1\sin\theta_1 = n_2\sin\theta_2$ &nbsp;(закон Снелля — НЕ дают!)</div>
+  <div class="memorize">$\sin\theta_c = \frac{n_2}{n_1}$ &nbsp;(критический угол)</div>
+  <div class="memorize">$m = \frac{h_i}{h_o} = -\frac{v}{u}$ &nbsp;(увеличение)</div>
+  <div class="memorize">Сферическая аберрация: лучи на краю линзы фокусируются ближе → размытие. Хроматическая: разные длины волн → разные фокусы.</div>
+  <div class="memorize">В воде: (n_lens - n_water)/n_water меньше чем (n_lens - 1)/1 → f увеличивается</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q7):</strong> Плосковыпуклая линза, n=1.5, R=20 см.<br>
+  <em>Решение:</em> 1/f=(1.5-1)(1/0.20-0)=0.5/0.20=2.5 → f=40 см. В воде f больше (объяснить через формулу линзмейкера). Аберрация — сферическая (не хроматическая, т.к. n одинаков для всех λ).</div>
+
+  <!-- CHARGED PARTICLES -->
+  <h3>8. Заряженные частицы (Q8 — каждый год, ~11 баллов)</h3>
+  <div class="memorize">$F = qE$ &nbsp;(сила в электрическом поле)</div>
+  <div class="memorize">$F = qvB\sin\alpha$ &nbsp;(сила Лоренца — НЕ дают!)</div>
+  <div class="memorize">$v = \frac{E}{B}$ &nbsp;(селектор скоростей: qE = qvB)</div>
+  <div class="memorize">$r = \frac{mv}{qB}$ &nbsp;(радиус в магн. поле: qvB = mv²/r)</div>
+  <div class="memorize">$\frac{e}{m} = \frac{v}{Br}$ &nbsp;(удельный заряд)</div>
+  <div class="memorize">$eV = \frac{1}{2}mv^2$ &nbsp;(ускорение через разность потенциалов)</div>
+  <div class="memorize">Правило левой руки Флеминга (для + заряда). Для электрона — направление силы противоположное.</div>
+  <div class="memorize">Магнитная сила НЕ совершает работу (⊥ скорости) → KE не меняется</div>
+  <div class="memorize">Позитрон: та же масса что у электрона → тот же радиус, но отклоняется в ПРОТИВОПОЛОЖНУЮ сторону</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q8):</strong> Селектор: B₁=6.00 мТл, E=300 кВ/м. Затем B₂=40.0 мТл (в страницу).<br>
+  <em>Решение:</em> v=E/B=300000/0.006=5×10⁷ м/с. В B₂: r=mv/(eB)=9.11×10⁻³¹×5×10⁷/(1.6×10⁻¹⁹×0.04)≈0.028 м.<br>
+  <strong>Также:</strong> направление B₁ — из страницы (left-hand rule: электрон летит вправо, E-сила вниз, B-сила должна быть вверх). Позитрон: тот же радиус, противоположная траектория.</div>
+
+  <!-- PHOTOELECTRIC -->
+  <h3>9. Фотоэффект (Q9 — каждый год, ~10 баллов)</h3>
+  <div class="memorize">$E = hf = \frac{hc}{\lambda}$ &nbsp;(энергия фотона — НЕ дают!)</div>
+  <div class="memorize">$hf = \Phi + \frac{1}{2}mv^2_{max}$ &nbsp;(уравнение Эйнштейна — НЕ дают!)</div>
+  <div class="memorize">$\Phi = hf_0$ &nbsp;(работа выхода через пороговую частоту)</div>
+  <div class="memorize">$eV_s = \frac{1}{2}mv^2_{max}$ &nbsp;(задерживающий потенциал)</div>
+  <div class="memorize">$\lambda = \frac{h}{p} = \frac{h}{mv}$ &nbsp;(длина волны де Бройля)</div>
+  <div class="memorize"><strong>Определение work function:</strong> minimum photon energy required to eject an electron from the metal surface</div>
+  <div class="memorize">3 доказательства корпускулярной природы: (1) KE зависит от частоты, не интенсивности; (2) число электронов зависит от интенсивности; (3) нет временной задержки; (4) один фотон — один электрон</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q9):</strong> График E_max(eV) vs f(×10¹⁴ Гц). Найти f₀, Φ, нарисовать линию для другого металла.<br>
+  <em>Решение:</em> f₀ считывается с графика (где линия пересекает ось f) ≈ 5.8×10¹⁴ Гц. Φ=hf₀=6.63×10⁻³⁴×5.8×10¹⁴≈3.8×10⁻¹⁹ Дж. Другой металл с меньшей Φ: параллельная линия ЛЕВЕЕ (тот же наклон h, но меньший x-intercept).<br>
+  <strong>Ключ:</strong> Наклон графика E_max vs f всегда = h (постоянная Планка). Для разных металлов линии параллельны!</div>
+
+  <!-- NUCLEAR -->
+  <h3>10. Ядерная физика (Q10 — каждый год, ~9 баллов)</h3>
+  <div class="given">$x = x_0 e^{-\lambda t}$, &nbsp; $\lambda = \frac{0.693}{t_{1/2}}$</div>
+  <div class="memorize">$A = \lambda N$ &nbsp;(активность = постоянная распада × число ядер)</div>
+  <div class="memorize">$E = mc^2$, &nbsp; $\Delta E = \Delta m \cdot c^2$ (или $\Delta m \times 931$ МэВ/u)</div>
+  <div class="memorize"><strong>Определение half-life:</strong> the time taken for the number of undecayed nuclei to reduce by half</div>
+  <div class="memorize">Кварковый состав: p = uud (+2/3+2/3-1/3 = +1), n = udd (+2/3-1/3-1/3 = 0)</div>
+  <div class="memorize">β⁻ распад: n→p+e⁻+ν̄ (Z увеличивается на 1, A не меняется). На уровне кварков: d→u+W⁻</div>
+  <div class="memorize">Подсчёт кварков в ядре: каждый протон = 2u+1d, каждый нейтрон = 1u+2d</div>
+  <div class="memorize">Свойства α, β, γ: ионизация (α>β>γ), проникающая способность (γ>β>α), отклонение в полях</div>
+
+  <div class="exam-q"><strong>Типичная задача (2025 Q10):</strong> I-131, активность 510 Бк/кг, допустимый предел 170 Бк/кг.<br>
+  <em>Решение:</em> t₁/₂=8 дней (с графика). 510→170: A=A₀·2^(-t/T) → 170=510·2^(-t/8) → 1/3=2^(-t/8) → t=8·log₂(3)≈12.7 дней.<br>
+  I-131→Xe-131+β⁻: A=0, Z=-1.<br>
+  Кварки в I-131: Z=53 протона, N=78 нейтронов. Up quarks = 53×2+78×1 = 184. Down quarks = 53×1+78×2 = 209.</div>
+
+  <h3>Итого: формулы для заучивания (шпаргалка)</h3>
+  <table>
+    <tr><th>#</th><th>Формула</th><th>Тема</th><th>Когда нужна</th></tr>
+    <tr><td>1</td><td>$v = u + at$</td><td>Кинематика</td><td>Расчёт скорости, v-t графики</td></tr>
+    <tr><td>2</td><td>$Q = Av$, $A_1v_1 = A_2v_2$</td><td>Жидкости</td><td>Скорость потока в трубе</td></tr>
+    <tr><td>3</td><td>$p = \rho gh$</td><td>Жидкости</td><td>Давление на глубине</td></tr>
+    <tr><td>4</td><td>$E_p = -GMm/r$</td><td>Гравитация</td><td>Энергия спутника (дают только Φ)</td></tr>
+    <tr><td>5</td><td>$\omega = 2\pi/T = 2\pi f$</td><td>Круг. движение</td><td>Везде: SHM, AC, орбиты</td></tr>
+    <tr><td>6</td><td>$T^2 = 4\pi^2r^3/(GM)$</td><td>Гравитация</td><td>Радиус/период орбиты</td></tr>
+    <tr><td>7</td><td>$pV = nRT$</td><td>Газы</td><td>Газовые законы, изопроцессы</td></tr>
+    <tr><td>8</td><td>$V_1/T_1 = V_2/T_2$</td><td>Газы</td><td>Изобарный процесс</td></tr>
+    <tr><td>9</td><td>$\frac{1}{2}m\langle v^2\rangle = \frac{3}{2}kT$</td><td>Мол. физика</td><td>Связь T и KE молекул</td></tr>
+    <tr><td>10</td><td>$X_C = 1/(\omega C)$</td><td>AC</td><td>Ёмкостное сопротивление</td></tr>
+    <tr><td>11</td><td>$X_L = \omega L$</td><td>AC</td><td>Индуктивное сопротивление</td></tr>
+    <tr><td>12</td><td>$Z = \sqrt{R^2+(X_L-X_C)^2}$</td><td>AC</td><td>Импеданс RLC цепи</td></tr>
+    <tr><td>13</td><td>$V_{rms} = V_0/\sqrt{2}$</td><td>AC</td><td>Действующее значение</td></tr>
+    <tr><td>14</td><td>$N_s/N_p = V_s/V_p$</td><td>Трансф.</td><td>Коэфф. трансформации</td></tr>
+    <tr><td>15</td><td>$n_1\sin\theta_1 = n_2\sin\theta_2$</td><td>Оптика</td><td>Преломление</td></tr>
+    <tr><td>16</td><td>$m = -v/u$</td><td>Оптика</td><td>Увеличение линзы</td></tr>
+    <tr><td>17</td><td>$F = qvB$</td><td>Частицы</td><td>Сила Лоренца</td></tr>
+    <tr><td>18</td><td>$v = E/B$</td><td>Частицы</td><td>Селектор скоростей</td></tr>
+    <tr><td>19</td><td>$r = mv/(qB)$</td><td>Частицы</td><td>Радиус в магн. поле</td></tr>
+    <tr><td>20</td><td>$E = hf$</td><td>Квантовая</td><td>Энергия фотона</td></tr>
+    <tr><td>21</td><td>$hf = \Phi + \frac{1}{2}mv^2$</td><td>Фотоэффект</td><td>Уравнение Эйнштейна</td></tr>
+    <tr><td>22</td><td>$\lambda = h/p$</td><td>Квантовая</td><td>Де Бройль</td></tr>
+    <tr><td>23</td><td>$A = \lambda N$</td><td>Ядерная</td><td>Активность</td></tr>
+    <tr><td>24</td><td>$E = mc^2$</td><td>Ядерная</td><td>Масса-энергия, дефект массы</td></tr>
+    <tr><td>25</td><td>p = uud, n = udd</td><td>Частицы</td><td>Подсчёт кварков</td></tr>
+  </table>
+
+  <div class="tip"><strong>Паттерн Paper 2:</strong> Всегда 10 задач. ~50% баллов за расчёты, ~30% за объяснения/определения, ~20% за графики/диаграммы. Каждый год есть: кинематика, жидкости, гравитация, газы/термо, AC, трансформатор+выпрямитель, оптика, заряженные частицы, фотоэффект, ядерная физика.</div>
+
 </section>
 
 <!-- ========== CONSTANTS ========== -->
