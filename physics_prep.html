@@ -308,6 +308,263 @@ window.MathJax = {
     body { font-size: 10.5pt; line-height: 1.4; }
     section { page-break-inside: avoid; }
     h2 { page-break-after: avoid; }
+    .tab-bar, #tab-cards { display: none !important; }
+  }
+
+  /* ===== Tab Bar ===== */
+  .tab-bar {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    gap: 0;
+    background: var(--ink);
+    border-bottom: 3px solid var(--accent);
+    padding: 0 2rem;
+  }
+  .tab-bar button {
+    background: none;
+    border: none;
+    color: var(--accent-soft);
+    font-family: 'Didot', serif;
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: color .2s, border-color .2s;
+    letter-spacing: 0.05em;
+  }
+  .tab-bar button:hover { color: var(--paper); }
+  .tab-bar button.active {
+    color: var(--paper);
+    border-bottom-color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ===== Topic Selector ===== */
+  .topic-selector {
+    max-width: 900px;
+    margin: 1.5rem auto;
+    padding: 1.2rem 1.5rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+  }
+  .topic-selector h3 {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 0;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .ts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+  .ts-grid label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    padding: 0.25rem 0;
+  }
+  .ts-grid label:hover { color: var(--accent); }
+  .ts-grid input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px; }
+  .ts-actions {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .ts-actions button {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--rule);
+    background: var(--bg);
+    color: var(--ink);
+    transition: background .2s, color .2s;
+  }
+  .ts-actions button:hover { background: var(--ink); color: var(--paper); }
+  .ts-actions .btn-start {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .ts-actions .btn-start:hover { background: #9a2a15; }
+
+  /* ===== Flashcard Stage ===== */
+  .card-stage { max-width: 700px; margin: 0 auto; padding: 0 1rem; }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .card-header button {
+    background: none;
+    border: 1px solid var(--rule);
+    padding: 0.3rem 0.8rem;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--muted);
+  }
+  .card-header button:hover { background: var(--ink); color: var(--paper); }
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--rule);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .progress-bar .fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width .3s ease;
+    border-radius: 2px;
+  }
+
+  /* ===== 3D Flip Card ===== */
+  .flashcard-wrapper {
+    perspective: 1000px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .flashcard {
+    position: relative;
+    width: 100%;
+    min-height: 260px;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    min-height: 260px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.8rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+  }
+  .card-front {
+    background: var(--paper);
+    border-left: 5px solid var(--accent);
+  }
+  .card-back {
+    background: var(--formula-bg);
+    border-left: 5px solid var(--green);
+    transform: rotateY(180deg);
+  }
+  .card-face .card-badge {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.7rem;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .card-badge.def { background: var(--blue-bg); color: var(--blue); }
+  .card-badge.form { background: #fff4e0; color: #b8341c; }
+  .card-face .card-topic {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.7rem;
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .card-content {
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    text-align: center;
+  }
+  .card-front .card-content { font-size: 1.15rem; font-weight: 500; }
+  .card-back .card-content { font-size: 1rem; text-align: left; }
+  .flip-hint {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 0.3rem;
+  }
+
+  /* ===== Card Navigation ===== */
+  .card-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .card-nav button {
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 0.55rem 1.6rem;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+    min-width: 110px;
+  }
+  .card-nav button:hover { background: var(--ink); color: var(--paper); }
+  .card-nav .btn-flip {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .card-nav .btn-flip:hover { background: #9a2a15; }
+  .kbd-hint {
+    text-align: center;
+    margin-top: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .kbd-hint kbd {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 800px) {
+    .tab-bar { padding: 0 0.5rem; }
+    .tab-bar button { padding: 0.6rem 1rem; font-size: 0.9rem; }
+    .ts-grid { grid-template-columns: repeat(2, 1fr); }
+    .card-face { min-height: 220px; padding: 1.5rem 1rem; }
+    .flashcard { min-height: 220px; }
+    .card-nav button { min-width: 80px; padding: 0.5rem 1rem; font-size: 0.88rem; }
+  }
+  @media (max-width: 500px) {
+    .ts-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -322,6 +579,12 @@ window.MathJax = {
   <div class="sub">Полный конспект: теория, выводы, концепции · Grades 11 &amp; 12</div>
 </header>
 
+<nav class="tab-bar">
+  <button class="active" data-tab="material">Материал</button>
+  <button data-tab="cards">Карточки</button>
+</nav>
+
+<div id="tab-material">
 <div class="container">
 
 <nav class="toc">
@@ -1929,6 +2192,411 @@ window.MathJax = {
 </div>
 
 <a href="#top" class="back-to-top" title="Back to top">↑</a>
+
+</div><!-- /tab-material -->
+
+<div id="tab-cards" style="display:none">
+<div class="topic-selector">
+  <h3>Выберите темы для карточек</h3>
+  <div class="ts-grid" id="ts-grid"></div>
+  <div class="ts-actions">
+    <button onclick="tsSelectAll()">Выбрать все</button>
+    <button onclick="tsDeselectAll()">Снять все</button>
+    <button class="btn-start" onclick="startDeck()">Начать</button>
+  </div>
+</div>
+
+<div class="card-stage" id="card-stage" style="display:none">
+  <div class="card-header">
+    <span id="card-counter">1 / 1</span>
+    <button onclick="shuffleDeck()">Перемешать</button>
+  </div>
+  <div class="progress-bar"><div class="fill" id="progress-fill" style="width:0%"></div></div>
+
+  <div class="flashcard-wrapper" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="card-face card-front">
+        <span class="card-topic" id="front-topic"></span>
+        <span class="card-badge" id="front-badge"></span>
+        <div class="card-content" id="front-content"></div>
+      </div>
+      <div class="card-face card-back">
+        <span class="card-topic" id="back-topic"></span>
+        <span class="card-badge" id="back-badge"></span>
+        <div class="card-content" id="back-content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="flip-hint">Нажмите на карточку, чтобы перевернуть</div>
+
+  <div class="card-nav">
+    <button onclick="prevCard()">&#8592; Назад</button>
+    <button class="btn-flip" onclick="flipCard()">Перевернуть</button>
+    <button onclick="nextCard()">Вперёд &#8594;</button>
+  </div>
+  <div class="kbd-hint">
+    <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> навигация &nbsp;&middot;&nbsp; <kbd>Space</kbd> перевернуть
+  </div>
+</div>
+</div><!-- /tab-cards -->
+
+<script>
+// ===== FLASHCARD DATA =====
+const FLASHCARDS = [
+  // ===== 01 Physical Quantities & Measurement =====
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"definition",front:"What is a vector quantity?",back:"A quantity with both magnitude and direction (e.g., displacement, velocity, acceleration, force, momentum, field strength)."},
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"definition",front:"What is a scalar quantity?",back:"A quantity with magnitude only (e.g., distance, speed, mass, energy, time)."},
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"definition",front:"What is a systematic error?",back:"A constant offset in all readings (e.g., zero error). Reduces <strong>accuracy</strong>. Cannot be eliminated by averaging. Fix: corrected reading = reading obtained \u2212 zero error."},
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"definition",front:"What is a random error?",back:"Readings scattered about the true value (parallax, observer reaction). Reduces <strong>precision</strong>. Fix: repeat experiment and take average."},
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"definition",front:"What does it mean for an equation to be homogeneous?",back:"Every term has the same base units. If not, the equation is wrong."},
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"formula",front:"Mean and uncertainty from repeated measurements?",back:"\\[x_{mean} = \\frac{x_1+x_2+\\cdots+x_n}{n}, \\quad \\Delta x = \\frac{x_{max}-x_{min}}{2}\\]"},
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"formula",front:"How do you combine uncertainties?",back:"Addition/subtraction: add absolute uncertainties.<br>Multiplication/division: add percentage uncertainties.<br>Powers \\(x^n\\): multiply percentage uncertainty by \\(n\\)."},
+  {topic:"units",topicName:"Physical Quantities & Measurement",type:"definition",front:"Accuracy vs Precision?",back:"<strong>Accuracy:</strong> how close to the true value.<br><strong>Precision:</strong> how close repeated measurements are to each other (small random error)."},
+
+  // ===== 02 Kinematics =====
+  {topic:"kinematics",topicName:"Kinematics",type:"definition",front:"What is displacement?",back:"Distance in a specified direction from start to finish (vector)."},
+  {topic:"kinematics",topicName:"Kinematics",type:"definition",front:"What is acceleration?",back:"Change in velocity per unit time: \\(a = (v - u)/t\\). Vector quantity."},
+  {topic:"kinematics",topicName:"Kinematics",type:"definition",front:"Velocity vs Speed?",back:"Velocity = displacement/time (vector).<br>Speed = distance/time (scalar)."},
+  {topic:"kinematics",topicName:"Kinematics",type:"formula",front:"SUVAT equations?",back:"\\[v = u + at\\]\\[s = \\tfrac{(u+v)t}{2}\\]\\[s = ut + \\tfrac{1}{2}at^2\\]\\[v^2 = u^2 + 2as\\]"},
+  {topic:"kinematics",topicName:"Kinematics",type:"formula",front:"Free fall from rest equations?",back:"\\[v = gt, \\quad h = \\tfrac{1}{2}gt^2, \\quad v = \\sqrt{2gh}, \\quad t = \\sqrt{\\frac{2h}{g}}\\]"},
+  {topic:"kinematics",topicName:"Kinematics",type:"formula",front:"Projectile motion components?",back:"Horizontal: \\(x = v_0\\cos\\alpha \\cdot t\\)<br>Vertical: \\(y = v_0\\sin\\alpha \\cdot t - \\tfrac{1}{2}gt^2\\)<br>\\(v_y = v_0\\sin\\alpha - gt\\)"},
+  {topic:"kinematics",topicName:"Kinematics",type:"definition",front:"What do motion graphs show?",back:"s\u2013t: gradient = velocity.<br>v\u2013t: gradient = acceleration, area = displacement.<br>a\u2013t: area = change in velocity."},
+  {topic:"kinematics",topicName:"Kinematics",type:"definition",front:"Key properties of projectile motion?",back:"Path is a parabola. Horizontal & vertical motions are independent but share time. At max height: \\(v_y = 0\\) but \\(v_x \\neq 0\\)."},
+
+  // ===== 03 Forces & Momentum =====
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"definition",front:"What is linear momentum?",back:"\\(p = mv\\). Vector, units kg\u00b7m/s. Direction same as velocity."},
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"definition",front:"Newton\u2019s Second Law (general form)?",back:"Net force = rate of change of momentum: \\(F = \\Delta p / \\Delta t\\)."},
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"formula",front:"Newton\u2019s Second Law formula?",back:"\\[F = \\frac{\\Delta p}{\\Delta t} = \\frac{m\\Delta v}{\\Delta t} = ma\\]"},
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"definition",front:"What is impulse?",back:"Impulse = force \u00d7 time = change in momentum: \\(F \\cdot \\Delta t = \\Delta p\\).<br>Units: N\u00b7s = kg\u00b7m/s. Area under F\u2013t graph."},
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"definition",front:"Law of conservation of momentum?",back:"In a closed system (no external forces), total momentum in any direction is constant."},
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"formula",front:"Conservation of momentum (two-body)?",back:"\\[m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2\\]"},
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"definition",front:"Elastic vs inelastic collisions?",back:"<strong>Elastic:</strong> KE conserved; relative speed approach = separation.<br><strong>Inelastic:</strong> some KE \u2192 heat/sound. <strong>Perfectly inelastic:</strong> objects stick. Momentum conserved in both."},
+  {topic:"dynamics",topicName:"Forces & Momentum",type:"definition",front:"Why does conservation of momentum work?",back:"Newton\u2019s 3rd law: internal forces come in equal & opposite pairs. Impulses cancel, so total momentum unchanged unless external force acts."},
+
+  // ===== 04 Circular Motion & Gravitation =====
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"formula",front:"Period, angular velocity, speed in circular motion?",back:"\\[T = 1/f, \\quad \\omega = 2\\pi/T = 2\\pi f, \\quad v = \\omega r\\]"},
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"formula",front:"Centripetal acceleration and force?",back:"\\[a_c = \\frac{v^2}{r} = \\omega^2 r, \\quad F_c = \\frac{mv^2}{r}\\]"},
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"formula",front:"Newton\u2019s Law of Gravitation?",back:"\\[F = \\frac{Gm_1m_2}{r^2}\\] \\(G = 6.67\\times 10^{-11}\\) N\u00b7m\u00b2/kg\u00b2"},
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"definition",front:"What is gravitational field strength?",back:"Force per unit mass: \\(g = F/m = GM/r^2\\). Units: N/kg = m/s\u00b2."},
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"definition",front:"What is gravitational potential?",back:"Work done per unit mass bringing a mass from infinity: \\(\\varphi = -GM/r\\). Negative because gravity does positive work bringing mass closer."},
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"formula",front:"Gravitational potential energy?",back:"\\[E_p = -\\frac{GMm}{r}\\]"},
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"formula",front:"Orbital speed and Kepler\u2019s 3rd law?",back:"\\[v = \\sqrt{\\frac{GM}{r}}, \\quad T^2 = \\frac{4\\pi^2 r^3}{GM}\\]"},
+  {topic:"circular",topicName:"Circular Motion & Gravitation",type:"definition",front:"What is escape velocity?",back:"Minimum velocity to escape to infinity: \\(v_{esc} = \\sqrt{2GM/r}\\). For Earth: \u224811.2 km/s."},
+
+  // ===== 05 Fluids =====
+  {topic:"fluids",topicName:"Fluids",type:"formula",front:"Density and pressure formulas?",back:"\\[\\rho = m/V, \\quad p = F/A\\]"},
+  {topic:"fluids",topicName:"Fluids",type:"formula",front:"Hydrostatic pressure?",back:"\\[p = \\rho g h\\] Pressure increases with depth. Same depth = same pressure."},
+  {topic:"fluids",topicName:"Fluids",type:"definition",front:"What is Pascal\u2019s Principle?",back:"Pressure applied to an enclosed fluid is transmitted undiminished to every part of the fluid and to the container walls."},
+  {topic:"fluids",topicName:"Fluids",type:"definition",front:"Archimedes\u2019 Principle?",back:"Upthrust equals the weight of fluid displaced: \\(F_{up} = \\rho_{fluid} V_{disp} g\\)."},
+  {topic:"fluids",topicName:"Fluids",type:"formula",front:"Bernoulli\u2019s equation?",back:"\\[p + \\tfrac{1}{2}\\rho v^2 + \\rho g h = \\text{const}\\] Energy conservation along a streamline. High speed \u2192 low pressure."},
+  {topic:"fluids",topicName:"Fluids",type:"formula",front:"Continuity equation?",back:"\\[A_1 v_1 = A_2 v_2\\] Narrower pipe \u2192 faster flow."},
+  {topic:"fluids",topicName:"Fluids",type:"formula",front:"Torricelli\u2019s theorem?",back:"\\[v = \\sqrt{2g\\Delta h}\\] Speed of fluid leaving a hole at depth \\(\\Delta h\\)."},
+  {topic:"fluids",topicName:"Fluids",type:"formula",front:"Reynolds number?",back:"\\[R_e = \\frac{\\rho v D}{\\eta}\\] \\(R_e < 2000\\): laminar. \\(R_e > 3000\\text{\u2013}5000\\): turbulent."},
+  {topic:"fluids",topicName:"Fluids",type:"definition",front:"What is an ideal fluid?",back:"Incompressible AND non-viscous (\\(\\eta = 0\\)). Density constant with pressure."},
+
+  // ===== 06 Deforming Solids =====
+  {topic:"solids",topicName:"Deforming Solids",type:"definition",front:"Elastic vs plastic deformation?",back:"<strong>Elastic:</strong> returns to original shape when force removed.<br><strong>Plastic:</strong> permanent deformation remains."},
+  {topic:"solids",topicName:"Deforming Solids",type:"definition",front:"What is Hooke\u2019s Law?",back:"Within limit of proportionality: \\(F = k\\Delta l\\), where \\(k\\) = spring constant (N/m). Extension \u221d force."},
+  {topic:"solids",topicName:"Deforming Solids",type:"formula",front:"Stress, strain, and Young modulus?",back:"\\[\\sigma = F/A \\text{ (Pa)}, \\quad \\varepsilon = \\Delta l/l_0, \\quad E = \\sigma/\\varepsilon \\text{ (Pa)}\\]"},
+  {topic:"solids",topicName:"Deforming Solids",type:"formula",front:"Elastic potential energy?",back:"\\[E = \\tfrac{1}{2}k(\\Delta l)^2 = \\tfrac{1}{2}F\\Delta l\\] Area under force-extension graph."},
+  {topic:"solids",topicName:"Deforming Solids",type:"definition",front:"Brittle vs ductile materials?",back:"<strong>Brittle</strong> (glass): elastic to breaking, no plastic region, snap suddenly.<br><strong>Ductile</strong> (copper): show plastic flow, can be drawn into wires."},
+  {topic:"solids",topicName:"Deforming Solids",type:"definition",front:"Limit of proportionality vs elastic limit?",back:"<strong>P:</strong> beyond this, Hooke\u2019s law fails (no longer linear).<br><strong>E:</strong> beyond this, plastic deformation begins."},
+  {topic:"solids",topicName:"Deforming Solids",type:"definition",front:"Why is Young modulus useful?",back:"\\(E = \\sigma/\\varepsilon\\) is a <strong>material property</strong> \u2014 independent of shape/size. Describes stiffness."},
+
+  // ===== 07 Oscillations (SHM) =====
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"definition",front:"What is SHM?",back:"Acceleration proportional to displacement and directed toward equilibrium: \\(a = -\\omega^2 x\\)."},
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"formula",front:"SHM equations of motion?",back:"\\[x = A\\sin\\omega t\\]\\[v = A\\omega\\cos\\omega t \\quad (v_{max} = A\\omega)\\]\\[a = -A\\omega^2\\sin\\omega t \\quad (a_{max} = A\\omega^2)\\]"},
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"formula",front:"Period: mass-spring and pendulum?",back:"Mass-spring: \\(T = 2\\pi\\sqrt{m/k}\\)<br>Pendulum: \\(T = 2\\pi\\sqrt{l/g}\\)"},
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"formula",front:"Total energy in SHM?",back:"\\[E = \\tfrac{1}{2}m\\omega^2 A^2\\] KE max at \\(x=0\\), PE max at \\(x = \\pm A\\). Total = constant."},
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"definition",front:"What is resonance?",back:"Large amplitude increase when driving frequency equals the natural frequency of the system."},
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"definition",front:"Three types of damping?",back:"<strong>Light:</strong> amplitude decays exponentially, many oscillations.<br><strong>Critical:</strong> fastest return to equilibrium, no oscillation.<br><strong>Heavy:</strong> very slow return, no oscillation."},
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"definition",front:"Free vs forced oscillation?",back:"<strong>Free:</strong> no driving force, frequency = natural frequency.<br><strong>Forced:</strong> driven by periodic external force."},
+  {topic:"shm",topicName:"Oscillations (SHM)",type:"definition",front:"Amplitude, period, frequency?",back:"<strong>A:</strong> max displacement from equilibrium.<br><strong>T:</strong> time for one oscillation.<br><strong>f:</strong> oscillations per second; \\(f = 1/T\\)."},
+
+  // ===== 08 Molecular Physics =====
+  {topic:"molecular",topicName:"Molecular Physics",type:"formula",front:"Ideal gas equation?",back:"\\[pV = nRT = NkT\\] \\(R = 8.31\\) J/(mol\u00b7K), \\(k = 1.38\\times10^{-23}\\) J/K."},
+  {topic:"molecular",topicName:"Molecular Physics",type:"formula",front:"Kinetic theory equation?",back:"\\[pV = \\tfrac{1}{3}Nm_0\\overline{v^2}\\]"},
+  {topic:"molecular",topicName:"Molecular Physics",type:"formula",front:"Average KE and RMS speed?",back:"\\[\\langle E_K \\rangle = \\tfrac{3}{2}kT, \\quad v_{rms} = \\sqrt{3kT/m_0}\\]"},
+  {topic:"molecular",topicName:"Molecular Physics",type:"definition",front:"Key assumptions of kinetic theory?",back:"Random motion; negligible intermolecular forces (except collisions); molecule volume negligible; identical hard spheres; elastic collisions; straight-line paths; Newtonian mechanics."},
+  {topic:"molecular",topicName:"Molecular Physics",type:"definition",front:"What causes gas pressure?",back:"Molecules collide with walls, changing momentum \u2192 force (N2/N3). Average force per unit area = pressure."},
+  {topic:"molecular",topicName:"Molecular Physics",type:"formula",front:"Mole/particle relationships?",back:"\\[N = nN_A, \\quad n = N/N_A = m/M, \\quad m_0 = M/N_A\\]"},
+  {topic:"molecular",topicName:"Molecular Physics",type:"definition",front:"Three gas laws?",back:"<strong>Boyle</strong> (const T): \\(pV = \\text{const}\\).<br><strong>Charles</strong> (const p): \\(V/T = \\text{const}\\).<br><strong>Gay-Lussac</strong> (const V): \\(p/T = \\text{const}\\). T in kelvin!"},
+  {topic:"molecular",topicName:"Molecular Physics",type:"definition",front:"What is absolute zero?",back:"T = 0 K. KE of molecules is minimum (classically zero). Internal energy is minimum."},
+
+  // ===== 09 Thermodynamics =====
+  {topic:"thermo",topicName:"Thermodynamics",type:"definition",front:"What is internal energy?",back:"Sum of kinetic and potential energies of all molecules. For ideal gas: depends only on temperature."},
+  {topic:"thermo",topicName:"Thermodynamics",type:"definition",front:"First Law of Thermodynamics?",back:"\\(\\Delta U = Q + W_{on}\\). Increase in internal energy = heat supplied + work done on system."},
+  {topic:"thermo",topicName:"Thermodynamics",type:"formula",front:"Internal energy of ideal gas?",back:"\\[U_{mono} = \\tfrac{3}{2}nRT, \\quad U_{di} = \\tfrac{5}{2}nRT, \\quad U_{poly} = 3nRT\\]"},
+  {topic:"thermo",topicName:"Thermodynamics",type:"formula",front:"Work done by gas at constant pressure?",back:"\\[W = p\\Delta V\\] Area under p\u2013V curve = work done."},
+  {topic:"thermo",topicName:"Thermodynamics",type:"formula",front:"Heat engine & Carnot efficiency?",back:"\\[\\eta = W/Q_H = (Q_H - Q_C)/Q_H\\] Carnot: \\[\\eta_C = (T_H - T_C)/T_H\\]"},
+  {topic:"thermo",topicName:"Thermodynamics",type:"definition",front:"What is entropy?",back:"Measure of disorder. \\(\\Delta S = Q/T\\). Reversible: \\(\\Delta S = 0\\). Real: \\(\\Delta S > 0\\). Entropy of isolated system never decreases."},
+  {topic:"thermo",topicName:"Thermodynamics",type:"definition",front:"Four thermodynamic processes?",back:"<strong>Isothermal</strong> (const T): \\(pV=\\text{const}\\), \\(\\Delta U=0\\).<br><strong>Isobaric</strong> (const p): \\(W=p\\Delta V\\).<br><strong>Isochoric</strong> (const V): \\(W=0\\).<br><strong>Adiabatic</strong> (Q=0): \\(pV^\\gamma=\\text{const}\\)."},
+  {topic:"thermo",topicName:"Thermodynamics",type:"definition",front:"Second Law of Thermodynamics?",back:"(1) Cannot fully convert heat into work.<br>(2) Heat doesn\u2019t flow spontaneously cold \u2192 hot.<br>(3) Entropy of isolated system never decreases."},
+
+  // ===== 10 Geometrical Optics =====
+  {topic:"optics",topicName:"Geometrical Optics",type:"definition",front:"Real vs virtual image?",back:"<strong>Real:</strong> rays converge; can be projected on screen.<br><strong>Virtual:</strong> rays appear to come from point; cannot be projected."},
+  {topic:"optics",topicName:"Geometrical Optics",type:"formula",front:"Mirror/lens equation?",back:"\\[\\frac{1}{d_o} + \\frac{1}{d_i} = \\frac{1}{f}\\]"},
+  {topic:"optics",topicName:"Geometrical Optics",type:"formula",front:"Magnification formula?",back:"\\[m = h_i/h_o = -d_i/d_o\\] |m|>1: larger. m>0: upright. m<0: inverted."},
+  {topic:"optics",topicName:"Geometrical Optics",type:"formula",front:"Snell\u2019s Law?",back:"\\[n_1\\sin\\theta_1 = n_2\\sin\\theta_2\\] where \\(n = c/v\\)."},
+  {topic:"optics",topicName:"Geometrical Optics",type:"formula",front:"Critical angle for total internal reflection?",back:"\\[\\sin\\theta_c = n_2/n_1\\] Requires \\(n_1 > n_2\\) and angle > \\(\\theta_c\\)."},
+  {topic:"optics",topicName:"Geometrical Optics",type:"formula",front:"Lens maker\u2019s equation?",back:"\\[\\frac{1}{f} = \\left(\\frac{n_L}{n_M}-1\\right)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)\\] Power: \\(P = 1/f\\) (dioptre)."},
+  {topic:"optics",topicName:"Geometrical Optics",type:"definition",front:"Spherical vs chromatic aberration?",back:"<strong>Spherical:</strong> outer rays focus closer. Fix: aperture or aspheric lens.<br><strong>Chromatic:</strong> different \u03bb focus at different points. Fix: achromatic doublet."},
+  {topic:"optics",topicName:"Geometrical Optics",type:"definition",front:"What is a wavefront?",back:"Surface where all points have the same phase. A ray is perpendicular to the wavefront."},
+
+  // ===== 11 Waves =====
+  {topic:"waves",topicName:"Waves",type:"definition",front:"Mechanical vs electromagnetic waves?",back:"<strong>Mechanical:</strong> require a medium (sound, water).<br><strong>EM:</strong> no medium needed, all travel at \\(c = 3\\times10^8\\) m/s in vacuum."},
+  {topic:"waves",topicName:"Waves",type:"formula",front:"Wave equation?",back:"\\[v = f\\lambda\\]"},
+  {topic:"waves",topicName:"Waves",type:"definition",front:"Transverse vs longitudinal waves?",back:"<strong>Transverse:</strong> oscillation \u22a5 to wave direction (EM waves, strings).<br><strong>Longitudinal:</strong> oscillation \u2225 to wave direction (sound)."},
+  {topic:"waves",topicName:"Waves",type:"definition",front:"What is diffraction?",back:"Spreading of waves through a gap or around an obstacle. Significant when gap width \u2248 wavelength."},
+  {topic:"waves",topicName:"Waves",type:"definition",front:"What is a progressive wave?",back:"Carries energy from one point to another without transporting matter."},
+  {topic:"waves",topicName:"Waves",type:"definition",front:"How does intensity relate to amplitude?",back:"\\(I \\propto A^2\\). Intensity = power per unit area."},
+
+  // ===== 12 Stationary Waves =====
+  {topic:"stationary",topicName:"Stationary Waves",type:"definition",front:"What is a stationary (standing) wave?",back:"Superposition of two waves with same speed, frequency, amplitude traveling in opposite directions. Typically formed by reflection."},
+  {topic:"stationary",topicName:"Stationary Waves",type:"formula",front:"Harmonics of string fixed at both ends?",back:"\\[f_n = \\frac{nv}{2L} \\quad (n = 1,2,3,\\ldots)\\] All harmonics present."},
+  {topic:"stationary",topicName:"Stationary Waves",type:"formula",front:"Harmonics of pipe closed at one end?",back:"\\[f_n = \\frac{nv}{4L} \\quad (n = 1,3,5,\\ldots)\\] Only odd harmonics. Closed end = node, open end = antinode."},
+  {topic:"stationary",topicName:"Stationary Waves",type:"formula",front:"Harmonics of pipe open at both ends?",back:"\\[f_n = \\frac{nv}{2L} \\quad (n = 1,2,3,\\ldots)\\] Both ends = antinodes. All harmonics."},
+  {topic:"stationary",topicName:"Stationary Waves",type:"definition",front:"Nodes and antinodes?",back:"<strong>Node:</strong> zero displacement always. <strong>Antinode:</strong> max amplitude. Adjacent nodes are \\(\\lambda/2\\) apart; node-to-antinode = \\(\\lambda/4\\)."},
+  {topic:"stationary",topicName:"Stationary Waves",type:"definition",front:"Standing wave vs progressive wave (energy)?",back:"Standing wave does NOT transport energy. Amplitude varies with position. Phase same between nodes, flips across node."},
+  {topic:"stationary",topicName:"Stationary Waves",type:"definition",front:"What is end correction?",back:"Antinode at open end is slightly beyond tube. Using two resonance lengths eliminates it: \\(\\lambda = 2(l_2 - l_1)\\)."},
+
+  // ===== 13 Interference & Diffraction =====
+  {topic:"superposition",topicName:"Interference & Diffraction",type:"definition",front:"Principle of superposition?",back:"When waves meet, the resultant displacement = algebraic sum of individual displacements."},
+  {topic:"superposition",topicName:"Interference & Diffraction",type:"definition",front:"What are coherent waves?",back:"Same frequency AND constant phase difference. Required for stable interference pattern."},
+  {topic:"superposition",topicName:"Interference & Diffraction",type:"formula",front:"Young\u2019s double-slit formula?",back:"\\[\\lambda = \\frac{ax}{D}\\] \\(a\\) = slit separation, \\(x\\) = fringe spacing, \\(D\\) = slit-to-screen distance."},
+  {topic:"superposition",topicName:"Interference & Diffraction",type:"formula",front:"Diffraction grating equation?",back:"\\[d\\sin\\theta = n\\lambda \\quad (n = 0,1,2,\\ldots)\\]"},
+  {topic:"superposition",topicName:"Interference & Diffraction",type:"definition",front:"Constructive vs destructive interference?",back:"<strong>Constructive:</strong> path difference = \\(n\\lambda\\) (in phase).<br><strong>Destructive:</strong> path difference = \\((n+\\tfrac{1}{2})\\lambda\\) (antiphase)."},
+  {topic:"superposition",topicName:"Interference & Diffraction",type:"definition",front:"Why are gratings better than double slits?",back:"Sharper maxima (\\(\\propto N^2\\)), wider angular separation, more accurate \\(d\\) measurement (lines/mm)."},
+  {topic:"superposition",topicName:"Interference & Diffraction",type:"definition",front:"White light through a diffraction grating?",back:"Each order gives a continuous spectrum. Longer \u03bb diffracts more, so red at larger angles (opposite to prism)."},
+
+  // ===== 14 EM Oscillations & Waves =====
+  {topic:"em",topicName:"EM Oscillations & Waves",type:"formula",front:"LC circuit resonant frequency?",back:"\\[f = \\frac{1}{2\\pi\\sqrt{LC}}, \\quad T = 2\\pi\\sqrt{LC}\\]"},
+  {topic:"em",topicName:"EM Oscillations & Waves",type:"formula",front:"LC circuit charge/current oscillations?",back:"\\[q = q_{max}\\cos\\omega t, \\quad I = -I_{max}\\sin\\omega t\\]"},
+  {topic:"em",topicName:"EM Oscillations & Waves",type:"formula",front:"Total energy in LC circuit?",back:"\\[E = \\frac{q^2}{2C} + \\frac{LI^2}{2} = \\text{const}\\]"},
+  {topic:"em",topicName:"EM Oscillations & Waves",type:"definition",front:"AM vs FM modulation?",back:"<strong>AM:</strong> carrier amplitude varies with signal; frequency constant. Bandwidth = \\(2f_M\\).<br><strong>FM:</strong> carrier frequency varies; amplitude constant. Higher quality, shorter range."},
+  {topic:"em",topicName:"EM Oscillations & Waves",type:"definition",front:"Key properties of EM waves?",back:"Produced by accelerating charges. E \u22a5 B \u22a5 direction. Transverse. E and B in phase. Speed \\(c = 3\\times10^8\\) m/s in vacuum."},
+  {topic:"em",topicName:"EM Oscillations & Waves",type:"formula",front:"Signal attenuation in dB?",back:"\\[\\text{dB} = 10\\lg(P_2/P_1)\\] Negative = attenuation, positive = amplification."},
+
+  // ===== 15 Alternating Current =====
+  {topic:"ac",topicName:"Alternating Current",type:"definition",front:"Faraday\u2019s Law?",back:"Induced EMF is proportional to the rate of change of magnetic flux linkage."},
+  {topic:"ac",topicName:"Alternating Current",type:"definition",front:"Lenz\u2019s Law?",back:"Direction of induced current opposes the change in flux that produces it (conservation of energy)."},
+  {topic:"ac",topicName:"Alternating Current",type:"formula",front:"Faraday\u2019s Law formula?",back:"\\[\\varepsilon = -N\\frac{\\Delta\\Phi}{\\Delta t}\\]"},
+  {topic:"ac",topicName:"Alternating Current",type:"formula",front:"Peak EMF of AC generator?",back:"\\[\\varepsilon = NBA\\omega\\sin\\omega t, \\quad \\varepsilon_0 = NBA\\omega\\]"},
+  {topic:"ac",topicName:"Alternating Current",type:"formula",front:"RMS-to-peak relationships?",back:"\\[I_{rms} = I_0/\\sqrt{2}, \\quad V_{rms} = V_0/\\sqrt{2}\\]"},
+  {topic:"ac",topicName:"Alternating Current",type:"definition",front:"What is RMS value?",back:"The DC value that produces the same average power in a resistor."},
+  {topic:"ac",topicName:"Alternating Current",type:"formula",front:"Transformer equation?",back:"\\[V_S/V_P = N_S/N_P, \\quad I_PV_P = I_SV_S \\text{ (ideal)}\\]"},
+  {topic:"ac",topicName:"Alternating Current",type:"formula",front:"Impedance of series RLC circuit?",back:"\\[Z = \\sqrt{R^2 + (X_L - X_C)^2}\\] Resonance when \\(X_L = X_C\\), i.e. \\(\\omega = 1/\\sqrt{LC}\\)."},
+  {topic:"ac",topicName:"Alternating Current",type:"formula",front:"Power loss in transmission?",back:"\\[P_{loss} = P_{station}^2 R / V^2\\] Doubling V \u2192 losses \u00f74."},
+
+  // ===== 16 Charged Particles =====
+  {topic:"charged",topicName:"Charged Particles",type:"formula",front:"Parabolic path in uniform E field?",back:"\\[y = \\frac{qE}{2mv^2}x^2\\] Analogous to projectile motion."},
+  {topic:"charged",topicName:"Charged Particles",type:"formula",front:"Magnetic force on a moving charge?",back:"\\[F = qvB\\sin\\alpha\\] Direction: Fleming\u2019s left-hand rule (positive charge)."},
+  {topic:"charged",topicName:"Charged Particles",type:"formula",front:"Radius and period of circular motion in B field?",back:"\\[r = mv/(qB), \\quad T = 2\\pi m/(qB)\\]"},
+  {topic:"charged",topicName:"Charged Particles",type:"formula",front:"Velocity selector equation?",back:"\\[v = E/B\\] Only this velocity passes straight through crossed E and B fields."},
+  {topic:"charged",topicName:"Charged Particles",type:"definition",front:"Millikan\u2019s oil drop experiment?",back:"Showed charge is quantized: always \\(q = ne\\), \\(e = 1.6\\times10^{-19}\\) C. At equilibrium: \\(q = mgd/V\\)."},
+  {topic:"charged",topicName:"Charged Particles",type:"definition",front:"Why does magnetic force do no work?",back:"Always \u22a5 to velocity \u2192 changes direction, not speed \u2192 no work \u2192 KE unchanged."},
+  {topic:"charged",topicName:"Charged Particles",type:"definition",front:"How does radius depend on particle properties in B field?",back:"\\(r \\propto v\\) (faster \u2192 larger). \\(r \\propto m\\) (heavier \u2192 larger). \\(r \\propto 1/B\\) (stronger B \u2192 tighter). Non-perpendicular v \u2192 helix."},
+
+  // ===== 17 Quantum Physics =====
+  {topic:"quantum",topicName:"Quantum Physics",type:"definition",front:"What is the photoelectric effect?",back:"Electron emission from metal surface by EM radiation. Instantaneous. Threshold frequency \\(f_0\\). More intensity = more electrons, NOT more KE."},
+  {topic:"quantum",topicName:"Quantum Physics",type:"formula",front:"Photon energy?",back:"\\[E = hf = hc/\\lambda\\] \\(h = 6.63\\times10^{-34}\\) J\u00b7s."},
+  {topic:"quantum",topicName:"Quantum Physics",type:"formula",front:"Einstein\u2019s photoelectric equation?",back:"\\[hf = \\Phi + \\tfrac{1}{2}mv_{max}^2\\] \\(\\Phi\\) = work function, \\(f_0 = \\Phi/h\\)."},
+  {topic:"quantum",topicName:"Quantum Physics",type:"formula",front:"de Broglie wavelength?",back:"\\[\\lambda = h/p = h/(mv)\\] Electron through PD \\(V\\): \\(\\lambda = h/\\sqrt{2meV}\\)."},
+  {topic:"quantum",topicName:"Quantum Physics",type:"formula",front:"Bohr\u2019s quantization condition?",back:"\\[mvr = n\\frac{h}{2\\pi}, \\quad n = 1,2,3,\\ldots\\]"},
+  {topic:"quantum",topicName:"Quantum Physics",type:"formula",front:"Photon energy for electron transition?",back:"\\[hf = E_2 - E_1\\]"},
+  {topic:"quantum",topicName:"Quantum Physics",type:"formula",front:"Hydrogen energy levels?",back:"\\[E_n = -13.6\\text{ eV}/n^2\\] Ground state \\(E_1 = -13.6\\) eV. Quantized, negative."},
+  {topic:"quantum",topicName:"Quantum Physics",type:"definition",front:"Wave-particle duality?",back:"Light propagates as wave (diffraction, interference) but interacts as particle/photon (photoelectric, Compton effect)."},
+  {topic:"quantum",topicName:"Quantum Physics",type:"definition",front:"Conductors, semiconductors, insulators (band theory)?",back:"<strong>Conductor:</strong> no gap, bands overlap.<br><strong>Semiconductor:</strong> small gap (~1 eV), some electrons jump.<br><strong>Insulator:</strong> wide gap, no conduction."},
+
+  // ===== 18 Nuclear Physics =====
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"definition",front:"What are isotopes?",back:"Same atomic number Z (same element), different mass number A (different neutrons)."},
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"definition",front:"What is the decay constant?",back:"\\(\\lambda\\) = probability of decay per unit time. Property of the nuclide."},
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"definition",front:"What is activity?",back:"Decays per second. Unit: becquerel (Bq). \\(A = \\lambda N\\)."},
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"definition",front:"What is half-life?",back:"Time for half the nuclei to decay: \\(t_{1/2} = 0.693/\\lambda\\)."},
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"definition",front:"What is mass defect?",back:"\\(\\Delta m\\) = mass of separated nucleons \u2212 mass of nucleus. Always positive."},
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"definition",front:"What is binding energy?",back:"\\(E_B = \\Delta m c^2\\). Energy to separate all nucleons to infinity."},
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"formula",front:"Radioactive decay formula?",back:"\\[N = N_0 e^{-\\lambda t}, \\quad A = A_0 e^{-\\lambda t}\\]"},
+  {topic:"nuclear",topicName:"Nuclear Physics",type:"formula",front:"Mass-energy equivalence?",back:"\\[E = mc^2\\] 1 u = 931 MeV."},
+
+  // ===== 19 Particles & QFT =====
+  {topic:"particles",topicName:"Particles & QFT",type:"definition",front:"Leptons vs hadrons?",back:"<strong>Leptons:</strong> no strong force (e, \u03bc, \u03c4, neutrinos).<br><strong>Hadrons:</strong> feel strong force, made of quarks (baryons = 3q, mesons = q\u0305q)."},
+  {topic:"particles",topicName:"Particles & QFT",type:"definition",front:"Fermions vs bosons?",back:"<strong>Fermions:</strong> half-integer spin (quarks, leptons, baryons).<br><strong>Bosons:</strong> integer spin (force mediators, mesons)."},
+  {topic:"particles",topicName:"Particles & QFT",type:"definition",front:"Four fundamental forces and mediators?",back:"<strong>Strong:</strong> gluon. <strong>EM:</strong> photon. <strong>Weak:</strong> W\u00b1, Z\u2070. <strong>Gravity:</strong> graviton(?). Range: strong < weak \u226a EM = gravity (\u221e)."},
+  {topic:"particles",topicName:"Particles & QFT",type:"definition",front:"Quark composition: proton & neutron?",back:"Proton = uud (charge +1). Neutron = udd (charge 0)."},
+  {topic:"particles",topicName:"Particles & QFT",type:"formula",front:"\u03b2\u207b decay at quark level?",back:"\\[d \\to u + W^- \\to u + e^- + \\bar{\\nu}_e\\]"},
+  {topic:"particles",topicName:"Particles & QFT",type:"formula",front:"\u03b2\u207a decay at quark level?",back:"\\[u \\to d + W^+ \\to d + e^+ + \\nu_e\\]"},
+  {topic:"particles",topicName:"Particles & QFT",type:"definition",front:"Six quarks and their charges?",back:"u: +2/3, d: \u22121/3, c: +2/3, s: \u22121/3, t: +2/3, b: \u22121/3. Each has an antiquark with opposite charge."},
+  {topic:"particles",topicName:"Particles & QFT",type:"definition",front:"Baryons vs mesons?",back:"<strong>Baryons:</strong> 3 quarks, half-integer spin (fermions). p = uud, n = udd.<br><strong>Mesons:</strong> quark + antiquark, integer spin (bosons). e.g. pions, kaons."}
+];
+
+// ===== TOPIC LIST =====
+const TOPICS = [
+  {id:"units",     name:"01 \u2014 Physical Quantities & Measurement"},
+  {id:"kinematics",name:"02 \u2014 Kinematics"},
+  {id:"dynamics",  name:"03 \u2014 Forces & Momentum"},
+  {id:"circular",  name:"04 \u2014 Circular Motion & Gravitation"},
+  {id:"fluids",    name:"05 \u2014 Fluids"},
+  {id:"solids",    name:"06 \u2014 Deforming Solids"},
+  {id:"shm",       name:"07 \u2014 Oscillations (SHM)"},
+  {id:"molecular", name:"08 \u2014 Molecular Physics"},
+  {id:"thermo",    name:"09 \u2014 Thermodynamics"},
+  {id:"optics",    name:"10 \u2014 Geometrical Optics"},
+  {id:"waves",     name:"11 \u2014 Waves"},
+  {id:"stationary",name:"12 \u2014 Stationary Waves"},
+  {id:"superposition",name:"13 \u2014 Interference & Diffraction"},
+  {id:"em",        name:"14 \u2014 EM Oscillations & Waves"},
+  {id:"ac",        name:"15 \u2014 Alternating Current"},
+  {id:"charged",   name:"16 \u2014 Charged Particles"},
+  {id:"quantum",   name:"17 \u2014 Quantum Physics"},
+  {id:"nuclear",   name:"18 \u2014 Nuclear Physics"},
+  {id:"particles", name:"19 \u2014 Particles & QFT"}
+];
+
+// ===== STATE =====
+let deck = [];
+let cardIdx = 0;
+
+// ===== INIT TOPIC SELECTOR =====
+(function initTopicSelector() {
+  const grid = document.getElementById('ts-grid');
+  TOPICS.forEach(t => {
+    const lbl = document.createElement('label');
+    lbl.innerHTML = '<input type="checkbox" value="' + t.id + '" checked> ' + t.name;
+    grid.appendChild(lbl);
+  });
+})();
+
+// ===== TAB SWITCHING =====
+document.querySelectorAll('.tab-bar button').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tab = this.dataset.tab;
+    document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('tab-material').style.display = tab === 'material' ? '' : 'none';
+    document.getElementById('tab-cards').style.display = tab === 'cards' ? '' : 'none';
+  });
+});
+
+// ===== TOPIC SELECTOR ACTIONS =====
+function tsSelectAll() {
+  document.querySelectorAll('#ts-grid input').forEach(cb => cb.checked = true);
+}
+function tsDeselectAll() {
+  document.querySelectorAll('#ts-grid input').forEach(cb => cb.checked = false);
+}
+
+// ===== BUILD DECK =====
+function buildDeck() {
+  const selected = new Set();
+  document.querySelectorAll('#ts-grid input:checked').forEach(cb => selected.add(cb.value));
+  deck = FLASHCARDS.filter(c => selected.has(c.topic));
+  cardIdx = 0;
+}
+
+// ===== SHUFFLE (Fisher-Yates) =====
+function shuffleDeck() {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  cardIdx = 0;
+  renderCard();
+}
+
+// ===== START DECK =====
+function startDeck() {
+  buildDeck();
+  if (deck.length === 0) {
+    alert('Выберите хотя бы одну тему!');
+    return;
+  }
+  shuffleDeck();
+  document.getElementById('card-stage').style.display = '';
+  renderCard();
+}
+
+// ===== RENDER CARD =====
+function renderCard() {
+  if (deck.length === 0) return;
+  const c = deck[cardIdx];
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+
+  document.getElementById('front-topic').textContent = c.topicName;
+  document.getElementById('back-topic').textContent = c.topicName;
+
+  const badgeClass = c.type === 'definition' ? 'def' : 'form';
+  const badgeText = c.type === 'definition' ? 'Definition' : 'Formula';
+  document.getElementById('front-badge').className = 'card-badge ' + badgeClass;
+  document.getElementById('front-badge').textContent = badgeText;
+  document.getElementById('back-badge').className = 'card-badge ' + badgeClass;
+  document.getElementById('back-badge').textContent = badgeText;
+
+  const frontEl = document.getElementById('front-content');
+  const backEl = document.getElementById('back-content');
+  frontEl.innerHTML = c.front;
+  backEl.innerHTML = c.back;
+
+  // Counter & progress
+  document.getElementById('card-counter').textContent = (cardIdx + 1) + ' / ' + deck.length;
+  document.getElementById('progress-fill').style.width = ((cardIdx + 1) / deck.length * 100) + '%';
+
+  // MathJax re-render
+  if (window.MathJax && MathJax.typesetClear) {
+    MathJax.typesetClear([frontEl, backEl]);
+    MathJax.typesetPromise([frontEl, backEl]).then(function() {
+      adjustCardHeight();
+    });
+  } else {
+    adjustCardHeight();
+  }
+}
+
+// ===== ADJUST CARD HEIGHT =====
+function adjustCardHeight() {
+  const front = document.querySelector('.card-front');
+  const back = document.querySelector('.card-back');
+  const wrapper = document.querySelector('.flashcard-wrapper');
+  const fc = document.getElementById('flashcard');
+  // Reset to auto to measure
+  front.style.minHeight = '';
+  back.style.minHeight = '';
+  fc.style.minHeight = '';
+  const h = Math.max(front.scrollHeight, back.scrollHeight, 260);
+  front.style.minHeight = h + 'px';
+  back.style.minHeight = h + 'px';
+  fc.style.minHeight = h + 'px';
+}
+
+// ===== FLIP =====
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+// ===== NAVIGATION =====
+function nextCard() {
+  if (cardIdx < deck.length - 1) {
+    cardIdx++;
+    renderCard();
+  }
+}
+function prevCard() {
+  if (cardIdx > 0) {
+    cardIdx--;
+    renderCard();
+  }
+}
+
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', function(e) {
+  // Only act when cards tab is visible
+  if (document.getElementById('tab-cards').style.display === 'none') return;
+  if (document.getElementById('card-stage').style.display === 'none') return;
+  if (e.key === 'ArrowRight') { nextCard(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') { prevCard(); e.preventDefault(); }
+  if (e.key === ' ') { flipCard(); e.preventDefault(); }
+});
+</script>
 
 </body>
 </html>
