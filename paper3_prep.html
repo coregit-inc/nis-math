@@ -891,6 +891,7 @@ footer .made {
     <button class="tab-btn" data-tab="practice"><span class="num">04</span>Practice</button>
     <button class="tab-btn" data-tab="phrases"><span class="num">05</span>Phrases</button>
     <button class="tab-btn" data-tab="check"><span class="num">06</span>Checklist</button>
+    <button class="tab-btn" data-tab="uncert"><span class="num">07</span>Uncertainties</button>
   </div>
 </nav>
 
@@ -1747,6 +1748,423 @@ footer .made {
   </div>
 </section>
 
+<!-- ============= UNCERTAINTIES ============= -->
+<section class="section" id="uncert">
+  <h2>Uncertainties — how to calculate them</h2>
+  <p class="intro">Uncertainties appear in every single Q2 answer. If you mess them up, you lose marks on the table, graph, gradient, intercept, and final answer. This tab covers every type you will see on the exam, with worked examples and interactive practice.</p>
+
+  <!-- ===== 1. TYPES ===== -->
+  <h3>Three types of uncertainty <span class="badge">basics</span></h3>
+
+  <div class="grid-3">
+    <div class="card">
+      <h4>Absolute</h4>
+      <p>The raw ± value in the <strong>same units</strong> as the measurement.</p>
+      <div class="formula">$L = 25.0 \pm 0.5$ cm</div>
+      <p>The ±0.5 cm is the absolute uncertainty.</p>
+    </div>
+    <div class="card">
+      <h4>Fractional</h4>
+      <p>Absolute uncertainty <strong>divided by</strong> the value. No units.</p>
+      <div class="formula">$\dfrac{\Delta L}{L} = \dfrac{0.5}{25.0} = 0.020$</div>
+    </div>
+    <div class="card">
+      <h4>Percentage</h4>
+      <p>Fractional uncertainty <strong>&times; 100%</strong>.</p>
+      <div class="formula">$\dfrac{\Delta L}{L} \times 100\% = 2.0\%$</div>
+    </div>
+  </div>
+
+  <div class="note tip"><strong>Rule of thumb:</strong> use fractional/percentage when combining uncertainties (multiplication, division, powers). Use absolute when adding or subtracting quantities.</div>
+
+  <!-- ===== 2. READING INSTRUMENTS ===== -->
+  <h3>Where does the uncertainty come from? <span class="badge">instruments</span></h3>
+
+  <div class="card">
+    <table class="lin">
+      <thead>
+        <tr><th>Instrument</th><th>Smallest division</th><th>Uncertainty</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ruler (mm scale)</td><td>1 mm</td><td>&plusmn; 0.5 mm (each end)</td><td>You read two ends &rarr; total &plusmn; 1 mm</td></tr>
+        <tr><td>Vernier caliper</td><td>0.1 mm</td><td>&plusmn; 0.05 mm</td><td>Half the smallest division</td></tr>
+        <tr><td>Micrometer</td><td>0.01 mm</td><td>&plusmn; 0.005 mm</td><td>Half the smallest division</td></tr>
+        <tr><td>Stopwatch</td><td>0.01 s</td><td>&plusmn; 0.3–0.5 s</td><td>Dominated by human reaction time, not resolution</td></tr>
+        <tr><td>Digital ammeter</td><td>0.01 A</td><td>&plusmn; 0.01 A</td><td>Last digit fluctuation</td></tr>
+        <tr><td>Thermometer</td><td>1 &deg;C</td><td>&plusmn; 0.5 &deg;C</td><td>Half the smallest division</td></tr>
+        <tr><td>Protractor</td><td>1&deg;</td><td>&plusmn; 0.5&deg;</td><td>Half the smallest division</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>Analogue instruments:</strong> uncertainty = &frac12; &times; smallest division.<br>
+    <strong>Digital instruments:</strong> uncertainty = &plusmn; 1 in the last displayed digit (unless stated otherwise).</div>
+  </div>
+
+  <!-- ===== 3. COMBINING RULES ===== -->
+  <h3>Rules for combining uncertainties <span class="badge">core rules</span></h3>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">Rule 1: Addition / Subtraction</span>
+      <span class="ms-marks">add absolutes</span>
+    </div>
+    <p>If $z = a + b$ or $z = a - b$:</p>
+    <div class="formula">$$\Delta z = \Delta a + \Delta b$$</div>
+    <div class="card">
+      <h4>Example</h4>
+      <p>Extension of spring = final length &minus; original length:<br>
+      $L_1 = 40.0 \pm 0.5$ cm, $L_2 = 25.0 \pm 0.5$ cm<br>
+      $x = L_1 - L_2 = 15.0$ cm<br>
+      $\Delta x = 0.5 + 0.5 = \pm 1.0$ cm<br>
+      <strong>Result: $x = 15.0 \pm 1.0$ cm</strong></p>
+    </div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">Rule 2: Multiplication / Division</span>
+      <span class="ms-marks">add fractionals</span>
+    </div>
+    <p>If $z = a \times b$ or $z = a / b$:</p>
+    <div class="formula">$$\frac{\Delta z}{z} = \frac{\Delta a}{a} + \frac{\Delta b}{b}$$</div>
+    <div class="card">
+      <h4>Example</h4>
+      <p>Speed $v = d / t$:<br>
+      $d = 2.50 \pm 0.05$ m, $t = 1.20 \pm 0.30$ s<br>
+      $v = 2.50 / 1.20 = 2.083$ m/s<br>
+      $\frac{\Delta v}{v} = \frac{0.05}{2.50} + \frac{0.30}{1.20} = 0.020 + 0.250 = 0.270$<br>
+      $\Delta v = 0.270 \times 2.083 = 0.56$ m/s<br>
+      <strong>Result: $v = 2.1 \pm 0.6$ m/s</strong></p>
+    </div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">Rule 3: Powers</span>
+      <span class="ms-marks">multiply fractional by power</span>
+    </div>
+    <p>If $z = a^n$:</p>
+    <div class="formula">$$\frac{\Delta z}{z} = n \cdot \frac{\Delta a}{a}$$</div>
+    <div class="card">
+      <h4>Example</h4>
+      <p>Area of circle $A = \pi r^2$:<br>
+      $r = 5.0 \pm 0.1$ cm<br>
+      $A = \pi \times 5.0^2 = 78.5$ cm&sup2;<br>
+      $\frac{\Delta A}{A} = 2 \times \frac{0.1}{5.0} = 0.040 = 4.0\%$<br>
+      $\Delta A = 0.040 \times 78.5 = 3.1$ cm&sup2;<br>
+      <strong>Result: $A = 79 \pm 3$ cm&sup2;</strong></p>
+    </div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">Rule 4: Reciprocal (1/x)</span>
+      <span class="ms-marks">same fractional</span>
+    </div>
+    <p>If $z = 1/a$, this is the same as $z = a^{-1}$, so:</p>
+    <div class="formula">$$\frac{\Delta z}{z} = \frac{\Delta a}{a} \qquad \text{or} \qquad \Delta\!\left(\frac{1}{a}\right) = \frac{1}{a} \cdot \frac{\Delta a}{a} = \frac{\Delta a}{a^2}$$</div>
+    <div class="card">
+      <h4>Example (this comes up every year in Q2!)</h4>
+      <p>$I = 130 \pm 2$ mA. Find $1/I$ with uncertainty.<br>
+      $1/I = 1/130 = 0.00769$ mA&sup1; = $7.69$ A&sup1;<br>
+      $\frac{\Delta(1/I)}{1/I} = \frac{2}{130} = 0.0154$<br>
+      $\Delta(1/I) = 0.0154 \times 7.69 = 0.12$ A&sup1;<br>
+      <strong>Result: $1/I = 7.7 \pm 0.1$ A&sup1;</strong></p>
+    </div>
+    <div class="note tip"><strong>Alternative method:</strong> calculate $1/I_{\min}$ and $1/I_{\max}$, then $\Delta = \frac{1}{2}(1/I_{\min} - 1/I_{\max})$.<br>
+    $1/128 = 7.81$, $1/132 = 7.58$ &rarr; $\Delta = (7.81 - 7.58)/2 = 0.12$ &mdash; same answer.</div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">Rule 5: Constants don't add uncertainty</span>
+      <span class="ms-marks">important</span>
+    </div>
+    <p>Pure numbers like $\pi$, $2$, $4$, $g = 9.81$ (given constant) have <strong>zero uncertainty</strong>. Only measured quantities contribute.</p>
+    <div class="card">
+      <h4>Example</h4>
+      <p>$T = 2\pi\sqrt{L/g}$, find $\Delta T$:<br>
+      Only $L$ is measured. $2$, $\pi$, $g$ are exact/given.<br>
+      $T = kL^{1/2}$ &rarr; $\frac{\Delta T}{T} = \frac{1}{2} \cdot \frac{\Delta L}{L}$</p>
+    </div>
+  </div>
+
+  <!-- ===== 4. DECISION FLOWCHART ===== -->
+  <h3>Quick decision flowchart <span class="badge">summary</span></h3>
+  <div class="card muted">
+    <table class="lin">
+      <thead>
+        <tr><th>Operation</th><th>What to do with uncertainties</th><th>Formula</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>$a + b$ or $a - b$</td><td>Add <strong>absolute</strong> uncertainties</td><td>$\Delta z = \Delta a + \Delta b$</td></tr>
+        <tr><td>$a \times b$ or $a / b$</td><td>Add <strong>fractional</strong> uncertainties</td><td>$\frac{\Delta z}{z} = \frac{\Delta a}{a} + \frac{\Delta b}{b}$</td></tr>
+        <tr><td>$a^n$</td><td>Multiply fractional by $n$</td><td>$\frac{\Delta z}{z} = n \cdot \frac{\Delta a}{a}$</td></tr>
+        <tr><td>$ka$ (k is constant)</td><td>$\Delta z = k \cdot \Delta a$</td><td>Constants have no uncertainty</td></tr>
+        <tr><td>$\ln a$</td><td>$\Delta(\ln a) = \frac{\Delta a}{a}$</td><td>Fractional becomes absolute!</td></tr>
+        <tr><td>$e^a$</td><td>$\frac{\Delta(e^a)}{e^a} = \Delta a$</td><td>Absolute becomes fractional!</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 5. GRADIENT & INTERCEPT UNCERTAINTY ===== -->
+  <h3>Gradient & intercept uncertainty from a graph <span class="badge">Q2 essential</span></h3>
+
+  <div class="card">
+    <p>This is worth <strong>4 marks</strong> in Q2 (2 for gradient uncertainty, 2 for intercept uncertainty). Here is the exact method:</p>
+
+    <ol class="steps">
+      <li>
+        <strong>Draw two lines on your graph</strong>
+        <p><strong>Best fit line:</strong> goes through all error bars, points balanced above and below.<br>
+        <strong>Worst acceptable line:</strong> steepest or shallowest line that still passes through all error bars. It must touch the error bar of the first and last point (or close).</p>
+      </li>
+      <li>
+        <strong>Calculate gradient of each line</strong>
+        <p>Pick two points <strong>far apart</strong> on the line (at least half the line length). Use the line, not data points.</p>
+        <div class="formula">$$\text{grad}_{\text{best}} = \frac{y_2 - y_1}{x_2 - x_1} \qquad \text{grad}_{\text{worst}} = \frac{y_4 - y_3}{x_4 - x_3}$$</div>
+      </li>
+      <li>
+        <strong>Uncertainty in gradient</strong>
+        <div class="formula">$$\Delta(\text{gradient}) = |\text{grad}_{\text{best}} - \text{grad}_{\text{worst}}|$$</div>
+      </li>
+      <li>
+        <strong>Find y-intercept of each line</strong>
+        <p>Pick any point $(x_0, y_0)$ on the best-fit line, then: $c = y_0 - m \cdot x_0$. Repeat for worst line.</p>
+      </li>
+      <li>
+        <strong>Uncertainty in y-intercept</strong>
+        <div class="formula">$$\Delta c = |c_{\text{best}} - c_{\text{worst}}|$$</div>
+      </li>
+    </ol>
+
+    <div class="note danger"><strong>Common mistake:</strong> using data points instead of points on the line to calculate gradient. Always pick points <em>that lie on the drawn line</em>, not the original data.</div>
+  </div>
+
+  <!-- ===== 6. INTERACTIVE CALCULATOR ===== -->
+  <h3>Uncertainty calculator <span class="badge">interactive</span></h3>
+
+  <div class="lin-tool">
+    <h3>Practice calculator <span class="badge">tool</span></h3>
+    <p>Select an operation, enter values, and see the uncertainty calculation step by step:</p>
+
+    <select id="uncertOp">
+      <option value="">— choose operation —</option>
+      <option value="add">a + b (addition)</option>
+      <option value="sub">a - b (subtraction)</option>
+      <option value="mul">a &times; b (multiplication)</option>
+      <option value="div">a / b (division)</option>
+      <option value="pow">a^n (power)</option>
+      <option value="recip">1/a (reciprocal)</option>
+    </select>
+
+    <div id="uncertInputs" style="display:none; margin-top: 12px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+        <div>
+          <label style="font-size: 12px; opacity: 0.7; display: block; margin-bottom: 4px;">Value of a</label>
+          <input type="number" id="uncertA" placeholder="e.g. 25.0" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: var(--paper); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; border-radius: 4px; width: 100%;">
+        </div>
+        <div>
+          <label style="font-size: 12px; opacity: 0.7; display: block; margin-bottom: 4px;">&Delta;a (absolute uncertainty)</label>
+          <input type="number" id="uncertDa" placeholder="e.g. 0.5" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: var(--paper); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; border-radius: 4px; width: 100%;">
+        </div>
+      </div>
+      <div id="uncertRowB" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+        <div>
+          <label style="font-size: 12px; opacity: 0.7; display: block; margin-bottom: 4px;">Value of b</label>
+          <input type="number" id="uncertB" placeholder="e.g. 10.0" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: var(--paper); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; border-radius: 4px; width: 100%;">
+        </div>
+        <div>
+          <label style="font-size: 12px; opacity: 0.7; display: block; margin-bottom: 4px;">&Delta;b (absolute uncertainty)</label>
+          <input type="number" id="uncertDb" placeholder="e.g. 0.2" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: var(--paper); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; border-radius: 4px; width: 100%;">
+        </div>
+      </div>
+      <div id="uncertRowN" style="display: none; margin-bottom: 12px;">
+        <label style="font-size: 12px; opacity: 0.7; display: block; margin-bottom: 4px;">Power n</label>
+        <input type="number" id="uncertN" placeholder="e.g. 2" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.3); color: var(--paper); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; border-radius: 4px; width: 50%;">
+      </div>
+      <button id="uncertCalc" style="background: var(--accent); border: 1.5px solid var(--accent); color: var(--paper); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: 600;">Calculate &rarr;</button>
+    </div>
+
+    <div class="lin-result" id="uncertResult"></div>
+  </div>
+
+  <!-- ===== 7. PRACTICE QUIZZES ===== -->
+  <h3>Practice quizzes <span class="badge">test yourself</span></h3>
+
+  <div class="quiz" data-correct="1" data-topic="uncert">
+    <div class="quiz-q">$d = 50.0 \pm 0.5$ cm, $t = 2.0 \pm 0.1$ s. You calculate $v = d/t = 25.0$ cm/s. What is $\Delta v$?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$\pm 0.6$ cm/s</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$\pm 1.5$ cm/s</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$\pm 2.5$ cm/s</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$\pm 0.3$ cm/s</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <details class="collapse">
+    <summary>Show worked solution</summary>
+    <div class="body">
+      <p>Division &rarr; add fractional uncertainties:</p>
+      <p>$\frac{\Delta v}{v} = \frac{\Delta d}{d} + \frac{\Delta t}{t} = \frac{0.5}{50.0} + \frac{0.1}{2.0} = 0.01 + 0.05 = 0.06$</p>
+      <p>$\Delta v = 0.06 \times 25.0 = 1.5$ cm/s</p>
+      <p><strong>Answer: B</strong></p>
+    </div>
+  </details>
+
+  <div class="quiz" data-correct="2" data-topic="uncert">
+    <div class="quiz-q">$r = 3.0 \pm 0.1$ cm. You calculate $A = \pi r^2$. What is the percentage uncertainty in $A$?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>3.3%</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>1.7%</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>6.7%</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>11.1%</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <details class="collapse">
+    <summary>Show worked solution</summary>
+    <div class="body">
+      <p>Power rule: $A = \pi r^2$ &rarr; $\frac{\Delta A}{A} = 2 \times \frac{\Delta r}{r}$</p>
+      <p>$= 2 \times \frac{0.1}{3.0} = 2 \times 0.0333 = 0.0667 = 6.7\%$</p>
+      <p><strong>Answer: C</strong></p>
+    </div>
+  </details>
+
+  <div class="quiz" data-correct="0" data-topic="uncert">
+    <div class="quiz-q">$L_1 = 80.0 \pm 0.5$ cm, $L_2 = 65.0 \pm 0.5$ cm. Extension $x = L_1 - L_2$. What is $\Delta x$?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$\pm 1.0$ cm</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$\pm 0.5$ cm</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$\pm 0.25$ cm</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$\pm 0.0$ cm (they cancel)</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <details class="collapse">
+    <summary>Show worked solution</summary>
+    <div class="body">
+      <p>Subtraction &rarr; add absolute uncertainties:</p>
+      <p>$\Delta x = \Delta L_1 + \Delta L_2 = 0.5 + 0.5 = 1.0$ cm</p>
+      <p><strong>Answer: A.</strong> Uncertainties always ADD when subtracting — they never cancel!</p>
+    </div>
+  </details>
+
+  <div class="quiz" data-correct="3" data-topic="uncert">
+    <div class="quiz-q">$I = 80 \pm 2$ mA. What is the absolute uncertainty in $1/I$ (in A&sup1;)?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$\pm 0.025$</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$\pm 0.50$</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$\pm 0.02$</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$\pm 0.3$</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <details class="collapse">
+    <summary>Show worked solution</summary>
+    <div class="body">
+      <p>$1/I = 1/80 = 0.0125$ mA&sup1; = $12.5$ A&sup1;</p>
+      <p>$\frac{\Delta(1/I)}{1/I} = \frac{\Delta I}{I} = \frac{2}{80} = 0.025$</p>
+      <p>$\Delta(1/I) = 0.025 \times 12.5 = 0.3125 \approx 0.3$ A&sup1;</p>
+      <p><strong>Answer: D</strong></p>
+    </div>
+  </details>
+
+  <div class="quiz" data-correct="1" data-topic="uncert">
+    <div class="quiz-q">Best fit gradient = 0.43, worst acceptable gradient = 0.48. What is the uncertainty in the gradient?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$\pm 0.455$</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$\pm 0.05$</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$\pm 0.91$</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$\pm 0.12$</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <details class="collapse">
+    <summary>Show worked solution</summary>
+    <div class="body">
+      <p>$\Delta(\text{gradient}) = |\text{grad}_{\text{best}} - \text{grad}_{\text{worst}}| = |0.43 - 0.48| = 0.05$</p>
+      <p><strong>Answer: B</strong></p>
+    </div>
+  </details>
+
+  <!-- ===== 8. FULL WORKED EXAMPLE ===== -->
+  <h3>Full worked example: from data to final answer <span class="badge">complete</span></h3>
+
+  <div class="card">
+    <p><strong>Given:</strong> $\frac{1}{I} = \frac{R}{E} + \frac{r}{E}$, with data:</p>
+    <table class="lin">
+      <thead><tr><th>R / &Omega;</th><th>I / mA</th><th>&Delta;I / mA</th></tr></thead>
+      <tbody>
+        <tr><td>15</td><td>130</td><td>&plusmn; 2</td></tr>
+        <tr><td>20</td><td>100</td><td>&plusmn; 2</td></tr>
+        <tr><td>28</td><td>75</td><td>&plusmn; 2</td></tr>
+      </tbody>
+    </table>
+    <p>(Showing 3 rows for brevity — in the exam you get 6.)</p>
+
+    <details class="collapse">
+      <summary>Step 1: Calculate 1/I and its uncertainty</summary>
+      <div class="body">
+        <p><strong>For $I = 130 \pm 2$ mA:</strong></p>
+        <p>$1/I = 1/130 = 7.692...$ &rarr; round to $7.69$ (3 s.f.)</p>
+        <p>$\Delta(1/I) = \frac{\Delta I}{I^2} = \frac{2}{130^2} = 0.000118$ mA&sup1; = $0.118$ A&sup1; &rarr; round to $\pm 0.1$</p>
+        <p>Or: $\frac{\Delta(1/I)}{1/I} = \frac{2}{130} = 0.0154$, so $\Delta = 0.0154 \times 7.69 = 0.12$ &rarr; $\pm 0.1$</p>
+
+        <table class="lin">
+          <thead><tr><th>R / &Omega;</th><th>I / mA</th><th>1/I / A&sup1;</th><th>&Delta;(1/I)</th></tr></thead>
+          <tbody>
+            <tr><td>15</td><td>130 &plusmn; 2</td><td>7.69</td><td>&plusmn; 0.1</td></tr>
+            <tr><td>20</td><td>100 &plusmn; 2</td><td>10.0</td><td>&plusmn; 0.2</td></tr>
+            <tr><td>28</td><td>75 &plusmn; 2</td><td>13.3</td><td>&plusmn; 0.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="collapse">
+      <summary>Step 2: Gradient &plusmn; uncertainty from graph</summary>
+      <div class="body">
+        <p>After plotting, suppose:</p>
+        <p>Best fit: points $(15, 7.5)$ and $(28, 13.5)$ on the line &rarr;<br>
+        $\text{grad}_{\text{best}} = \frac{13.5 - 7.5}{28 - 15} = \frac{6.0}{13} = 0.462$</p>
+        <p>Worst line: points $(15, 7.8)$ and $(28, 13.1)$ &rarr;<br>
+        $\text{grad}_{\text{worst}} = \frac{13.1 - 7.8}{28 - 15} = \frac{5.3}{13} = 0.408$</p>
+        <p>$\Delta(\text{grad}) = |0.462 - 0.408| = 0.054$</p>
+        <p><strong>gradient $= 0.46 \pm 0.05$ A&sup1; &Omega;&sup1;</strong></p>
+      </div>
+    </details>
+
+    <details class="collapse">
+      <summary>Step 3: Physical quantity &plusmn; uncertainty</summary>
+      <div class="body">
+        <p>gradient $= 1/E$ &rarr; $E = 1/\text{gradient} = 1/0.462 = 2.16$ V</p>
+        <p>$\frac{\Delta E}{E} = \frac{\Delta(\text{grad})}{\text{grad}} = \frac{0.054}{0.462} = 0.117 = 11.7\%$</p>
+        <p>$\Delta E = 0.117 \times 2.16 = 0.25$ V</p>
+        <p><strong>$E = 2.2 \pm 0.3$ V</strong></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ===== 9. COMMON MISTAKES ===== -->
+  <h3>Common mistakes to avoid <span class="badge">warning</span></h3>
+  <div class="card muted">
+    <ul class="fancy">
+      <li><strong>Subtracting uncertainties when subtracting values.</strong> No! Uncertainties always ADD. $\Delta(a-b) = \Delta a + \Delta b$, not $\Delta a - \Delta b$.</li>
+      <li><strong>Using data points instead of line points for gradient.</strong> The gradient comes from the drawn line, not from the table values.</li>
+      <li><strong>Forgetting to convert units.</strong> If $I$ is in mA and you need $1/I$ in A&sup1;, convert first: $130$ mA $= 0.130$ A.</li>
+      <li><strong>Too many significant figures in uncertainty.</strong> Round $\Delta$ to 1 significant figure (sometimes 2). Then round the value to match.</li>
+      <li><strong>Mixing up absolute and percentage.</strong> When multiplying/dividing, use fractional. When adding/subtracting, use absolute. Never mix them.</li>
+      <li><strong>Ignoring the worst acceptable line.</strong> This is worth 2+ marks. Always draw it and always use it to find $\Delta(\text{gradient})$ and $\Delta c$.</li>
+    </ul>
+  </div>
+
+</section>
+
 </main>
 
 <footer>
@@ -1903,6 +2321,94 @@ function updateProgress() {
 
 checks.forEach(c => c.addEventListener('change', updateProgress));
 updateProgress();
+
+// ===== UNCERTAINTY CALCULATOR =====
+const uncertOp = document.getElementById('uncertOp');
+const uncertInputs = document.getElementById('uncertInputs');
+const uncertRowB = document.getElementById('uncertRowB');
+const uncertRowN = document.getElementById('uncertRowN');
+const uncertCalc = document.getElementById('uncertCalc');
+const uncertResult = document.getElementById('uncertResult');
+
+uncertOp.addEventListener('change', () => {
+  const op = uncertOp.value;
+  if (!op) { uncertInputs.style.display = 'none'; uncertResult.classList.remove('show'); return; }
+  uncertInputs.style.display = 'block';
+  uncertRowB.style.display = (op === 'pow' || op === 'recip') ? 'none' : 'grid';
+  uncertRowN.style.display = (op === 'pow') ? 'block' : 'none';
+});
+
+uncertCalc.addEventListener('click', () => {
+  const op = uncertOp.value;
+  const a = parseFloat(document.getElementById('uncertA').value);
+  const da = parseFloat(document.getElementById('uncertDa').value);
+  const b = parseFloat(document.getElementById('uncertB').value);
+  const db = parseFloat(document.getElementById('uncertDb').value);
+  const n = parseFloat(document.getElementById('uncertN').value);
+  if (isNaN(a) || isNaN(da)) { uncertResult.classList.remove('show'); return; }
+  if ((op === 'add' || op === 'sub' || op === 'mul' || op === 'div') && (isNaN(b) || isNaN(db))) { uncertResult.classList.remove('show'); return; }
+  if (op === 'pow' && isNaN(n)) { uncertResult.classList.remove('show'); return; }
+
+  let result, dResult, steps;
+  const fracA = (da / Math.abs(a) * 100).toFixed(2);
+
+  if (op === 'add') {
+    result = a + b;
+    dResult = da + db;
+    steps = `<div class="row"><div class="label">Operation</div><div>z = a + b = ${a} + ${b} = <strong>${result}</strong></div></div>
+      <div class="row"><div class="label">Rule</div><div>Addition \u2192 add absolute uncertainties</div></div>
+      <div class="row"><div class="label">Calculation</div><div>\u0394z = \u0394a + \u0394b = ${da} + ${db} = <strong>${dResult}</strong></div></div>`;
+  } else if (op === 'sub') {
+    result = a - b;
+    dResult = da + db;
+    steps = `<div class="row"><div class="label">Operation</div><div>z = a \u2212 b = ${a} \u2212 ${b} = <strong>${result}</strong></div></div>
+      <div class="row"><div class="label">Rule</div><div>Subtraction \u2192 add absolute uncertainties (they don't cancel!)</div></div>
+      <div class="row"><div class="label">Calculation</div><div>\u0394z = \u0394a + \u0394b = ${da} + ${db} = <strong>${dResult}</strong></div></div>`;
+  } else if (op === 'mul') {
+    result = a * b;
+    const fracB = (db / Math.abs(b) * 100).toFixed(2);
+    const fracSum = (da / Math.abs(a) + db / Math.abs(b));
+    dResult = fracSum * Math.abs(result);
+    steps = `<div class="row"><div class="label">Operation</div><div>z = a \u00D7 b = ${a} \u00D7 ${b} = <strong>${result.toPrecision(4)}</strong></div></div>
+      <div class="row"><div class="label">Rule</div><div>Multiplication \u2192 add fractional uncertainties</div></div>
+      <div class="row"><div class="label">Fractional a</div><div>\u0394a/a = ${da}/${Math.abs(a)} = ${(da/Math.abs(a)).toFixed(4)} (${fracA}%)</div></div>
+      <div class="row"><div class="label">Fractional b</div><div>\u0394b/b = ${db}/${Math.abs(b)} = ${(db/Math.abs(b)).toFixed(4)} (${fracB}%)</div></div>
+      <div class="row"><div class="label">Total frac</div><div>${(da/Math.abs(a)).toFixed(4)} + ${(db/Math.abs(b)).toFixed(4)} = ${fracSum.toFixed(4)} (${(fracSum*100).toFixed(2)}%)</div></div>
+      <div class="row"><div class="label">Absolute</div><div>\u0394z = ${fracSum.toFixed(4)} \u00D7 ${Math.abs(result).toPrecision(4)} = <strong>${dResult.toPrecision(2)}</strong></div></div>`;
+  } else if (op === 'div') {
+    result = a / b;
+    const fracB = (db / Math.abs(b) * 100).toFixed(2);
+    const fracSum = (da / Math.abs(a) + db / Math.abs(b));
+    dResult = fracSum * Math.abs(result);
+    steps = `<div class="row"><div class="label">Operation</div><div>z = a / b = ${a} / ${b} = <strong>${result.toPrecision(4)}</strong></div></div>
+      <div class="row"><div class="label">Rule</div><div>Division \u2192 add fractional uncertainties</div></div>
+      <div class="row"><div class="label">Fractional a</div><div>\u0394a/a = ${da}/${Math.abs(a)} = ${(da/Math.abs(a)).toFixed(4)} (${fracA}%)</div></div>
+      <div class="row"><div class="label">Fractional b</div><div>\u0394b/b = ${db}/${Math.abs(b)} = ${(db/Math.abs(b)).toFixed(4)} (${fracB}%)</div></div>
+      <div class="row"><div class="label">Total frac</div><div>${(da/Math.abs(a)).toFixed(4)} + ${(db/Math.abs(b)).toFixed(4)} = ${fracSum.toFixed(4)} (${(fracSum*100).toFixed(2)}%)</div></div>
+      <div class="row"><div class="label">Absolute</div><div>\u0394z = ${fracSum.toFixed(4)} \u00D7 ${Math.abs(result).toPrecision(4)} = <strong>${dResult.toPrecision(2)}</strong></div></div>`;
+  } else if (op === 'pow') {
+    result = Math.pow(a, n);
+    const frac = n * da / Math.abs(a);
+    dResult = frac * Math.abs(result);
+    steps = `<div class="row"><div class="label">Operation</div><div>z = a^${n} = ${a}^${n} = <strong>${result.toPrecision(4)}</strong></div></div>
+      <div class="row"><div class="label">Rule</div><div>Power \u2192 multiply fractional by n</div></div>
+      <div class="row"><div class="label">Fractional a</div><div>\u0394a/a = ${da}/${Math.abs(a)} = ${(da/Math.abs(a)).toFixed(4)} (${fracA}%)</div></div>
+      <div class="row"><div class="label">Total frac</div><div>${n} \u00D7 ${(da/Math.abs(a)).toFixed(4)} = ${frac.toFixed(4)} (${(frac*100).toFixed(2)}%)</div></div>
+      <div class="row"><div class="label">Absolute</div><div>\u0394z = ${frac.toFixed(4)} \u00D7 ${Math.abs(result).toPrecision(4)} = <strong>${dResult.toPrecision(2)}</strong></div></div>`;
+  } else if (op === 'recip') {
+    result = 1 / a;
+    const frac = da / Math.abs(a);
+    dResult = frac * Math.abs(result);
+    steps = `<div class="row"><div class="label">Operation</div><div>z = 1/a = 1/${a} = <strong>${result.toPrecision(4)}</strong></div></div>
+      <div class="row"><div class="label">Rule</div><div>Reciprocal = power of \u22121 \u2192 same fractional uncertainty</div></div>
+      <div class="row"><div class="label">Fractional</div><div>\u0394a/a = ${da}/${Math.abs(a)} = ${frac.toFixed(4)} (${(frac*100).toFixed(2)}%)</div></div>
+      <div class="row"><div class="label">Absolute</div><div>\u0394z = ${frac.toFixed(4)} \u00D7 ${Math.abs(result).toPrecision(4)} = <strong>${dResult.toPrecision(2)}</strong></div></div>`;
+  }
+
+  steps += `<div class="row" style="border-top: 1px solid rgba(255,255,255,0.3); margin-top: 8px; padding-top: 12px;"><div class="label">Final answer</div><div style="font-size: 16px;"><strong style="color: #c87f30;">${result.toPrecision(3)} \u00B1 ${dResult.toPrecision(1)}</strong></div></div>`;
+  uncertResult.innerHTML = steps;
+  uncertResult.classList.add('show');
+});
 </script>
 
 </body>
