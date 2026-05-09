@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIS Physics Paper 3 — Подготовка</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});"></script>
+
+<style>
+:root {
+  --paper: #f5efe4;
+  --paper-2: #ebe3d2;
+  --ink: #1c1f2e;
+  --ink-soft: #3a3d52;
+  --rule: #c4b89a;
+  --grid: rgba(28, 31, 46, 0.06);
+  --accent: #b9482e;
+  --accent-2: #c87f30;
+  --teal: #2c5a4f;
+  --navy: #2a3a5e;
+  --good: #3e6b3a;
+  --warn: #c87f30;
+  --bad: #b9482e;
+  --shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(28,31,46,.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 16px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============= HEADER ============= */
+header {
+  padding: 56px 0 32px;
+  border-bottom: 1.5px solid var(--ink);
+  margin-bottom: 0;
+  position: relative;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  font-variation-settings: 'opsz' 144;
+}
+
+h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.lead {
+  font-size: 18px;
+  max-width: 720px;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+
+.meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  padding-top: 16px;
+  border-top: 1px dashed var(--rule);
+}
+
+.meta-bar span { display: flex; align-items: center; gap: 8px; }
+.meta-bar strong { color: var(--ink); font-weight: 600; }
+
+/* ============= NAV ============= */
+nav.tabs {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  z-index: 100;
+  border-bottom: 1.5px solid var(--ink);
+  padding: 8px 0;
+  margin-bottom: 48px;
+}
+
+.tabs-inner {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-inner::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-btn:hover { color: var(--ink); }
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-btn .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--rule);
+}
+
+.tab-btn.active .num { color: var(--accent); }
+
+/* ============= SECTIONS ============= */
+.section { display: none; padding-bottom: 80px; animation: fadeIn 0.4s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+h2 .marks {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 4px 12px;
+  border-radius: 99px;
+  vertical-align: middle;
+  margin-left: 12px;
+}
+
+h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 32px 0 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+h3 .badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(185, 72, 46, 0.08);
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+h4 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 20px 0 8px;
+  color: var(--ink);
+}
+
+p { margin-bottom: 14px; color: var(--ink-soft); }
+p strong { color: var(--ink); font-weight: 700; }
+
+.intro {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 760px;
+  margin-bottom: 32px;
+}
+
+/* ============= CARDS ============= */
+.card {
+  background: #fffaf0;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.card.muted { background: var(--paper-2); }
+
+.card .corner-tag {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+@media (max-width: 720px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ============= LISTS ============= */
+ul.fancy { list-style: none; padding: 0; }
+ul.fancy li {
+  padding: 10px 0 10px 28px;
+  position: relative;
+  border-bottom: 1px dashed var(--rule);
+  color: var(--ink-soft);
+}
+ul.fancy li:last-child { border-bottom: none; }
+ul.fancy li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+ul.check { list-style: none; padding: 0; }
+ul.check li {
+  padding: 12px 0 12px 32px;
+  position: relative;
+  color: var(--ink-soft);
+}
+ul.check li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  color: var(--good);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+ol.steps { padding-left: 0; counter-reset: step; list-style: none; }
+ol.steps > li {
+  padding: 16px 0 16px 56px;
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+  counter-increment: step;
+}
+ol.steps > li:last-child { border-bottom: none; }
+ol.steps > li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+/* ============= MARK SCHEME BLOCK ============= */
+.ms-block {
+  background: linear-gradient(180deg, #fffaf0 0%, var(--paper) 100%);
+  border-left: 4px solid var(--accent);
+  padding: 20px 24px;
+  margin: 16px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.ms-block .ms-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.ms-block .ms-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.ms-block .ms-marks {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ============= COLLAPSIBLE ============= */
+details.collapse {
+  border: 1.5px solid var(--ink);
+  background: #fffaf0;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+details.collapse summary {
+  padding: 16px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+details.collapse summary:hover { background: var(--paper-2); }
+details.collapse summary::-webkit-details-marker { display: none; }
+
+details.collapse summary::after {
+  content: '+';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--accent);
+  transition: transform 0.2s;
+}
+
+details.collapse[open] summary::after {
+  content: '−';
+}
+
+details.collapse .body {
+  padding: 4px 24px 24px;
+  border-top: 1px dashed var(--rule);
+  margin: 0 4px;
+}
+
+/* ============= FORMULAS ============= */
+.formula {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: 16px 20px;
+  border-radius: 4px;
+  margin: 12px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.formula-box {
+  background: #fffaf0;
+  border: 1.5px solid var(--ink);
+  padding: 20px;
+  border-radius: 4px;
+  margin: 16px 0;
+}
+
+/* ============= TABLES ============= */
+table.lin {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+  background: #fffaf0;
+  border: 1.5px solid var(--ink);
+}
+
+table.lin th {
+  background: var(--ink);
+  color: var(--paper);
+  text-align: left;
+  padding: 10px 14px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+table.lin td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+table.lin tr:last-child td { border-bottom: none; }
+table.lin tr:hover td { background: var(--paper-2); }
+
+table.lin code, .mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: var(--paper-2);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* ============= QUIZ ============= */
+.quiz {
+  background: #fffaf0;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  padding: 24px;
+  margin: 20px 0;
+}
+
+.quiz h4 { margin-top: 0; }
+
+.quiz-q {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+.quiz-options { display: grid; gap: 8px; margin-bottom: 12px; }
+
+.quiz-opt {
+  background: var(--paper);
+  border: 1.5px solid var(--rule);
+  padding: 12px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quiz-opt:hover {
+  border-color: var(--ink);
+  background: var(--paper-2);
+}
+
+.quiz-opt .letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  background: var(--paper-2);
+  padding: 4px 8px;
+  border-radius: 2px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.quiz-opt.correct {
+  border-color: var(--good);
+  background: rgba(62, 107, 58, 0.08);
+}
+
+.quiz-opt.correct .letter {
+  background: var(--good);
+  color: var(--paper);
+}
+
+.quiz-opt.wrong {
+  border-color: var(--bad);
+  background: rgba(185, 72, 46, 0.08);
+}
+
+.quiz-opt.wrong .letter {
+  background: var(--bad);
+  color: var(--paper);
+}
+
+.quiz-opt:disabled { cursor: default; }
+
+.quiz-feedback {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: none;
+}
+
+.quiz-feedback.show { display: block; }
+.quiz-feedback.good {
+  background: rgba(62, 107, 58, 0.08);
+  border-left: 3px solid var(--good);
+  color: var(--good);
+}
+.quiz-feedback.bad {
+  background: rgba(185, 72, 46, 0.08);
+  border-left: 3px solid var(--bad);
+  color: var(--bad);
+}
+
+/* ============= REVEAL BUTTON ============= */
+.reveal {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 10px 20px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.reveal:hover { background: var(--accent); }
+.reveal:disabled { opacity: 0.5; cursor: default; }
+
+.reveal-content {
+  display: none;
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: var(--paper-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  animation: fadeIn 0.3s;
+}
+
+.reveal-content.show { display: block; }
+
+/* ============= PHRASES ============= */
+.phrase-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--rule);
+  align-items: start;
+}
+
+.phrase-row:last-child { border-bottom: none; }
+
+.phrase-row .ru {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.phrase-row .en {
+  color: var(--ink);
+  font-weight: 500;
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .phrase-row { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* ============= CHECKLIST ============= */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--rule);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checklist-item:last-child { border-bottom: none; }
+
+.checklist-item input {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  background: var(--paper);
+  transition: all 0.15s;
+}
+
+.checklist-item input:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.checklist-item input:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.checklist-item span {
+  flex: 1;
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.checklist-item input:checked + span {
+  text-decoration: line-through;
+  color: var(--rule);
+}
+
+.checklist-item .pts {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ============= PROGRESS ============= */
+.progress-bar {
+  background: var(--paper-2);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 12px 0 4px;
+  border: 1px solid var(--rule);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  width: 0%;
+  transition: width 0.4s;
+}
+
+.progress-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ============= NOTE ============= */
+.note {
+  background: rgba(200, 127, 48, 0.08);
+  border-left: 3px solid var(--warn);
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.note strong { color: var(--ink); }
+
+.note.tip {
+  background: rgba(44, 90, 79, 0.08);
+  border-left-color: var(--teal);
+}
+
+.note.danger {
+  background: rgba(185, 72, 46, 0.08);
+  border-left-color: var(--bad);
+}
+
+/* ============= DIAGRAM SVG ============= */
+.diagram-frame {
+  background: #fffaf0;
+  border: 1.5px solid var(--ink);
+  padding: 20px;
+  border-radius: 4px;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.diagram-frame svg { max-width: 100%; height: auto; }
+
+.diagram-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+/* ============= LINEARIZE TOOL ============= */
+.lin-tool {
+  background: linear-gradient(135deg, var(--ink) 0%, var(--navy) 100%);
+  color: var(--paper);
+  padding: 32px;
+  border-radius: 6px;
+  margin: 24px 0;
+}
+
+.lin-tool h3 { color: var(--paper); margin-top: 0; }
+.lin-tool h3 .badge { background: rgba(255,255,255,0.15); color: var(--paper); }
+.lin-tool p { color: rgba(245, 239, 228, 0.8); }
+
+.lin-tool select, .lin-tool button {
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: var(--paper);
+  padding: 10px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.lin-tool select option { background: var(--ink); color: var(--paper); }
+.lin-tool button { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.lin-tool button:hover { background: var(--accent-2); border-color: var(--accent-2); }
+
+.lin-result {
+  background: rgba(255,255,255,0.05);
+  border: 1px dashed rgba(255,255,255,0.2);
+  padding: 20px;
+  margin-top: 16px;
+  border-radius: 4px;
+  display: none;
+}
+
+.lin-result.show { display: block; }
+
+.lin-result .row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 14px;
+  align-items: baseline;
+}
+
+.lin-result .row:last-child { border-bottom: none; }
+.lin-result .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 228, 0.6);
+}
+
+/* ============= FOOTER ============= */
+footer {
+  border-top: 1.5px solid var(--ink);
+  padding: 32px 0 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+footer .made {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+/* ============= UTILITIES ============= */
+.row-flex { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.spacer { height: 24px; }
+.divider { height: 1px; background: var(--rule); margin: 32px 0; }
+
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: var(--paper-2);
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.tag.accent { background: var(--accent); color: var(--paper); }
+.tag.teal { background: var(--teal); color: var(--paper); }
+.tag.navy { background: var(--navy); color: var(--paper); }
+
+.kbd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="eyebrow">NIS · Grade 12 · Physics · Paper 3 · 30 marks · 1h 30min</div>
+  <h1>Лабораторный<br>эксперимент <em>— план и анализ</em></h1>
+  <p class="lead">Полная подготовка к 3 компоненту: универсальная структура ответа на Q1 (15 баллов планирование), пошаговый разбор Q2 (15 баллов анализ данных), интерактивный тренажёр линеаризации, банк фраз на английском и тренировочные задачи с решениями.</p>
+  <div class="meta-bar">
+    <span><strong>Q1</strong> Planning · 15 marks</span>
+    <span><strong>Q2</strong> Data analysis · 15 marks</span>
+    <span><strong>Total</strong> 30 marks</span>
+    <span><strong>Время</strong> 90 min</span>
+  </div>
+</header>
+
+<!-- ===== TABS ===== -->
+<nav class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" data-tab="overview"><span class="num">00</span>Обзор</button>
+    <button class="tab-btn" data-tab="q1"><span class="num">01</span>Q1 · Planning</button>
+    <button class="tab-btn" data-tab="q2"><span class="num">02</span>Q2 · Analysis</button>
+    <button class="tab-btn" data-tab="lin"><span class="num">03</span>Линеаризация</button>
+    <button class="tab-btn" data-tab="practice"><span class="num">04</span>Практика</button>
+    <button class="tab-btn" data-tab="phrases"><span class="num">05</span>Фразы EN</button>
+    <button class="tab-btn" data-tab="check"><span class="num">06</span>Чек-лист</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============= OVERVIEW ============= -->
+<section class="section active" id="overview">
+  <h2>Что нужно знать о Paper 3</h2>
+  <p class="intro">Paper 3 — это два больших задания. В Q1 ты планируешь эксперимент по описанной формуле. В Q2 анализируешь данные, строишь график, считаешь погрешности. Оба задания построены по одной и той же логике год за годом — поэтому если выучить структуру, баллы стабильно набираются.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <span class="corner-tag">Q1 · 15 marks</span>
+      <h3>Planning Experiment</h3>
+      <p>Тебе дают физическую формулу с переменными и просят спланировать лабораторный эксперимент: схема, переменные, измерения, анализ, безопасность.</p>
+      <ul class="check">
+        <li>Defining variables — 2 marks</li>
+        <li>Diagram + measurements — ~5 marks</li>
+        <li>Method of analysis (linearization!) — 3 marks</li>
+        <li>Additional details — max 3 marks</li>
+        <li>Safety — 1 mark</li>
+        <li>Limitation + Improvement — 2 marks</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="corner-tag">Q2 · 15 marks</span>
+      <h3>Data Analysis</h3>
+      <p>Тебе дают таблицу данных и формулу. Нужно линеаризовать, посчитать значения, построить график с error bars, провести best fit и worst acceptable line, найти gradient + intercept с погрешностями, найти физические величины.</p>
+      <ul class="check">
+        <li>Gradient/intercept expressions — 1 mark</li>
+        <li>Table calculations + uncertainties — 2 marks</li>
+        <li>Plot + error bars — 2 marks</li>
+        <li>Best fit + worst line — 2 marks</li>
+        <li>Gradient ± uncertainty — 2 marks</li>
+        <li>Y-intercept ± uncertainty — 2 marks</li>
+        <li>Physical quantities + units — 2 marks</li>
+        <li>Final calculation — ~2 marks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card muted">
+    <h3>Главный навык всего экзамена <span class="badge">КЛЮЧ</span></h3>
+    <p><strong>Линеаризация.</strong> 90% задач сводятся к одному действию: превратить формулу типа $y = a x^n$ или $y = a e^{kx}$ в форму $Y = mX + c$, чтобы получить прямую линию на графике. Если ты умеешь это делать на любой формуле — ты получаешь 5–6 баллов автоматом и в Q1, и в Q2.</p>
+    <p>На вкладке <span class="kbd">03 Линеаризация</span> ты найдёшь интерактивный тренажёр и таблицу со всеми типовыми случаями.</p>
+  </div>
+
+  <h3>Как готовиться эффективно</h3>
+  <ol class="steps">
+    <li><strong>День 1.</strong> Прочитать вкладку Q1, выучить универсальную структуру наизусть (6 категорий). Без неё на экзамене ничего не выйдет.</li>
+    <li><strong>День 2.</strong> Прорешать таблицу линеаризации, пройти интерактивный тренажёр на вкладке 03. Цель — узнавать тип формулы за 5 секунд.</li>
+    <li><strong>День 3.</strong> Прочитать вкладку Q2, разобрать каждый шаг анализа данных. Особенно: worst acceptable line и uncertainty в gradient.</li>
+    <li><strong>День 4.</strong> Решить все задачи на вкладке «Практика» сначала самостоятельно, потом сверить с решением.</li>
+    <li><strong>День 5.</strong> Выучить фразы на английском (вкладка 05), пройти чек-лист (вкладка 06).</li>
+    <li><strong>В день экзамена.</strong> Открыть Q1, написать <em>каждую</em> категорию из чек-листа — даже если не уверен. Полупустые баллы засчитываются.</li>
+  </ol>
+</section>
+
+<!-- ============= Q1 PLANNING ============= -->
+<section class="section" id="q1">
+  <h2>Q1 — Planning the Experiment <span class="marks">15</span></h2>
+  <p class="intro">Это самое «дорогое» задание. Если знать структуру mark scheme — баллы набираются легко. Ниже разбита на 6 блоков. Пиши ответ <strong>строго в этом порядке</strong> с подзаголовками — экзаменатору проще найти каждый mark point.</p>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">① Defining the problem</span>
+      <span class="ms-marks">2 marks</span>
+    </div>
+    <p>Перечислить переменные. Это первое, что ищет экзаменатор. Не пропускай!</p>
+    <ul class="fancy">
+      <li><strong>Independent variable</strong> — то, что ты меняешь (например, $x$ — сжатие пружины)</li>
+      <li><strong>Dependent variable</strong> — то, что ты измеряешь в ответ (например, $d$ — пройденное расстояние)</li>
+      <li><strong>Constants / control variables</strong> — что должно оставаться неизменным (масса, поверхность, температура и т.д.)</li>
+    </ul>
+    <div class="formula-box mono">
+      <strong>Шаблон:</strong><br>
+      "I will vary [X] as the independent variable and measure [Y] as the dependent variable.<br>
+      [m, k, μ, ...] will be kept constant throughout the experiment."
+    </div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">② Diagram of apparatus</span>
+      <span class="ms-marks">1 mark</span>
+    </div>
+    <p>Подписанная схема установки. Простая, но обязательно <strong>все ключевые элементы подписаны</strong>.</p>
+
+    <div class="diagram-frame">
+      <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- bench -->
+        <line x1="20" y1="220" x2="580" y2="220" stroke="#1c1f2e" stroke-width="2"/>
+        <pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="6" stroke="#1c1f2e" stroke-width="1"/>
+        </pattern>
+        <rect x="20" y="220" width="560" height="20" fill="url(#hatch)" opacity="0.4"/>
+        <!-- wall -->
+        <line x1="60" y1="100" x2="60" y2="220" stroke="#1c1f2e" stroke-width="3"/>
+        <rect x="40" y="100" width="20" height="120" fill="url(#hatch)" opacity="0.4"/>
+        <!-- spring -->
+        <path d="M 60 175 L 75 165 L 90 185 L 105 165 L 120 185 L 135 165 L 150 185 L 165 175" fill="none" stroke="#b9482e" stroke-width="2"/>
+        <!-- block -->
+        <rect x="165" y="160" width="50" height="40" fill="#fffaf0" stroke="#1c1f2e" stroke-width="2"/>
+        <!-- ruler -->
+        <line x1="60" y1="245" x2="540" y2="245" stroke="#1c1f2e" stroke-width="1"/>
+        <g font-family="JetBrains Mono" font-size="9" fill="#1c1f2e">
+          <line x1="60" y1="240" x2="60" y2="250" stroke="#1c1f2e"/>
+          <line x1="120" y1="242" x2="120" y2="248" stroke="#1c1f2e"/>
+          <line x1="180" y1="242" x2="180" y2="248" stroke="#1c1f2e"/>
+          <line x1="240" y1="242" x2="240" y2="248" stroke="#1c1f2e"/>
+          <line x1="300" y1="242" x2="300" y2="248" stroke="#1c1f2e"/>
+          <line x1="360" y1="242" x2="360" y2="248" stroke="#1c1f2e"/>
+          <line x1="420" y1="242" x2="420" y2="248" stroke="#1c1f2e"/>
+          <line x1="480" y1="242" x2="480" y2="248" stroke="#1c1f2e"/>
+          <line x1="540" y1="240" x2="540" y2="250" stroke="#1c1f2e"/>
+          <text x="60" y="265" text-anchor="middle">0</text>
+        </g>
+        <!-- final position -->
+        <rect x="450" y="160" width="50" height="40" fill="none" stroke="#b9482e" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <!-- arrows -->
+        <line x1="220" y1="180" x2="445" y2="180" stroke="#b9482e" stroke-width="1.5" marker-end="url(#arr)"/>
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#b9482e"/>
+          </marker>
+        </defs>
+        <!-- labels -->
+        <g font-family="Fraunces" font-size="13" fill="#1c1f2e" font-style="italic">
+          <text x="105" y="155">spring</text>
+          <text x="170" y="150">block of wood</text>
+          <text x="320" y="170">d</text>
+          <text x="430" y="155" fill="#b9482e">final position</text>
+          <text x="300" y="280" text-anchor="middle">horizontal ruler</text>
+          <text x="40" y="95" text-anchor="middle">wall</text>
+        </g>
+      </svg>
+      <div class="diagram-caption">Пример: пружина → блок → линейка вдоль траектории</div>
+    </div>
+
+    <p><strong>Что должно быть на схеме:</strong></p>
+    <ul class="check">
+      <li>Все приборы подписаны (spring, block, ruler, balance, light gate, etc.)</li>
+      <li>Расположение: горизонтально / вертикально — должно быть очевидно</li>
+      <li>Если надо — направление движения стрелкой</li>
+      <li>Если есть фиксация — показать clamp/G-clamp</li>
+    </ul>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">③ Methods of data collection</span>
+      <span class="ms-marks">3–4 marks</span>
+    </div>
+    <p>Описать <strong>как именно</strong> ты измеряешь каждую переменную в формуле. Прибор + способ.</p>
+
+    <table class="lin">
+      <thead>
+        <tr><th>Что измерить</th><th>Чем</th><th>Как</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Длина / расстояние</td><td><code>ruler</code> / <code>vernier caliper</code> / <code>micrometer</code></td><td>Микрометр — для тонких объектов (диаметр шарика, проволоки), штангенциркуль — средние, линейка — большие</td></tr>
+        <tr><td>Масса</td><td><code>top-pan balance</code></td><td>Перед началом обнулить (zero error)</td></tr>
+        <tr><td>Время</td><td><code>stopwatch</code> / <code>light gate + data logger</code></td><td>Light gate точнее, особенно для быстрых процессов</td></tr>
+        <tr><td>Скорость</td><td><code>light gate</code> / <code>video camera + frame analysis</code></td><td>Видео — частоту кадров знаем, по кадрам считаем время</td></tr>
+        <tr><td>Угол</td><td><code>protractor</code></td><td></td></tr>
+        <tr><td>Сила</td><td><code>newton meter</code> / <code>spring scale</code> (calibrated)</td><td>Обязательно «calibrated»</td></tr>
+        <tr><td>Температура</td><td><code>thermometer</code> / <code>thermocouple</code></td><td></td></tr>
+        <tr><td>Ток / напряжение</td><td><code>ammeter</code> / <code>voltmeter</code></td><td>Цифровые точнее, но укажи диапазон</td></tr>
+        <tr><td>Магнитное поле</td><td><code>Hall probe</code> / <code>magnetometer</code></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="note tip"><strong>Важно:</strong> для каждой величины опиши, что измеряется <em>до</em> и <em>после</em>, если это разница (например, длина пружины до сжатия и после). Это часто отдельный mark point.</div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">④ Method of analysis</span>
+      <span class="ms-marks">3 marks</span>
+    </div>
+    <p>Это <strong>сердце Q1</strong>. Линеаризовать формулу и описать, что строить.</p>
+
+    <ol class="steps">
+      <li><strong>Линеаризовать формулу</strong> — привести к виду $Y = mX + c$ (см. вкладку 03)</li>
+      <li><strong>Указать график:</strong> "Plot a graph of [Y] against [X]"</li>
+      <li><strong>Условие справедливости связи:</strong> "If a straight line is produced (passing through the origin), the relationship is verified"</li>
+      <li><strong>Выразить искомую величину</strong> через gradient и/или y-intercept</li>
+    </ol>
+
+    <div class="formula-box">
+      <strong>Пример с пружиной (из 2025 года):</strong><br>
+      Из $2md\mu g = kx^2$ → $d = \dfrac{k}{2m\mu g} \cdot x^2$<br><br>
+      <strong>Plot:</strong> $d$ против $x^2$ → прямая через начало координат<br>
+      <strong>Gradient:</strong> $\dfrac{k}{2m\mu g}$<br>
+      <strong>Откуда:</strong> $\mu = \dfrac{k}{2mg \cdot \text{gradient}}$
+    </div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">⑤ Additional details</span>
+      <span class="ms-marks">max 3 marks</span>
+    </div>
+    <p>Это «бонусные» детали — пиши их, чтобы добрать баллы. Mark scheme принимает любые <strong>3 из этого списка</strong>:</p>
+    <ul class="fancy">
+      <li><strong>D1.</strong> Конкретный способ сбора сырых данных (детали измерения)</li>
+      <li><strong>D2.</strong> Метод определения дополнительных констант (например, $k$ через закон Гука $F = kx$)</li>
+      <li><strong>D3.</strong> Зажатая горизонтально линейка для измерения расстояния</li>
+      <li><strong>D4.</strong> Set square для перпендикулярности — "use a set square to ensure the ruler is at right angles to the wall"</li>
+      <li><strong>D5.</strong> Калиброванный прибор: "use a calibrated spring scale / Newton meter"</li>
+      <li><strong>D6.</strong> Повторение и среднее: "repeat the experiment 3 times for each value of x and calculate the mean"</li>
+      <li><strong>D7.</strong> Видеокамера + slow motion: "record with a video camera held level with the apparatus and play back frame by frame"</li>
+      <li><strong>D8.</strong> Минимизация air resistance: "use a high-density block to minimise the effect of air resistance"</li>
+      <li><strong>D9.</strong> Spirit level: "use a spirit level to ensure the surface is horizontal"</li>
+    </ul>
+    <div class="note tip"><strong>Тактика:</strong> всегда пиши минимум 4–5 пунктов из этого списка, чтобы гарантированно набрать максимум 3 балла. Лишние не вредят.</div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">⑥ Safety</span>
+      <span class="ms-marks">1 mark</span>
+    </div>
+    <p>Достаточно <strong>одной конкретной</strong> меры безопасности, связанной с этим экспериментом.</p>
+    <ul class="fancy">
+      <li>"Wear safety goggles to prevent injury from a detached spring / flying object"</li>
+      <li>"Securely clamp the apparatus to ensure it does not shift or fall"</li>
+      <li>"Keep electronic equipment away from strong magnets"</li>
+      <li>"Place a cushion / soft barrier to stop the trolley safely"</li>
+      <li>"Avoid placing fingers between strong magnets"</li>
+    </ul>
+    <div class="note danger"><strong>Не пиши</strong> общие фразы типа "be careful" — нужна <em>конкретная</em> мера для <em>этого</em> эксперимента.</div>
+  </div>
+
+  <div class="ms-block">
+    <div class="ms-head">
+      <span class="ms-title">⑦ Limitation + Improvement</span>
+      <span class="ms-marks">2 marks</span>
+    </div>
+    <p>Один балл за limitation, один за improvement. Они должны быть <strong>связаны</strong>.</p>
+    <table class="lin">
+      <thead><tr><th>Limitation</th><th>Improvement</th></tr></thead>
+      <tbody>
+        <tr><td>Block may not travel in a straight line</td><td>Use a guiding track / channel</td></tr>
+        <tr><td>Spring may have undesirable lateral movement</td><td>Use tape / G-clamp to fix the spring</td></tr>
+        <tr><td>Air resistance affects motion</td><td>Use a denser / smaller object, or vacuum chamber</td></tr>
+        <tr><td>Reaction time error in stopwatch</td><td>Use light gate + data logger</td></tr>
+        <tr><td>Parallax error reading ruler</td><td>Use a digital position sensor / read at eye level</td></tr>
+        <tr><td>Heat loss to surroundings</td><td>Use insulation / lagging</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card muted">
+    <h3>Полный пример ответа на Q1 2025</h3>
+    <p>Формула: $2md\mu g = kx^2$, найти $\mu$.</p>
+    <details class="collapse">
+      <summary>Развернуть полный ответ (15 баллов)</summary>
+      <div class="body">
+        <h4>① Variables</h4>
+        <p>Independent variable: $x$ (compression of spring). Dependent variable: $d$ (maximum distance travelled by the block). Mass $m$ and spring constant $k$ are kept constant.</p>
+
+        <h4>② Diagram</h4>
+        <p>(см. схему выше) Spring fixed horizontally to wall, block in front of spring, ruler clamped horizontally along the path of motion, set square between ruler and wall.</p>
+
+        <h4>③ Procedure & measurements</h4>
+        <ul class="check">
+          <li>Measure mass $m$ of block using top-pan balance</li>
+          <li>Measure original length of spring with ruler</li>
+          <li>Compress spring by amount $x$, measure final length, find $x$ as difference</li>
+          <li>Release block, mark final position when at rest</li>
+          <li>Measure $d$ from spring end to block's final position with the clamped ruler</li>
+          <li>Repeat for at least 6 values of $x$, 3 trials each, take mean of $d$</li>
+        </ul>
+
+        <h4>④ Analysis</h4>
+        <p>Rearrange: $d = \dfrac{k}{2m\mu g} x^2$. Plot $d$ against $x^2$. If straight line through origin, relationship is verified. Gradient $= \dfrac{k}{2m\mu g}$, so $\mu = \dfrac{k}{2mg \cdot \text{gradient}}$.</p>
+
+        <h4>⑤ Additional details</h4>
+        <ul class="check">
+          <li>Use spirit level to ensure surface is horizontal (D9)</li>
+          <li>Use set square to keep ruler perpendicular to wall (D4)</li>
+          <li>Determine $k$ separately by hanging known masses on the spring and measuring extension (Hooke's law) (D2)</li>
+          <li>Repeat 3× and take average (D6)</li>
+        </ul>
+
+        <h4>⑥ Safety</h4>
+        <p>Wear safety goggles in case the spring detaches and flies during release.</p>
+
+        <h4>⑦ Limitation + Improvement</h4>
+        <p><em>Limitation:</em> the block might not travel in a straight line, making $d$ inaccurate.<br>
+        <em>Improvement:</em> use a guiding track / channel to constrain the block's motion to a straight path.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============= Q2 ANALYSIS ============= -->
+<section class="section" id="q2">
+  <h2>Q2 — Data Analysis <span class="marks">15</span></h2>
+  <p class="intro">Q2 проще Q1, потому что всё пошагово: тебе уже дали данные, ты только считаешь. Главное — не торопиться с уровнями погрешностей и worst acceptable line.</p>
+
+  <ol class="steps">
+    <li>
+      <strong>Gradient & y-intercept expressions <span class="tag accent">1 mark</span></strong>
+      <p>Из формулы выразить gradient и intercept. Например, для $\frac{1}{I} = \frac{1}{E}(R + r)$ → $\frac{1}{I} = \frac{1}{E}R + \frac{r}{E}$, откуда gradient $= \frac{1}{E}$, y-intercept $= \frac{r}{E}$.</p>
+    </li>
+    <li>
+      <strong>Заполнить таблицу <span class="tag accent">1 mark</span></strong>
+      <p>Посчитать новый столбец (например, $\frac{1}{I}$). Sig figs: 2 или 3 значащих цифры. Все строки одинаково.</p>
+    </li>
+    <li>
+      <strong>Absolute uncertainties <span class="tag accent">1 mark</span></strong>
+      <p>Если в исходных данных есть погрешность ($I = 130 \pm 2$ мА), то в $\frac{1}{I}$ погрешность считается так:</p>
+      <div class="formula">$$\Delta\!\left(\tfrac{1}{I}\right) = \tfrac{1}{I} \cdot \tfrac{\Delta I}{I} \quad \text{или} \quad \Delta\!\left(\tfrac{1}{I}\right) = \tfrac{1}{2}\!\left(\tfrac{1}{I_{\min}} - \tfrac{1}{I_{\max}}\right)$$</div>
+      <p>Пример: $I = 130 \pm 2$ мА → $\frac{1}{I} = 7.69 \, A^{-1}$, $\Delta = \frac{2}{130} \times 7.69 \approx 0.12$ → пишем $\pm 0.1$.</p>
+    </li>
+    <li>
+      <strong>Plot graph + error bars <span class="tag accent">2 marks</span></strong>
+      <p>6 точек точно (диаметр меньше половины маленькой клетки). Error bars симметричны и пропорциональны $\Delta(1/I)$.</p>
+    </li>
+    <li>
+      <strong>Best fit + worst acceptable line <span class="tag accent">2 marks</span></strong>
+      <p><strong>Best fit:</strong> проходит через все error bars, точки сбалансированы (примерно равное число выше и ниже линии).<br>
+      <strong>Worst acceptable line:</strong> самая крутая или самая пологая прямая, которая <em>всё ещё</em> проходит через все error bars. Подписать обе.</p>
+    </li>
+    <li>
+      <strong>Gradient + uncertainty <span class="tag accent">2 marks</span></strong>
+      <div class="formula">$$\text{gradient} = \frac{\Delta y}{\Delta x} = \frac{y_2 - y_1}{x_2 - x_1}$$</div>
+      <p>Точки должны быть на расстоянии минимум половины длины линии. Затем:</p>
+      <div class="formula">$$\Delta(\text{grad}) = |\text{grad}_{\text{best}} - \text{grad}_{\text{worst}}|$$</div>
+    </li>
+    <li>
+      <strong>Y-intercept + uncertainty <span class="tag accent">2 marks</span></strong>
+      <p>Подставить точку с прямой в $y = mx + c$ → найти $c$. То же для worst line.</p>
+      <div class="formula">$$\Delta c = |c_{\text{best}} - c_{\text{worst}}|$$</div>
+      <div class="note danger"><strong>Не используй false origin</strong> для расчёта intercept в этой задаче, mark scheme это явно не принимает.</div>
+    </li>
+    <li>
+      <strong>Найти физические величины <span class="tag accent">2 marks</span></strong>
+      <p>Из выражений в шаге 1: $E = \frac{1}{\text{gradient}}$, $r = \text{intercept} \times E = \frac{\text{intercept}}{\text{gradient}}$.<br>
+      <strong>Не забудь единицы и степень десятки!</strong> Ток в мА → не забудь × 10⁻³.</p>
+    </li>
+    <li>
+      <strong>Uncertainty в физической величине <span class="tag accent">1 mark</span></strong>
+      <div class="formula">$$\Delta E = \frac{\Delta(\text{gradient})}{\text{gradient}} \cdot E$$</div>
+      <p>Или max/min метод:</p>
+      <div class="formula">$$\Delta E = E - \frac{1}{\text{grad}_{\max}} \quad \text{или} \quad \Delta E = \frac{1}{\text{grad}_{\min}} - E$$</div>
+    </li>
+    <li>
+      <strong>Финальный расчёт (e.g. predict I) <span class="tag accent">1 mark</span></strong>
+      <p>Подставить найденные $E$ и $r$ в формулу: $I = \frac{E}{R + r}$.</p>
+    </li>
+  </ol>
+
+  <div class="card muted">
+    <h3>Разбор Q2 2025: внутреннее сопротивление</h3>
+    <details class="collapse">
+      <summary>Полное решение по точкам</summary>
+      <div class="body">
+        <h4>(a) Gradient & intercept</h4>
+        <p>Из $\frac{1}{I} = \frac{1}{E}(R+r) = \frac{R}{E} + \frac{r}{E}$: <strong>gradient = 1/E</strong>, <strong>y-intercept = r/E</strong>.</p>
+
+        <h4>(b) Таблица 1/I</h4>
+        <table class="lin">
+          <thead><tr><th>R / Ω</th><th>I / mA</th><th>1/I / A⁻¹</th><th>Δ(1/I)</th></tr></thead>
+          <tbody>
+            <tr><td>15</td><td>130 ± 2</td><td>7.69</td><td>±0.1</td></tr>
+            <tr><td>18</td><td>110 ± 2</td><td>9.09</td><td>±0.2</td></tr>
+            <tr><td>20</td><td>100 ± 2</td><td>10.0</td><td>±0.2</td></tr>
+            <tr><td>23</td><td>89 ± 2</td><td>11.2</td><td>±0.3</td></tr>
+            <tr><td>26</td><td>80 ± 2</td><td>12.5</td><td>±0.3</td></tr>
+            <tr><td>28</td><td>75 ± 2</td><td>13.3</td><td>±0.4</td></tr>
+          </tbody>
+        </table>
+
+        <h4>(d) Расчёт E и r</h4>
+        <p>Если gradient ≈ 0.43 A⁻¹/Ω, intercept ≈ 1.2 A⁻¹:</p>
+        <p>$E = 1/0.43 \approx 2.3$ V, $r = 1.2 \times 2.3 \approx 2.8$ Ω</p>
+
+        <h4>(e) При R = 40 Ω</h4>
+        <p>$I = E/(R + r) = 2.3/(40 + 2.8) \approx 0.054$ A = 54 mA</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============= LINEARIZATION ============= -->
+<section class="section" id="lin">
+  <h2>Линеаризация — главный навык</h2>
+  <p class="intro">Любая формула типа $y = a x^n$, $y = a e^{kx}$, $y = a/x + b$ превращается в прямую через правильную замену переменных. Эта таблица — золотой запас. Выучить наизусть.</p>
+
+  <table class="lin">
+    <thead>
+      <tr>
+        <th>Исходная формула</th>
+        <th>Что строить</th>
+        <th>Gradient</th>
+        <th>Y-intercept</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>y = ax</code></td>
+        <td><code>y vs x</code></td>
+        <td><code>a</code></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>y = ax + b</code></td>
+        <td><code>y vs x</code></td>
+        <td><code>a</code></td>
+        <td><code>b</code></td>
+      </tr>
+      <tr>
+        <td><code>y = ax²</code></td>
+        <td><code>y vs x²</code></td>
+        <td><code>a</code></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>y = a√x</code></td>
+        <td><code>y vs √x</code> или <code>y² vs x</code></td>
+        <td><code>a</code> (или <code>a²</code>)</td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>y = a·xⁿ</code> (n неизвестно)</td>
+        <td><code>lg y vs lg x</code></td>
+        <td><code>n</code></td>
+        <td><code>lg a</code></td>
+      </tr>
+      <tr>
+        <td><code>y = a·eᵏˣ</code></td>
+        <td><code>ln y vs x</code></td>
+        <td><code>k</code></td>
+        <td><code>ln a</code></td>
+      </tr>
+      <tr>
+        <td><code>y = a/x</code></td>
+        <td><code>y vs 1/x</code></td>
+        <td><code>a</code></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>y = a/x + b</code></td>
+        <td><code>y vs 1/x</code></td>
+        <td><code>a</code></td>
+        <td><code>b</code></td>
+      </tr>
+      <tr>
+        <td><code>1/y = ax + b</code></td>
+        <td><code>1/y vs x</code></td>
+        <td><code>a</code></td>
+        <td><code>b</code></td>
+      </tr>
+      <tr>
+        <td><code>y² = ax + b</code></td>
+        <td><code>y² vs x</code></td>
+        <td><code>a</code></td>
+        <td><code>b</code></td>
+      </tr>
+      <tr>
+        <td><code>T = 2π√(L/g)</code></td>
+        <td><code>T² vs L</code></td>
+        <td><code>4π²/g</code></td>
+        <td><code>0</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="lin-tool">
+    <h3>Тренажёр <span class="badge">interactive</span></h3>
+    <p>Выбери тип формулы, и я подскажу что строить:</p>
+    <select id="linSelect">
+      <option value="">— выбери формулу —</option>
+      <option value="0">y = ax + b (линейная)</option>
+      <option value="1">y = ax² (квадратичная)</option>
+      <option value="2">y = a√x (корневая)</option>
+      <option value="3">y = a·xⁿ (степенная, n неизвестно)</option>
+      <option value="4">y = a·eᵏˣ (экспоненциальная)</option>
+      <option value="5">y = a/x + b (обратная пропорция со сдвигом)</option>
+      <option value="6">1/y = ax + b</option>
+      <option value="7">y² = ax (например, v² = 2as)</option>
+    </select>
+    <button id="linBtn">Показать решение →</button>
+    <div class="lin-result" id="linResult"></div>
+  </div>
+
+  <h3>Тренировочные тесты <span class="badge">quiz</span></h3>
+
+  <div class="quiz" data-correct="2">
+    <div class="quiz-q">Формула: $T^2 = \dfrac{4\pi^2 L}{g}$. Что строить, чтобы найти $g$?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$T$ против $L$</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$T$ против $\sqrt{L}$</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$T^2$ против $L$</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$\lg T$ против $\lg L$</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-correct="0">
+    <div class="quiz-q">Формула: $V = V_0 e^{-t/RC}$. Что строить, чтобы найти $RC$?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$\ln V$ против $t$ → gradient = $-1/RC$</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$V$ против $t$</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$\lg V$ против $\lg t$</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$V^2$ против $t$</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-correct="1">
+    <div class="quiz-q">Формула: $eV_0 = hf - \phi$ (фотоэффект). Что строить, чтобы найти $h$ и $\phi$?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$V_0$ против $\lambda$</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$V_0$ против $f$ → gradient = $h/e$, intercept = $-\phi/e$</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$\ln V_0$ против $f$</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$V_0^2$ против $f$</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="quiz" data-correct="2">
+    <div class="quiz-q">Формула: $v = k r^n$ (зависимость скорости шарика в жидкости от радиуса, $n$ неизвестно). Что строить?</div>
+    <div class="quiz-options">
+      <button class="quiz-opt"><span class="letter">A</span><span>$v$ против $r$</span></button>
+      <button class="quiz-opt"><span class="letter">B</span><span>$v^2$ против $r$</span></button>
+      <button class="quiz-opt"><span class="letter">C</span><span>$\lg v$ против $\lg r$ → gradient = $n$, intercept = $\lg k$</span></button>
+      <button class="quiz-opt"><span class="letter">D</span><span>$\ln v$ против $r$</span></button>
+    </div>
+    <div class="quiz-feedback"></div>
+  </div>
+
+  <div class="card muted">
+    <h3>Когда $n$ неизвестно — всегда логарифм</h3>
+    <p>Если в формуле степень <strong>не указана конкретно</strong> (например, "$y$ зависит от $x$ как $y = a x^n$, найди $n$"), то <strong>всегда</strong> строй <code>lg y vs lg x</code>. Получишь $n$ как gradient и $\lg a$ как intercept.</p>
+    <div class="formula">$$y = ax^n \implies \lg y = n \cdot \lg x + \lg a$$</div>
+  </div>
+</section>
+
+<!-- ============= PRACTICE ============= -->
+<section class="section" id="practice">
+  <h2>Тренировочные задачи</h2>
+  <p class="intro">5 типовых задач Q1 по разным темам LO. Сначала попробуй сам, потом раскрой решение и сверь.</p>
+
+  <details class="collapse">
+    <summary>① Физический маятник <span class="tag teal">Oscillations</span></summary>
+    <div class="body">
+      <p><strong>Задача.</strong> Студент исследует, как период малых колебаний $T$ физического маятника зависит от расстояния $L$ от оси подвеса до центра масс. Предполагается:</p>
+      <div class="formula">$$T^2 = \dfrac{4\pi^2}{g}\!\left(\dfrac{I_0}{ML} + L\right)$$</div>
+      <p>где $I_0$ — момент инерции относительно центра масс, $M$ — масса. Спланируй эксперимент, чтобы определить $g$ и $I_0$.</p>
+      <button class="reveal">Показать решение</button>
+      <div class="reveal-content">
+        <h4>Линеаризация (главный шаг)</h4>
+        <p>Умножим обе части на $L$:</p>
+        <div class="formula">$$T^2 L = \dfrac{4\pi^2}{g} L^2 + \dfrac{4\pi^2 I_0}{gM}$$</div>
+        <p><strong>Plot $T^2 L$ против $L^2$:</strong></p>
+        <ul class="check">
+          <li>Gradient = $\dfrac{4\pi^2}{g}$ → $g = \dfrac{4\pi^2}{\text{gradient}}$</li>
+          <li>Y-intercept = $\dfrac{4\pi^2 I_0}{gM}$ → $I_0 = \dfrac{\text{intercept} \cdot gM}{4\pi^2}$</li>
+        </ul>
+        <h4>Variables</h4>
+        <p>Independent: $L$. Dependent: $T$. Constants: $M$, geometry of pendulum.</p>
+        <h4>Procedure</h4>
+        <ul class="check">
+          <li>Suspend rigid body at distance $L$ from CoM (use a rod with holes at known positions)</li>
+          <li>Displace by small angle (&lt; 10°), release, time 20 oscillations with stopwatch</li>
+          <li>$T = $ total time / 20 (reduces timing error)</li>
+          <li>Repeat 3× and average</li>
+          <li>Vary $L$ (at least 6 values), measure each with ruler/caliper from pivot to CoM</li>
+          <li>Find $M$ on top-pan balance</li>
+        </ul>
+        <h4>Safety</h4>
+        <p>Securely clamp the support to the bench so the pendulum doesn't fall.</p>
+        <h4>Limitation / Improvement</h4>
+        <p><em>Lim:</em> human reaction time in stopwatch. <em>Imp:</em> use a light gate at the lowest point of swing.</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary>② Закон Стокса — вязкость жидкости <span class="tag teal">Hydrostatics</span></summary>
+    <div class="body">
+      <p><strong>Задача.</strong> Шарик радиуса $r$ падает в вязкой жидкости с предельной скоростью:</p>
+      <div class="formula">$$v = \dfrac{2 r^2 (\rho - \sigma) g}{9 \eta}$$</div>
+      <p>где $\rho$ — плотность шарика, $\sigma$ — плотность жидкости, $\eta$ — динамическая вязкость. Спланируй эксперимент для определения $\eta$.</p>
+      <button class="reveal">Показать решение</button>
+      <div class="reveal-content">
+        <h4>Линеаризация</h4>
+        <p>$v$ против $r^2$ → прямая через 0, gradient $= \dfrac{2(\rho-\sigma)g}{9\eta}$</p>
+        <div class="formula">$$\eta = \dfrac{2(\rho-\sigma)g}{9 \cdot \text{gradient}}$$</div>
+        <h4>Variables</h4>
+        <p>Independent: $r$ (radius of ball). Dependent: $v$ (terminal velocity). Constants: $\rho$, $\sigma$, temperature (вязкость зависит от $T$!).</p>
+        <h4>Procedure</h4>
+        <ul class="check">
+          <li>Use balls of different radii (steel ball bearings); measure each with micrometer</li>
+          <li>Use long graduated cylinder filled with viscous liquid (glycerine)</li>
+          <li>Mark two lines well below the surface so terminal velocity is reached</li>
+          <li>Drop ball, time travel between marks: $v = $ distance / time</li>
+          <li>Use light gates for accurate timing (no reaction-time error)</li>
+          <li>Repeat 3× per radius, take mean</li>
+          <li>Find density of ball: $\rho = m/V$, where $V = \frac{4}{3}\pi r^3$</li>
+          <li>Find density of liquid with hydrometer / displacement</li>
+        </ul>
+        <h4>Safety</h4>
+        <p>Clean up spills immediately to prevent slipping.</p>
+        <h4>Limitation / Improvement</h4>
+        <p><em>Lim:</em> ball may not reach terminal velocity in short cylinder. <em>Imp:</em> use very tall cylinder, place first mark much lower.</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary>③ Фотоэффект — постоянная Планка <span class="tag teal">Quantum physics</span></summary>
+    <div class="body">
+      <p><strong>Задача.</strong> Фотоэлектрический эффект описывается уравнением:</p>
+      <div class="formula">$$eV_0 = hf - \phi$$</div>
+      <p>где $V_0$ — задерживающее напряжение, $f$ — частота падающего света, $\phi$ — работа выхода. Спланируй эксперимент для определения $h$ и $\phi$.</p>
+      <button class="reveal">Показать решение</button>
+      <div class="reveal-content">
+        <h4>Линеаризация</h4>
+        <p>$V_0 = \dfrac{h}{e}f - \dfrac{\phi}{e}$ → plot $V_0$ vs $f$:</p>
+        <ul class="check">
+          <li>Gradient = $h/e$ → $h = e \cdot \text{gradient}$</li>
+          <li>Y-intercept = $-\phi/e$ → $\phi = -e \cdot \text{intercept}$</li>
+        </ul>
+        <h4>Variables</h4>
+        <p>Independent: $f$ (frequency of incident light). Dependent: $V_0$ (stopping voltage). Constants: same metal cathode, same intensity.</p>
+        <h4>Procedure</h4>
+        <ul class="check">
+          <li>Use photocell with metal cathode (e.g. caesium)</li>
+          <li>Illuminate with monochromatic light from set of LEDs / filters with known wavelengths $\lambda$</li>
+          <li>Calculate $f = c/\lambda$</li>
+          <li>Apply variable reverse voltage to photocell, measure with voltmeter</li>
+          <li>Increase voltage until ammeter reads zero — that voltage is $V_0$</li>
+          <li>Repeat for 6+ frequencies</li>
+        </ul>
+        <h4>Safety</h4>
+        <p>Avoid looking directly into UV LEDs — wear UV-protective goggles.</p>
+        <h4>Limitation / Improvement</h4>
+        <p><em>Lim:</em> hard to determine exact zero current (small thermionic current). <em>Imp:</em> use sensitive picoammeter and extrapolate I-V curve to zero.</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary>④ Дифракционная решётка <span class="tag teal">Wave optics</span></summary>
+    <div class="body">
+      <p><strong>Задача.</strong> Для дифракционной решётки $d \sin\theta = n\lambda$. Спланируй эксперимент для определения длины волны $\lambda$ лазерного света.</p>
+      <button class="reveal">Показать решение</button>
+      <div class="reveal-content">
+        <h4>Линеаризация</h4>
+        <p>$\sin\theta = \dfrac{\lambda}{d} \cdot n$ → plot $\sin\theta$ vs $n$:</p>
+        <div class="formula">$$\lambda = d \cdot \text{gradient}$$</div>
+        <h4>Variables</h4>
+        <p>Independent: $n$ (order of maximum). Dependent: $\theta$. Constants: $d$ (grating spacing), $\lambda$.</p>
+        <h4>Procedure</h4>
+        <ul class="check">
+          <li>Mount laser, grating, and screen on optical bench</li>
+          <li>Measure distance $D$ from grating to screen</li>
+          <li>Measure positions of 1st, 2nd, 3rd... order maxima from central spot: $y_n$</li>
+          <li>Calculate $\theta_n = \tan^{-1}(y_n / D)$</li>
+          <li>Find $\sin\theta_n$ for each $n$</li>
+          <li>Repeat measurements 3× to find mean</li>
+        </ul>
+        <h4>Safety</h4>
+        <p>Never look directly into the laser beam — point laser away from people.</p>
+        <h4>Limitation / Improvement</h4>
+        <p><em>Lim:</em> central spot too bright to see exact centre. <em>Imp:</em> measure between symmetric orders ($+n$ and $-n$), divide by 2.</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary>⑤ Радиоактивный распад <span class="tag teal">Nuclear physics</span></summary>
+    <div class="body">
+      <p><strong>Задача.</strong> Активность радиоактивного источника: $A = A_0 e^{-\lambda t}$. Спланируй эксперимент для определения постоянной распада $\lambda$ и периода полураспада $T_{1/2}$.</p>
+      <button class="reveal">Показать решение</button>
+      <div class="reveal-content">
+        <h4>Линеаризация</h4>
+        <p>Логарифмируем: $\ln A = -\lambda t + \ln A_0$ → plot $\ln A$ vs $t$:</p>
+        <ul class="check">
+          <li>Gradient = $-\lambda$ → $\lambda = -\text{gradient}$</li>
+          <li>$T_{1/2} = \dfrac{\ln 2}{\lambda} = \dfrac{0.693}{\lambda}$</li>
+        </ul>
+        <h4>Variables</h4>
+        <p>Independent: $t$ (time since start). Dependent: $A$ (count rate). Constants: distance from source to detector, geometry.</p>
+        <h4>Procedure</h4>
+        <ul class="check">
+          <li>Place GM tube at fixed distance from source</li>
+          <li>Measure background count rate first (10 min, no source) → subtract from all readings</li>
+          <li>Place source, record count for fixed interval (e.g. 60 s) every 5 min</li>
+          <li>Record count at least 6 different times across at least one half-life</li>
+          <li>Subtract background, take $\ln$</li>
+        </ul>
+        <h4>Safety</h4>
+        <p>Use long tongs to handle radioactive source; keep source at maximum distance when not in use; wear lab coat and gloves.</p>
+        <h4>Limitation / Improvement</h4>
+        <p><em>Lim:</em> random nature of decay → high uncertainty in count rate. <em>Imp:</em> count for longer intervals (5 min instead of 1 min) at each time, calculate average rate.</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="collapse">
+    <summary>⑥ Поверхностное натяжение <span class="tag teal">Molecular physics</span></summary>
+    <div class="body">
+      <p><strong>Задача.</strong> Сила, требуемая для отрыва кольца радиуса $r$ от поверхности воды: $F = 4\pi r \gamma$. Спланируй эксперимент для определения $\gamma$ (коэффициент поверхностного натяжения).</p>
+      <button class="reveal">Показать решение</button>
+      <div class="reveal-content">
+        <h4>Линеаризация</h4>
+        <p>Уже линейна: plot $F$ vs $r$ → gradient = $4\pi\gamma$, $\gamma = \text{gradient}/(4\pi)$.</p>
+        <h4>Procedure</h4>
+        <ul class="check">
+          <li>Use rings of different known radii (measure each with vernier caliper, average over several places)</li>
+          <li>Hang ring from sensitive Newton meter / digital force sensor</li>
+          <li>Lower ring slowly until just touching water surface (tare/zero the meter at this point)</li>
+          <li>Slowly raise the support; record max force just before ring detaches</li>
+          <li>Repeat 3× per ring, take mean</li>
+          <li>Use distilled water at constant temperature</li>
+        </ul>
+        <h4>Safety</h4>
+        <p>Wipe up water spills immediately.</p>
+        <h4>Limitation / Improvement</h4>
+        <p><em>Lim:</em> hard to keep ring exactly horizontal → asymmetric pull. <em>Imp:</em> use 3-point suspension and check horizontality with spirit level.</p>
+      </div>
+    </div>
+  </details>
+
+</section>
+
+<!-- ============= PHRASES ============= -->
+<section class="section" id="phrases">
+  <h2>Банк фраз на английском</h2>
+  <p class="intro">Эти конструкции экзаменатор хочет видеть. Заучи как готовые. Пиши <em>именно так</em> — баллы тебе зачтут даже если содержание простое.</p>
+
+  <h3>Variables <span class="badge">defining</span></h3>
+  <div class="card">
+    <div class="phrase-row"><div class="ru">Я буду менять X и измерять Y</div><div class="en">"I will vary <em>X</em> and measure <em>Y</em>."</div></div>
+    <div class="phrase-row"><div class="ru">Независимая / зависимая переменная</div><div class="en">"The independent variable is <em>X</em>; the dependent variable is <em>Y</em>."</div></div>
+    <div class="phrase-row"><div class="ru">Контрольные величины</div><div class="en">"<em>m, k, T</em> will be kept constant throughout the experiment."</div></div>
+    <div class="phrase-row"><div class="ru">Не менее 6 значений</div><div class="en">"Take at least 6 different values of <em>X</em>."</div></div>
+  </div>
+
+  <h3>Measurements <span class="badge">methods</span></h3>
+  <div class="card">
+    <div class="phrase-row"><div class="ru">Измерить линейкой / штангенциркулем</div><div class="en">"Measure <em>X</em> using a <em>ruler / vernier caliper / micrometer</em>."</div></div>
+    <div class="phrase-row"><div class="ru">До и после</div><div class="en">"Measure the original length and the final length, then take the difference."</div></div>
+    <div class="phrase-row"><div class="ru">Калиброванный прибор</div><div class="en">"Use a <em>calibrated</em> spring balance / Newton meter."</div></div>
+    <div class="phrase-row"><div class="ru">Точная регистрация времени</div><div class="en">"Use a light gate connected to a data logger to record the time accurately."</div></div>
+    <div class="phrase-row"><div class="ru">Видеокамера + покадровый анализ</div><div class="en">"Record the motion with a video camera held level with the apparatus and play back frame by frame."</div></div>
+  </div>
+
+  <h3>Repetition & accuracy <span class="badge">D-points</span></h3>
+  <div class="card">
+    <div class="phrase-row"><div class="ru">Повторить и взять среднее</div><div class="en">"Repeat the experiment three times for each value of <em>X</em> and calculate the mean."</div></div>
+    <div class="phrase-row"><div class="ru">Перпендикулярность</div><div class="en">"Use a set square to ensure the ruler is perpendicular to the wall."</div></div>
+    <div class="phrase-row"><div class="ru">Горизонтальность</div><div class="en">"Use a spirit level to ensure the surface is horizontal."</div></div>
+    <div class="phrase-row"><div class="ru">Жёстко закрепить</div><div class="en">"Securely clamp the apparatus using a G-clamp / boss and stand."</div></div>
+    <div class="phrase-row"><div class="ru">Минимизировать сопротивление воздуха</div><div class="en">"Use a high-density block to minimise the effect of air resistance."</div></div>
+  </div>
+
+  <h3>Analysis <span class="badge">graph</span></h3>
+  <div class="card">
+    <div class="phrase-row"><div class="ru">Построить график Y от X</div><div class="en">"Plot a graph of <em>Y</em> against <em>X</em>."</div></div>
+    <div class="phrase-row"><div class="ru">Если прямая через 0 — связь верна</div><div class="en">"If a straight line is produced passing through the origin, the relationship is verified."</div></div>
+    <div class="phrase-row"><div class="ru">Gradient равен …</div><div class="en">"The gradient is equal to <em>k/(2mμg)</em>."</div></div>
+    <div class="phrase-row"><div class="ru">Y-intercept равен …</div><div class="en">"The y-intercept is equal to <em>r/E</em>."</div></div>
+    <div class="phrase-row"><div class="ru">Найти µ из gradient</div><div class="en">"Therefore <em>μ = k / (2mg × gradient)</em>."</div></div>
+  </div>
+
+  <h3>Safety <span class="badge">1 mark</span></h3>
+  <div class="card">
+    <div class="phrase-row"><div class="ru">Очки</div><div class="en">"Wear safety goggles to prevent eye injury from a detached spring."</div></div>
+    <div class="phrase-row"><div class="ru">Закрепить установку</div><div class="en">"The equipment should be securely fixed to ensure it does not shift or tip over."</div></div>
+    <div class="phrase-row"><div class="ru">Подушка / барьер</div><div class="en">"Place a cushion behind the trolley to stop it safely."</div></div>
+    <div class="phrase-row"><div class="ru">Лазер</div><div class="en">"Do not look directly into the laser beam."</div></div>
+    <div class="phrase-row"><div class="ru">Радиоактивный источник</div><div class="en">"Use long tongs and keep the source at maximum distance when not in use."</div></div>
+  </div>
+
+  <h3>Limitations & improvements <span class="badge">2 marks</span></h3>
+  <div class="card">
+    <div class="phrase-row"><div class="ru">Ограничение → улучшение</div><div class="en">"<em>Limitation:</em> [problem]. <em>Improvement:</em> [solution]."</div></div>
+    <div class="phrase-row"><div class="ru">Не по прямой</div><div class="en">"The block may not travel in a straight line → use a guiding track."</div></div>
+    <div class="phrase-row"><div class="ru">Время реакции</div><div class="en">"Reaction-time error in stopwatch → use a light gate with data logger."</div></div>
+    <div class="phrase-row"><div class="ru">Параллакс</div><div class="en">"Parallax error reading the ruler → use a digital position sensor / view at eye level."</div></div>
+    <div class="phrase-row"><div class="ru">Тепловые потери</div><div class="en">"Heat loss to surroundings → insulate the apparatus / use lagging."</div></div>
+  </div>
+
+  <h3>Q2 — uncertainties <span class="badge">data analysis</span></h3>
+  <div class="card">
+    <div class="phrase-row"><div class="ru">Линия наилучшего соответствия</div><div class="en">"line of best fit"</div></div>
+    <div class="phrase-row"><div class="ru">Худшая допустимая прямая</div><div class="en">"worst acceptable line (steepest / shallowest possible)"</div></div>
+    <div class="phrase-row"><div class="ru">Через все error bars</div><div class="en">"the line passes through all error bars"</div></div>
+    <div class="phrase-row"><div class="ru">Абсолютная погрешность</div><div class="en">"absolute uncertainty"</div></div>
+    <div class="phrase-row"><div class="ru">Относительная (процентная)</div><div class="en">"percentage / fractional uncertainty"</div></div>
+  </div>
+</section>
+
+<!-- ============= CHECKLIST ============= -->
+<section class="section" id="check">
+  <h2>Чек-лист на экзамен</h2>
+  <p class="intro">Распечатай или пройди в голове перед сдачей работы. Каждая галочка — реальный балл из mark scheme. Поставь галочки и посмотри прогресс.</p>
+
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+  <div class="progress-label"><span id="progText">0 из 0 пунктов</span><span id="progPct">0%</span></div>
+
+  <h3>Q1 · Planning Experiment <span class="badge">15 marks</span></h3>
+  <div class="card">
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Назвал independent и dependent variable</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Указал, что остаётся постоянным (constants)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Нарисовал labelled diagram со всеми приборами</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Описал, как измерить independent variable (прибор + способ)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Описал, как измерить dependent variable (прибор + способ)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Описал, как измерить дополнительные величины (массу, длину и т.д.)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Линеаризовал формулу и указал, что строить</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Сформулировал условие справедливости связи (straight line through origin)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Выразил искомую величину через gradient / intercept</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Добавил минимум 4–5 «D-пунктов» (повторение, set square, spirit level и т.д.)</span><span class="pts">+3</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Указал одну конкретную меру безопасности</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Назвал одно ограничение (limitation)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Предложил конкретное улучшение (improvement)</span><span class="pts">+1</span></label>
+  </div>
+
+  <h3>Q2 · Data Analysis <span class="badge">15 marks</span></h3>
+  <div class="card">
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Выразил gradient и y-intercept через формулу</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Заполнил таблицу с одинаковым количеством значащих цифр</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Посчитал absolute uncertainties для каждого значения</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Все 6 точек на графике точно (≤ половины маленькой клетки)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Error bars нарисованы для всех точек, симметричные</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Best fit line: через все error bars, точки сбалансированы</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Worst acceptable line нарисована и подписана</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Gradient посчитан через две далёкие точки (≥ половины линии)</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Uncertainty в gradient: |best − worst|</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Y-intercept через y = mx + c с точкой на линии</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Uncertainty в y-intercept</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Нашёл физические величины с правильными единицами</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Нашёл uncertainty в физической величине</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Финальный расчёт (если требуется в (e))</span><span class="pts">+1</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch"><span>Все ответы — до 2–3 значащих цифр, единицы указаны</span><span class="pts">+1</span></label>
+  </div>
+
+  <h3>Перед сдачей</h3>
+  <div class="card muted">
+    <label class="checklist-item"><input type="checkbox" class="ch-final"><span>Проверил, что писал в тёмно-синей или чёрной ручке</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch-final"><span>Каждый ответ имеет единицы (V, A, kg, m...)</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch-final"><span>Степени 10 в правильной размерности (mA → A, мм → м)</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch-final"><span>Все «дополнительные детали» в Q1 написаны</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch-final"><span>Diagram подписан полностью</span></label>
+    <label class="checklist-item"><input type="checkbox" class="ch-final"><span>Worst acceptable line ясно отличается от best fit</span></label>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="made">Готовься спокойно. Ты справишься.</div>
+  <div style="margin-top: 8px; opacity: 0.6;">NIS Physics Paper 3 Prep · Made for you</div>
+</footer>
+
+</div>
+
+<script>
+// ===== TAB NAV =====
+const tabs = document.querySelectorAll('.tab-btn');
+const sections = document.querySelectorAll('.section');
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.tab;
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(target).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ===== LINEARIZATION TOOL =====
+const linData = [
+  {
+    formula: 'y = ax + b',
+    plot: 'y vs x (уже линейная!)',
+    grad: 'a',
+    intc: 'b',
+    note: 'Прямая. Просто строй y от x — ничего трансформировать не надо.'
+  },
+  {
+    formula: 'y = ax²',
+    plot: 'y vs x² (или √y vs x)',
+    grad: 'a (или √a)',
+    intc: '0',
+    note: 'Квадратичная зависимость. Строй y против x в квадрате — получишь прямую через начало.'
+  },
+  {
+    formula: 'y = a√x',
+    plot: 'y vs √x (или y² vs x)',
+    grad: 'a (или a²)',
+    intc: '0',
+    note: 'Корневая зависимость. Можно возвести в квадрат: y² = a²x → y² против x.'
+  },
+  {
+    formula: 'y = a·xⁿ',
+    plot: 'lg y vs lg x',
+    grad: 'n',
+    intc: 'lg a',
+    note: 'КЛАССИКА. Когда степень n неизвестна — всегда логарифмируй обе стороны: lg y = n·lg x + lg a.'
+  },
+  {
+    formula: 'y = a·eᵏˣ',
+    plot: 'ln y vs x',
+    grad: 'k',
+    intc: 'ln a',
+    note: 'Экспонента. Натуральный логарифм обеих частей: ln y = kx + ln a. Используется в RC-цепях, радиоактивном распаде.'
+  },
+  {
+    formula: 'y = a/x + b',
+    plot: 'y vs 1/x',
+    grad: 'a',
+    intc: 'b',
+    note: 'Обратная пропорция со сдвигом. Замени переменную: пусть X = 1/x, тогда y = aX + b — линейная.'
+  },
+  {
+    formula: '1/y = ax + b',
+    plot: '1/y vs x',
+    grad: 'a',
+    intc: 'b',
+    note: 'Уже почти линейная. Просто посчитай 1/y для каждой точки и строй против x.'
+  },
+  {
+    formula: 'y² = ax (например, v² = 2as)',
+    plot: 'y² vs x',
+    grad: 'a',
+    intc: '0',
+    note: 'Уравнение Торричелли v² = 2gh, кинематика v² = u² + 2as — все так линеаризуются.'
+  }
+];
+
+const linSelect = document.getElementById('linSelect');
+const linBtn = document.getElementById('linBtn');
+const linResult = document.getElementById('linResult');
+
+linBtn.addEventListener('click', () => {
+  const idx = linSelect.value;
+  if (idx === '') {
+    linResult.classList.remove('show');
+    return;
+  }
+  const d = linData[idx];
+  linResult.innerHTML = `
+    <div class="row"><div class="label">Исходная</div><div><strong>${d.formula}</strong></div></div>
+    <div class="row"><div class="label">Plot</div><div><strong style="color: #c87f30">${d.plot}</strong></div></div>
+    <div class="row"><div class="label">Gradient</div><div><code style="color: var(--paper)">${d.grad}</code></div></div>
+    <div class="row"><div class="label">Y-intercept</div><div><code style="color: var(--paper)">${d.intc}</code></div></div>
+    <div class="row"><div class="label">Подсказка</div><div style="font-size: 13px; color: rgba(245, 239, 228, 0.75);">${d.note}</div></div>
+  `;
+  linResult.classList.add('show');
+});
+
+// ===== QUIZZES =====
+document.querySelectorAll('.quiz').forEach(quiz => {
+  const correct = parseInt(quiz.dataset.correct);
+  const opts = quiz.querySelectorAll('.quiz-opt');
+  const fb = quiz.querySelector('.quiz-feedback');
+  opts.forEach((opt, i) => {
+    opt.addEventListener('click', () => {
+      if (opt.disabled) return;
+      opts.forEach(o => o.disabled = true);
+      if (i === correct) {
+        opt.classList.add('correct');
+        fb.classList.add('show', 'good');
+        fb.textContent = '✓ Верно! Этот тип линеаризации правильный.';
+      } else {
+        opt.classList.add('wrong');
+        opts[correct].classList.add('correct');
+        fb.classList.add('show', 'bad');
+        fb.textContent = '✗ Не совсем. Правильный ответ выделен зелёным — посмотри ещё раз на формулу.';
+      }
+    });
+  });
+});
+
+// ===== REVEAL BUTTONS =====
+document.querySelectorAll('.reveal').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const content = btn.nextElementSibling;
+    if (content && content.classList.contains('reveal-content')) {
+      content.classList.toggle('show');
+      btn.textContent = content.classList.contains('show') ? 'Скрыть решение' : 'Показать решение';
+    }
+  });
+});
+
+// ===== CHECKLIST PROGRESS =====
+const checks = document.querySelectorAll('.ch');
+const progFill = document.getElementById('progFill');
+const progText = document.getElementById('progText');
+const progPct = document.getElementById('progPct');
+
+function updateProgress() {
+  const total = checks.length;
+  const done = Array.from(checks).filter(c => c.checked).length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  progFill.style.width = pct + '%';
+  progText.textContent = `${done} из ${total} пунктов`;
+  progPct.textContent = pct + '%';
+}
+
+checks.forEach(c => c.addEventListener('change', updateProgress));
+updateProgress();
+</script>
+
+</body>
+</html>
