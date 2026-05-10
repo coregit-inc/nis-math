@@ -1,0 +1,2523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МЭСК · Computer Science Grade 12 · Exam Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f1e8;
+  --bg-2:#ffffff;
+  --bg-3:#ebe5d6;
+  --ink:#1a1a1a;
+  --ink-dim:#6b6357;
+  --ink-low:#a8a094;
+  --accent:#c8421f;
+  --accent-2:#1d6b62;
+  --accent-3:#b8841a;
+  --line:#d9d1bf;
+  --code-bg:#fbf8f0;
+  --ok:#4a7c3a;
+  --warn:#b8841a;
+  --bad:#c8421f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  font-size:16px;
+  background-image:
+    radial-gradient(ellipse at top right, rgba(200,66,31,0.06), transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(29,107,98,0.04), transparent 50%);
+  min-height:100vh;
+}
+
+/* ===== HEADER ===== */
+.hero{
+  border-bottom:1px solid var(--line);
+  padding:60px 8% 80px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:80px 80px;
+  opacity:0.3;
+  mask-image:radial-gradient(ellipse at center, black 30%, transparent 70%);
+  pointer-events:none;
+}
+.hero-content{position:relative;max-width:1400px;margin:0 auto}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.eyebrow::before{
+  content:'';
+  width:30px;height:1px;background:var(--accent);
+}
+h1.title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(48px,7vw,96px);
+  font-weight:600;
+  line-height:0.95;
+  letter-spacing:-0.03em;
+  margin-bottom:24px;
+}
+h1.title em{
+  font-style:italic;
+  color:var(--accent);
+  font-weight:400;
+}
+.subtitle{
+  font-size:18px;
+  color:var(--ink-dim);
+  max-width:640px;
+  margin-bottom:40px;
+}
+.meta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:32px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--ink-dim);
+  padding-top:32px;
+  border-top:1px solid var(--line);
+}
+.meta-row span strong{color:var(--ink);font-weight:500}
+
+/* ===== NAV ===== */
+.nav-bar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(245,241,232,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:0 8%;
+}
+.nav-inner{
+  max-width:1400px;
+  margin:0 auto;
+  display:flex;
+  gap:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{
+  background:none;
+  border:none;
+  color:var(--ink-dim);
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  padding:18px 24px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:color 0.2s;
+  border-bottom:2px solid transparent;
+  letter-spacing:0.05em;
+}
+.nav-btn:hover{color:var(--ink)}
+.nav-btn.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
+}
+.nav-btn .num{
+  color:var(--ink-low);
+  margin-right:8px;
+}
+.nav-btn.active .num{color:var(--accent)}
+
+/* ===== MAIN ===== */
+main{padding:60px 8% 120px;max-width:1400px;margin:0 auto}
+.section{display:none;animation:fade 0.4s ease}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:48px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--line);
+  flex-wrap:wrap;
+  gap:24px;
+}
+.section-title{
+  font-family:'Fraunces',serif;
+  font-size:48px;
+  font-weight:500;
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+.section-title em{font-style:italic;color:var(--accent)}
+.section-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--ink-dim);
+  text-align:right;
+}
+.section-meta div+div{margin-top:4px}
+
+/* ===== TOPIC CARD ===== */
+.topic{
+  border:1px solid var(--line);
+  background:var(--bg-2);
+  margin-bottom:16px;
+  transition:border-color 0.2s;
+}
+.topic:hover{border-color:#a89e88}
+.topic-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 28px;
+  cursor:pointer;
+  user-select:none;
+  gap:20px;
+}
+.topic-head-left{
+  display:flex;
+  align-items:baseline;
+  gap:20px;
+  flex:1;
+  min-width:0;
+}
+.topic-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--accent);
+  letter-spacing:0.1em;
+  flex-shrink:0;
+}
+.topic-title{
+  font-family:'Fraunces',serif;
+  font-size:24px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+}
+.topic-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  border:1px solid var(--line);
+  padding:4px 10px;
+  border-radius:2px;
+  flex-shrink:0;
+}
+.topic-toggle{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;
+  color:var(--ink-dim);
+  width:24px;
+  text-align:center;
+  flex-shrink:0;
+  transition:transform 0.3s;
+}
+.topic.open .topic-toggle{transform:rotate(45deg);color:var(--accent)}
+.topic-body{
+  display:none;
+  padding:0 28px 32px;
+  border-top:1px solid var(--line);
+}
+.topic.open .topic-body{display:block;padding-top:24px}
+
+/* ===== CONTENT ===== */
+h3{
+  font-family:'Fraunces',serif;
+  font-size:20px;
+  font-weight:600;
+  margin:24px 0 12px;
+  color:var(--ink);
+}
+h3:first-child{margin-top:0}
+h4{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.15em;
+  color:var(--accent-2);
+  margin:20px 0 8px;
+}
+p{margin-bottom:12px;color:var(--ink)}
+ul,ol{margin:12px 0 12px 24px;color:var(--ink)}
+li{margin-bottom:6px}
+strong{color:var(--ink);font-weight:600}
+em{color:var(--accent-3);font-style:normal;font-family:'JetBrains Mono',monospace;font-size:0.95em}
+
+code{
+  font-family:'JetBrains Mono',monospace;
+  background:var(--code-bg);
+  padding:2px 6px;
+  font-size:13px;
+  color:var(--accent-2);
+  border:1px solid var(--line);
+}
+pre{
+  background:var(--code-bg);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  padding:20px;
+  overflow-x:auto;
+  margin:16px 0;
+  font-size:13px;
+  position:relative;
+}
+pre code{
+  background:none;
+  border:none;
+  padding:0;
+  color:var(--ink);
+  font-size:13px;
+  line-height:1.7;
+}
+.kw{color:#a83279}
+.str{color:#8a6210}
+.com{color:var(--ink-low);font-style:italic}
+.num{color:#155b54}
+.fn{color:#5a3ba0}
+
+/* ===== TABLES ===== */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:16px 0;
+  font-size:14px;
+}
+th,td{
+  text-align:left;
+  padding:10px 14px;
+  border:1px solid var(--line);
+}
+th{
+  background:var(--bg-3);
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  color:var(--ink-dim);
+  font-weight:500;
+}
+td{background:var(--code-bg)}
+
+/* ===== Q&A BLOCKS ===== */
+.qa{
+  border-left:3px solid var(--accent-2);
+  padding:16px 20px;
+  background:rgba(29,107,98,0.05);
+  margin:16px 0;
+}
+.qa-q{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:16px;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+.qa-q::before{
+  content:'Q. ';
+  color:var(--accent-2);
+  font-family:'JetBrains Mono',monospace;
+  font-style:normal;
+  font-weight:700;
+}
+.qa-a{
+  font-size:14px;
+  color:var(--ink-dim);
+  display:none;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px dashed var(--line);
+}
+.qa-a::before{
+  content:'A. ';
+  color:var(--accent);
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+}
+.qa.open .qa-a{display:block}
+.qa-toggle{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--accent-2);
+  cursor:pointer;
+  margin-top:8px;
+  display:inline-block;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+.qa-toggle:hover{color:var(--accent)}
+
+/* ===== INFO CALLOUTS ===== */
+.callout{
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent-3);
+  background:rgba(184,132,26,0.06);
+  padding:16px 20px;
+  margin:16px 0;
+  font-size:14px;
+}
+.callout strong{color:var(--accent-3)}
+.callout.tip{border-left-color:var(--accent-2);background:rgba(29,107,98,0.05)}
+.callout.tip strong{color:var(--accent-2)}
+.callout.warn{border-left-color:var(--accent);background:rgba(200,66,31,0.05)}
+.callout.warn strong{color:var(--accent)}
+
+.label-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:0.15em;
+  padding:2px 8px;
+  margin-right:6px;
+  background:var(--code-bg);
+  border:1px solid var(--line);
+}
+.label-tag.acc{color:var(--accent);border-color:var(--accent)}
+.label-tag.acc2{color:var(--accent-2);border-color:var(--accent-2)}
+
+/* ===== GRID ===== */
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:16px 0;
+}
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin:16px 0;
+}
+.mini-card{
+  border:1px solid var(--line);
+  padding:16px;
+  background:var(--code-bg);
+}
+.mini-card h5{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+.mini-card p{font-size:13px;color:var(--ink-dim);margin:0}
+
+@media (max-width:768px){
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .hero{padding:40px 6% 60px}
+  main{padding:40px 6% 80px}
+  .section-title{font-size:36px}
+  .topic-title{font-size:18px}
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  border-top:1px solid var(--line);
+  padding:40px 8%;
+  text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--ink-low);
+}
+
+/* ===== PROGRESS ===== */
+.progress-rail{
+  position:fixed;
+  top:0;left:0;
+  height:2px;
+  background:var(--accent);
+  z-index:200;
+  width:0%;
+  transition:width 0.1s;
+}
+
+/* ===== INTRO BAR (overview tab) ===== */
+.overview-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:0;
+  border:1px solid var(--line);
+  margin-bottom:32px;
+}
+.ov-cell{
+  padding:32px;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.ov-cell:last-child{border-right:none}
+.ov-cell .label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  margin-bottom:12px;
+}
+.ov-cell .big{
+  font-family:'Fraunces',serif;
+  font-size:42px;
+  font-weight:600;
+  letter-spacing:-0.02em;
+  line-height:1;
+  margin-bottom:8px;
+}
+.ov-cell .big em{font-style:italic;color:var(--accent)}
+.ov-cell .desc{font-size:13px;color:var(--ink-dim)}
+
+.exam-card{
+  border:1px solid var(--line);
+  padding:32px;
+  margin-bottom:16px;
+  background:var(--bg-2);
+  transition:transform 0.2s, border-color 0.2s;
+  cursor:pointer;
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+.exam-card:hover{
+  border-color:var(--accent);
+  transform:translateX(4px);
+}
+.exam-card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.exam-card h3{
+  font-family:'Fraunces',serif;
+  font-size:32px;
+  font-weight:500;
+  margin:0;
+  letter-spacing:-0.02em;
+}
+.exam-card .duration{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--ink-dim);
+}
+.exam-card-topics{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:16px;
+}
+.chip{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  padding:4px 10px;
+  border:1px solid var(--line);
+  background:var(--code-bg);
+  color:var(--ink-dim);
+}
+</style>
+</head>
+<body>
+
+<div class="progress-rail" id="prog"></div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">МЭСК · Grade 12 · May 2025</div>
+    <h1 class="title">Computer<br>Science <em>Exam Prep</em></h1>
+    <p class="subtitle">Complete revision for Papers 1–3. Topic breakdowns, worked solutions from the official mark schemes, and practice questions for the NIS final examination.</p>
+    <div class="meta-row">
+      <span><strong>3</strong> &nbsp; Papers</span>
+      <span><strong>200</strong> &nbsp; Total Marks</span>
+      <span><strong>5h</strong> &nbsp; Total Duration</span>
+      <span><strong>30+</strong> &nbsp; Topics</span>
+      <span style="margin-left:auto"><strong>v1.0</strong> &nbsp; 2025</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-target="overview"><span class="num">00</span>Overview</button>
+    <button class="nav-btn" data-target="forecast"><span class="num">★</span>2026 Forecast</button>
+    <button class="nav-btn" data-target="paper1"><span class="num">01</span>Paper 1 · Theory</button>
+    <button class="nav-btn" data-target="paper2"><span class="num">02</span>Paper 2 · Systems</button>
+    <button class="nav-btn" data-target="paper3"><span class="num">03</span>Paper 3 · Programming</button>
+    <button class="nav-btn" data-target="glossary"><span class="num">04</span>Key Terms</button>
+    <button class="nav-btn" data-target="strategy"><span class="num">05</span>Strategy</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ====== OVERVIEW ====== -->
+<section class="section active" id="overview">
+  <div class="section-header">
+    <h2 class="section-title">The <em>format</em></h2>
+    <div class="section-meta">
+      <div>// 3 papers · written exams</div>
+      <div>// answer in English</div>
+    </div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="ov-cell">
+      <div class="label">Paper 01</div>
+      <div class="big">70<em>m</em></div>
+      <div class="desc">Theory: hardware, networks, OS, AI. 1h 30min.</div>
+    </div>
+    <div class="ov-cell">
+      <div class="label">Paper 02</div>
+      <div class="big">70<em>m</em></div>
+      <div class="desc">SDLC, design, logic, databases. 1h 30min.</div>
+    </div>
+    <div class="ov-cell">
+      <div class="label">Paper 03</div>
+      <div class="big">60<em>m</em></div>
+      <div class="desc">Algorithms, code, web, assembly. 2h.</div>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:64px">
+    <h2 class="section-title" style="font-size:32px">What's <em>covered</em></h2>
+  </div>
+
+  <a class="exam-card" href="#" onclick="goTo('paper1');return false">
+    <div class="exam-card-head">
+      <h3><em>I.</em> Theory & Architecture</h3>
+      <div class="duration">90 min · 70 marks</div>
+    </div>
+    <p style="color:var(--ink-dim);font-size:14px">Number systems, security, software, CPU architecture, memory, AI/AR, compilation, networks, internet protocols.</p>
+    <div class="exam-card-topics">
+      <span class="chip">Binary</span><span class="chip">Hex</span><span class="chip">Two's complement</span>
+      <span class="chip">RISC vs CISC</span><span class="chip">Paging</span><span class="chip">Addressing modes</span>
+      <span class="chip">Compilation</span><span class="chip">OSI model</span><span class="chip">Topologies</span>
+      <span class="chip">IPv4/IPv6</span><span class="chip">MAC</span>
+    </div>
+  </a>
+
+  <a class="exam-card" href="#" onclick="goTo('paper2');return false">
+    <div class="exam-card-head">
+      <h3><em>II.</em> System Development</h3>
+      <div class="duration">90 min · 70 marks</div>
+    </div>
+    <p style="color:var(--ink-dim);font-size:14px">SDLC models, prototyping, implementation strategies, logic gates, Boolean simplification, DFD, ERD, normalization, SQL.</p>
+    <div class="exam-card-topics">
+      <span class="chip">Spiral / Agile / Waterfall</span><span class="chip">Flowcharts</span>
+      <span class="chip">Logic gates</span><span class="chip">De Morgan</span>
+      <span class="chip">DFD</span><span class="chip">3NF</span><span class="chip">SQL CREATE/UPDATE/SELECT</span>
+    </div>
+  </a>
+
+  <a class="exam-card" href="#" onclick="goTo('paper3');return false">
+    <div class="exam-card-head">
+      <h3><em>III.</em> Programming & Algorithms</h3>
+      <div class="duration">120 min · 60 marks</div>
+    </div>
+    <p style="color:var(--ink-dim);font-size:14px">Sorting, LMC assembly, binary search, stacks, BST, Prolog, HTML/CSS, error types, PHP database connection.</p>
+    <div class="exam-card-topics">
+      <span class="chip">Bubble sort</span><span class="chip">LMC</span><span class="chip">Binary search</span>
+      <span class="chip">Stack</span><span class="chip">BST</span><span class="chip">Prolog</span>
+      <span class="chip">HTML forms</span><span class="chip">CSS</span><span class="chip">PHP+MySQL</span>
+    </div>
+  </a>
+
+  <div class="callout warn" style="margin-top:48px">
+    <strong>⚠ READ THIS FIRST.</strong> The 2025 papers covered specific subtopics. For 2026, NIS will likely test <em>different</em> subtopics from the same syllabus. Open the <strong>2026 Forecast</strong> tab — it lists topics that were in the syllabus but NOT tested in 2025, ranked by how likely they are to appear this year.
+  </div>
+
+  <div class="callout tip" style="margin-top:16px">
+    <strong>How to use this guide.</strong> Click any topic card to expand. Each Q&A is collapsible — try to answer first, then reveal. All worked solutions are taken directly from the official 2025 mark schemes.
+  </div>
+</section>
+
+<!-- ====== FORECAST 2026 ====== -->
+<section class="section" id="forecast">
+  <div class="section-header">
+    <h2 class="section-title">2026 <em>Forecast</em></h2>
+    <div class="section-meta">
+      <div>// gaps in 2025 paper</div>
+      <div>// high-probability for this year</div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <strong>Methodology.</strong> Compared the Grade 12 syllabus (12.1 – 12.6) line-by-line against the 2025 papers. The topics below appear in the syllabus but were <em>not</em> tested last year — examiners typically rotate, so these are the highest-probability targets for 2026.
+  </div>
+
+  <h3 style="margin-top:32px;font-size:18px;letter-spacing:0.05em;text-transform:uppercase;color:var(--accent)">Tier 1 · Highest priority</h3>
+
+  <!-- F-01: Declarative vs Imperative -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-01</span>
+        <span class="topic-title">Declarative vs Imperative Programming</span>
+      </div>
+      <span class="topic-tag">12.5.1.1 · likely P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>This is in the syllabus (12.5.1.1) but wasn't tested in 2025. Expect a comparison question.</p>
+      <table>
+        <tr><th>Imperative</th><th>Declarative</th></tr>
+        <tr><td>Specifies <strong>HOW</strong> to do something — step by step</td><td>Specifies <strong>WHAT</strong> the result should be</td></tr>
+        <tr><td>Uses sequences, loops, conditionals to change program state</td><td>Describes desired outcome; the system figures out execution</td></tr>
+        <tr><td>Programmer manages flow and memory</td><td>Programmer focuses on relationships and rules</td></tr>
+        <tr><td>Examples: Python, C, Java, C++, JavaScript</td><td>Examples: SQL, Prolog, HTML, Haskell</td></tr>
+      </table>
+      <h4>Code Example — same task, two paradigms</h4>
+      <pre><code><span class="com">// Imperative (Python): sum a list</span>
+total = <span class="num">0</span>
+<span class="kw">for</span> n <span class="kw">in</span> nums:
+    total = total + n
+
+<span class="com">// Declarative (SQL): same idea</span>
+<span class="kw">SELECT SUM</span>(value) <span class="kw">FROM</span> nums;</code></pre>
+    </div>
+  </div>
+
+  <!-- F-02: Expert systems -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-02</span>
+        <span class="topic-title">Expert Systems</span>
+      </div>
+      <span class="topic-tag">12.5.1.2 · likely P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>An <strong>expert system</strong> is an AI program that emulates the decision-making of a human expert in a specific domain.</p>
+      <h4>Four components</h4>
+      <ol>
+        <li><strong>Knowledge base</strong> — facts and rules from human experts</li>
+        <li><strong>Inference engine</strong> — applies rules to facts to derive conclusions</li>
+        <li><strong>User interface</strong> — how the user asks questions</li>
+        <li><strong>Explanation facility</strong> — explains why a conclusion was reached</li>
+      </ol>
+
+      <h4>Simple expert system in Prolog (medical diagnosis)</h4>
+      <pre><code><span class="com">% knowledge base — facts</span>
+symptom(flu, fever).
+symptom(flu, cough).
+symptom(cold, cough).
+symptom(cold, runny_nose).
+
+<span class="com">% rule — if patient has all symptoms of D, diagnose D</span>
+diagnose(Patient, Disease) :-
+    has_symptom(Patient, Symptom),
+    symptom(Disease, Symptom).
+
+<span class="com">% query: diagnose(jake, X).</span></code></pre>
+      <h4>Use cases</h4>
+      <ul><li>Medical diagnosis · financial advice · troubleshooting · legal reasoning</li></ul>
+    </div>
+  </div>
+
+  <!-- F-03: OS types -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-03</span>
+        <span class="topic-title">OS Types: Real-time · Network · Batch</span>
+      </div>
+      <span class="topic-tag">12.3.1.1–3 · likely P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>Last year only NOS was tested. The full syllabus item asks about <strong>three</strong> OS types.</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <h5>Real-time OS</h5>
+          <p>Guarantees response within a strict time limit. Used in embedded systems (medical devices, ABS in cars, missile guidance, industrial control).</p>
+        </div>
+        <div class="mini-card">
+          <h5>Network OS</h5>
+          <p>Manages shared resources across a network. Provides authentication, file/printer sharing, multi-user access (Windows Server, Linux servers).</p>
+        </div>
+        <div class="mini-card">
+          <h5>Batch processing OS</h5>
+          <p>Groups jobs together and processes them without user interaction. Used for payroll, billing, end-of-day banking transactions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- F-04: GUI vs CLI -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-04</span>
+        <span class="topic-title">GUI vs CLI — Advantages & Disadvantages</span>
+      </div>
+      <span class="topic-tag">12.3.1.4–5 · likely P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>2025 only tested natural-language and gesture interfaces. GUI/CLI are still in the syllabus and easy to ask.</p>
+      <table>
+        <tr><th></th><th>GUI</th><th>CLI</th></tr>
+        <tr><td>Ease for beginner</td><td>✓ Intuitive — icons, mouse</td><td>✗ Steep learning curve</td></tr>
+        <tr><td>Speed for expert</td><td>✗ Slower (mouse navigation)</td><td>✓ Very fast (commands + scripts)</td></tr>
+        <tr><td>System resources</td><td>✗ More CPU & memory</td><td>✓ Minimal resources</td></tr>
+        <tr><td>Automation</td><td>✗ Hard to automate</td><td>✓ Easy to script</td></tr>
+        <tr><td>Visual feedback</td><td>✓ Rich visuals</td><td>✗ Text only</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- F-05: System bus -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-05</span>
+        <span class="topic-title">System Bus: Address · Data · Control</span>
+      </div>
+      <span class="topic-tag">12.3.2.4 · likely P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <table>
+        <tr><th>Bus</th><th>Direction</th><th>Carries</th></tr>
+        <tr><td>Address bus</td><td>Unidirectional (CPU → memory)</td><td>Memory address of the location to read/write</td></tr>
+        <tr><td>Data bus</td><td>Bidirectional</td><td>Actual data being transferred</td></tr>
+        <tr><td>Control bus</td><td>Bidirectional</td><td>Control signals: read, write, interrupt, clock, reset</td></tr>
+      </table>
+      <div class="callout tip"><strong>Memory tip:</strong> Address = where · Data = what · Control = how/when.</div>
+    </div>
+  </div>
+
+  <!-- F-06: Fetch-execute cycle -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-06</span>
+        <span class="topic-title">Fetch–Decode–Execute Cycle</span>
+      </div>
+      <span class="topic-tag">12.3.2.5 · likely P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>The three stages</h4>
+      <ol>
+        <li><strong>Fetch</strong>
+          <ul>
+            <li>Address in <em>PC</em> (Program Counter) is copied to <em>MAR</em> (Memory Address Register)</li>
+            <li>Instruction at that address is loaded into <em>MDR</em> (Memory Data Register)</li>
+            <li>Instruction copied from MDR into <em>CIR</em> (Current Instruction Register)</li>
+            <li>PC is incremented to point to the next instruction</li>
+          </ul>
+        </li>
+        <li><strong>Decode</strong>
+          <ul>
+            <li>Control Unit (CU) decodes the opcode in CIR</li>
+            <li>Determines the operation to perform and operands needed</li>
+          </ul>
+        </li>
+        <li><strong>Execute</strong>
+          <ul>
+            <li>ALU or registers carry out the operation</li>
+            <li>Result stored back in a register or memory</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="callout"><strong>Registers to know:</strong> PC, MAR, MDR, CIR, ACC (accumulator).</div>
+    </div>
+  </div>
+
+  <!-- F-07: Queue -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-07</span>
+        <span class="topic-title">Queue (FIFO) — companion to Stack</span>
+      </div>
+      <span class="topic-tag">12.5.2.1 · likely P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>2025 tested stack only. The syllabus item is "stack <strong>and queue</strong>" — queue is overdue.</p>
+      <h4>Operations</h4>
+      <table>
+        <tr><th>Operation</th><th>Action</th></tr>
+        <tr><td><code>enqueue(x)</code></td><td>Add x to the rear of the queue</td></tr>
+        <tr><td><code>dequeue()</code></td><td>Remove and return item from the front</td></tr>
+        <tr><td><code>peek()</code> / <code>front()</code></td><td>Return front item without removing</td></tr>
+        <tr><td><code>is_empty()</code></td><td>Check if queue has no items</td></tr>
+        <tr><td><code>is_full()</code></td><td>Check if queue is at max capacity</td></tr>
+      </table>
+      <h4>Stack vs Queue</h4>
+      <div class="grid-2">
+        <div class="mini-card"><h5>Stack — LIFO</h5><p>Last In, First Out. Push/pop at the same end. Used for: function calls, undo, backtracking.</p></div>
+        <div class="mini-card"><h5>Queue — FIFO</h5><p>First In, First Out. Add at rear, remove from front. Used for: print spool, task scheduling, BFS.</p></div>
+      </div>
+      <h4>Variants</h4>
+      <ul>
+        <li><strong>Circular queue</strong> — rear wraps around to front; reuses freed space</li>
+        <li><strong>Priority queue</strong> — items with higher priority dequeued first</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- F-08: Internet vs WWW -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-08</span>
+        <span class="topic-title">Internet vs World Wide Web</span>
+      </div>
+      <span class="topic-tag">12.6.2.1 · likely P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <table>
+        <tr><th>Internet</th><th>WWW</th></tr>
+        <tr><td>The global <strong>infrastructure</strong> — network of networks</td><td>A <strong>service</strong> running on the Internet</td></tr>
+        <tr><td>Connects billions of devices via TCP/IP</td><td>Collection of websites and webpages accessed by HTTP/HTTPS</td></tr>
+        <tr><td>Offers many services: email, FTP, VoIP, WWW, etc.</td><td>One specific service of the Internet</td></tr>
+        <tr><td>Started ~1969 (ARPANET)</td><td>Invented 1989 by Tim Berners-Lee</td></tr>
+      </table>
+      <div class="callout tip">All websites need the Internet, but not everything on the Internet is the WWW (e.g. an email transferred via SMTP).</div>
+    </div>
+  </div>
+
+  <!-- F-09: Packet vs circuit switching -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-09</span>
+        <span class="topic-title">Packet Switching vs Circuit Switching</span>
+      </div>
+      <span class="topic-tag">12.6.1.1 · likely P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <table>
+        <tr><th>Circuit switching</th><th>Packet switching</th></tr>
+        <tr><td>Dedicated path established for the whole session</td><td>Data split into packets, each routed independently</td></tr>
+        <tr><td>Guaranteed bandwidth, fixed delay</td><td>No guaranteed bandwidth, variable delay</td></tr>
+        <tr><td>Wasteful — channel reserved even if idle</td><td>Efficient — shares bandwidth across many users</td></tr>
+        <tr><td>Used in: traditional telephony (PSTN)</td><td>Used in: the Internet, modern data networks</td></tr>
+        <tr><td>Connection-oriented</td><td>Connectionless (or virtual circuits)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- F-10: Test data types -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-10</span>
+        <span class="topic-title">Test Data: Normal · Extreme · Erroneous</span>
+      </div>
+      <span class="topic-tag">12.5.3.2–4 · likely P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>2025 only asked for normal & erroneous. The syllabus has <strong>three categories</strong>.</p>
+      <table>
+        <tr><th>Type</th><th>Definition</th><th>Example (age 0–120)</th></tr>
+        <tr><td>Normal</td><td>Typical valid data within range</td><td>25, 40, 67</td></tr>
+        <tr><td>Extreme / Boundary</td><td>Valid data at the limits of the range</td><td>0, 120 (also 1 and 119)</td></tr>
+        <tr><td>Erroneous</td><td>Invalid data the program should reject</td><td>−5, 200, "abc"</td></tr>
+      </table>
+      <div class="callout warn"><strong>Common mistake:</strong> calling 121 "extreme" — it's <em>erroneous</em>. Extreme means valid-but-edge. Boundary tests both sides of the limit.</div>
+    </div>
+  </div>
+
+  <!-- F-11: Error types -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-11</span>
+        <span class="topic-title">Error Types: Syntax · Runtime · Logic</span>
+      </div>
+      <span class="topic-tag">12.5.3.5–6 · likely P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <table>
+        <tr><th>Error</th><th>When</th><th>Example</th></tr>
+        <tr><td><strong>Syntax</strong></td><td>Compile / parse time — code violates language rules</td><td><code>if x = 5</code> (missing colon, wrong operator)</td></tr>
+        <tr><td><strong>Runtime</strong></td><td>While running — operation fails on actual data</td><td>Division by zero, array out of range, null pointer</td></tr>
+        <tr><td><strong>Logic</strong></td><td>Program runs but gives wrong output</td><td><code>area = base + height</code> (should be ×) — no error, wrong result</td></tr>
+      </table>
+      <div class="callout">2025 tested runtime ("buZz" → out of range). 2026 may ask you to <em>identify</em> a syntax or logic error from a code snippet.</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:48px;font-size:18px;letter-spacing:0.05em;text-transform:uppercase;color:var(--accent)">Tier 2 · Likely additions</h3>
+
+  <!-- F-12: Validation vs Verification -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-12</span>
+        <span class="topic-title">Validation vs Verification</span>
+      </div>
+      <span class="topic-tag">11 carry-over · likely P2</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <table>
+        <tr><th>Validation</th><th>Verification</th></tr>
+        <tr><td>Is the data <strong>reasonable</strong>?</td><td>Is the data <strong>accurate</strong> (matches source)?</td></tr>
+        <tr><td>Automatic — done by the program</td><td>Often manual or by re-entry</td></tr>
+        <tr><td>Checks: range, type, format, length, presence</td><td>Methods: double entry, proofreading, checksum</td></tr>
+        <tr><td>Example: age between 0–120</td><td>Example: typing password twice to confirm</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- F-13: Security measures -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-13</span>
+        <span class="topic-title">Firewalls · Biometrics · Anti-virus</span>
+      </div>
+      <span class="topic-tag">12.1.2.1 · likely P1/P2</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>2025 only tested backup, mirroring, and encryption. The syllabus also includes:</p>
+      <div class="grid-3">
+        <div class="mini-card">
+          <h5>Firewall</h5>
+          <p>Network security system that monitors and filters incoming/outgoing traffic based on security rules. Hardware or software.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Biometrics</h5>
+          <p>Authentication via unique physical traits: fingerprint, iris, face, voice. Hard to forge but expensive.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Anti-virus / Anti-malware</h5>
+          <p>Detects and removes malicious programs (viruses, trojans, worms, ransomware, spyware). Needs regular updates.</p>
+        </div>
+      </div>
+      <h4>Types of malware</h4>
+      <ul>
+        <li><strong>Virus</strong> — attaches to a file, replicates when file runs</li>
+        <li><strong>Worm</strong> — self-replicates across networks without user action</li>
+        <li><strong>Trojan</strong> — disguised as legitimate software, opens backdoor</li>
+        <li><strong>Ransomware</strong> — encrypts files, demands payment</li>
+        <li><strong>Spyware</strong> — secretly collects user information</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- F-14: Ethics & IP -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-14</span>
+        <span class="topic-title">Ethics, Copyright, Privacy, E-gov</span>
+      </div>
+      <span class="topic-tag">12.1.3.x · likely P2</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Cracking — ethical issues</h4>
+      <ul>
+        <li>Violates privacy of users</li>
+        <li>Causes financial loss to companies and individuals</li>
+        <li>Damages trust in digital systems</li>
+        <li>May lead to identity theft and fraud</li>
+        <li>Disrupts critical services (hospitals, banks)</li>
+      </ul>
+
+      <h4>Copyright protection rules</h4>
+      <ul>
+        <li>Original work is automatically copyrighted on creation</li>
+        <li>Cannot copy, distribute, or modify without permission</li>
+        <li>Use proper attribution for quotes and references</li>
+        <li>Open-source licenses (MIT, GPL) allow specific reuse</li>
+        <li>Software piracy is illegal — use licensed software</li>
+      </ul>
+
+      <h4>Privacy policy</h4>
+      <p>A document declaring how an organisation collects, uses, stores, and shares user data. Required by law in many countries (GDPR, Kazakhstan's data protection law).</p>
+
+      <h4>E-gov resources (Kazakhstan)</h4>
+      <ul>
+        <li><strong>egov.kz</strong> — apply for documents online (passports, certificates)</li>
+        <li>Pay taxes and fines online</li>
+        <li>Register a business</li>
+        <li>Access medical records and appointments</li>
+      </ul>
+
+      <h4>Open-source vs closed-source</h4>
+      <table>
+        <tr><th>Open-source</th><th>Closed-source (proprietary)</th></tr>
+        <tr><td>Source code freely available</td><td>Source code is secret</td></tr>
+        <tr><td>Can be modified by anyone</td><td>Only the vendor can modify</td></tr>
+        <tr><td>Free or low cost</td><td>Often paid licenses</td></tr>
+        <tr><td>Examples: Linux, Python, Firefox</td><td>Examples: Windows, Photoshop, MS Office</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- F-15: SQL extras -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-15</span>
+        <span class="topic-title">SQL: ALTER · DROP · INSERT · DELETE · JOIN</span>
+      </div>
+      <span class="topic-tag">11.4.2.x · likely P2</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>2025 tested CREATE, UPDATE, SELECT. These are the rest:</p>
+
+      <h4>INSERT — add a row</h4>
+      <pre><code><span class="kw">INSERT INTO</span> Products (Product_code, Title, Amount, Price_tg)
+<span class="kw">VALUES</span> (<span class="str">'AB123'</span>, <span class="str">'Notebook'</span>, <span class="num">100</span>, <span class="num">450</span>);</code></pre>
+
+      <h4>DELETE — remove rows</h4>
+      <pre><code><span class="kw">DELETE FROM</span> Products
+<span class="kw">WHERE</span> Amount = <span class="num">0</span>;</code></pre>
+
+      <h4>ALTER — change table structure</h4>
+      <pre><code><span class="kw">ALTER TABLE</span> Products
+<span class="kw">ADD</span> Discount <span class="kw">INT</span>;
+
+<span class="kw">ALTER TABLE</span> Products
+<span class="kw">DROP COLUMN</span> Discount;</code></pre>
+
+      <h4>DROP — delete a whole table</h4>
+      <pre><code><span class="kw">DROP TABLE</span> Products;</code></pre>
+
+      <h4>JOIN — combine two tables</h4>
+      <pre><code><span class="com">-- show product titles with delivery dates</span>
+<span class="kw">SELECT</span> P.Title, D.Delivery_date
+<span class="kw">FROM</span> Products P
+<span class="kw">INNER JOIN</span> Deliveries D
+    <span class="kw">ON</span> P.Product_code = D.Product_code
+<span class="kw">WHERE</span> D.Store_code = <span class="num">88</span>;</code></pre>
+      <div class="callout"><strong>JOIN types:</strong> INNER (matches only) · LEFT (all from left + matches) · RIGHT (all from right + matches) · FULL (everything).</div>
+    </div>
+  </div>
+
+  <!-- F-16: Insertion sort -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-16</span>
+        <span class="topic-title">Insertion Sort (companion to Bubble)</span>
+      </div>
+      <span class="topic-tag">11.5.2.4 · likely P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>The syllabus says "sort by insert and bubble" — bubble was tested, insertion is overdue.</p>
+      <h4>How it works</h4>
+      <p>Build the sorted list one element at a time. For each element, shift larger elements right and insert it in its correct position.</p>
+      <pre><code><span class="kw">FOR</span> i ← <span class="num">1</span> <span class="kw">TO</span> <span class="num">n</span>-<span class="num">1</span> <span class="kw">DO</span>
+    key ← arr[i]
+    j ← i - <span class="num">1</span>
+    <span class="kw">WHILE</span> j &gt;= <span class="num">0</span> <span class="kw">AND</span> arr[j] &gt; key <span class="kw">DO</span>
+        arr[j+<span class="num">1</span>] ← arr[j]
+        j ← j - <span class="num">1</span>
+    <span class="kw">ENDWHILE</span>
+    arr[j+<span class="num">1</span>] ← key
+<span class="kw">ENDFOR</span></code></pre>
+      <div class="callout"><strong>Complexity:</strong> O(n²) worst case · O(n) best case (already sorted) · stable sort.</div>
+    </div>
+  </div>
+
+  <!-- F-17: 2D arrays -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-17</span>
+        <span class="topic-title">2D Arrays</span>
+      </div>
+      <span class="topic-tag">11.5.2.2 · likely P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Common patterns</h4>
+      <pre><code><span class="com">// declare a 3×4 grid of zeros</span>
+matrix ← [[<span class="num">0</span>] * <span class="num">4</span> <span class="kw">for</span> _ <span class="kw">in</span> <span class="kw">range</span>(<span class="num">3</span>)]
+
+<span class="com">// traverse all cells</span>
+<span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> rows-<span class="num">1</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> cols-<span class="num">1</span> <span class="kw">DO</span>
+        <span class="fn">OUTPUT</span>(matrix[i][j])
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span>
+
+<span class="com">// sum all elements</span>
+total ← <span class="num">0</span>
+<span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> rows-<span class="num">1</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> cols-<span class="num">1</span> <span class="kw">DO</span>
+        total ← total + matrix[i][j]
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></code></pre>
+      <h4>Use cases</h4>
+      <ul>Spreadsheets, game boards (chess, tic-tac-toe), images (pixel grid), schedules</ul>
+    </div>
+  </div>
+
+  <!-- F-18: NOR XOR -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-18</span>
+        <span class="topic-title">Logic Gates: NOR · XOR · XNOR</span>
+      </div>
+      <span class="topic-tag">11.3.3.3 · likely P2</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p>2025 tested AND, OR, NAND. The remaining gates are still in the syllabus.</p>
+      <h4>Truth tables</h4>
+      <table>
+        <tr><th>A</th><th>B</th><th>NOR</th><th>XOR</th><th>XNOR</th></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+      </table>
+      <ul>
+        <li><strong>NOR</strong> — output 1 only when both inputs are 0 (NOT OR)</li>
+        <li><strong>XOR</strong> — output 1 when inputs differ (exclusive OR)</li>
+        <li><strong>XNOR</strong> — output 1 when inputs are equal</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- F-19: Hex advantages -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-19</span>
+        <span class="topic-title">Why Hex? — Advantages</span>
+      </div>
+      <span class="topic-tag">12.1.1.2 · likely P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <ul>
+        <li><strong>Compact</strong> — 1 hex digit = 4 binary bits, so an 8-bit byte = 2 hex digits (FF instead of 11111111)</li>
+        <li><strong>Easier to read & write</strong> than long binary strings → fewer human errors</li>
+        <li><strong>Direct mapping to binary</strong> — convert nibble-by-nibble, no arithmetic</li>
+        <li><strong>Standard for memory addresses</strong> (e.g. 0x7FFF), MAC addresses, colour codes (#FF5B1F), Unicode</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- F-20: Generations & translators -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-20</span>
+        <span class="topic-title">Programming Language Generations · Compiler vs Interpreter</span>
+      </div>
+      <span class="topic-tag">11.5.1.x · likely P1/P3</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Generations</h4>
+      <table>
+        <tr><th>Gen</th><th>Type</th><th>Examples</th></tr>
+        <tr><td>1G</td><td>Machine code (binary)</td><td>10110000 01100001</td></tr>
+        <tr><td>2G</td><td>Assembly</td><td>MOV AL, 61h</td></tr>
+        <tr><td>3G</td><td>High-level procedural</td><td>C, Java, Python, C++</td></tr>
+        <tr><td>4G</td><td>Domain-specific / declarative</td><td>SQL, MATLAB, R</td></tr>
+        <tr><td>5G</td><td>Logic / AI</td><td>Prolog, LISP</td></tr>
+      </table>
+
+      <h4>Compiler vs Interpreter</h4>
+      <table>
+        <tr><th>Compiler</th><th>Interpreter</th></tr>
+        <tr><td>Translates whole program before running</td><td>Translates and runs line by line</td></tr>
+        <tr><td>Produces an executable file</td><td>No standalone executable</td></tr>
+        <tr><td>Faster execution</td><td>Slower execution</td></tr>
+        <tr><td>Errors reported all at once</td><td>Stops at first error encountered</td></tr>
+        <tr><td>Examples: C, C++, Go, Rust</td><td>Examples: Python, JavaScript, Ruby</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- F-21: Blockchain -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-21</span>
+        <span class="topic-title">Blockchain</span>
+      </div>
+      <span class="topic-tag">11.1.2.6 · possible P1/P2</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <p><strong>Blockchain</strong> is a distributed digital ledger where data is stored in blocks linked cryptographically.</p>
+      <h4>How it works</h4>
+      <ol>
+        <li>A new transaction is broadcast to the network</li>
+        <li>Network nodes validate the transaction (consensus)</li>
+        <li>Validated transactions are bundled into a <strong>block</strong></li>
+        <li>The block contains a <strong>hash</strong> of the previous block — creating a chain</li>
+        <li>Adding the block to all copies of the ledger makes it nearly impossible to alter history</li>
+      </ol>
+      <h4>Key properties</h4>
+      <ul>
+        <li><strong>Decentralised</strong> — no single point of control</li>
+        <li><strong>Immutable</strong> — past records can't be changed without breaking the chain</li>
+        <li><strong>Transparent</strong> — all transactions visible to participants</li>
+      </ul>
+      <h4>Uses</h4>
+      <ul>Cryptocurrency (Bitcoin, Ethereum) · supply chain tracking · digital identity · smart contracts · medical records</ul>
+    </div>
+  </div>
+
+  <!-- F-22: Cloud risks -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">F-22</span>
+        <span class="topic-title">Cloud Computing — Risks</span>
+      </div>
+      <span class="topic-tag">11.1.3.5 · possible P1</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <ul>
+        <li><strong>Data breaches</strong> — data stored on external servers may be hacked</li>
+        <li><strong>Loss of control</strong> — data physically held by the provider</li>
+        <li><strong>Internet dependency</strong> — no connection = no access</li>
+        <li><strong>Vendor lock-in</strong> — hard to migrate to another provider</li>
+        <li><strong>Compliance issues</strong> — data may be stored in jurisdictions with different laws</li>
+        <li><strong>Service downtime</strong> — provider outage affects all users</li>
+      </ul>
+      <h4>Three cloud service models</h4>
+      <ul>
+        <li><strong>IaaS</strong> (Infrastructure) — rent servers, storage, network (AWS EC2)</li>
+        <li><strong>PaaS</strong> (Platform) — rent dev environment (Heroku, Google App Engine)</li>
+        <li><strong>SaaS</strong> (Software) — rent applications (Gmail, Office 365)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:48px">
+    <strong>Final note.</strong> The 2025 paper structure (Q1, Q2... in same order) tends to map to syllabus areas. Any topic above is fair game — but don't ignore the 2025 papers either: examiners often re-test the same broad theme with a different angle (e.g., binary search → linear search; bubble sort → insertion sort; MAC vs IP → Internet vs WWW).
+  </div>
+</section>
+
+<!-- ====== PAPER 1 ====== -->
+<section class="section" id="paper1">
+  <div class="section-header">
+    <h2 class="section-title">Paper <em>One</em></h2>
+    <div class="section-meta">
+      <div>// theory & architecture</div>
+      <div>// 70 marks · 90 min</div>
+    </div>
+  </div>
+
+  <!-- Topic 1: Number Systems -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">01</span>
+        <span class="topic-title">Number Systems</span>
+      </div>
+      <span class="topic-tag">Q1 · 13 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Denary → Hex</h4>
+      <p>Divide repeatedly by 16, take remainders bottom-up. Or split byte into nibbles.</p>
+      <pre><code>183 = 10110111₂
+       1011  0111
+       = B    7
+       = <span class="num">B7₁₆</span></code></pre>
+
+      <h4>8-bit Binary Addition</h4>
+      <pre><code>  10101010
++ 10111001
+─────────
+ 101100011   <span class="com">// 9 bits — overflow!</span>
+  01100011   <span class="com">// in 8-bit format</span></code></pre>
+      <div class="callout warn"><strong>Watch:</strong> Mark scheme awards 1 mark for the answer <em>and</em> 1 mark for keeping it 8-bit (dropping the overflow bit).</div>
+
+      <h4>Binary Multiplication: 1111 × 111</h4>
+      <pre><code>     1111
+   ×  111
+   ──────
+     1111
+    1111
+   1111
+   ──────
+   <span class="num">1101001</span></code></pre>
+
+      <h4>Byte Interpretations: <code>10110001</code></h4>
+      <table>
+        <tr><th>Format</th><th>Value</th><th>Working</th></tr>
+        <tr><td>Unsigned</td><td>177</td><td>128+32+16+1</td></tr>
+        <tr><td>Two's complement</td><td>−79</td><td>flip + 1: 01001111 = 79 → −79</td></tr>
+        <tr><td>Fixed-point (3 frac bits)</td><td>22.125</td><td>10110.001 → 22 + 0.125</td></tr>
+      </table>
+
+      <h4>Floating-Point: −23.75</h4>
+      <ol>
+        <li>23 = <code>10111</code></li>
+        <li>0.75 = <code>.11</code></li>
+        <li>Combined: <code>10111.11</code></li>
+        <li>Normalise (mantissa = <code>101000010000</code>, exp = <code>0101</code>)</li>
+        <li>Result: <code>101000010000 0101</code></li>
+      </ol>
+
+      <div class="qa">
+        <div class="qa-q">Convert 183₁₀ to hexadecimal.</div>
+        <div class="qa-toggle" onclick="toggleQa(this)">▸ Show answer</div>
+        <div class="qa-a">B7₁₆. Method: 183 ÷ 16 = 11 r 7 → 11 = B → answer B7.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Topic 2: Data Security -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">02</span>
+        <span class="topic-title">Data Security & Integrity</span>
+      </div>
+      <span class="topic-tag">Q2 · 6 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Security vs Integrity</h4>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h5>Data Security</h5>
+          <p>Protection from unauthorised access. Concerned with <strong>who</strong> can reach the data.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Data Integrity</h5>
+          <p>Validity & accuracy of data. Concerned with whether data is <strong>correct</strong> and uncorrupted.</p>
+        </div>
+      </div>
+
+      <h4>Consequences of Missing Measures</h4>
+      <ul>
+        <li><strong>No backup</strong> → permanent data loss after hardware failure or attack</li>
+        <li><strong>No disk mirroring</strong> → downtime during recovery; failed drive can't be replaced while running</li>
+        <li><strong>Mirroring caveat:</strong> a virus replicates to mirror; deleting on one disk deletes both</li>
+      </ul>
+
+      <h4>Encryption (2 marks: describe coding + purpose)</h4>
+      <p>Encryption is the process of converting plaintext into a coded form (ciphertext) using an algorithm and a key, so that only authorised parties with the correct key can decrypt and read it. It secures data <strong>in transit</strong> (online transactions, email, file transfers) and <strong>at rest</strong>.</p>
+
+      <div class="qa">
+        <div class="qa-q">State two differences between data security and data integrity.</div>
+        <div class="qa-toggle" onclick="toggleQa(this)">▸ Show answer</div>
+        <div class="qa-a">(1) Security protects data from unauthorised access; integrity ensures data validity. (2) Security prevents external threats; integrity prevents human/input errors.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Topic 3: Software & UI -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">03</span>
+        <span class="topic-title">Software, OS & User Interfaces</span>
+      </div>
+      <span class="topic-tag">Q3 · 6 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Bespoke Software</h4>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h5>Advantage</h5>
+          <p>Custom-built to specific business needs; full control over code and updates.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Disadvantage</h5>
+          <p>High initial cost; long development time; ongoing maintenance burden.</p>
+        </div>
+      </div>
+
+      <h4>Network OS · User Account Management</h4>
+      <p>An NOS provides <strong>authentication</strong> (verifies user identity via login credentials) and <strong>authorisation</strong> (assigns access rights). Together they ensure that only authorised users access network resources.</p>
+
+      <h4>UI Disadvantages</h4>
+      <table>
+        <tr><th>Interface</th><th>Disadvantage</th></tr>
+        <tr><td>Natural-language</td><td>Ambiguous input; struggles with slang, homophones, context. Limited specialist vocabulary.</td></tr>
+        <tr><td>Gesture-recognition</td><td>Misinterpretation between similar gestures. User must memorise gesture set. Limited command range.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Topic 4: CPU Architecture -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">04</span>
+        <span class="topic-title">CPU: RISC vs CISC, Performance, Addressing</span>
+      </div>
+      <span class="topic-tag">Q4 · 12 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>RISC vs CISC</h4>
+      <table>
+        <tr><th>RISC</th><th>CISC</th></tr>
+        <tr><td>Shorter instruction set</td><td>Longer instruction set</td></tr>
+        <tr><td>One machine cycle per instruction</td><td>Many cycles per instruction</td></tr>
+        <tr><td>Requires more RAM</td><td>Requires less RAM</td></tr>
+        <tr><td>Few addressing modes</td><td>Many addressing modes</td></tr>
+        <tr><td>Fewer registers</td><td>More registers</td></tr>
+      </table>
+      <div class="callout warn"><strong>MS note:</strong> Don't use the word "task" — say "instruction".</div>
+
+      <h4>CPU Performance Factors</h4>
+      <table>
+        <tr><th>Factor</th><th>Definition</th></tr>
+        <tr><td>Clock speed</td><td>Number of cycles performed by the CPU per second.</td></tr>
+        <tr><td>Bus width</td><td>Number of bits a bus can carry at one time.</td></tr>
+        <tr><td>Word length / size</td><td>Number of bits the CPU can process at a time.</td></tr>
+      </table>
+      <div class="callout"><strong>Also accepted:</strong> core count, cache size. <strong>Not accepted:</strong> "increase RAM" or software factors.</div>
+
+      <h4>Addressing Modes (memory at 15=25, 25=35, 35=5, 45=10, 85=30; LOAD 15, Index 70)</h4>
+      <table>
+        <tr><th>Mode</th><th>Loaded into AC</th><th>Why</th></tr>
+        <tr><td>Immediate</td><td>15</td><td>Operand is the literal value</td></tr>
+        <tr><td>Direct</td><td>25</td><td>Value at address 15</td></tr>
+        <tr><td>Indirect</td><td>35</td><td>Value at (value at 15) = value at 25 = 35</td></tr>
+        <tr><td>Indexed</td><td>30</td><td>Value at 15 + 70 = 85, mem[85] = 30</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Topic 5: Memory & VM -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">05</span>
+        <span class="topic-title">Paging & Virtual Machines</span>
+      </div>
+      <span class="topic-tag">Q5 · 5 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Paging (3 marks)</h4>
+      <ul>
+        <li>Enables processes to share physical memory</li>
+        <li>Supports virtual memory</li>
+        <li>Breaks address space into equal-sized blocks called <strong>pages</strong></li>
+        <li>Divides physical memory into equal blocks called <strong>frames</strong></li>
+        <li>A <strong>page table</strong> maps virtual pages to physical frames</li>
+      </ul>
+      <div class="callout warn"><strong>Don't write:</strong> "divides data" — paging divides <em>memory address space</em>.</div>
+
+      <h4>Virtual Machine Use Cases</h4>
+      <ul>
+        <li>Server virtualisation</li>
+        <li>Software testing & development (isolated environments)</li>
+        <li>Legacy application support</li>
+        <li>Disaster recovery and backup</li>
+        <li>Cloud computing</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Topic 6: AI & AR -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">06</span>
+        <span class="topic-title">AI & Augmented Reality</span>
+      </div>
+      <span class="topic-tag">Q6 · 5 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>AI Applications by Domain</h4>
+      <div class="grid-3">
+        <div class="mini-card">
+          <h5>Medicine</h5>
+          <p>Disease diagnosis, medical imaging interpretation, drug discovery, personalised treatment plans.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Gaming</h5>
+          <p>NPC behaviour, procedural content generation, player behaviour analysis.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Society</h5>
+          <p>Predictive crime analytics, social media moderation, smart city infrastructure.</p>
+        </div>
+      </div>
+      <div class="callout warn"><strong>Don't:</strong> name a software product without describing its purpose. "ChatGPT" alone scores 0.</div>
+
+      <h4>AR Purposes</h4>
+      <ul>
+        <li>Real-time access to information & context relevant to the physical world</li>
+        <li>Immersive interactive learning experiences</li>
+        <li>Training & simulations across industries</li>
+        <li>Entertainment via mobile games and immersive storytelling</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Topic 7: Compilation -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">07</span>
+        <span class="topic-title">Compilation Stages</span>
+      </div>
+      <span class="topic-tag">Q7 · 5 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Stages</h4>
+      <ol>
+        <li><strong>Lexical analysis</strong> — produces tokens (Keyword/Bracket/Identifier/Operator/Number)</li>
+        <li><strong>Syntax analysis</strong> — checks tokens against grammar rules of the language</li>
+        <li><strong>Semantic analysis</strong> — type checking, scope</li>
+        <li><strong>Code generation</strong></li>
+        <li><strong>Optimisation</strong></li>
+      </ol>
+
+      <h4>Optimisation: Dead Code Elimination</h4>
+      <pre><code>a = <span class="num">5</span>
+<span class="kw">if</span> (a != <span class="num">5</span>) {     <span class="com">// always false → dead branch</span>
+   ...
+}
+
+<span class="com">// optimised:</span>
+a = <span class="num">5</span>
+<span class="com">// (entire if removed)</span></code></pre>
+      <div class="callout tip"><strong>Mark scheme answer:</strong> the optimised code is simply <code>if(a=5)</code> (the always-true branch retained, condition removed). Algorithm name = <strong>Dead code elimination</strong>.</div>
+
+      <h4>Syntax Analysis (2 marks)</h4>
+      <p>The syntax analyser receives <strong>tokens</strong> from the lexer and analyses them to ensure they conform to the <strong>grammar rules</strong> of the programming language.</p>
+    </div>
+  </div>
+
+  <!-- Topic 8: Networks -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">08</span>
+        <span class="topic-title">Network Topologies & Routers</span>
+      </div>
+      <span class="topic-tag">Q8 · 5 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Topology Types in Mixed Diagrams</h4>
+      <table>
+        <tr><th>Layout</th><th>Topology</th></tr>
+        <tr><td>A — circular</td><td>Ring</td></tr>
+        <tr><td>B — backbone with branches</td><td>Bus / Tree</td></tr>
+        <tr><td>C — central hub/switch</td><td>Star</td></tr>
+        <tr><td>Combination of all</td><td>Mixed (Hybrid)</td></tr>
+      </table>
+
+      <h4>Ring (A) Advantages</h4>
+      <ul><li>Easy to manage; equal access to resources; cheap to install/expand; minimal collision</li></ul>
+
+      <h4>Star (C) Disadvantages</h4>
+      <ul><li>Requires more cable than bus; if central switch fails, whole subnet goes down; performance dependent on the hub</li></ul>
+
+      <h4>Router Purposes (2 marks)</h4>
+      <ul>
+        <li>Direct traffic between subnetworks via routing tables</li>
+        <li>Determine the best path to destination</li>
+        <li>Forward data packets to their intended destination</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Topic 9: IP / MAC / URL -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">09</span>
+        <span class="topic-title">IP · MAC · Domain Names · URL</span>
+      </div>
+      <span class="topic-tag">Q9 · 6 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>IP ↔ Domain</h4>
+      <p>The IP address is the <strong>numerical identifier</strong> for the domain name; the domain name is a human-readable label that maps to it (via DNS).</p>
+
+      <h4>Find your MAC address</h4>
+      <ul>
+        <li>Command prompt: <code>ipconfig /all</code></li>
+        <li>GUI: View network status → adapter properties → "Physical Address"</li>
+      </ul>
+
+      <h4>MAC vs IP — Key Differences</h4>
+      <table>
+        <tr><th>MAC</th><th>IP</th></tr>
+        <tr><td>Physical (hardware) address</td><td>Logical (network) address</td></tr>
+        <tr><td>Set by manufacturer (NIC)</td><td>Assigned to a device on a network</td></tr>
+        <tr><td>Permanent</td><td>Changeable</td></tr>
+        <tr><td>MAC filtering possible</td><td>No equivalent built-in filter</td></tr>
+      </table>
+
+      <h4>URL Example (must show all three parts)</h4>
+      <pre><code><span class="kw">http://</span><span class="str">commons.wikimedia.org</span>/<span class="num">wiki/George.jpg</span>
+ └ protocol └ hostname            └ file location</code></pre>
+    </div>
+  </div>
+
+  <!-- Topic 10: Protocols / OSI -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">10</span>
+        <span class="topic-title">Protocols, IP versions, OSI Model</span>
+      </div>
+      <span class="topic-tag">Q10 · 7 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Protocol Roles</h4>
+      <table>
+        <tr><th>Protocol</th><th>Role</th></tr>
+        <tr><td>TCP/IP</td><td>Establishes connections between devices on a network</td></tr>
+        <tr><td>FTP</td><td>Transfers files between client and server</td></tr>
+        <tr><td>POP3</td><td>Retrieves email messages from a mail server</td></tr>
+        <tr><td>SMTP</td><td>Sends email from client to mail server</td></tr>
+      </table>
+
+      <h4>IPv4 vs IPv6</h4>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h5>IPv4</h5>
+          <p>32 bits · 4 octets in decimal · 2³² addresses · e.g. 192.168.0.1</p>
+        </div>
+        <div class="mini-card">
+          <h5>IPv6</h5>
+          <p>128 bits · 8 quartets in hexadecimal · 2¹²⁸ addresses · e.g. 2001:0db8:85a3::7334</p>
+        </div>
+      </div>
+
+      <h4>OSI Model (memorise!)</h4>
+      <table>
+        <tr><th>#</th><th>Layer</th></tr>
+        <tr><td>7</td><td>Application</td></tr>
+        <tr><td>6</td><td>Presentation</td></tr>
+        <tr><td>5</td><td>Session</td></tr>
+        <tr><td>4</td><td><strong>Transport</strong></td></tr>
+        <tr><td>3</td><td>Network</td></tr>
+        <tr><td>2</td><td><strong>Data Link</strong></td></tr>
+        <tr><td>1</td><td>Physical</td></tr>
+      </table>
+      <div class="callout tip"><strong>Mnemonic:</strong> "All People Seem To Need Data Processing" (top-down).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PAPER 2 ====== -->
+<section class="section" id="paper2">
+  <div class="section-header">
+    <h2 class="section-title">Paper <em>Two</em></h2>
+    <div class="section-meta">
+      <div>// SDLC · logic · databases</div>
+      <div>// 70 marks · 90 min</div>
+    </div>
+  </div>
+
+  <!-- SDLC Models -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">01</span>
+        <span class="topic-title">SDLC Models · Data Collection · Stages</span>
+      </div>
+      <span class="topic-tag">Q1 · 14 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Three Models</h4>
+      <div class="grid-3">
+        <div class="mini-card">
+          <h5>Spiral</h5>
+          <p>A prototype is created after each cycle; once a stage completes, it cannot be revised within that cycle.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Agile</h5>
+          <p>Development over short cycles; flexible; close, continuous customer collaboration and feedback.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Waterfall</h5>
+          <p>Each phase fully completes before the next; no going back to previous stages; suited to small projects.</p>
+        </div>
+      </div>
+
+      <h4>Data Collection — Advantages (must relate to scenario)</h4>
+      <table>
+        <tr><th>Method</th><th>Advantage</th></tr>
+        <tr><td>Interview</td><td>Collects more detailed information; can add follow-up questions on the spot.</td></tr>
+        <tr><td>Existing documents</td><td>Stable resource — can be re-read; efficient and practical.</td></tr>
+      </table>
+
+      <h4>Application Type Justification (3 marks: name + advantage + description)</h4>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h5>Web Application</h5>
+          <p>Most operations on server → users always have latest version. No install/update needed beyond browser. Less load on end devices.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Mobile Application</h5>
+          <p>Easy access — portable. Offline mode possible — syncs when internet returns.</p>
+        </div>
+      </div>
+
+      <h4>Activity → Stage</h4>
+      <table>
+        <tr><th>Activity</th><th>Stage</th></tr>
+        <tr><td>Comparing developed system with original requirements</td><td>Evaluation</td></tr>
+        <tr><td>Conversation with users of the new system</td><td>Evaluation</td></tr>
+        <tr><td>Coordinating report layouts and screens</td><td>Design</td></tr>
+      </table>
+
+      <h4>Flowchart — Counting Late Students (4 marks)</h4>
+      <p>Required elements: <strong>loop</strong> (1..850), <strong>condition</strong> checking each time, <strong>increment</strong> a counter, <strong>output</strong> the result. Use correct flowchart shapes (oval start/end, parallelogram I/O, rhombus decision, rectangle process).</p>
+      <pre><code>START
+count = <span class="num">0</span>
+read time[<span class="num">850</span>]
+FOR i = <span class="num">1</span> TO <span class="num">850</span>
+    IF time[i] &gt; <span class="str">"8:30"</span> THEN
+        count = count + <span class="num">1</span>
+    ENDIF
+ENDFOR
+OUTPUT count
+END</code></pre>
+    </div>
+  </div>
+
+  <!-- Prototyping -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">02</span>
+        <span class="topic-title">Prototyping</span>
+      </div>
+      <span class="topic-tag">Q2 · 6 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Admin Page Prototype — Required Elements (4 marks)</h4>
+      <ul>
+        <li>An <strong>orders table</strong> with attributes (ID, date, client, product, payment...)</li>
+        <li>A <strong>main menu / navigation</strong> bar</li>
+        <li><strong>At least two named buttons</strong> (Save / Edit / Delete / Cancel etc.)</li>
+      </ul>
+
+      <h4>Prototype Pros & Cons</h4>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h5>Advantage</h5>
+          <p>Quick feedback; missing functionality detected early; reduced cost & time; helps both devs and users understand the system.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Disadvantage</h5>
+          <p>Can constrain the designer's ideas; if designer's knowledge is limited the implementation complexity may be misjudged → unlimited development time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Implementation methods -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">03</span>
+        <span class="topic-title">Implementation Methods</span>
+      </div>
+      <span class="topic-tag">Q3 · 8 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Recognise the method</h4>
+      <table>
+        <tr><th>Scenario</th><th>Method</th></tr>
+        <tr><td>Both old & new run together to verify identical output</td><td>Parallel</td></tr>
+        <tr><td>New system rolled out gradually, feature by feature</td><td>Pilot (or Phased)</td></tr>
+        <tr><td>Old system switched off, new one turned on at once</td><td>Direct</td></tr>
+      </table>
+
+      <h4>Hardware Requirements for Phased School System</h4>
+      <ul>
+        <li>Reliable network equipment</li>
+        <li>Backup devices and storage systems</li>
+        <li>Uninterruptible power supplies (UPS)</li>
+      </ul>
+
+      <h4>Other elements in the implementation plan</h4>
+      <ul>
+        <li>Method/timing of staff training</li>
+        <li>Installation timeline</li>
+        <li>Proof of client testing</li>
+        <li>User agreement with implementation terms</li>
+      </ul>
+
+      <h4>User Guide design — label "A" in top-right</h4>
+      <p><strong>Header</strong> (running head). The book/guide title at the top of every page is a header element.</p>
+    </div>
+  </div>
+
+  <!-- Logic gates -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">04</span>
+        <span class="topic-title">Logic Gates & Boolean Algebra</span>
+      </div>
+      <span class="topic-tag">Q4 · 12 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Identifying gates from truth tables</h4>
+      <p>Output table 1 (1,1,1,0) — the only zero is when both inputs are 1 → that's <strong>NAND</strong>.</p>
+      <p>Output table 2 (0,1,1,1) — only zero when both inputs are 0 → that's <strong>OR</strong>.</p>
+
+      <h4>Simplification using De Morgan's Law</h4>
+      <pre><code>Q₁ = ¬((A + ¬B) · (C + ¬D))
+
+<span class="com">// De Morgan: ¬(X·Y) = ¬X + ¬Y</span>
+   = ¬(A + ¬B) + ¬(C + ¬D)
+
+<span class="com">// De Morgan again: ¬(X+Y) = ¬X · ¬Y</span>
+   = (¬A · ¬¬B) + (¬C · ¬¬D)
+
+<span class="com">// Involution / double complement: ¬¬X = X</span>
+   = ¬A·B + ¬C·D</code></pre>
+      <div class="callout"><strong>Laws used:</strong> De Morgan's Law + Involution (double complementation).</div>
+
+      <h4>Drawing logic circuits</h4>
+      <p>For Q₂ = ¬((A + ¬B) · C): NOT B → OR with A → AND with C → NOT. <em>Always</em> draw an output line from the final gate.</p>
+    </div>
+  </div>
+
+  <!-- DFD -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">05</span>
+        <span class="topic-title">Data Flow Diagrams</span>
+      </div>
+      <span class="topic-tag">Q5 · 9 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Required parts of Level 1 DFD</h4>
+      <ul>
+        <li><strong>Entities:</strong> customer, administrator</li>
+        <li><strong>Processes</strong> (≥4): view product, log in, place an order, add a product</li>
+        <li><strong>Data stores</strong> (3): products, customers/administrators, orders</li>
+        <li><strong>Labelled data flows</strong> between them</li>
+      </ul>
+
+      <h4>DFD Rules — never violate these</h4>
+      <ul>
+        <li>An entity cannot pass data directly to another entity (must go through a process)</li>
+        <li>Data cannot move directly from an entity to a data store without processing</li>
+        <li>Data cannot move directly from a data store to an entity without processing</li>
+        <li>Data cannot move directly between two data stores</li>
+        <li><strong>Processes must be named with verbs</strong></li>
+      </ul>
+
+      <h4>Level 1 → Level 0 transformation</h4>
+      <ol>
+        <li>Delete the data stores</li>
+        <li>Combine all processes into one (the system)</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Databases & Normalization -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">06</span>
+        <span class="topic-title">Relational Databases & 3NF</span>
+      </div>
+      <span class="topic-tag">Q6 · 5 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Relational DB Advantages</h4>
+      <ul>
+        <li>Reduced data redundancy</li>
+        <li>Maintains data consistency / integrity</li>
+        <li>Updates propagate via relationships</li>
+        <li>Complex queries are easier</li>
+      </ul>
+
+      <h4>Tuple</h4>
+      <p>A <strong>tuple</strong> is one row / record in a database table.</p>
+
+      <h4>Normalising the Course/Teacher table to 3NF</h4>
+      <p>Given <code>(CourseName, TeacherName, DateOfBirth)</code>: TeacherName → DateOfBirth (transitive). Split it.</p>
+      <pre><code>Course (CourseID, CourseName)
+Teacher(TeacherID, TeacherName, DateOfBirth, CourseID)
+        <span class="com">// or vice-versa with FK in Course</span></code></pre>
+    </div>
+  </div>
+
+  <!-- ERD + SQL -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">07</span>
+        <span class="topic-title">ERD, Data Types, Keys, SQL</span>
+      </div>
+      <span class="topic-tag">Q7 · 16 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>ERD: Products / Stores / Deliveries</h4>
+      <pre><code>Stores (1) ────&lt; Deliveries &gt;──── (1) Products
+        N            link table          N</code></pre>
+
+      <h4>Data Types</h4>
+      <table>
+        <tr><th>Field</th><th>Type</th></tr>
+        <tr><td>Product_code</td><td>Varchar / text</td></tr>
+        <tr><td>Title</td><td>Varchar / text</td></tr>
+        <tr><td>Amount</td><td>Integer</td></tr>
+        <tr><td>Price_tg</td><td>Integer</td></tr>
+        <tr><td>Domestic_producer</td><td>Boolean</td></tr>
+      </table>
+
+      <h4>Keys</h4>
+      <ul>
+        <li>Primary key for Products: <code>Product_code</code></li>
+        <li>Foreign keys for Deliveries: <code>Store_code, Product_code</code> (must give both)</li>
+      </ul>
+
+      <h4>SQL — UPDATE all prices by 10%</h4>
+      <pre><code><span class="kw">UPDATE</span> Products
+<span class="kw">SET</span> Price_tg = <span class="num">1.1</span> * Price_tg;</code></pre>
+
+      <h4>SQL — CREATE table Stores</h4>
+      <pre><code><span class="kw">CREATE TABLE</span> Stores (
+    Store_code   <span class="kw">INT PRIMARY KEY</span>,
+    Title        <span class="kw">VARCHAR</span>(<span class="num">20</span>),
+    Address      <span class="kw">VARCHAR</span>(<span class="num">50</span>),
+    Phone_number <span class="kw">VARCHAR</span>(<span class="num">12</span>)
+);</code></pre>
+      <div class="callout warn"><strong>Don't forget:</strong> always specify length for VARCHAR — no marks for bare <code>varchar</code>.</div>
+
+      <h4>SQL — Deliveries to store 88, sorted by date</h4>
+      <pre><code><span class="kw">SELECT</span> *
+<span class="kw">FROM</span> Deliveries
+<span class="kw">WHERE</span> Store_code = <span class="num">88</span>
+<span class="kw">ORDER BY</span> Delivery_date <span class="kw">ASC</span>;</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PAPER 3 ====== -->
+<section class="section" id="paper3">
+  <div class="section-header">
+    <h2 class="section-title">Paper <em>Three</em></h2>
+    <div class="section-meta">
+      <div>// programming · algorithms · web</div>
+      <div>// 60 marks · 120 min</div>
+    </div>
+  </div>
+
+  <!-- Bubble sort -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">01</span>
+        <span class="topic-title">Bubble Sort (Descending)</span>
+      </div>
+      <span class="topic-tag">Q1 · 5 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Data Structure</h4>
+      <p>Use a <strong>1D array</strong> (list / vector) of size 20.</p>
+
+      <h4>Pseudocode (descending)</h4>
+      <pre><code><span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">18</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">18</span> - i <span class="kw">DO</span>
+        <span class="kw">IF</span> arr[j] &lt; arr[j+<span class="num">1</span>] <span class="kw">THEN</span>
+            t ← arr[j]
+            arr[j] ← arr[j+<span class="num">1</span>]
+            arr[j+<span class="num">1</span>] ← t
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></code></pre>
+      <div class="callout tip">4 mark points: outer loop · inner loop with proper range · comparison · swap with temp variable.</div>
+    </div>
+  </div>
+
+  <!-- LMC -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">02</span>
+        <span class="topic-title">Assembly (LMC) — Trace Table</span>
+      </div>
+      <span class="topic-tag">Q2 · 9 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Mnemonic Reference</h4>
+      <table>
+        <tr><th>Code</th><th>Meaning</th></tr>
+        <tr><td>INP / OUT</td><td>Input to / Output from accumulator</td></tr>
+        <tr><td>LDA / STA</td><td>Load from / Store to memory</td></tr>
+        <tr><td>ADD / SUB</td><td>Add / Subtract memory contents</td></tr>
+        <tr><td>BRP</td><td>Branch if AC ≥ 0 (positive or zero)</td></tr>
+        <tr><td>BRZ</td><td>Branch if AC = 0</td></tr>
+        <tr><td>BRA</td><td>Always branch</td></tr>
+        <tr><td>HLT</td><td>Stop</td></tr>
+        <tr><td>DAT</td><td>Reserve memory with optional value</td></tr>
+      </table>
+
+      <h4>Trace for the program (LDA 08, SUB 09, BRP 06, ... DAT 6, DAT 4)</h4>
+      <table>
+        <tr><th>Addr</th><th>AC</th><th>m[08]</th><th>m[09]</th><th>Cond</th><th>Out</th></tr>
+        <tr><td>—</td><td>—</td><td>6</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>00</td><td>6</td><td>6</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>01</td><td>2</td><td>6</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>02</td><td>2</td><td>6</td><td>4</td><td>TRUE</td><td>—</td></tr>
+        <tr><td>06</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>07→00</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>00</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>01</td><td>−2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>02</td><td>−2</td><td>2</td><td>4</td><td>FALSE</td><td>—</td></tr>
+        <tr><td>03</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+        <tr><td>04</td><td>2</td><td>2</td><td>4</td><td>—</td><td><strong>2</strong></td></tr>
+        <tr><td>05</td><td colspan="5">HLT</td></tr>
+      </table>
+
+      <h4>Quick answers</h4>
+      <ul>
+        <li>Condition is on line <strong>3</strong> (BRP 06)</li>
+        <li>Loop body lines: <strong>1, 2, 3, 7, 8</strong> (LDA 08, SUB 09, BRP 06, STA 08, BRA 00)</li>
+        <li>Purpose: <strong>computes mod (remainder) of m[08] ÷ m[09]</strong></li>
+        <li>If BRZ replaces BRP: only <strong>1 iteration</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Binary search -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">03</span>
+        <span class="topic-title">Binary Search & Complexity</span>
+      </div>
+      <span class="topic-tag">Q3 · 8 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Completed pseudocode</h4>
+      <pre><code><span class="kw">INPUT</span> name
+low ← <span class="num">0</span>
+index ← <span class="num">-1</span>
+high ← <span class="fn">LENGTH</span>(PhoneBook) - <span class="num">1</span>
+flag ← <span class="kw">FALSE</span>
+<span class="kw">WHILE</span> (low &lt;= high <span class="kw">AND</span> flag &lt;&gt; <span class="kw">TRUE</span>)
+    mid ← <span class="fn">INT</span>((low+high)/<span class="num">2</span>)
+    <span class="kw">IF</span> PhoneBook[mid] = name <span class="kw">THEN</span>
+        index ← mid
+        flag  ← <span class="kw">TRUE</span>
+    <span class="kw">ELSE IF</span> PhoneBook[mid] &gt; name <span class="kw">THEN</span>
+        high ← mid - <span class="num">1</span>
+    <span class="kw">ELSE</span>
+        low  ← mid + <span class="num">1</span>
+    <span class="kw">ENDIF</span>
+<span class="kw">ENDWHILE</span>
+<span class="kw">IF</span> flag = <span class="kw">TRUE</span> <span class="kw">THEN</span>
+    <span class="fn">OUTPUT</span>(<span class="str">"Found at index:"</span>, index)
+<span class="kw">ELSE</span>
+    <span class="fn">OUTPUT</span>(<span class="str">"Not in array"</span>)
+<span class="kw">ENDIF</span></code></pre>
+
+      <h4>Complexity</h4>
+      <ul>
+        <li>Time complexity: <strong>O(log n)</strong></li>
+        <li>For n = 100, worst case = <strong>7 iterations</strong> (because ⌈log₂ 100⌉ = 7)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stack -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">04</span>
+        <span class="topic-title">Stack Operations</span>
+      </div>
+      <span class="topic-tag">Q4 · 2 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>From [Java, Python, Kotlin] → [Java, C#, C++]</h4>
+      <pre><code>pop()           <span class="com">// removes Kotlin</span>
+pop()           <span class="com">// removes Python</span>
+push(<span class="str">"C#"</span>)
+push(<span class="str">"C++"</span>)</code></pre>
+      <div class="callout warn"><strong>Required:</strong> values must be in quotes. 1 mark for two pop()s · 1 mark for two push()es with correct order.</div>
+    </div>
+  </div>
+
+  <!-- BST -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">05</span>
+        <span class="topic-title">Binary Search Tree</span>
+      </div>
+      <span class="topic-tag">Q5 · 6 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Build BST from ["M","B","A","K","H","V","T"]</h4>
+      <p>Insert in order. Compare each new node with current; less → go left, greater → go right.</p>
+      <pre><code>            [M]              <span class="com">// root</span>
+           /   \
+         [B]   [V]
+         / \   /
+       [A] [K][T]
+           /
+         [H]
+            \
+            (no - K&gt;H so H is left child of K)
+
+Final structure:
+M ─ left: B ─ left: A
+            └ right: K ─ left: H
+  └ right: V ─ left: T</code></pre>
+
+      <h4>Node format with pointers</h4>
+      <table>
+        <tr><th>idx</th><th>L</th><th>data</th><th>R</th></tr>
+        <tr><td>1</td><td>2</td><td>M</td><td>5</td></tr>
+        <tr><td>2</td><td>3</td><td>B</td><td>4</td></tr>
+        <tr><td>3</td><td>—</td><td>A</td><td>—</td></tr>
+        <tr><td>4</td><td>7</td><td>K</td><td>—</td></tr>
+        <tr><td>5</td><td>6</td><td>V</td><td>—</td></tr>
+        <tr><td>6</td><td>—</td><td>T</td><td>—</td></tr>
+        <tr><td>7</td><td>—</td><td>H</td><td>—</td></tr>
+      </table>
+      <p>Root = <strong>M</strong> (the first element inserted).</p>
+    </div>
+  </div>
+
+  <!-- Prolog -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">06</span>
+        <span class="topic-title">Prolog · Facts, Rules, Queries</span>
+      </div>
+      <span class="topic-tag">Q6 · 11 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Facts vs Rules</h4>
+      <ul>
+        <li>Facts: lines <strong>1–10</strong> (parent_child & spouse with concrete names)</li>
+        <li>Rules: lines <strong>11–12</strong> (use <code>:-</code>)</li>
+      </ul>
+
+      <h4>Query: <code>child(jiger, Y)</code></h4>
+      <p>The rule <code>child(X, Y) :- parent_child(Y, X)</code> means Y is the parent of X. Find Y where parent_child(Y, jiger). From line 7: <code>parent_child(bolat, jiger)</code>. So <strong>Y = bolat</strong>.</p>
+
+      <h4>siblings(X, Y) — share a parent</h4>
+      <pre><code>sibling(X, Y) :-
+    parent_child(Z, X),
+    parent_child(Z, Y),
+    X \= Y.</code></pre>
+
+      <h4>family(X, Y) — X and Y are family</h4>
+      <pre><code>family(X, Y) :-
+    spouse(X, Y);
+    parent_child(X, Y);
+    parent_child(Y, X).</code></pre>
+      <div class="callout tip"><strong>Symbols:</strong> comma <code>,</code> = AND · semicolon <code>;</code> = OR · <code>\=</code> = not equal.</div>
+    </div>
+  </div>
+
+  <!-- HTML/CSS/Caesar -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">07</span>
+        <span class="topic-title">HTML, CSS & Error Analysis</span>
+      </div>
+      <span class="topic-tag">Q7 · 16 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>Filling the Caesar form</h4>
+      <pre><code><span class="kw">&lt;input</span> type=<span class="str">"text"</span> id=<span class="str">"message"</span><span class="kw">&gt;</span>&lt;br&gt;
+
+<span class="kw">&lt;input</span> type=<span class="str">"radio"</span> name=<span class="str">"operation"</span> value=<span class="str">"encrypt"</span><span class="kw">&gt;</span>
+<span class="kw">&lt;input</span> type=<span class="str">"radio"</span> name=<span class="str">"operation"</span> value=<span class="str">"decrypt"</span><span class="kw">&gt;</span>
+
+<span class="kw">&lt;input</span> type=<span class="str">"submit"</span> value=<span class="str">"Go"</span><span class="kw">&gt;</span>&lt;br&gt;</code></pre>
+      <div class="callout"><strong>Marks:</strong> text input · type=radio · same name=operation (radio grouping) · button.</div>
+
+      <h4>Internal CSS — red underlined heading</h4>
+      <pre><code>&lt;style&gt;
+  h1 {
+    color: red;
+    text-decoration: underline;
+  }
+&lt;/style&gt;</code></pre>
+      <p>Type used: <strong>Internal CSS</strong> (inside <code>&lt;style&gt;</code> in <code>&lt;head&gt;</code>).</p>
+
+      <h4>Caesar Encrypt — error analysis</h4>
+      <p><strong>Normal data:</strong> any text without 'z' (e.g., "apple")<br>
+      <strong>Erroneous:</strong> text containing 'z', or numbers/symbols (e.g., "buZz")</p>
+      <p><strong>Error type:</strong> <em>Runtime / execution error</em> — out-of-range array access. When <code>z</code> matches <code>alphabet[25]</code>, the code tries <code>alphabet[26]</code> which doesn't exist.</p>
+
+      <h4>Fix</h4>
+      <pre><code><span class="kw">IF</span> text[i] = alphabet[j] <span class="kw">THEN</span>
+    <span class="kw">IF</span> text[i] = <span class="str">'z'</span> <span class="kw">THEN</span>
+        result ← result + alphabet[<span class="num">0</span>]
+    <span class="kw">ELSE</span>
+        result ← result + alphabet[j+<span class="num">1</span>]
+    <span class="kw">ENDIF</span>
+<span class="kw">ENDIF</span></code></pre>
+
+      <h4>Good programming style — examples</h4>
+      <ul>
+        <li>Indentation</li>
+        <li>Meaningful identifier names</li>
+        <li>Comments explaining intent</li>
+        <li>Modularity (functions / procedures)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PHP -->
+  <div class="topic">
+    <div class="topic-head" onclick="toggleTopic(this)">
+      <div class="topic-head-left">
+        <span class="topic-num">08</span>
+        <span class="topic-title">PHP · MySQL Connection</span>
+      </div>
+      <span class="topic-tag">Q8 · 3 marks</span>
+      <span class="topic-toggle">+</span>
+    </div>
+    <div class="topic-body">
+      <pre><code>&lt;?php
+$servername = <span class="str">"localhost"</span>;
+$username   = <span class="str">"username"</span>;
+$password   = <span class="str">"password"</span>;
+$db         = <span class="str">"library"</span>;
+
+$conn = <span class="fn">mysqli_connect</span>($servername, $username, $password, $db);
+
+<span class="kw">if</span> (!$conn) {
+    <span class="fn">die</span>(<span class="str">"Connection failed: "</span> . <span class="fn">mysqli_connect_error</span>());
+}
+<span class="kw">echo</span> <span class="str">"Connected successfully"</span>;
+?&gt;</code></pre>
+      <div class="callout">3 marks: function name <code>mysqli_connect</code> · 4 arguments · check <code>!$conn</code>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== GLOSSARY ====== -->
+<section class="section" id="glossary">
+  <div class="section-header">
+    <h2 class="section-title">Key <em>terms</em></h2>
+    <div class="section-meta"><div>// quick lookup</div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="mini-card"><h5>Bus width</h5><p>Number of bits a bus carries simultaneously.</p></div>
+    <div class="mini-card"><h5>Word length</h5><p>Number of bits the CPU processes at one time.</p></div>
+    <div class="mini-card"><h5>Clock speed</h5><p>Number of cycles per second.</p></div>
+    <div class="mini-card"><h5>Page</h5><p>Block of virtual address space (equal size).</p></div>
+    <div class="mini-card"><h5>Frame</h5><p>Block of physical memory (equal size).</p></div>
+    <div class="mini-card"><h5>Page table</h5><p>Maps virtual pages to physical frames.</p></div>
+    <div class="mini-card"><h5>Tuple</h5><p>One row / record in a relational table.</p></div>
+    <div class="mini-card"><h5>Attribute</h5><p>One column / field of a table.</p></div>
+    <div class="mini-card"><h5>Primary key</h5><p>Field that uniquely identifies each tuple.</p></div>
+    <div class="mini-card"><h5>Foreign key</h5><p>Field referencing the primary key of another table.</p></div>
+    <div class="mini-card"><h5>3NF</h5><p>No transitive dependencies — every non-key attribute depends only on the key.</p></div>
+    <div class="mini-card"><h5>Encryption</h5><p>Coding data with an algorithm + key for confidentiality.</p></div>
+    <div class="mini-card"><h5>Disk mirroring</h5><p>Real-time duplication of data across two disks (RAID 1).</p></div>
+    <div class="mini-card"><h5>Authentication</h5><p>Verifying who a user is.</p></div>
+    <div class="mini-card"><h5>Authorisation</h5><p>Granting verified users specific access rights.</p></div>
+    <div class="mini-card"><h5>RISC</h5><p>Reduced Instruction Set Computer — short, fast instructions, one cycle each.</p></div>
+    <div class="mini-card"><h5>CISC</h5><p>Complex Instruction Set Computer — rich, multi-cycle instructions.</p></div>
+    <div class="mini-card"><h5>Lexical analysis</h5><p>Compiler stage producing tokens.</p></div>
+    <div class="mini-card"><h5>Syntax analysis</h5><p>Checks tokens against language grammar.</p></div>
+    <div class="mini-card"><h5>Dead code elimination</h5><p>Optimisation that removes unreachable code.</p></div>
+    <div class="mini-card"><h5>OSI Layer 4 / 2</h5><p>Transport / Data Link.</p></div>
+    <div class="mini-card"><h5>POP3</h5><p>Retrieves email from a server.</p></div>
+    <div class="mini-card"><h5>SMTP</h5><p>Sends email to a mail server.</p></div>
+    <div class="mini-card"><h5>FTP</h5><p>File transfer protocol.</p></div>
+    <div class="mini-card"><h5>Parallel implementation</h5><p>Old + new run simultaneously.</p></div>
+    <div class="mini-card"><h5>Pilot implementation</h5><p>Phased rollout / partial first.</p></div>
+    <div class="mini-card"><h5>Direct implementation</h5><p>Switch over immediately.</p></div>
+    <div class="mini-card"><h5>De Morgan's Law</h5><p>¬(A·B) = ¬A + ¬B · ¬(A+B) = ¬A · ¬B</p></div>
+    <div class="mini-card"><h5>Involution</h5><p>¬¬A = A (double negation).</p></div>
+    <div class="mini-card"><h5>NAND</h5><p>Output 0 only when both inputs are 1.</p></div>
+    <div class="mini-card"><h5>O(log n)</h5><p>Time complexity of binary search.</p></div>
+    <div class="mini-card"><h5>O(n²)</h5><p>Time complexity of bubble sort.</p></div>
+    <div class="mini-card"><h5>Stack (LIFO)</h5><p>Last in, first out — push/pop operations.</p></div>
+    <div class="mini-card"><h5>BST</h5><p>Binary search tree — left &lt; node &lt; right.</p></div>
+    <div class="mini-card"><h5>Prolog fact</h5><p>Statement asserted as true, e.g. <code>parent(a, b).</code></p></div>
+    <div class="mini-card"><h5>Prolog rule</h5><p>Conditional definition with <code>:-</code></p></div>
+  </div>
+</section>
+
+<!-- ====== STRATEGY ====== -->
+<section class="section" id="strategy">
+  <div class="section-header">
+    <h2 class="section-title">Exam <em>strategy</em></h2>
+    <div class="section-meta"><div>// last-mile tips</div></div>
+  </div>
+
+  <div class="callout tip">
+    <strong>Read the marks.</strong> A 1-mark question wants 1 fact. A 4-mark question wants 4 distinct mark points — split your sentence so each point is countable.
+  </div>
+
+  <h3>Per-paper time budget</h3>
+  <table>
+    <tr><th>Paper</th><th>Marks</th><th>Min</th><th>Min/mark</th></tr>
+    <tr><td>1</td><td>70</td><td>90</td><td>~1.3</td></tr>
+    <tr><td>2</td><td>70</td><td>90</td><td>~1.3</td></tr>
+    <tr><td>3</td><td>60</td><td>120</td><td>~2.0</td></tr>
+  </table>
+
+  <h3>Common pitfalls (mark scheme warnings)</h3>
+  <ol>
+    <li><strong>RISC/CISC:</strong> use the word "instruction" — never "task".</li>
+    <li><strong>Paging:</strong> divides "memory address space", not "data".</li>
+    <li><strong>CPU performance:</strong> "increase RAM" and "software" are not accepted.</li>
+    <li><strong>SQL VARCHAR:</strong> always specify the length.</li>
+    <li><strong>Foreign key:</strong> if the answer needs both fields, give both — partial gets 0.</li>
+    <li><strong>AI examples:</strong> never just name a product — describe its purpose.</li>
+    <li><strong>Stack push:</strong> wrap values in quotes (string literals).</li>
+    <li><strong>DFD processes:</strong> always name with verbs.</li>
+    <li><strong>Floating-point:</strong> show working — mantissa, exponent, signs.</li>
+    <li><strong>Logic circuits:</strong> draw an output line from the final gate.</li>
+  </ol>
+
+  <h3>Memorise these short answers</h3>
+  <div class="grid-2">
+    <div class="mini-card"><h5>OSI Layer 4 / 2</h5><p>Transport · Data Link</p></div>
+    <div class="mini-card"><h5>IPv4 / IPv6 size</h5><p>32 / 128 bits</p></div>
+    <div class="mini-card"><h5>Binary search worst case · n=100</h5><p>7 iterations</p></div>
+    <div class="mini-card"><h5>Lexer output</h5><p>Tokens (Lexical analysis)</p></div>
+    <div class="mini-card"><h5>Dead code algorithm name</h5><p>Dead code elimination</p></div>
+    <div class="mini-card"><h5>Mirroring downside</h5><p>Virus or deletion replicates</p></div>
+    <div class="mini-card"><h5>Cycle = 1 instruction</h5><p>RISC</p></div>
+    <div class="mini-card"><h5>Boolean ¬¬A = A</h5><p>Involution / Double complement</p></div>
+  </div>
+
+  <h3>Final 24h checklist · prioritised</h3>
+  <div class="callout warn"><strong>If you can only revise a few things:</strong> focus on the <strong>2026 Forecast Tier 1</strong> topics — they're the highest-yield gaps from last year's paper.</div>
+  <ul>
+    <li>☐ <strong>Forecast F-01 to F-11</strong> (Tier 1) — read all eleven topics</li>
+    <li>☐ Memorise OS types (real-time / network / batch)</li>
+    <li>☐ Memorise Fetch–Decode–Execute stages with registers (PC, MAR, MDR, CIR)</li>
+    <li>☐ Memorise three buses (address / data / control)</li>
+    <li>☐ Practise queue operations (enqueue, dequeue) — paired with stack</li>
+    <li>☐ Memorise Internet vs WWW; Packet vs Circuit switching</li>
+    <li>☐ Be able to give example of normal / extreme / erroneous data</li>
+    <li>☐ Distinguish syntax / runtime / logic errors with examples</li>
+    <li>☐ Re-trace one LMC program end-to-end (2025 style)</li>
+    <li>☐ Write a fresh ERD + 3 SQL queries from memory (incl. JOIN, INSERT)</li>
+    <li>☐ Draw OSI 7 layers from memory</li>
+    <li>☐ Simplify one Boolean expression with De Morgan</li>
+    <li>☐ Write Prolog rule with AND + with OR</li>
+    <li>☐ Sleep 8 hours · don't cram in the morning</li>
+  </ul>
+
+  <div class="callout" style="margin-top:32px;text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:18px;border-left-color:var(--accent);background:rgba(200,66,31,0.07)">
+    Сәттілік тілеймін! · Удачи на экзамене.
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  Compiled from official 2025 NIS mark schemes · Computer Science Grade 12 · Papers 1–3
+</footer>
+
+<script>
+// Tab navigation
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.target;
+    goTo(target);
+  });
+});
+
+function goTo(target){
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.target === target));
+  document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === target));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Topic accordion
+function toggleTopic(head){
+  const t = head.parentElement;
+  t.classList.toggle('open');
+}
+
+// QA accordion
+function toggleQa(el){
+  const qa = el.parentElement;
+  const isOpen = qa.classList.toggle('open');
+  el.textContent = isOpen ? '▾ Hide answer' : '▸ Show answer';
+}
+
+// Progress bar
+window.addEventListener('scroll', () => {
+  const sc = document.documentElement.scrollTop;
+  const max = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById('prog').style.width = (sc/max*100) + '%';
+});
+
+// Open first topic of each section by default for first-time view
+document.querySelectorAll('.section').forEach(sec => {
+  const first = sec.querySelector('.topic');
+  // keep all closed by default — user opens what they need
+});
+</script>
+
+</body>
+</html>

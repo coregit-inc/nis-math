@@ -1,0 +1,2732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МЭСК · Practice Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js"></script>
+<style>
+:root{
+  --bg:#f5f1e8;
+  --bg-2:#ffffff;
+  --bg-3:#ebe5d6;
+  --ink:#1a1a1a;
+  --ink-dim:#6b6357;
+  --ink-low:#a8a094;
+  --accent:#c8421f;
+  --accent-2:#1d6b62;
+  --accent-3:#b8841a;
+  --line:#d9d1bf;
+  --code-bg:#fbf8f0;
+  --ok:#4a7c3a;
+  --warn:#b8841a;
+  --bad:#c8421f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  font-size:15px;
+  background-image:
+    radial-gradient(ellipse at top right, rgba(200,66,31,0.06), transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(29,107,98,0.04), transparent 50%);
+  min-height:100vh;
+}
+
+.hero{
+  border-bottom:1px solid var(--line);
+  padding:48px 6% 56px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:60px 60px;
+  opacity:0.3;
+  mask-image:radial-gradient(ellipse at center, black 30%, transparent 70%);
+  pointer-events:none;
+}
+.hero-content{position:relative;max-width:1400px;margin:0 auto}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.eyebrow::before{
+  content:'';
+  width:30px;height:1px;background:var(--accent);
+}
+h1.title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(40px,6vw,80px);
+  font-weight:600;
+  line-height:0.95;
+  letter-spacing:-0.03em;
+  margin-bottom:16px;
+}
+h1.title em{
+  font-style:italic;
+  color:var(--accent);
+  font-weight:400;
+}
+.subtitle{
+  font-size:16px;
+  color:var(--ink-dim);
+  max-width:640px;
+}
+
+.nav-bar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(245,241,232,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:0 6%;
+}
+.nav-inner{
+  max-width:1400px;
+  margin:0 auto;
+  display:flex;
+  gap:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{
+  background:none;
+  border:none;
+  color:var(--ink-dim);
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  padding:18px 22px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:color 0.2s;
+  border-bottom:2px solid transparent;
+  letter-spacing:0.04em;
+}
+.nav-btn:hover{color:var(--ink)}
+.nav-btn.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
+}
+.nav-btn .num{
+  color:var(--ink-low);
+  margin-right:8px;
+}
+.nav-btn.active .num{color:var(--accent)}
+
+main{padding:48px 6% 100px;max-width:1400px;margin:0 auto}
+.section{display:none;animation:fade 0.4s ease}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:36px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+  flex-wrap:wrap;
+  gap:24px;
+}
+.section-title{
+  font-family:'Fraunces',serif;
+  font-size:42px;
+  font-weight:500;
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+.section-title em{font-style:italic;color:var(--accent)}
+.section-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--ink-dim);
+  text-align:right;
+}
+
+/* ===== EXERCISE CARD ===== */
+.ex{
+  border:1px solid var(--line);
+  background:var(--bg-2);
+  margin-bottom:24px;
+  padding:28px;
+}
+.ex-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+  gap:16px;
+  flex-wrap:wrap;
+}
+.ex-title{
+  font-family:'Fraunces',serif;
+  font-size:22px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+}
+.ex-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  padding:3px 10px;
+}
+
+h3{
+  font-family:'Fraunces',serif;
+  font-size:18px;
+  font-weight:600;
+  margin:18px 0 10px;
+}
+h3:first-child{margin-top:0}
+h4{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.15em;
+  color:var(--accent-2);
+  margin:18px 0 8px;
+}
+p{margin-bottom:10px}
+ul,ol{margin:10px 0 12px 22px}
+li{margin-bottom:4px}
+strong{color:var(--ink);font-weight:600}
+
+code{
+  font-family:'JetBrains Mono',monospace;
+  background:var(--code-bg);
+  padding:2px 6px;
+  font-size:13px;
+  color:var(--accent-2);
+  border:1px solid var(--line);
+}
+pre{
+  background:var(--code-bg);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  padding:16px;
+  overflow-x:auto;
+  margin:12px 0;
+  font-size:13px;
+}
+pre code{background:none;border:none;padding:0;color:var(--ink);font-size:13px;line-height:1.6}
+.kw{color:#a83279}
+.str{color:#8a6210}
+.com{color:var(--ink-low);font-style:italic}
+.num{color:#155b54}
+.fn{color:#5a3ba0}
+
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th,td{text-align:left;padding:8px 12px;border:1px solid var(--line)}
+th{background:var(--bg-3);font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-dim);font-weight:500}
+td{background:var(--code-bg)}
+
+/* ===== INPUTS ===== */
+.task-question{
+  font-family:'Fraunces',serif;
+  font-size:20px;
+  margin:14px 0;
+  padding:16px 20px;
+  background:var(--code-bg);
+  border-left:3px solid var(--accent-2);
+  font-style:italic;
+}
+.task-question .val{
+  font-family:'JetBrains Mono',monospace;
+  font-style:normal;
+  font-weight:700;
+  color:var(--accent);
+  font-size:24px;
+  background:var(--bg-2);
+  padding:2px 10px;
+  border:1px solid var(--accent);
+}
+.input-row{
+  display:flex;
+  gap:8px;
+  margin:12px 0;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.input-row label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--ink-dim);
+}
+input[type="text"],input[type="number"],textarea,select{
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  padding:8px 12px;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  color:var(--ink);
+  outline:none;
+  transition:border-color 0.2s;
+  min-width:120px;
+}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{
+  width:100%;
+  font-size:13px;
+  line-height:1.6;
+  resize:vertical;
+  min-height:100px;
+}
+button{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.08em;
+  padding:9px 18px;
+  background:var(--ink);
+  color:var(--bg);
+  border:none;
+  cursor:pointer;
+  text-transform:uppercase;
+  transition:opacity 0.2s;
+}
+button:hover{opacity:0.85}
+button.secondary{
+  background:transparent;
+  color:var(--ink);
+  border:1px solid var(--line);
+}
+button.secondary:hover{border-color:var(--ink)}
+button.accent{background:var(--accent);color:#fff}
+
+.feedback{
+  margin-top:14px;
+  padding:14px 18px;
+  font-size:14px;
+  display:none;
+  border-left:3px solid var(--ink);
+}
+.feedback.show{display:block}
+.feedback.correct{
+  background:rgba(74,124,58,0.08);
+  border-left-color:var(--ok);
+  color:var(--ok);
+}
+.feedback.correct strong{color:var(--ok)}
+.feedback.wrong{
+  background:rgba(200,66,31,0.06);
+  border-left-color:var(--bad);
+  color:var(--bad);
+}
+.feedback.wrong strong{color:var(--bad)}
+.solution{
+  margin-top:10px;
+  padding:14px 18px;
+  background:var(--code-bg);
+  border-left:3px solid var(--accent-3);
+  font-size:14px;
+  display:none;
+}
+.solution.show{display:block}
+.solution h5{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--accent-3);
+  margin-bottom:8px;
+}
+
+.score-bar{
+  display:flex;
+  gap:24px;
+  align-items:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--ink-dim);
+  margin-bottom:16px;
+}
+.score-bar .pill{
+  padding:4px 12px;
+  background:var(--code-bg);
+  border:1px solid var(--line);
+}
+.score-bar .pill strong{color:var(--accent)}
+
+.callout{
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent-3);
+  background:rgba(184,132,26,0.06);
+  padding:14px 18px;
+  margin:14px 0;
+  font-size:14px;
+}
+.callout strong{color:var(--accent-3)}
+.callout.tip{border-left-color:var(--accent-2);background:rgba(29,107,98,0.05)}
+.callout.tip strong{color:var(--accent-2)}
+
+.bit-grid{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:4px;
+  max-width:480px;
+  margin:14px 0;
+}
+.bit-cell{
+  aspect-ratio:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;
+  font-weight:700;
+  background:var(--bg-2);
+  border:2px solid var(--line);
+  cursor:pointer;
+  transition:all 0.2s;
+  user-select:none;
+}
+.bit-cell.on{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+.bit-cell:hover{transform:scale(1.05)}
+.bit-weights{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:4px;
+  max-width:480px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--ink-dim);
+  text-align:center;
+  margin-top:-8px;
+  margin-bottom:14px;
+}
+
+.viz-array{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin:14px 0;
+}
+.viz-cell{
+  min-width:40px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:16px;
+  font-weight:700;
+  background:var(--bg-2);
+  border:2px solid var(--line);
+  transition:all 0.4s;
+  position:relative;
+}
+.viz-cell.compare{
+  border-color:var(--accent-3);
+  background:rgba(184,132,26,0.15);
+}
+.viz-cell.swap{
+  border-color:var(--accent);
+  background:rgba(200,66,31,0.15);
+}
+.viz-cell.sorted{
+  border-color:var(--ok);
+  background:rgba(74,124,58,0.12);
+}
+.viz-cell.found{
+  border-color:var(--ok);
+  background:var(--ok);
+  color:#fff;
+}
+.viz-cell.discarded{
+  opacity:0.3;
+}
+.viz-cell.mid{
+  border-color:var(--accent);
+  background:var(--accent);
+  color:#fff;
+}
+
+.controls{
+  display:flex;
+  gap:8px;
+  margin:12px 0;
+  flex-wrap:wrap;
+}
+
+.viz-log{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  background:var(--code-bg);
+  border:1px solid var(--line);
+  padding:14px;
+  max-height:200px;
+  overflow-y:auto;
+  margin:12px 0;
+}
+.viz-log div{padding:2px 0}
+.viz-log .info{color:var(--ink-dim)}
+.viz-log .action{color:var(--accent)}
+.viz-log .ok{color:var(--ok)}
+
+/* SQL Editor */
+.sql-editor{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  width:100%;
+  min-height:120px;
+  background:#fafaf2;
+  border:1px solid var(--line);
+  padding:12px;
+  resize:vertical;
+}
+.sql-result{
+  margin-top:14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  background:var(--code-bg);
+  border:1px solid var(--line);
+  padding:12px;
+  overflow-x:auto;
+}
+.sql-result table{margin:0;font-size:13px}
+.sql-result th{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sql-error{color:var(--bad);font-family:'JetBrains Mono',monospace;font-size:13px}
+
+/* HTML Sandbox */
+.sandbox-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:14px 0;
+}
+.sandbox-wrap textarea{
+  font-size:12px;
+  min-height:280px;
+  background:#fafaf2;
+}
+.sandbox-preview{
+  border:1px solid var(--line);
+  background:#fff;
+  min-height:280px;
+  overflow:auto;
+}
+@media(max-width:768px){
+  .sandbox-wrap{grid-template-columns:1fr}
+  .nav-btn{padding:14px 16px;font-size:12px}
+  .section-title{font-size:32px}
+  main{padding:32px 5% 60px}
+}
+
+.tabs{
+  display:flex;
+  gap:0;
+  border-bottom:1px solid var(--line);
+  margin-bottom:16px;
+  overflow-x:auto;
+}
+.tab{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:10px 16px;
+  background:none;
+  border:none;
+  border-bottom:2px solid transparent;
+  cursor:pointer;
+  color:var(--ink-dim);
+  white-space:nowrap;
+}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+.lmc-trace{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+}
+.lmc-trace td{padding:4px 10px}
+
+.binsearch-arr .viz-cell{min-width:50px;height:50px}
+.bst-canvas{
+  width:100%;
+  background:var(--code-bg);
+  border:1px solid var(--line);
+  margin:14px 0;
+  min-height:300px;
+}
+
+.flash{animation:flash 0.6s}
+@keyframes flash{0%{background:var(--accent-3)}100%{background:initial}}
+
+.progress-rail{
+  position:fixed;
+  top:0;left:0;
+  height:2px;
+  background:var(--accent);
+  z-index:200;
+  width:0%;
+  transition:width 0.1s;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-rail" id="prog"></div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">МЭСК · Practice Lab · Interactive</div>
+    <h1 class="title">Practice <em>Lab</em></h1>
+    <p class="subtitle">Live exercises for every topic on the Grade 12 syllabus. Random task generators, instant feedback, real SQL execution, animated algorithms, and code sandboxes.</p>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-target="numbers"><span class="num">01</span>Number Systems</button>
+    <button class="nav-btn" data-target="boolean"><span class="num">02</span>Boolean Logic</button>
+    <button class="nav-btn" data-target="lmc"><span class="num">03</span>LMC Assembly</button>
+    <button class="nav-btn" data-target="algos"><span class="num">04</span>Algorithms</button>
+    <button class="nav-btn" data-target="sql"><span class="num">05</span>SQL</button>
+    <button class="nav-btn" data-target="webdev"><span class="num">06</span>HTML / CSS</button>
+    <button class="nav-btn" data-target="js"><span class="num">07</span>JavaScript</button>
+    <button class="nav-btn" data-target="php"><span class="num">08</span>PHP</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ NUMBER SYSTEMS ============ -->
+<section class="section active" id="numbers">
+  <div class="section-header">
+    <h2 class="section-title">Number <em>Systems</em></h2>
+    <div class="section-meta">// 12.1.1.x · always tested</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="dec2bin">Dec → Bin</button>
+    <button class="tab" data-tab="bin2dec">Bin → Dec</button>
+    <button class="tab" data-tab="hex">Hex</button>
+    <button class="tab" data-tab="twos">Two's complement</button>
+    <button class="tab" data-tab="add">Binary +</button>
+    <button class="tab" data-tab="mul">Binary ×</button>
+    <button class="tab" data-tab="fixed">Fixed-point</button>
+    <button class="tab" data-tab="float">Floating-point</button>
+    <button class="tab" data-tab="builder">Bit Builder</button>
+  </div>
+
+  <!-- DEC2BIN -->
+  <div class="tab-panel active" data-panel="dec2bin">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Decimal → Binary (8-bit)</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="score-bar">
+        <span class="pill">Score: <strong id="d2b_score">0</strong></span>
+        <span class="pill">Streak: <strong id="d2b_streak">0</strong></span>
+      </div>
+      <div class="task-question">Convert <span class="val" id="d2b_q">0</span> to 8-bit binary.</div>
+      <div class="input-row">
+        <input type="text" id="d2b_input" placeholder="00000000" maxlength="8" pattern="[01]{1,8}">
+        <button onclick="checkD2B()">Check</button>
+        <button class="secondary" onclick="newD2B()">New task</button>
+        <button class="secondary" onclick="showSol('d2b')">Show solution</button>
+      </div>
+      <div class="feedback" id="d2b_fb"></div>
+      <div class="solution" id="d2b_sol"></div>
+      <div class="callout tip"><strong>Method:</strong> repeatedly divide by 2, write down remainders, read bottom-up. Or subtract powers of 2 from largest (128, 64, 32, 16, 8, 4, 2, 1).</div>
+    </div>
+  </div>
+
+  <!-- BIN2DEC -->
+  <div class="tab-panel" data-panel="bin2dec">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Binary → Decimal</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="score-bar">
+        <span class="pill">Score: <strong id="b2d_score">0</strong></span>
+      </div>
+      <div class="task-question">Convert <span class="val" id="b2d_q">00000000</span> (unsigned) to decimal.</div>
+      <div class="input-row">
+        <input type="number" id="b2d_input" placeholder="0–255">
+        <button onclick="checkB2D()">Check</button>
+        <button class="secondary" onclick="newB2D()">New task</button>
+        <button class="secondary" onclick="showSol('b2d')">Show solution</button>
+      </div>
+      <div class="feedback" id="b2d_fb"></div>
+      <div class="solution" id="b2d_sol"></div>
+    </div>
+  </div>
+
+  <!-- HEX -->
+  <div class="tab-panel" data-panel="hex">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Hexadecimal Conversion</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="score-bar">
+        <span class="pill">Score: <strong id="hex_score">0</strong></span>
+        <span class="pill">Mode: <strong id="hex_mode_label">Dec → Hex</strong></span>
+      </div>
+      <div class="task-question">Convert <span class="val" id="hex_q">0</span><span id="hex_unit"></span></div>
+      <div class="input-row">
+        <input type="text" id="hex_input" placeholder="answer">
+        <button onclick="checkHex()">Check</button>
+        <button class="secondary" onclick="newHex()">New task</button>
+        <button class="secondary" onclick="showSol('hex')">Show solution</button>
+        <select id="hex_mode" onchange="newHex()">
+          <option value="d2h">Dec → Hex</option>
+          <option value="h2d">Hex → Dec</option>
+          <option value="b2h">Bin → Hex</option>
+          <option value="h2b">Hex → Bin</option>
+        </select>
+      </div>
+      <div class="feedback" id="hex_fb"></div>
+      <div class="solution" id="hex_sol"></div>
+      <div class="callout tip"><strong>Trick:</strong> 1 hex digit = 4 binary bits. Group binary in 4s from right: <code>10110111</code> = <code>1011 | 0111</code> = <code>B7</code>.</div>
+      <table>
+        <tr><th>Hex</th><th>Bin</th><th>Dec</th><th>Hex</th><th>Bin</th><th>Dec</th></tr>
+        <tr><td>0</td><td>0000</td><td>0</td><td>8</td><td>1000</td><td>8</td></tr>
+        <tr><td>1</td><td>0001</td><td>1</td><td>9</td><td>1001</td><td>9</td></tr>
+        <tr><td>2</td><td>0010</td><td>2</td><td>A</td><td>1010</td><td>10</td></tr>
+        <tr><td>3</td><td>0011</td><td>3</td><td>B</td><td>1011</td><td>11</td></tr>
+        <tr><td>4</td><td>0100</td><td>4</td><td>C</td><td>1100</td><td>12</td></tr>
+        <tr><td>5</td><td>0101</td><td>5</td><td>D</td><td>1101</td><td>13</td></tr>
+        <tr><td>6</td><td>0110</td><td>6</td><td>E</td><td>1110</td><td>14</td></tr>
+        <tr><td>7</td><td>0111</td><td>7</td><td>F</td><td>1111</td><td>15</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- TWOS COMPLEMENT -->
+  <div class="tab-panel" data-panel="twos">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Two's Complement (8-bit)</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="score-bar">
+        <span class="pill">Score: <strong id="tw_score">0</strong></span>
+      </div>
+      <div class="task-question">Express <span class="val" id="tw_q">0</span> as 8-bit two's complement binary.</div>
+      <div class="input-row">
+        <input type="text" id="tw_input" placeholder="8 bits" maxlength="8">
+        <button onclick="checkTW()">Check</button>
+        <button class="secondary" onclick="newTW()">New task</button>
+        <button class="secondary" onclick="showSol('tw')">Show solution</button>
+      </div>
+      <div class="feedback" id="tw_fb"></div>
+      <div class="solution" id="tw_sol"></div>
+      <div class="callout tip">
+        <strong>Method for negative numbers:</strong> (1) write |n| in binary, (2) flip all bits (one's complement), (3) add 1. Range for 8-bit two's complement: <code>−128 to +127</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD -->
+  <div class="tab-panel" data-panel="add">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Binary Addition (8-bit)</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="score-bar">
+        <span class="pill">Score: <strong id="add_score">0</strong></span>
+      </div>
+      <div class="task-question">
+        Compute &nbsp;<span class="val" id="add_a">0</span> + <span class="val" id="add_b">0</span> &nbsp;(keep 8 bits)
+      </div>
+      <div class="input-row">
+        <input type="text" id="add_input" placeholder="8 bits result" maxlength="8">
+        <button onclick="checkAdd()">Check</button>
+        <button class="secondary" onclick="newAdd()">New task</button>
+        <button class="secondary" onclick="showSol('add')">Show solution</button>
+      </div>
+      <div class="feedback" id="add_fb"></div>
+      <div class="solution" id="add_sol"></div>
+      <div class="callout"><strong>Watch overflow:</strong> if the sum exceeds 8 bits, drop the leftmost (carry-out). Mark scheme awards 1 mark for keeping 8-bit format.</div>
+    </div>
+  </div>
+
+  <!-- MUL -->
+  <div class="tab-panel" data-panel="mul">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Binary Multiplication</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="task-question">Multiply &nbsp;<span class="val" id="mul_a">0</span> × <span class="val" id="mul_b">0</span></div>
+      <div class="input-row">
+        <input type="text" id="mul_input" placeholder="binary result">
+        <button onclick="checkMul()">Check</button>
+        <button class="secondary" onclick="newMul()">New task</button>
+        <button class="secondary" onclick="showSol('mul')">Show steps</button>
+      </div>
+      <div class="feedback" id="mul_fb"></div>
+      <div class="solution" id="mul_sol"></div>
+    </div>
+  </div>
+
+  <!-- FIXED -->
+  <div class="tab-panel" data-panel="fixed">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Fixed-Point Binary</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="task-question">Bits <span class="val" id="fx_q">00000000</span> · the right <span class="val" id="fx_n">3</span> bits are fractional. What's the unsigned decimal value?</div>
+      <div class="input-row">
+        <input type="text" id="fx_input" placeholder="e.g. 22.125">
+        <button onclick="checkFx()">Check</button>
+        <button class="secondary" onclick="newFx()">New task</button>
+        <button class="secondary" onclick="showSol('fx')">Show solution</button>
+      </div>
+      <div class="feedback" id="fx_fb"></div>
+      <div class="solution" id="fx_sol"></div>
+      <div class="callout tip"><strong>Method:</strong> integer part = left bits as usual. Fractional part: each bit right of the point has weight 2⁻¹=0.5, 2⁻²=0.25, 2⁻³=0.125, 2⁻⁴=0.0625…</div>
+    </div>
+  </div>
+
+  <!-- FLOAT -->
+  <div class="tab-panel" data-panel="float">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Floating-Point: Mantissa & Exponent</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="task-question">Represent <span class="val" id="fl_q">0</span> as a signed two's-complement floating-point (12-bit mantissa, 4-bit exponent).</div>
+      <div class="input-row" style="flex-direction:column;align-items:stretch">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div><label>mantissa</label><br><input type="text" id="fl_m" placeholder="12 bits" maxlength="12" style="width:200px"></div>
+          <div><label>exponent</label><br><input type="text" id="fl_e" placeholder="4 bits" maxlength="4" style="width:120px"></div>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button onclick="checkFl()">Check</button>
+          <button class="secondary" onclick="newFl()">New task</button>
+          <button class="secondary" onclick="showSol('fl')">Show full solution</button>
+        </div>
+      </div>
+      <div class="feedback" id="fl_fb"></div>
+      <div class="solution" id="fl_sol"></div>
+      <div class="callout tip">
+        <strong>Method:</strong>
+        <ol style="margin-top:6px">
+          <li>Convert |n| to binary (incl. fractional part)</li>
+          <li>Normalise: shift so the binary point comes after the leading <code>0.1</code> (positive) or <code>1.0</code> (negative two's complement)</li>
+          <li>Mantissa = the bits, exponent = number of shifts</li>
+          <li>Negative numbers: take two's complement of the mantissa</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUILDER -->
+  <div class="tab-panel" data-panel="builder">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Visual Bit Builder</div>
+        <div class="ex-tag">Tool</div>
+      </div>
+      <p>Click bits to flip them. The decimal value updates live.</p>
+      <div class="bit-grid" id="bit_grid"></div>
+      <div class="bit-weights" id="bit_weights"></div>
+      <table style="max-width:480px">
+        <tr><th>Unsigned</th><th>Two's complement</th><th>Hex</th></tr>
+        <tr><td id="bit_unsigned">0</td><td id="bit_signed">0</td><td id="bit_hex">00</td></tr>
+      </table>
+      <div class="controls">
+        <button class="secondary" onclick="setBits(0)">Clear</button>
+        <button class="secondary" onclick="setBits(255)">All 1s</button>
+        <button class="secondary" onclick="setBits(170)">10101010</button>
+        <button class="secondary" onclick="setBits(Math.floor(Math.random()*256))">Random</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOLEAN ============ -->
+<section class="section" id="boolean">
+  <div class="section-header">
+    <h2 class="section-title">Boolean <em>Logic</em></h2>
+    <div class="section-meta">// 12.3.3.x</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="tt">Truth Table Builder</button>
+    <button class="tab" data-tab="gate-id">Gate Identification</button>
+    <button class="tab" data-tab="simplify">Simplification</button>
+  </div>
+
+  <div class="tab-panel active" data-panel="tt">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Live Truth Table</div>
+        <div class="ex-tag">Tool</div>
+      </div>
+      <p>Type a Boolean expression using A, B, C, D and operators <code>!</code> (NOT), <code>&amp;</code> (AND), <code>|</code> (OR), <code>^</code> (XOR), <code>(...)</code></p>
+      <div class="input-row">
+        <input type="text" id="tt_expr" value="!A & B | C" style="flex:1;min-width:280px">
+        <button onclick="buildTT()">Generate</button>
+        <button class="secondary" onclick="document.getElementById('tt_expr').value='A & B';buildTT()">A & B</button>
+        <button class="secondary" onclick="document.getElementById('tt_expr').value='!(A & B)';buildTT()">NAND</button>
+        <button class="secondary" onclick="document.getElementById('tt_expr').value='A ^ B';buildTT()">XOR</button>
+        <button class="secondary" onclick="document.getElementById('tt_expr').value='!(A | B)';buildTT()">NOR</button>
+      </div>
+      <div id="tt_out"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="gate-id">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Identify the Gate</div>
+        <div class="ex-tag">Practice</div>
+      </div>
+      <div class="score-bar">
+        <span class="pill">Score: <strong id="gate_score">0</strong></span>
+      </div>
+      <p>Given the truth table, name the gate.</p>
+      <div id="gate_table"></div>
+      <div class="input-row">
+        <select id="gate_input">
+          <option value="">-- choose --</option>
+          <option>AND</option><option>OR</option><option>NOT</option>
+          <option>NAND</option><option>NOR</option><option>XOR</option><option>XNOR</option>
+        </select>
+        <button onclick="checkGate()">Check</button>
+        <button class="secondary" onclick="newGate()">New task</button>
+      </div>
+      <div class="feedback" id="gate_fb"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="simplify">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Simplification — Worked Examples</div>
+        <div class="ex-tag">Reference</div>
+      </div>
+      <h3>Boolean Laws</h3>
+      <table>
+        <tr><th>Law</th><th>Form</th></tr>
+        <tr><td>Identity</td><td>A · 1 = A · A + 0 = A</td></tr>
+        <tr><td>Null</td><td>A · 0 = 0 · A + 1 = 1</td></tr>
+        <tr><td>Idempotent</td><td>A · A = A · A + A = A</td></tr>
+        <tr><td>Complement</td><td>A · ¬A = 0 · A + ¬A = 1</td></tr>
+        <tr><td>Involution</td><td>¬¬A = A</td></tr>
+        <tr><td>Commutative</td><td>A · B = B · A</td></tr>
+        <tr><td>Associative</td><td>A · (B · C) = (A · B) · C</td></tr>
+        <tr><td>Distributive</td><td>A · (B + C) = A·B + A·C</td></tr>
+        <tr><td><strong>De Morgan 1</strong></td><td>¬(A · B) = ¬A + ¬B</td></tr>
+        <tr><td><strong>De Morgan 2</strong></td><td>¬(A + B) = ¬A · ¬B</td></tr>
+        <tr><td>Absorption</td><td>A + A·B = A · A·(A+B) = A</td></tr>
+      </table>
+
+      <h3>Worked: ¬((A + ¬B) · (C + ¬D))</h3>
+      <pre><code>¬((A + ¬B) · (C + ¬D))
+= ¬(A + ¬B) + ¬(C + ¬D)     <span class="com">// De Morgan 1</span>
+= (¬A · ¬¬B) + (¬C · ¬¬D)   <span class="com">// De Morgan 2</span>
+= ¬A·B + ¬C·D                <span class="com">// Involution</span></code></pre>
+
+      <h3>Worked: A·B + A·¬B</h3>
+      <pre><code>A·B + A·¬B
+= A·(B + ¬B)     <span class="com">// Distributive (factor out)</span>
+= A·1            <span class="com">// Complement</span>
+= A              <span class="com">// Identity</span></code></pre>
+
+      <h3>Worked: A + A·B</h3>
+      <pre><code>A + A·B
+= A·(1 + B)      <span class="com">// Distributive</span>
+= A·1            <span class="com">// Null (1+anything = 1)</span>
+= A              <span class="com">// Identity</span>
+<span class="com">// (Or apply Absorption directly)</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LMC ============ -->
+<section class="section" id="lmc">
+  <div class="section-header">
+    <h2 class="section-title">LMC <em>Assembly</em></h2>
+    <div class="section-meta">// 12.5.1.3 · trace tables</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">LMC Simulator + Trace Table</div>
+      <div class="ex-tag">Tool</div>
+    </div>
+    <p>Write LMC code below (one instruction per line). Click <strong>Run</strong> to step through with full trace table.</p>
+    <div class="controls">
+      <button class="secondary" onclick="loadLMC('mod')">Load: Mod (2025 paper)</button>
+      <button class="secondary" onclick="loadLMC('add')">Load: Add two inputs</button>
+      <button class="secondary" onclick="loadLMC('count')">Load: Countdown</button>
+      <button class="secondary" onclick="loadLMC('mul')">Load: Multiply</button>
+    </div>
+    <textarea id="lmc_code" style="font-family:'JetBrains Mono',monospace;font-size:13px;min-height:240px"></textarea>
+    <div class="input-row" style="margin-top:10px">
+      <label>Inputs (comma-separated, used by INP):</label>
+      <input type="text" id="lmc_inputs" placeholder="e.g. 5,3" style="width:160px">
+      <button onclick="runLMC()">Run</button>
+      <button class="secondary" onclick="document.getElementById('lmc_out').innerHTML=''">Clear</button>
+    </div>
+    <div id="lmc_out"></div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">LMC Reference</div>
+      <div class="ex-tag">Mnemonics</div>
+    </div>
+    <table>
+      <tr><th>Op</th><th>Code</th><th>Action</th></tr>
+      <tr><td>INP</td><td>901</td><td>Read input → AC</td></tr>
+      <tr><td>OUT</td><td>902</td><td>Output AC</td></tr>
+      <tr><td>HLT</td><td>000</td><td>Stop</td></tr>
+      <tr><td>LDA xx</td><td>5xx</td><td>AC ← mem[xx]</td></tr>
+      <tr><td>STA xx</td><td>3xx</td><td>mem[xx] ← AC</td></tr>
+      <tr><td>ADD xx</td><td>1xx</td><td>AC ← AC + mem[xx]</td></tr>
+      <tr><td>SUB xx</td><td>2xx</td><td>AC ← AC − mem[xx]</td></tr>
+      <tr><td>BRA xx</td><td>6xx</td><td>Jump to xx</td></tr>
+      <tr><td>BRZ xx</td><td>7xx</td><td>Jump if AC = 0</td></tr>
+      <tr><td>BRP xx</td><td>8xx</td><td>Jump if AC ≥ 0</td></tr>
+      <tr><td>DAT n</td><td>—</td><td>Reserve cell, value n</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ALGORITHMS ============ -->
+<section class="section" id="algos">
+  <div class="section-header">
+    <h2 class="section-title">Algorithm <em>Visualizers</em></h2>
+    <div class="section-meta">// sort · search · BST</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="bubble">Bubble Sort</button>
+    <button class="tab" data-tab="insertion">Insertion Sort</button>
+    <button class="tab" data-tab="binsearch">Binary Search</button>
+    <button class="tab" data-tab="bst">BST Builder</button>
+  </div>
+
+  <div class="tab-panel active" data-panel="bubble">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Bubble Sort — Step by Step</div>
+        <div class="ex-tag">Visualizer</div>
+      </div>
+      <div class="input-row">
+        <label>Array:</label>
+        <input type="text" id="bub_input" value="5,2,8,1,9,3,7,4" style="width:240px">
+        <select id="bub_dir">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+        <button onclick="bubStart()">Start</button>
+        <button class="secondary" onclick="bubRandom()">Random</button>
+      </div>
+      <div class="viz-array" id="bub_viz"></div>
+      <div class="controls">
+        <button id="bub_step" onclick="bubStep()">Step ▸</button>
+        <button class="secondary" onclick="bubAuto()">Auto-play</button>
+      </div>
+      <div class="viz-log" id="bub_log"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="insertion">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Insertion Sort — Step by Step</div>
+        <div class="ex-tag">Visualizer</div>
+      </div>
+      <div class="input-row">
+        <label>Array:</label>
+        <input type="text" id="ins_input" value="5,2,8,1,9,3,7,4" style="width:240px">
+        <button onclick="insStart()">Start</button>
+        <button class="secondary" onclick="insRandom()">Random</button>
+      </div>
+      <div class="viz-array" id="ins_viz"></div>
+      <div class="controls">
+        <button onclick="insStep()">Step ▸</button>
+        <button class="secondary" onclick="insAuto()">Auto-play</button>
+      </div>
+      <div class="viz-log" id="ins_log"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="binsearch">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Binary Search — Step by Step</div>
+        <div class="ex-tag">Visualizer</div>
+      </div>
+      <div class="input-row">
+        <label>Sorted array:</label>
+        <input type="text" id="bs_arr" value="1,3,5,7,9,11,13,15,17,19,21,23" style="width:280px">
+        <label>Target:</label>
+        <input type="number" id="bs_target" value="13" style="width:80px">
+        <button onclick="bsStart()">Start</button>
+      </div>
+      <div class="viz-array binsearch-arr" id="bs_viz"></div>
+      <div class="controls">
+        <button onclick="bsStep()">Step ▸</button>
+      </div>
+      <div class="viz-log" id="bs_log"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="bst">
+    <div class="ex">
+      <div class="ex-head">
+        <div class="ex-title">Binary Search Tree Builder</div>
+        <div class="ex-tag">Visualizer</div>
+      </div>
+      <div class="input-row">
+        <label>Insert order:</label>
+        <input type="text" id="bst_input" value="M,B,A,K,H,V,T" style="width:280px">
+        <button onclick="bstBuild()">Build</button>
+        <button class="secondary" onclick="document.getElementById('bst_input').value='50,30,70,20,40,60,80';bstBuild()">Numeric example</button>
+      </div>
+      <svg class="bst-canvas" id="bst_svg" viewBox="0 0 800 400"></svg>
+      <div id="bst_traversals" class="viz-log"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SQL ============ -->
+<section class="section" id="sql">
+  <div class="section-header">
+    <h2 class="section-title">SQL <em>Playground</em></h2>
+    <div class="section-meta">// real SQL execution</div>
+  </div>
+
+  <div class="callout tip"><strong>Live database</strong> with the same schema as the 2025 paper (Products, Stores, Deliveries) plus a sample student/courses dataset. Write any SQL — it actually runs in your browser.</div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">SQL Editor</div>
+      <div class="ex-tag" id="sql_status">Loading…</div>
+    </div>
+    <div class="controls">
+      <button class="secondary" onclick="loadSQL('all_products')">List all products</button>
+      <button class="secondary" onclick="loadSQL('store_88')">Deliveries to store 88 sorted</button>
+      <button class="secondary" onclick="loadSQL('update_price')">Increase prices 10%</button>
+      <button class="secondary" onclick="loadSQL('insert')">INSERT new product</button>
+      <button class="secondary" onclick="loadSQL('delete')">DELETE empty stock</button>
+      <button class="secondary" onclick="loadSQL('alter')">ALTER add column</button>
+      <button class="secondary" onclick="loadSQL('join')">JOIN products + deliveries</button>
+      <button class="secondary" onclick="loadSQL('schema')">Show schema</button>
+    </div>
+    <textarea class="sql-editor" id="sql_q">SELECT * FROM Products LIMIT 5;</textarea>
+    <div class="controls">
+      <button onclick="runSQL()">Run query</button>
+      <button class="secondary" onclick="resetDB()">Reset DB</button>
+    </div>
+    <div class="sql-result" id="sql_result">Ready.</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">SQL Challenges</div>
+      <div class="ex-tag">Tasks</div>
+    </div>
+    <p>Try writing these queries in the editor above. Reveal the answer when stuck.</p>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>1.</strong> Show all products with price ≥ 500, sorted by price descending.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> Products
+<span class="kw">WHERE</span> Price_tg &gt;= <span class="num">500</span>
+<span class="kw">ORDER BY</span> Price_tg <span class="kw">DESC</span>;</code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>2.</strong> Count how many products there are.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">SELECT COUNT</span>(*) <span class="kw">FROM</span> Products;</code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>3.</strong> Show each store with the total quantity of products delivered to it.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">SELECT</span> S.Title, <span class="kw">SUM</span>(D.Product_count) <span class="kw">AS</span> total
+<span class="kw">FROM</span> Stores S
+<span class="kw">JOIN</span> Deliveries D <span class="kw">ON</span> S.Store_code = D.Store_code
+<span class="kw">GROUP BY</span> S.Title;</code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>4.</strong> Insert a new product: code "TX001", title "Notebook", amount 100, price 850.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">INSERT INTO</span> Products (Product_code, Title, Amount, Price_tg, Domestic_producer)
+<span class="kw">VALUES</span> (<span class="str">'TX001'</span>, <span class="str">'Notebook'</span>, <span class="num">100</span>, <span class="num">850</span>, <span class="num">1</span>);</code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>5.</strong> Delete all products with amount = 0.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">DELETE FROM</span> Products <span class="kw">WHERE</span> Amount = <span class="num">0</span>;</code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>6.</strong> Add a new column "Discount" (integer) to Products.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">ALTER TABLE</span> Products <span class="kw">ADD</span> Discount <span class="kw">INTEGER</span>;</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HTML/CSS ============ -->
+<section class="section" id="webdev">
+  <div class="section-header">
+    <h2 class="section-title">HTML & <em>CSS</em></h2>
+    <div class="section-meta">// 11.5.3.x · live sandbox</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">Live Sandbox</div>
+      <div class="ex-tag">Tool</div>
+    </div>
+    <p>Edit on the left, see result on the right.</p>
+    <div class="controls">
+      <button class="secondary" onclick="loadHTML('caesar')">Caesar form (2025 Q7)</button>
+      <button class="secondary" onclick="loadHTML('login')">Login form</button>
+      <button class="secondary" onclick="loadHTML('table')">Styled table</button>
+      <button class="secondary" onclick="loadHTML('flex')">Flexbox layout</button>
+      <button class="secondary" onclick="loadHTML('grid')">CSS Grid</button>
+    </div>
+    <div class="sandbox-wrap">
+      <textarea id="html_code" oninput="renderHTML()"></textarea>
+      <iframe class="sandbox-preview" id="html_preview"></iframe>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">HTML Tag Reference</div>
+      <div class="ex-tag">Cheatsheet</div>
+    </div>
+    <table>
+      <tr><th>Tag</th><th>Purpose</th></tr>
+      <tr><td><code>&lt;form method="post"&gt;</code></td><td>Container that submits data</td></tr>
+      <tr><td><code>&lt;input type="text"&gt;</code></td><td>Single-line text field</td></tr>
+      <tr><td><code>&lt;input type="password"&gt;</code></td><td>Hidden text field</td></tr>
+      <tr><td><code>&lt;input type="radio" name="x"&gt;</code></td><td>Single choice (same name groups them)</td></tr>
+      <tr><td><code>&lt;input type="checkbox"&gt;</code></td><td>Multiple choice toggle</td></tr>
+      <tr><td><code>&lt;input type="submit"&gt;</code></td><td>Submit button</td></tr>
+      <tr><td><code>&lt;select&gt;&lt;option&gt;</code></td><td>Dropdown</td></tr>
+      <tr><td><code>&lt;textarea&gt;</code></td><td>Multi-line text</td></tr>
+      <tr><td><code>&lt;label for="id"&gt;</code></td><td>Label linked to input by id</td></tr>
+      <tr><td><code>&lt;a href="..."&gt;</code></td><td>Hyperlink</td></tr>
+      <tr><td><code>&lt;img src="..." alt="..."&gt;</code></td><td>Image</td></tr>
+      <tr><td><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;</code></td><td>Table / row / cell</td></tr>
+    </table>
+
+    <h3>Three types of CSS</h3>
+    <table>
+      <tr><th>Type</th><th>Where</th><th>Use case</th></tr>
+      <tr><td>Inline</td><td><code>style=""</code> attribute</td><td>One-off override</td></tr>
+      <tr><td>Internal</td><td><code>&lt;style&gt;</code> in <code>&lt;head&gt;</code></td><td>Single page styling</td></tr>
+      <tr><td>External</td><td><code>&lt;link rel="stylesheet"&gt;</code></td><td>Multi-page reuse</td></tr>
+    </table>
+
+    <h3>CSS selectors</h3>
+    <pre><code>h1 { color: red; }              <span class="com">/* element */</span>
+.box { padding: 10px; }         <span class="com">/* class */</span>
+#main { width: 800px; }         <span class="com">/* id */</span>
+a:hover { color: blue; }        <span class="com">/* pseudo-class */</span>
+ul li { margin: 4px; }          <span class="com">/* descendant */</span></code></pre>
+  </div>
+</section>
+
+<!-- ============ JS ============ -->
+<section class="section" id="js">
+  <div class="section-header">
+    <h2 class="section-title">JavaScript <em>Lab</em></h2>
+    <div class="section-meta">// 11.5.3.5–8</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">JS Code Runner</div>
+      <div class="ex-tag">Tool</div>
+    </div>
+    <p>Write JS. <code>console.log</code> output appears below.</p>
+    <div class="controls">
+      <button class="secondary" onclick="loadJS('basics')">Basics</button>
+      <button class="secondary" onclick="loadJS('caesar')">Caesar cipher</button>
+      <button class="secondary" onclick="loadJS('bubble')">Bubble sort</button>
+      <button class="secondary" onclick="loadJS('binsearch')">Binary search</button>
+      <button class="secondary" onclick="loadJS('factorial')">Factorial</button>
+    </div>
+    <textarea id="js_code" style="font-family:'JetBrains Mono',monospace;font-size:13px;min-height:200px;background:#fafaf2"></textarea>
+    <div class="controls">
+      <button onclick="runJS()">Run</button>
+      <button class="secondary" onclick="document.getElementById('js_out').innerHTML='Output:'">Clear output</button>
+    </div>
+    <div class="sql-result" id="js_out">Output:</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">Challenges</div>
+      <div class="ex-tag">Tasks</div>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>1.</strong> Write a function <code>isEven(n)</code> that returns true if n is even.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">function</span> <span class="fn">isEven</span>(n) {
+    <span class="kw">return</span> n % <span class="num">2</span> === <span class="num">0</span>;
+}</code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>2.</strong> Sum all even numbers from 1 to 100.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">let</span> sum = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">2</span>; i &lt;= <span class="num">100</span>; i += <span class="num">2</span>) {
+    sum += i;
+}
+<span class="fn">console.log</span>(sum); <span class="com">// 2550</span></code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>3.</strong> Find the maximum value in <code>[3,7,2,9,4,1,8]</code>.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">const</span> arr = [<span class="num">3</span>,<span class="num">7</span>,<span class="num">2</span>,<span class="num">9</span>,<span class="num">4</span>,<span class="num">1</span>,<span class="num">8</span>];
+<span class="kw">let</span> max = arr[<span class="num">0</span>];
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i &lt; arr.length; i++) {
+    <span class="kw">if</span> (arr[i] &gt; max) max = arr[i];
+}
+<span class="fn">console.log</span>(max); <span class="com">// 9</span></code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>4.</strong> Reverse a string without using <code>.reverse()</code>.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">function</span> <span class="fn">reverse</span>(s) {
+    <span class="kw">let</span> r = <span class="str">""</span>;
+    <span class="kw">for</span> (<span class="kw">let</span> i = s.length - <span class="num">1</span>; i &gt;= <span class="num">0</span>; i--) {
+        r += s[i];
+    }
+    <span class="kw">return</span> r;
+}</code></pre>
+    </div>
+
+    <div style="border-left:3px solid var(--accent-2);padding:12px 16px;background:rgba(29,107,98,0.05);margin-bottom:10px">
+      <strong>5.</strong> Count vowels in a string.
+      <button class="secondary" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="this.nextElementSibling.style.display='block'">Show solution</button>
+      <pre style="display:none;margin-top:8px"><code><span class="kw">function</span> <span class="fn">countVowels</span>(s) {
+    <span class="kw">const</span> vowels = <span class="str">"aeiouAEIOU"</span>;
+    <span class="kw">let</span> count = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="kw">let</span> ch <span class="kw">of</span> s) {
+        <span class="kw">if</span> (vowels.includes(ch)) count++;
+    }
+    <span class="kw">return</span> count;
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHP ============ -->
+<section class="section" id="php">
+  <div class="section-header">
+    <h2 class="section-title">PHP <em>Patterns</em></h2>
+    <div class="section-meta">// server-side reference</div>
+  </div>
+
+  <div class="callout"><strong>Note:</strong> PHP runs on the server — it can't execute in your browser. Below are the exact patterns you'll need to write on paper.</div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">Database Connection (2025 Q8)</div>
+      <div class="ex-tag">Pattern</div>
+    </div>
+<pre><code>&lt;?php
+$servername = <span class="str">"localhost"</span>;
+$username   = <span class="str">"username"</span>;
+$password   = <span class="str">"password"</span>;
+$db         = <span class="str">"library"</span>;
+
+$conn = <span class="fn">mysqli_connect</span>($servername, $username, $password, $db);
+
+<span class="kw">if</span> (!$conn) {
+    <span class="fn">die</span>(<span class="str">"Connection failed: "</span> . <span class="fn">mysqli_connect_error</span>());
+}
+<span class="kw">echo</span> <span class="str">"Connected successfully"</span>;
+?&gt;</code></pre>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">Receiving Form Data</div>
+      <div class="ex-tag">Pattern</div>
+    </div>
+<pre><code>&lt;?php
+<span class="kw">if</span> ($_SERVER[<span class="str">"REQUEST_METHOD"</span>] == <span class="str">"POST"</span>) {
+    $name    = $_POST[<span class="str">"name"</span>];
+    $message = $_POST[<span class="str">"message"</span>];
+
+    <span class="kw">echo</span> <span class="str">"Hello, "</span> . <span class="fn">htmlspecialchars</span>($name);
+}
+?&gt;</code></pre>
+    <div class="callout tip"><strong>Always use htmlspecialchars()</strong> when echoing user input — prevents XSS attacks.</div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">Running an SQL Query</div>
+      <div class="ex-tag">Pattern</div>
+    </div>
+<pre><code>&lt;?php
+$sql = <span class="str">"SELECT id, name FROM users WHERE active = 1"</span>;
+$result = <span class="fn">mysqli_query</span>($conn, $sql);
+
+<span class="kw">if</span> (<span class="fn">mysqli_num_rows</span>($result) &gt; <span class="num">0</span>) {
+    <span class="kw">while</span> ($row = <span class="fn">mysqli_fetch_assoc</span>($result)) {
+        <span class="kw">echo</span> $row[<span class="str">"id"</span>] . <span class="str">" - "</span> . $row[<span class="str">"name"</span>] . <span class="str">"&lt;br&gt;"</span>;
+    }
+} <span class="kw">else</span> {
+    <span class="kw">echo</span> <span class="str">"No results"</span>;
+}
+
+<span class="fn">mysqli_close</span>($conn);
+?&gt;</code></pre>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">Insert with Prepared Statement (safe)</div>
+      <div class="ex-tag">Pattern</div>
+    </div>
+<pre><code>&lt;?php
+$stmt = <span class="fn">mysqli_prepare</span>($conn, <span class="str">"INSERT INTO users (name, age) VALUES (?, ?)"</span>);
+<span class="fn">mysqli_stmt_bind_param</span>($stmt, <span class="str">"si"</span>, $name, $age);  <span class="com">// s=string, i=int</span>
+<span class="fn">mysqli_stmt_execute</span>($stmt);
+<span class="fn">mysqli_stmt_close</span>($stmt);
+?&gt;</code></pre>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <div class="ex-title">PHP Basics</div>
+      <div class="ex-tag">Reference</div>
+    </div>
+<pre><code>&lt;?php
+<span class="com">// variables start with $</span>
+$name = <span class="str">"Aizhan"</span>;
+$age  = <span class="num">17</span>;
+
+<span class="com">// concatenation with .</span>
+<span class="kw">echo</span> <span class="str">"Hello, "</span> . $name;
+
+<span class="com">// arrays</span>
+$colors = [<span class="str">"red"</span>, <span class="str">"green"</span>, <span class="str">"blue"</span>];
+<span class="kw">echo</span> $colors[<span class="num">0</span>];
+
+<span class="com">// associative array</span>
+$user = [<span class="str">"name"</span> =&gt; <span class="str">"Bek"</span>, <span class="str">"age"</span> =&gt; <span class="num">18</span>];
+
+<span class="com">// loops</span>
+<span class="kw">foreach</span> ($colors <span class="kw">as</span> $c) {
+    <span class="kw">echo</span> $c . <span class="str">"&lt;br&gt;"</span>;
+}
+
+<span class="kw">for</span> ($i = <span class="num">0</span>; $i &lt; <span class="num">5</span>; $i++) {
+    <span class="kw">echo</span> $i;
+}
+
+<span class="com">// functions</span>
+<span class="kw">function</span> <span class="fn">greet</span>($name) {
+    <span class="kw">return</span> <span class="str">"Hello "</span> . $name;
+}
+?&gt;</code></pre>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ============ NAV ============
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.target;
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.target === target));
+    document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === target));
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+// Tabs
+document.querySelectorAll('.tabs').forEach(tabsEl => {
+  const section = tabsEl.closest('.section');
+  tabsEl.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      const target = t.dataset.tab;
+      tabsEl.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.dataset.tab === target));
+      section.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === target));
+    });
+  });
+});
+
+// Progress
+window.addEventListener('scroll', () => {
+  const sc = document.documentElement.scrollTop;
+  const max = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById('prog').style.width = (sc/max*100) + '%';
+});
+
+function showSol(prefix){
+  const el = document.getElementById(prefix+'_sol');
+  if (el) el.classList.toggle('show');
+}
+
+// ============ NUMBER SYSTEMS ============
+function toBin8(n){
+  if (n < 0) n = (256 + n) & 0xFF;
+  return n.toString(2).padStart(8, '0');
+}
+function toBinUnsigned(n, bits){
+  return n.toString(2).padStart(bits, '0');
+}
+function toHex2(n){ return n.toString(16).toUpperCase().padStart(2,'0'); }
+
+// DEC TO BIN
+let d2b_target = 0, d2b_score = 0, d2b_streak = 0;
+function newD2B(){
+  d2b_target = Math.floor(Math.random() * 256);
+  document.getElementById('d2b_q').textContent = d2b_target;
+  document.getElementById('d2b_input').value = '';
+  document.getElementById('d2b_fb').classList.remove('show');
+  document.getElementById('d2b_sol').classList.remove('show');
+  // build solution
+  const correct = toBin8(d2b_target);
+  let steps = `<h5>Step-by-step</h5>${d2b_target} ÷ 2 method or subtract powers of 2:<br>`;
+  let n = d2b_target, parts = [];
+  for (let p = 7; p >= 0; p--) {
+    const v = 1 << p;
+    if (n >= v) { parts.push(`128 64 32 16 8 4 2 1 → bit ${p} (${v}) ON`); n -= v; }
+  }
+  steps += `<pre style="margin-top:6px"><code>${d2b_target} = ${correct}\n     = ${[128,64,32,16,8,4,2,1].filter(v => d2b_target & v).join(' + ') || '0'}</code></pre>`;
+  document.getElementById('d2b_sol').innerHTML = steps;
+}
+function checkD2B(){
+  const ans = document.getElementById('d2b_input').value.trim();
+  const correct = toBin8(d2b_target);
+  const fb = document.getElementById('d2b_fb');
+  fb.classList.add('show');
+  if (ans === correct) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> ${d2b_target} = <code>${correct}</code>`;
+    d2b_score++; d2b_streak++;
+    document.getElementById('d2b_score').textContent = d2b_score;
+    document.getElementById('d2b_streak').textContent = d2b_streak;
+    setTimeout(newD2B, 1200);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Not yet.</strong> Expected <code>${correct}</code>, you wrote <code>${ans || '(empty)'}</code>.`;
+    d2b_streak = 0;
+    document.getElementById('d2b_streak').textContent = 0;
+  }
+}
+
+// BIN TO DEC
+let b2d_target = 0, b2d_score = 0;
+function newB2D(){
+  const n = Math.floor(Math.random()*256);
+  b2d_target = n;
+  document.getElementById('b2d_q').textContent = toBin8(n);
+  document.getElementById('b2d_input').value='';
+  document.getElementById('b2d_fb').classList.remove('show');
+  const sol = document.getElementById('b2d_sol');
+  let parts = [];
+  for (let p = 7; p >= 0; p--) {
+    if (n & (1<<p)) parts.push(`${1<<p}`);
+  }
+  sol.innerHTML = `<h5>Step-by-step</h5><pre><code>${toBin8(n)}\n= ${parts.join(' + ') || '0'}\n= ${n}</code></pre>`;
+  sol.classList.remove('show');
+}
+function checkB2D(){
+  const ans = parseInt(document.getElementById('b2d_input').value);
+  const fb = document.getElementById('b2d_fb');
+  fb.classList.add('show');
+  if (ans === b2d_target) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> = ${b2d_target}`;
+    b2d_score++; document.getElementById('b2d_score').textContent = b2d_score;
+    setTimeout(newB2D, 1000);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Wrong.</strong> Expected ${b2d_target}.`;
+  }
+}
+
+// HEX
+let hex_target = '', hex_mode = 'd2h', hex_score = 0;
+function newHex(){
+  hex_mode = document.getElementById('hex_mode').value;
+  const labels = {d2h:'Dec → Hex', h2d:'Hex → Dec', b2h:'Bin → Hex', h2b:'Hex → Bin'};
+  document.getElementById('hex_mode_label').textContent = labels[hex_mode];
+  const n = Math.floor(Math.random()*256);
+  let q, ans, sol = '';
+  if (hex_mode === 'd2h') {
+    q = n; ans = toHex2(n);
+    sol = `${n} = ${toBin8(n)} = ${toBin8(n).slice(0,4)} | ${toBin8(n).slice(4)} = ${ans}`;
+  } else if (hex_mode === 'h2d') {
+    q = toHex2(n); ans = String(n);
+    sol = `${toHex2(n)} = ${parseInt(toHex2(n)[0],16)}×16 + ${parseInt(toHex2(n)[1],16)} = ${n}`;
+  } else if (hex_mode === 'b2h') {
+    q = toBin8(n); ans = toHex2(n);
+    sol = `${toBin8(n)} → ${toBin8(n).slice(0,4)} | ${toBin8(n).slice(4)} → ${parseInt(toBin8(n).slice(0,4),2).toString(16).toUpperCase()} ${parseInt(toBin8(n).slice(4),2).toString(16).toUpperCase()}`;
+  } else {
+    q = toHex2(n); ans = toBin8(n);
+    sol = `${toHex2(n)} → each digit to 4 bits → ${ans}`;
+  }
+  hex_target = ans;
+  document.getElementById('hex_q').textContent = q;
+  document.getElementById('hex_unit').textContent = hex_mode === 'h2d' ? '₁₆' : '';
+  document.getElementById('hex_input').value='';
+  document.getElementById('hex_fb').classList.remove('show');
+  document.getElementById('hex_sol').innerHTML = `<h5>Working</h5><pre><code>${sol}</code></pre>`;
+  document.getElementById('hex_sol').classList.remove('show');
+}
+function checkHex(){
+  const ans = document.getElementById('hex_input').value.trim().toUpperCase();
+  const fb = document.getElementById('hex_fb');
+  fb.classList.add('show');
+  if (ans === hex_target.toUpperCase()) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> Answer: <code>${hex_target}</code>`;
+    hex_score++; document.getElementById('hex_score').textContent = hex_score;
+    setTimeout(newHex, 1100);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Wrong.</strong> Expected <code>${hex_target}</code>.`;
+  }
+}
+
+// TWOS COMPLEMENT
+let tw_target = 0, tw_score = 0;
+function newTW(){
+  tw_target = Math.floor(Math.random()*256) - 128; // -128 to 127
+  document.getElementById('tw_q').textContent = tw_target;
+  document.getElementById('tw_input').value='';
+  document.getElementById('tw_fb').classList.remove('show');
+  const correct = toBin8(tw_target);
+  let sol;
+  if (tw_target >= 0) {
+    sol = `${tw_target} is positive — write directly:\n${correct}`;
+  } else {
+    const abs = Math.abs(tw_target);
+    const absBin = toBinUnsigned(abs, 8);
+    const inverted = absBin.split('').map(b => b==='1'?'0':'1').join('');
+    sol = `(1) |${tw_target}| = ${abs} = ${absBin}\n(2) flip:        ${inverted}\n(3) add 1:       ${correct}`;
+  }
+  document.getElementById('tw_sol').innerHTML = `<h5>Working</h5><pre><code>${sol}</code></pre>`;
+  document.getElementById('tw_sol').classList.remove('show');
+}
+function checkTW(){
+  const ans = document.getElementById('tw_input').value.trim();
+  const correct = toBin8(tw_target);
+  const fb = document.getElementById('tw_fb');
+  fb.classList.add('show');
+  if (ans === correct) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> ${tw_target} = <code>${correct}</code>`;
+    tw_score++; document.getElementById('tw_score').textContent = tw_score;
+    setTimeout(newTW, 1300);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Not yet.</strong> Expected <code>${correct}</code>.`;
+  }
+}
+
+// BINARY ADD
+let add_a = 0, add_b = 0, add_score = 0;
+function newAdd(){
+  add_a = Math.floor(Math.random()*256);
+  add_b = Math.floor(Math.random()*256);
+  document.getElementById('add_a').textContent = toBin8(add_a);
+  document.getElementById('add_b').textContent = toBin8(add_b);
+  document.getElementById('add_input').value='';
+  document.getElementById('add_fb').classList.remove('show');
+  const sum8 = (add_a + add_b) & 0xFF;
+  const correct = toBin8(sum8);
+  const overflow = (add_a + add_b) > 255;
+  document.getElementById('add_sol').innerHTML = `<h5>Working</h5><pre><code>  ${toBin8(add_a)}\n+ ${toBin8(add_b)}\n${'='.repeat(10)}\n  ${overflow ? '1' : ' '}${correct}   ${overflow ? '← carry-out (drop in 8-bit)' : ''}\n\nResult (8-bit): ${correct}\nDecimal: ${add_a} + ${add_b} = ${add_a + add_b}${overflow ? ' (overflows 255)' : ''}</code></pre>`;
+  document.getElementById('add_sol').classList.remove('show');
+}
+function checkAdd(){
+  const ans = document.getElementById('add_input').value.trim();
+  const correct = toBin8((add_a + add_b) & 0xFF);
+  const fb = document.getElementById('add_fb');
+  fb.classList.add('show');
+  if (ans === correct) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> ${toBin8(add_a)} + ${toBin8(add_b)} = ${correct}`;
+    add_score++; document.getElementById('add_score').textContent = add_score;
+    setTimeout(newAdd, 1400);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Not yet.</strong> Expected <code>${correct}</code>.`;
+  }
+}
+
+// BINARY MUL
+let mul_a = 0, mul_b = 0;
+function newMul(){
+  mul_a = Math.floor(Math.random()*15) + 1;
+  mul_b = Math.floor(Math.random()*7) + 1;
+  document.getElementById('mul_a').textContent = mul_a.toString(2);
+  document.getElementById('mul_b').textContent = mul_b.toString(2);
+  document.getElementById('mul_input').value='';
+  document.getElementById('mul_fb').classList.remove('show');
+  const product = mul_a * mul_b;
+  let sol = `Long multiplication:\n     ${mul_a.toString(2).padStart(6,' ')}\n   × ${mul_b.toString(2).padStart(6,' ')}\n   ${'-'.repeat(8)}\n`;
+  let bbits = mul_b.toString(2).split('').reverse();
+  let shift = 0;
+  bbits.forEach(b => {
+    if (b === '1') {
+      sol += `   ${(mul_a.toString(2) + '0'.repeat(shift)).padStart(8,' ')}\n`;
+    }
+    shift++;
+  });
+  sol += `   ${'-'.repeat(8)}\n   ${product.toString(2).padStart(8,' ')}\n\n${mul_a} × ${mul_b} = ${product}`;
+  document.getElementById('mul_sol').innerHTML = `<h5>Working</h5><pre><code>${sol}</code></pre>`;
+  document.getElementById('mul_sol').classList.remove('show');
+}
+function checkMul(){
+  const ans = document.getElementById('mul_input').value.trim().replace(/^0+/, '') || '0';
+  const correct = (mul_a * mul_b).toString(2);
+  const fb = document.getElementById('mul_fb');
+  fb.classList.add('show');
+  if (ans === correct) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> = ${correct} (${mul_a*mul_b} decimal)`;
+    setTimeout(newMul, 1300);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Wrong.</strong> Expected <code>${correct}</code>.`;
+  }
+}
+
+// FIXED POINT
+let fx_bits = '', fx_n = 3, fx_value = 0;
+function newFx(){
+  fx_n = [2,3,4][Math.floor(Math.random()*3)];
+  fx_bits = toBin8(Math.floor(Math.random()*256));
+  // calculate value
+  const intPart = parseInt(fx_bits.slice(0, 8 - fx_n), 2);
+  let frac = 0;
+  for (let i = 0; i < fx_n; i++) {
+    if (fx_bits[8 - fx_n + i] === '1') frac += Math.pow(2, -(i+1));
+  }
+  fx_value = intPart + frac;
+  document.getElementById('fx_q').textContent = fx_bits;
+  document.getElementById('fx_n').textContent = fx_n;
+  document.getElementById('fx_input').value='';
+  document.getElementById('fx_fb').classList.remove('show');
+  let sol = `Bits: ${fx_bits}\nSplit (point ${fx_n} from right): ${fx_bits.slice(0,8-fx_n)}.${fx_bits.slice(8-fx_n)}\n\nInteger part: ${fx_bits.slice(0,8-fx_n)} = ${intPart}\nFractional: `;
+  let parts = [];
+  for (let i = 0; i < fx_n; i++) {
+    if (fx_bits[8-fx_n+i]==='1') parts.push(`2⁻${i+1}=${Math.pow(2,-(i+1))}`);
+  }
+  sol += parts.join(' + ') || '0';
+  sol += ` = ${frac}\n\nTotal: ${intPart} + ${frac} = ${fx_value}`;
+  document.getElementById('fx_sol').innerHTML = `<h5>Working</h5><pre><code>${sol}</code></pre>`;
+  document.getElementById('fx_sol').classList.remove('show');
+}
+function checkFx(){
+  const ans = parseFloat(document.getElementById('fx_input').value);
+  const fb = document.getElementById('fx_fb');
+  fb.classList.add('show');
+  if (Math.abs(ans - fx_value) < 0.001) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> = ${fx_value}`;
+    setTimeout(newFx, 1300);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Wrong.</strong> Expected ${fx_value}.`;
+  }
+}
+
+// FLOATING POINT
+let fl_value = 0, fl_mant = '', fl_exp = '';
+function newFl(){
+  // pick a value from -100 to 100 with up to 0.875 fraction
+  const sign = Math.random() < 0.5 ? -1 : 1;
+  const intPart = Math.floor(Math.random() * 30) + 1;
+  const fracBits = Math.floor(Math.random() * 7) + 1;
+  const frac = fracBits / 8;
+  fl_value = sign * (intPart + frac);
+  // compute mantissa & exponent
+  const result = floatToMantExp(fl_value);
+  fl_mant = result.mantissa;
+  fl_exp = result.exponent;
+  document.getElementById('fl_q').textContent = fl_value;
+  document.getElementById('fl_m').value='';
+  document.getElementById('fl_e').value='';
+  document.getElementById('fl_fb').classList.remove('show');
+  document.getElementById('fl_sol').innerHTML = `<h5>Working</h5><pre><code>${result.steps}\n\nMantissa = ${result.mantissa}\nExponent = ${result.exponent}</code></pre>`;
+  document.getElementById('fl_sol').classList.remove('show');
+}
+function floatToMantExp(value){
+  // Convert |value| to fixed-point binary
+  const abs = Math.abs(value);
+  const intPart = Math.floor(abs);
+  const fracPart = abs - intPart;
+  const intBin = intPart.toString(2);
+  // fractional bits (up to 8)
+  let fracBin = '';
+  let f = fracPart;
+  for (let i = 0; i < 8 && f > 0; i++) {
+    f *= 2;
+    if (f >= 1) { fracBin += '1'; f -= 1; } else { fracBin += '0'; }
+  }
+  let combined = intBin + (fracBin ? '.' + fracBin : '');
+  let steps = `Value = ${value}\n|value| = ${abs} = ${combined}\n`;
+  // Normalize: shift so that the binary point is just after the leading digit
+  // For positive: form is 0.1xxxx × 2^n
+  // For negative two's complement: form is 1.0xxxx × 2^n
+  const allBits = intBin + fracBin;  // remove the point
+  const shift = intBin.length;  // bits before the binary point
+  // Normalised positive: 0.{intBin}{fracBin}, exponent = shift
+  // mantissa = 0.allBits, padded to 12 bits
+  let mantissaBits = '0' + allBits;
+  mantissaBits = mantissaBits.padEnd(12, '0').slice(0, 12);
+  let exponent = shift;
+  // For negative: take two's complement of the 12-bit positive mantissa
+  if (value < 0) {
+    // Flip all bits
+    let flipped = mantissaBits.split('').map(b => b==='1'?'0':'1').join('');
+    // Add 1
+    let carry = 1, result = '';
+    for (let i = 11; i >= 0; i--) {
+      const sum = (flipped[i] === '1' ? 1 : 0) + carry;
+      result = (sum % 2) + result;
+      carry = Math.floor(sum / 2);
+    }
+    mantissaBits = result;
+    steps += `Normalised positive: 0.${allBits} × 2^${shift}\nMantissa (positive): ${'0' + allBits}\nNegate (two's complement): ${mantissaBits}\n`;
+  } else {
+    steps += `Normalise: 0.${allBits} × 2^${shift}\nMantissa: ${mantissaBits}\n`;
+  }
+  // Exponent in 4-bit two's complement
+  let expBits;
+  if (exponent >= 0) {
+    expBits = exponent.toString(2).padStart(4, '0').slice(-4);
+  } else {
+    expBits = ((16 + exponent) & 0xF).toString(2).padStart(4, '0');
+  }
+  steps += `Exponent ${exponent} in 4-bit two's complement: ${expBits}`;
+  return { mantissa: mantissaBits, exponent: expBits, steps };
+}
+function checkFl(){
+  const m = document.getElementById('fl_m').value.trim();
+  const e = document.getElementById('fl_e').value.trim();
+  const fb = document.getElementById('fl_fb');
+  fb.classList.add('show');
+  if (m === fl_mant && e === fl_exp) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> Mantissa <code>${fl_mant}</code>, Exponent <code>${fl_exp}</code>`;
+    setTimeout(newFl, 1500);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Not exact.</strong> Expected mantissa <code>${fl_mant}</code>, exponent <code>${fl_exp}</code>. Floating-point representations can vary slightly by convention — check the working.`;
+  }
+}
+
+// BIT BUILDER
+function setBits(n){
+  for (let i = 0; i < 8; i++) {
+    const cell = document.getElementById('bit_'+i);
+    const on = (n >> (7-i)) & 1;
+    cell.classList.toggle('on', !!on);
+    cell.textContent = on;
+  }
+  updateBitDisplay();
+}
+function updateBitDisplay(){
+  let n = 0;
+  for (let i = 0; i < 8; i++) {
+    if (document.getElementById('bit_'+i).classList.contains('on')) {
+      n |= (1 << (7-i));
+    }
+  }
+  document.getElementById('bit_unsigned').textContent = n;
+  document.getElementById('bit_signed').textContent = n >= 128 ? n - 256 : n;
+  document.getElementById('bit_hex').textContent = toHex2(n);
+}
+function initBitBuilder(){
+  const grid = document.getElementById('bit_grid');
+  const weights = document.getElementById('bit_weights');
+  for (let i = 0; i < 8; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'bit-cell';
+    cell.id = 'bit_' + i;
+    cell.textContent = '0';
+    cell.addEventListener('click', () => {
+      cell.classList.toggle('on');
+      cell.textContent = cell.classList.contains('on') ? '1' : '0';
+      updateBitDisplay();
+    });
+    grid.appendChild(cell);
+    const w = document.createElement('div');
+    w.textContent = (1 << (7-i));
+    weights.appendChild(w);
+  }
+}
+
+// ============ BOOLEAN ============
+function evalBool(expr, values){
+  // A,B,C,D in values
+  let js = expr
+    .replace(/!/g, '!')
+    .replace(/&/g, '&&')
+    .replace(/\|/g, '||')
+    .replace(/\^/g, '!=')  // XOR via != on booleans
+    .replace(/\bA\b/g, values.A)
+    .replace(/\bB\b/g, values.B)
+    .replace(/\bC\b/g, values.C)
+    .replace(/\bD\b/g, values.D);
+  try {
+    return !!(new Function('return ' + js)()) ? 1 : 0;
+  } catch(e) { return null; }
+}
+function buildTT(){
+  const expr = document.getElementById('tt_expr').value;
+  const vars = ['A','B','C','D'].filter(v => expr.includes(v));
+  const n = vars.length;
+  if (n === 0) {
+    document.getElementById('tt_out').innerHTML = '<div class="feedback show wrong">Use A, B, C, or D in the expression.</div>';
+    return;
+  }
+  let html = '<table><tr>';
+  vars.forEach(v => html += `<th>${v}</th>`);
+  html += `<th>${expr}</th></tr>`;
+  for (let i = 0; i < (1<<n); i++) {
+    const vals = {A:0,B:0,C:0,D:0};
+    vars.forEach((v, j) => { vals[v] = (i >> (n-1-j)) & 1; });
+    html += '<tr>';
+    vars.forEach(v => html += `<td>${vals[v]}</td>`);
+    const r = evalBool(expr, vals);
+    html += `<td><strong>${r === null ? 'ERR' : r}</strong></td></tr>`;
+  }
+  html += '</table>';
+  document.getElementById('tt_out').innerHTML = html;
+}
+
+// GATE ID
+const gates = {
+  AND:  [0,0,0,1],
+  OR:   [0,1,1,1],
+  NAND: [1,1,1,0],
+  NOR:  [1,0,0,0],
+  XOR:  [0,1,1,0],
+  XNOR: [1,0,0,1],
+};
+let gate_target = '', gate_score = 0;
+function newGate(){
+  const names = Object.keys(gates);
+  gate_target = names[Math.floor(Math.random() * names.length)];
+  const t = gates[gate_target];
+  let html = '<table><tr><th>A</th><th>B</th><th>Q</th></tr>';
+  for (let i = 0; i < 4; i++) {
+    const a = (i >> 1) & 1, b = i & 1;
+    html += `<tr><td>${a}</td><td>${b}</td><td><strong>${t[i]}</strong></td></tr>`;
+  }
+  html += '</table>';
+  document.getElementById('gate_table').innerHTML = html;
+  document.getElementById('gate_input').value = '';
+  document.getElementById('gate_fb').classList.remove('show');
+}
+function checkGate(){
+  const ans = document.getElementById('gate_input').value;
+  const fb = document.getElementById('gate_fb');
+  fb.classList.add('show');
+  if (ans === gate_target) {
+    fb.className = 'feedback show correct';
+    fb.innerHTML = `<strong>Correct!</strong> It's ${gate_target}.`;
+    gate_score++; document.getElementById('gate_score').textContent = gate_score;
+    setTimeout(newGate, 1100);
+  } else {
+    fb.className = 'feedback show wrong';
+    fb.innerHTML = `<strong>Wrong.</strong> It was ${gate_target}.`;
+  }
+}
+
+// ============ LMC ============
+const lmcExamples = {
+  mod: `// Mod (remainder of m[08] / m[09])
+LDA 08
+SUB 09
+BRP 06
+LDA 08
+OUT
+HLT
+STA 08
+BRA 00
+DAT 6
+DAT 4`,
+  add: `// Add two inputs
+INP
+STA 08
+INP
+ADD 08
+OUT
+HLT
+DAT 0`,
+  count: `// Countdown from input to 1
+INP
+STA 09
+LDA 09
+OUT
+SUB 10
+STA 09
+BRP 02
+HLT
+DAT 0
+DAT 1`,
+  mul: `// Multiply two inputs (loop)
+INP
+STA 08
+INP
+STA 09
+LDA 11
+ADD 08
+STA 11
+LDA 09
+SUB 10
+STA 09
+BRP 04
+LDA 11
+OUT
+HLT
+DAT 0
+DAT 1
+DAT 0`
+};
+function loadLMC(name){
+  document.getElementById('lmc_code').value = lmcExamples[name];
+  if (name === 'add') document.getElementById('lmc_inputs').value = '5,3';
+  else if (name === 'count') document.getElementById('lmc_inputs').value = '5';
+  else if (name === 'mul') document.getElementById('lmc_inputs').value = '4,3';
+  else document.getElementById('lmc_inputs').value = '';
+}
+function runLMC(){
+  const code = document.getElementById('lmc_code').value;
+  const inputs = document.getElementById('lmc_inputs').value.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+  const out = document.getElementById('lmc_out');
+  // Parse
+  const lines = code.split('\n').map(l => l.replace(/\/\/.*$/, '').trim()).filter(l => l);
+  const memory = new Array(100).fill(0);
+  const labels = {};
+  // Pass 1: detect if labels present
+  // For simplicity, our LMC uses absolute addresses (00, 01...)
+  // Each non-label line is one instruction at sequential addresses
+  const program = [];
+  lines.forEach((ln, i) => {
+    program.push(ln);
+  });
+  // Encode instructions
+  const opcodes = {INP:901, OUT:902, HLT:0};
+  program.forEach((ln, i) => {
+    const parts = ln.split(/\s+/);
+    const op = parts[0].toUpperCase();
+    if (op === 'INP' || op === 'OUT' || op === 'HLT') {
+      memory[i] = opcodes[op];
+    } else if (op === 'DAT') {
+      memory[i] = parseInt(parts[1]) || 0;
+    } else {
+      const arg = parseInt(parts[1]);
+      const opMap = {LDA:5, STA:3, ADD:1, SUB:2, BRA:6, BRZ:7, BRP:8};
+      memory[i] = (opMap[op] || 0) * 100 + arg;
+    }
+  });
+  // Run
+  let pc = 0, ac = 0;
+  const trace = [];
+  let inIdx = 0, outputs = [];
+  let steps = 0;
+  while (steps < 1000) {
+    steps++;
+    const addr = pc;
+    const instr = memory[pc];
+    if (instr === undefined || instr === 0 && program[pc] && program[pc].toUpperCase().startsWith('HLT')) {
+      trace.push({pc:addr, instr: program[addr]||'?', ac, halt:true});
+      break;
+    }
+    pc++;
+    const op = Math.floor(instr / 100);
+    const arg = instr % 100;
+    let cond = '';
+    if (instr === 901) {
+      ac = inputs[inIdx++] || 0;
+    } else if (instr === 902) {
+      outputs.push(ac);
+    } else if (op === 5) ac = memory[arg];
+    else if (op === 3) memory[arg] = ac;
+    else if (op === 1) ac = ac + memory[arg];
+    else if (op === 2) ac = ac - memory[arg];
+    else if (op === 6) pc = arg;
+    else if (op === 7) { cond = (ac === 0) ? 'TRUE' : 'FALSE'; if (ac === 0) pc = arg; }
+    else if (op === 8) { cond = (ac >= 0) ? 'TRUE' : 'FALSE'; if (ac >= 0) pc = arg; }
+    else if (instr === 0) { trace.push({pc:addr, instr: program[addr]||'HLT', ac, halt:true}); break; }
+    trace.push({pc:addr, instr: program[addr]||'?', ac, cond, output: outputs.length ? outputs[outputs.length-1] : ''});
+  }
+  // Render trace
+  let html = '<h4>Trace Table</h4><div style="overflow-x:auto"><table class="lmc-trace"><tr><th>PC</th><th>Instruction</th><th>AC</th><th>Cond</th><th>Output</th></tr>';
+  trace.forEach((t, i) => {
+    html += `<tr><td>${String(t.pc).padStart(2,'0')}</td><td>${t.instr}</td><td>${t.ac}</td><td>${t.cond||''}</td><td>${i === trace.length-1 || trace[i+1] && t.output !== (trace[i-1]||{}).output ? t.output : ''}</td></tr>`;
+  });
+  html += '</table></div>';
+  html += `<h4>Outputs</h4><pre><code>${outputs.join(', ') || '(none)'}</code></pre>`;
+  out.innerHTML = html;
+}
+
+// ============ ALGORITHMS ============
+// BUBBLE SORT
+let bub_arr = [], bub_steps = [], bub_idx = 0, bub_dir = 'asc';
+function bubStart(){
+  bub_arr = document.getElementById('bub_input').value.split(',').map(x => parseInt(x.trim()));
+  bub_dir = document.getElementById('bub_dir').value;
+  // generate all steps
+  bub_steps = [];
+  const a = [...bub_arr];
+  const n = a.length;
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < n - 1 - i; j++) {
+      bub_steps.push({type:'compare', i:j, j:j+1, arr:[...a], pass:i});
+      const cond = bub_dir === 'asc' ? a[j] > a[j+1] : a[j] < a[j+1];
+      if (cond) {
+        [a[j], a[j+1]] = [a[j+1], a[j]];
+        bub_steps.push({type:'swap', i:j, j:j+1, arr:[...a], pass:i});
+      }
+    }
+    bub_steps.push({type:'pass-end', sortedFrom: n - 1 - i, arr:[...a]});
+  }
+  bub_steps.push({type:'done', arr:[...a]});
+  bub_idx = 0;
+  document.getElementById('bub_log').innerHTML = '';
+  bubRender();
+}
+function bubRender(){
+  const arr = bub_steps[bub_idx]?.arr || bub_arr;
+  const step = bub_steps[bub_idx];
+  let html = '';
+  arr.forEach((v, k) => {
+    let cls = 'viz-cell';
+    if (step) {
+      if (step.type === 'compare' && (k === step.i || k === step.j)) cls += ' compare';
+      if (step.type === 'swap' && (k === step.i || k === step.j)) cls += ' swap';
+      if (step.type === 'pass-end' && k >= step.sortedFrom) cls += ' sorted';
+      if (step.type === 'done') cls += ' sorted';
+    }
+    html += `<div class="${cls}">${v}</div>`;
+  });
+  document.getElementById('bub_viz').innerHTML = html;
+}
+function bubStep(){
+  if (bub_idx >= bub_steps.length) return;
+  const step = bub_steps[bub_idx];
+  const log = document.getElementById('bub_log');
+  if (step.type === 'compare') {
+    log.innerHTML += `<div class="info">Compare arr[${step.i}]=${step.arr[step.i]} with arr[${step.j}]=${step.arr[step.j]}</div>`;
+  } else if (step.type === 'swap') {
+    log.innerHTML += `<div class="action">Swap! arr=[${step.arr.join(',')}]</div>`;
+  } else if (step.type === 'pass-end') {
+    log.innerHTML += `<div class="ok">Pass complete · sorted tail: ${step.arr.slice(step.sortedFrom).join(',')}</div>`;
+  } else if (step.type === 'done') {
+    log.innerHTML += `<div class="ok"><strong>Sorted: [${step.arr.join(',')}]</strong></div>`;
+  }
+  log.scrollTop = log.scrollHeight;
+  bub_idx++;
+  bubRender();
+}
+function bubAuto(){
+  if (bub_idx >= bub_steps.length) return;
+  bubStep();
+  setTimeout(bubAuto, 300);
+}
+function bubRandom(){
+  const n = 8;
+  const arr = [];
+  while (arr.length < n) arr.push(Math.floor(Math.random()*20)+1);
+  document.getElementById('bub_input').value = arr.join(',');
+  bubStart();
+}
+
+// INSERTION SORT
+let ins_arr = [], ins_steps = [], ins_idx = 0;
+function insStart(){
+  ins_arr = document.getElementById('ins_input').value.split(',').map(x => parseInt(x.trim()));
+  ins_steps = [];
+  const a = [...ins_arr];
+  const n = a.length;
+  for (let i = 1; i < n; i++) {
+    const key = a[i];
+    let j = i - 1;
+    ins_steps.push({type:'pick', i, key, arr:[...a]});
+    while (j >= 0 && a[j] > key) {
+      a[j+1] = a[j];
+      j--;
+      ins_steps.push({type:'shift', i:j+1, key, arr:[...a]});
+    }
+    a[j+1] = key;
+    ins_steps.push({type:'insert', i:j+1, key, arr:[...a], sortedTo:i});
+  }
+  ins_steps.push({type:'done', arr:[...a]});
+  ins_idx = 0;
+  document.getElementById('ins_log').innerHTML = '';
+  insRender();
+}
+function insRender(){
+  const arr = ins_steps[ins_idx]?.arr || ins_arr;
+  const step = ins_steps[ins_idx];
+  let html = '';
+  arr.forEach((v, k) => {
+    let cls = 'viz-cell';
+    if (step) {
+      if (step.type === 'pick' && k === step.i) cls += ' compare';
+      if (step.type === 'shift' && k === step.i) cls += ' swap';
+      if (step.type === 'insert' && k === step.i) cls += ' sorted';
+      if (step.type === 'done') cls += ' sorted';
+    }
+    html += `<div class="${cls}">${v}</div>`;
+  });
+  document.getElementById('ins_viz').innerHTML = html;
+}
+function insStep(){
+  if (ins_idx >= ins_steps.length) return;
+  const step = ins_steps[ins_idx];
+  const log = document.getElementById('ins_log');
+  if (step.type === 'pick') log.innerHTML += `<div class="info">Pick key=${step.key} at position ${step.i}</div>`;
+  else if (step.type === 'shift') log.innerHTML += `<div class="action">Shift right · arr=[${step.arr.join(',')}]</div>`;
+  else if (step.type === 'insert') log.innerHTML += `<div class="ok">Insert ${step.key} at position ${step.i}</div>`;
+  else if (step.type === 'done') log.innerHTML += `<div class="ok"><strong>Sorted: [${step.arr.join(',')}]</strong></div>`;
+  log.scrollTop = log.scrollHeight;
+  ins_idx++;
+  insRender();
+}
+function insAuto(){
+  if (ins_idx >= ins_steps.length) return;
+  insStep();
+  setTimeout(insAuto, 350);
+}
+function insRandom(){
+  const arr = [];
+  while (arr.length < 8) arr.push(Math.floor(Math.random()*20)+1);
+  document.getElementById('ins_input').value = arr.join(',');
+  insStart();
+}
+
+// BINARY SEARCH
+let bs_arr = [], bs_target = 0, bs_steps = [], bs_idx = 0;
+function bsStart(){
+  bs_arr = document.getElementById('bs_arr').value.split(',').map(x => parseInt(x.trim())).sort((a,b)=>a-b);
+  bs_target = parseInt(document.getElementById('bs_target').value);
+  bs_steps = [];
+  let low = 0, high = bs_arr.length - 1;
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    bs_steps.push({low, mid, high, target: bs_target, arr: [...bs_arr]});
+    if (bs_arr[mid] === bs_target) { bs_steps.push({found: mid, arr: [...bs_arr]}); break; }
+    if (bs_arr[mid] > bs_target) high = mid - 1;
+    else low = mid + 1;
+  }
+  if (bs_steps[bs_steps.length-1].found === undefined) bs_steps.push({notfound:true, arr:[...bs_arr]});
+  bs_idx = 0;
+  document.getElementById('bs_log').innerHTML = '';
+  bsRender();
+}
+function bsRender(){
+  const step = bs_steps[bs_idx] || {arr:bs_arr};
+  let html = '';
+  bs_arr.forEach((v, k) => {
+    let cls = 'viz-cell';
+    if (step.found !== undefined && k === step.found) cls += ' found';
+    else if (step.low !== undefined) {
+      if (k < step.low || k > step.high) cls += ' discarded';
+      else if (k === step.mid) cls += ' mid';
+    } else if (step.notfound) cls += ' discarded';
+    html += `<div class="${cls}">${v}</div>`;
+  });
+  document.getElementById('bs_viz').innerHTML = html;
+}
+function bsStep(){
+  if (bs_idx >= bs_steps.length) return;
+  const step = bs_steps[bs_idx];
+  const log = document.getElementById('bs_log');
+  if (step.low !== undefined) {
+    log.innerHTML += `<div class="info">low=${step.low}, high=${step.high}, mid=${step.mid} → arr[mid]=${bs_arr[step.mid]}, target=${bs_target}</div>`;
+  } else if (step.found !== undefined) {
+    log.innerHTML += `<div class="ok"><strong>Found at index ${step.found}!</strong></div>`;
+  } else {
+    log.innerHTML += `<div class="action">Not found.</div>`;
+  }
+  log.scrollTop = log.scrollHeight;
+  bs_idx++;
+  bsRender();
+}
+
+// BST
+function bstBuild(){
+  const items = document.getElementById('bst_input').value.split(',').map(x => x.trim());
+  // build tree
+  let root = null;
+  function insert(node, v) {
+    if (!node) return {v, l:null, r:null};
+    if (v < node.v) node.l = insert(node.l, v);
+    else if (v > node.v) node.r = insert(node.r, v);
+    return node;
+  }
+  items.forEach(v => root = insert(root, v));
+  // calculate positions
+  function setPos(node, depth, xMin, xMax) {
+    if (!node) return;
+    node.depth = depth;
+    node.x = (xMin + xMax) / 2;
+    node.y = 50 + depth * 70;
+    setPos(node.l, depth+1, xMin, node.x);
+    setPos(node.r, depth+1, node.x, xMax);
+  }
+  setPos(root, 0, 30, 770);
+  // build SVG
+  const svg = document.getElementById('bst_svg');
+  let svgContent = '';
+  function drawEdges(node) {
+    if (!node) return;
+    if (node.l) {
+      svgContent += `<line x1="${node.x}" y1="${node.y}" x2="${node.l.x}" y2="${node.l.y}" stroke="#a8a094" stroke-width="2"/>`;
+      drawEdges(node.l);
+    }
+    if (node.r) {
+      svgContent += `<line x1="${node.x}" y1="${node.y}" x2="${node.r.x}" y2="${node.r.y}" stroke="#a8a094" stroke-width="2"/>`;
+      drawEdges(node.r);
+    }
+  }
+  function drawNodes(node) {
+    if (!node) return;
+    svgContent += `<circle cx="${node.x}" cy="${node.y}" r="22" fill="#fff" stroke="#c8421f" stroke-width="2"/>`;
+    svgContent += `<text x="${node.x}" y="${node.y+5}" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#1a1a1a">${node.v}</text>`;
+    drawNodes(node.l); drawNodes(node.r);
+  }
+  drawEdges(root);
+  drawNodes(root);
+  svg.innerHTML = svgContent;
+  // traversals
+  function inorder(n, a){ if(!n)return; inorder(n.l,a); a.push(n.v); inorder(n.r,a); }
+  function preorder(n, a){ if(!n)return; a.push(n.v); preorder(n.l,a); preorder(n.r,a); }
+  function postorder(n, a){ if(!n)return; postorder(n.l,a); postorder(n.r,a); a.push(n.v); }
+  const i=[],pr=[],po=[];
+  inorder(root, i); preorder(root, pr); postorder(root, po);
+  document.getElementById('bst_traversals').innerHTML = `
+    <div class="ok">Root: <strong>${root.v}</strong></div>
+    <div class="info">In-order:    ${i.join(' → ')}</div>
+    <div class="info">Pre-order:   ${pr.join(' → ')}</div>
+    <div class="info">Post-order:  ${po.join(' → ')}</div>
+  `;
+}
+
+// ============ SQL ============
+let SQLDB = null;
+async function initSQL(){
+  try {
+    const SQL = await initSqlJs({ locateFile: f => `https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/${f}` });
+    SQLDB = new SQL.Database();
+    seedDB();
+    document.getElementById('sql_status').textContent = 'Ready';
+    document.getElementById('sql_status').style.color = 'var(--ok)';
+    document.getElementById('sql_status').style.borderColor = 'var(--ok)';
+  } catch(e) {
+    document.getElementById('sql_status').textContent = 'CDN failed';
+    document.getElementById('sql_result').innerHTML = '<div class="sql-error">Could not load SQL engine. Check internet connection.</div>';
+  }
+}
+function seedDB(){
+  if (!SQLDB) return;
+  SQLDB.run(`
+    DROP TABLE IF EXISTS Products;
+    DROP TABLE IF EXISTS Stores;
+    DROP TABLE IF EXISTS Deliveries;
+    CREATE TABLE Products (
+      Product_code TEXT PRIMARY KEY,
+      Title TEXT,
+      Amount INTEGER,
+      Price_tg INTEGER,
+      Domestic_producer INTEGER
+    );
+    CREATE TABLE Stores (
+      Store_code INTEGER PRIMARY KEY,
+      Title TEXT,
+      Address TEXT,
+      Phone_number TEXT
+    );
+    CREATE TABLE Deliveries (
+      Store_code INTEGER,
+      Product_code TEXT,
+      Delivery_date TEXT,
+      Product_count INTEGER
+    );
+    INSERT INTO Products VALUES
+      ('AS123','Pencil',925,58,1),
+      ('AW018','School ruler',630,990,1),
+      ('DR785','Eraser',760,194,0),
+      ('BK001','Notebook',300,450,1),
+      ('PN002','Pen',150,120,0),
+      ('CL003','Calculator',45,3500,0),
+      ('GL004','Glue stick',200,180,1),
+      ('SC005','Scissors',0,650,1);
+    INSERT INTO Stores VALUES
+      (88, 'Schoolchild', '75 Independence Street', '+77774568975'),
+      (112, 'White collar', '45B Kerey Khan Street', '+77054569871'),
+      (152, 'World Atlas', '63 Bokeikhan Street', '+77786321248');
+    INSERT INTO Deliveries VALUES
+      (88, 'AS123', '2025-06-22', 55),
+      (112, 'AW018', '2025-05-10', 50),
+      (152, 'DR785', '2025-07-07', 45),
+      (88, 'DR785', '2025-05-23', 15),
+      (88, 'AW018', '2025-06-22', 20),
+      (88, 'BK001', '2025-04-15', 30),
+      (112, 'PN002', '2025-06-01', 80),
+      (152, 'CL003', '2025-07-12', 12),
+      (88, 'GL004', '2025-05-30', 40);
+  `);
+}
+function runSQL(){
+  if (!SQLDB) { document.getElementById('sql_result').innerHTML = '<div class="sql-error">Database not ready.</div>'; return; }
+  const q = document.getElementById('sql_q').value;
+  try {
+    const res = SQLDB.exec(q);
+    if (res.length === 0) {
+      document.getElementById('sql_result').innerHTML = '<div class="ok">Query OK · 0 rows returned (write/DDL statement?)</div>';
+      return;
+    }
+    let html = '';
+    res.forEach(r => {
+      html += '<table><tr>';
+      r.columns.forEach(c => html += `<th>${c}</th>`);
+      html += '</tr>';
+      r.values.forEach(row => {
+        html += '<tr>';
+        row.forEach(v => html += `<td>${v === null ? '<em style="color:#999">NULL</em>' : v}</td>`);
+        html += '</tr>';
+      });
+      html += '</table>';
+    });
+    html += `<div class="info" style="margin-top:8px">${res[0].values.length} row(s) returned</div>`;
+    document.getElementById('sql_result').innerHTML = html;
+  } catch(e) {
+    document.getElementById('sql_result').innerHTML = `<div class="sql-error">Error: ${e.message}</div>`;
+  }
+}
+function loadSQL(name){
+  const queries = {
+    all_products: 'SELECT * FROM Products;',
+    store_88: "SELECT * FROM Deliveries\nWHERE Store_code = 88\nORDER BY Delivery_date ASC;",
+    update_price: "UPDATE Products\nSET Price_tg = Price_tg * 1.1;\n\nSELECT Product_code, Title, Price_tg FROM Products;",
+    insert: "INSERT INTO Products (Product_code, Title, Amount, Price_tg, Domestic_producer)\nVALUES ('TX001', 'Notebook', 100, 850, 1);\n\nSELECT * FROM Products WHERE Product_code = 'TX001';",
+    delete: "DELETE FROM Products WHERE Amount = 0;\n\nSELECT * FROM Products;",
+    alter: "ALTER TABLE Products ADD Discount INTEGER DEFAULT 0;\n\nSELECT * FROM Products LIMIT 3;",
+    join: "SELECT P.Title, D.Delivery_date, D.Product_count, S.Title AS Store\nFROM Deliveries D\nJOIN Products P ON D.Product_code = P.Product_code\nJOIN Stores S ON D.Store_code = S.Store_code\nORDER BY D.Delivery_date;",
+    schema: "SELECT name, sql FROM sqlite_master WHERE type = 'table';"
+  };
+  document.getElementById('sql_q').value = queries[name];
+}
+function resetDB(){
+  seedDB();
+  document.getElementById('sql_result').innerHTML = '<div class="ok">Database reset.</div>';
+}
+
+// ============ HTML SANDBOX ============
+const htmlExamples = {
+  caesar: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Georgia, serif; padding: 20px; }
+  h1 { color: red; text-decoration: underline; }
+  input, button { font-size: 14px; padding: 6px; margin: 4px 0; }
+</style>
+</head>
+<body>
+<h1>Caesar Cipher</h1>
+<form>
+  <label>Enter message:</label><br>
+  <input type="text" id="msg"><br>
+  <label>Operation:</label><br>
+  <input type="radio" name="op" value="encrypt" checked> Encrypt
+  <input type="radio" name="op" value="decrypt"> Decrypt<br>
+  <input type="submit" value="Go">
+  <br>
+  <label>Result:</label><br>
+  <input type="text" id="result">
+</form>
+</body>
+</html>`,
+  login: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { background: #f0f0f0; font-family: sans-serif;
+         display: flex; justify-content: center; align-items: center;
+         min-height: 100vh; margin: 0; }
+  .card { background: white; padding: 32px; border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 320px; }
+  h2 { margin-top: 0; }
+  input { width: 100%; padding: 10px; margin: 6px 0;
+          border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+  button { width: 100%; padding: 12px; background: #1d6b62;
+           color: white; border: 0; border-radius: 4px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>Sign in</h2>
+  <input type="email" placeholder="Email">
+  <input type="password" placeholder="Password">
+  <button>Login</button>
+</div>
+</body>
+</html>`,
+  table: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  table { border-collapse: collapse; width: 100%; }
+  th { background: #1d6b62; color: white; padding: 12px;
+       text-align: left; }
+  td { padding: 10px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  tr:hover td { background: #fff8e1; }
+</style>
+</head>
+<body>
+<h2>Products</h2>
+<table>
+  <tr><th>Code</th><th>Title</th><th>Price</th></tr>
+  <tr><td>AS123</td><td>Pencil</td><td>58</td></tr>
+  <tr><td>AW018</td><td>Ruler</td><td>990</td></tr>
+  <tr><td>DR785</td><td>Eraser</td><td>194</td></tr>
+</table>
+</body>
+</html>`,
+  flex: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  .container { display: flex; gap: 16px; padding: 20px;
+               background: #f5f1e8; min-height: 100vh; }
+  .box { flex: 1; padding: 24px; background: white;
+         border-radius: 6px; text-align: center;
+         box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+  .box h3 { margin: 0 0 12px; color: #c8421f; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="box"><h3>Card 1</h3><p>Equal width via flex: 1</p></div>
+  <div class="box"><h3>Card 2</h3><p>Resize the window!</p></div>
+  <div class="box"><h3>Card 3</h3><p>Try gap: 16px</p></div>
+</div>
+</body>
+</html>`,
+  grid: `<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: sans-serif; margin: 0; padding: 20px; background: #fafaf2; }
+  .grid { display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 12px; }
+  .item { padding: 24px; background: #1d6b62; color: white;
+          text-align: center; border-radius: 4px; font-weight: 700; }
+</style>
+</head>
+<body>
+<h2>CSS Grid</h2>
+<div class="grid">
+  <div class="item">A</div>
+  <div class="item">B</div>
+  <div class="item">C</div>
+  <div class="item">D</div>
+  <div class="item">E</div>
+  <div class="item">F</div>
+</div>
+</body>
+</html>`
+};
+function renderHTML(){
+  const code = document.getElementById('html_code').value;
+  document.getElementById('html_preview').srcdoc = code;
+}
+function loadHTML(name){
+  document.getElementById('html_code').value = htmlExamples[name];
+  renderHTML();
+}
+
+// ============ JS ============
+const jsExamples = {
+  basics: `// Variables and types
+const name = "Aizhan";
+let age = 17;
+const grades = [4, 5, 5, 4, 3];
+
+// Sum the grades
+let sum = 0;
+for (let i = 0; i < grades.length; i++) {
+  sum += grades[i];
+}
+const average = sum / grades.length;
+
+console.log(\`\${name}, age \${age}\`);
+console.log("Average grade:", average);`,
+  caesar: `// Caesar cipher with shift +1
+function encrypt(text) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  let result = "";
+  text = text.toLowerCase();
+  for (let i = 0; i < text.length; i++) {
+    const idx = alphabet.indexOf(text[i]);
+    if (idx === -1) result += text[i];
+    else result += alphabet[(idx + 1) % 26];
+  }
+  return result;
+}
+
+console.log(encrypt("hello world"));
+console.log(encrypt("buzz"));`,
+  bubble: `function bubbleSort(arr) {
+  const a = [...arr];
+  for (let i = 0; i < a.length - 1; i++) {
+    for (let j = 0; j < a.length - 1 - i; j++) {
+      if (a[j] > a[j+1]) {
+        [a[j], a[j+1]] = [a[j+1], a[j]];
+      }
+    }
+  }
+  return a;
+}
+
+console.log(bubbleSort([5, 2, 8, 1, 9, 3]));`,
+  binsearch: `function binarySearch(arr, target) {
+  let low = 0, high = arr.length - 1;
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    if (arr[mid] === target) return mid;
+    if (arr[mid] > target) high = mid - 1;
+    else low = mid + 1;
+  }
+  return -1;
+}
+
+const sorted = [1, 3, 5, 7, 9, 11, 13, 15, 17];
+console.log("Index of 9:", binarySearch(sorted, 9));
+console.log("Index of 10:", binarySearch(sorted, 10));`,
+  factorial: `// Iterative
+function factorial(n) {
+  let r = 1;
+  for (let i = 2; i <= n; i++) r *= i;
+  return r;
+}
+
+// Recursive
+function factR(n) {
+  if (n <= 1) return 1;
+  return n * factR(n - 1);
+}
+
+console.log(factorial(5));  // 120
+console.log(factR(7));      // 5040`
+};
+function loadJS(name){
+  document.getElementById('js_code').value = jsExamples[name];
+}
+function runJS(){
+  const code = document.getElementById('js_code').value;
+  const out = document.getElementById('js_out');
+  out.innerHTML = '<div class="ok">Running...</div>';
+  const logs = [];
+  const fakeConsole = {
+    log: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' '))
+  };
+  try {
+    new Function('console', code)(fakeConsole);
+    out.innerHTML = '<div class="info">Output:</div>' + logs.map(l => `<div>${l.replace(/</g,'&lt;')}</div>`).join('');
+    if (logs.length === 0) out.innerHTML += '<div class="info">(no console.log output)</div>';
+  } catch(e) {
+    out.innerHTML = `<div class="sql-error">Error: ${e.message}</div>`;
+  }
+}
+
+// ============ INIT ============
+window.addEventListener('DOMContentLoaded', () => {
+  initBitBuilder();
+  newD2B();
+  newB2D();
+  newHex();
+  newTW();
+  newAdd();
+  newMul();
+  newFx();
+  newFl();
+  buildTT();
+  newGate();
+  loadLMC('mod');
+  bubStart();
+  insStart();
+  bsStart();
+  bstBuild();
+  loadHTML('caesar');
+  loadJS('basics');
+  initSQL();
+});
+
+// Enter key submits in input fields
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  const id = e.target.id;
+  const map = {
+    d2b_input: checkD2B, b2d_input: checkB2D, hex_input: checkHex, tw_input: checkTW,
+    add_input: checkAdd, mul_input: checkMul, fx_input: checkFx,
+    fl_m: checkFl, fl_e: checkFl, gate_input: checkGate
+  };
+  if (map[id]) { e.preventDefault(); map[id](); }
+});
+</script>
+</body>
+</html>

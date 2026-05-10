@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МЭСК Paper 3 · Programming Deep Dive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f1e8;--bg-2:#ffffff;--bg-3:#ebe5d6;
+  --ink:#1a1a1a;--ink-dim:#6b6357;--ink-low:#a8a094;
+  --accent:#c8421f;--accent-2:#1d6b62;--accent-3:#b8841a;
+  --line:#d9d1bf;--code-bg:#fbf8f0;
+  --ok:#4a7c3a;--bad:#c8421f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);
+  line-height:1.6;font-size:15px;min-height:100vh;
+  background-image:radial-gradient(ellipse at top right,rgba(200,66,31,0.05),transparent 50%),radial-gradient(ellipse at bottom left,rgba(29,107,98,0.04),transparent 50%);
+}
+.hero{border-bottom:1px solid var(--line);padding:48px 6% 56px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;opacity:0.4;mask-image:radial-gradient(ellipse at center,black 30%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;max-width:1400px;margin:0 auto}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:30px;height:1px;background:var(--accent)}
+h1.title{font-family:'Fraunces',serif;font-size:clamp(40px,6vw,72px);font-weight:600;line-height:0.95;letter-spacing:-0.03em;margin-bottom:18px}
+h1.title em{font-style:italic;color:var(--accent);font-weight:400}
+.subtitle{font-size:16px;color:var(--ink-dim);max-width:640px;margin-bottom:28px}
+.q-meta{display:flex;flex-wrap:wrap;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-dim);padding-top:24px;border-top:1px solid var(--line)}
+.q-meta strong{color:var(--ink);font-weight:500}
+
+.nav-bar{position:sticky;top:0;z-index:100;background:rgba(245,241,232,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0 6%}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{background:none;border:none;color:var(--ink-dim);font-family:'JetBrains Mono',monospace;font-size:12px;padding:14px 18px;cursor:pointer;white-space:nowrap;transition:color 0.2s;border-bottom:2px solid transparent;letter-spacing:0.05em}
+.nav-btn:hover{color:var(--ink)}
+.nav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-btn .num{color:var(--ink-low);margin-right:6px;font-weight:700}
+.nav-btn.active .num{color:var(--accent)}
+.nav-btn .marks{color:var(--ink-low);font-size:10px;margin-left:4px}
+
+main{padding:40px 6% 100px;max-width:1400px;margin:0 auto}
+.section{display:none;animation:fade 0.3s ease}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.q-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--line);
+  flex-wrap:wrap;gap:16px;
+}
+.q-title{font-family:'Fraunces',serif;font-size:42px;font-weight:500;line-height:1;letter-spacing:-0.02em}
+.q-title em{font-style:italic;color:var(--accent)}
+.q-info{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:right}
+.q-info div+div{margin-top:4px}
+
+.block{
+  border:1px solid var(--line);background:var(--bg-2);
+  padding:24px;margin-bottom:18px;
+}
+.block-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:14px;gap:12px;flex-wrap:wrap;
+}
+.block-head h3{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:600;
+  letter-spacing:-0.01em;
+}
+.block-head h3 em{font-style:italic;color:var(--accent);font-weight:400}
+.tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink-dim);border:1px solid var(--line);
+  padding:3px 8px;flex-shrink:0;
+}
+.tag.warn{color:var(--accent);border-color:var(--accent)}
+.tag.ok{color:var(--ok);border-color:var(--ok)}
+.tag.acc2{color:var(--accent-2);border-color:var(--accent-2)}
+
+h4{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--accent-2);margin:18px 0 8px;
+}
+h4:first-child{margin-top:0}
+p{margin-bottom:10px}
+ul,ol{margin:8px 0 12px 22px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+
+code{font-family:'JetBrains Mono',monospace;background:var(--code-bg);padding:2px 5px;font-size:13px;color:var(--accent-2);border:1px solid var(--line)}
+pre{background:var(--code-bg);border:1px solid var(--line);border-left:3px solid var(--accent);padding:14px;overflow-x:auto;margin:10px 0;font-size:13px}
+pre code{background:none;border:none;padding:0;color:var(--ink);font-size:13px;line-height:1.65}
+.kw{color:#a83279;font-weight:500}
+.str{color:#8a6210}
+.com{color:var(--ink-low);font-style:italic}
+.num{color:#155b54}
+.fn{color:#5a3ba0}
+
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{text-align:left;padding:8px 12px;border:1px solid var(--line)}
+th{background:var(--bg-3);font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-dim);font-weight:500}
+td{background:var(--code-bg)}
+.hl{background:rgba(255,193,7,0.15) !important;font-weight:600}
+
+.callout{
+  border:1px solid var(--line);border-left:3px solid var(--accent-2);
+  background:rgba(29,107,98,0.05);padding:12px 16px;margin:12px 0;font-size:13px;
+}
+.callout strong{color:var(--accent-2)}
+.callout.warn{border-left-color:var(--accent);background:rgba(200,66,31,0.05)}
+.callout.warn strong{color:var(--accent)}
+.callout.tip{border-left-color:var(--accent-3);background:rgba(184,132,26,0.06)}
+.callout.tip strong{color:var(--accent-3)}
+.callout.forecast{
+  border:1px dashed var(--accent);border-left:3px solid var(--accent);
+  background:rgba(200,66,31,0.04);
+}
+.callout.forecast strong{color:var(--accent)}
+
+.mark-pill{
+  display:inline-block;font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:0.05em;padding:2px 8px;
+  background:var(--accent);color:white;margin-right:6px;
+}
+
+/* SOLUTION TOGGLE */
+.collapse{margin-top:8px}
+.collapse-toggle{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--accent);cursor:pointer;
+  letter-spacing:0.05em;text-transform:uppercase;
+  user-select:none;display:inline-block;
+  padding:6px 0;
+}
+.collapse-toggle:hover{color:var(--accent-2)}
+.collapse-body{
+  display:none;margin-top:8px;padding:14px 16px;
+  background:var(--code-bg);border-left:2px solid var(--accent-3);
+  font-size:14px;
+}
+.collapse.open .collapse-body{display:block}
+
+/* TASK */
+.task{
+  border:1px solid var(--line);background:var(--bg-2);
+  padding:18px;margin:12px 0;
+}
+.task-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:10px;gap:8px;flex-wrap:wrap;
+}
+.task-num{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--accent);font-weight:700;letter-spacing:0.1em;
+}
+.task-q{
+  font-family:'Fraunces',serif;font-size:16px;
+  margin-bottom:10px;line-height:1.5;
+}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:768px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+.mini-card{
+  border:1px solid var(--line);padding:14px;
+  background:var(--code-bg);
+}
+.mini-card h5{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;
+}
+.mini-card p{font-size:13px;color:var(--ink-dim);margin:0}
+
+/* TRACE TABLE */
+.trace{font-size:12px}
+.trace td{font-family:'JetBrains Mono',monospace;text-align:center;padding:4px 8px}
+.trace .row-active{background:rgba(200,66,31,0.1)}
+
+footer{border-top:1px solid var(--line);padding:24px 6%;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-low)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">МЭСК · Paper 3 · Programming</div>
+    <h1 class="title">Paper 3 <em>Deep Dive</em></h1>
+    <p class="subtitle">Question-by-question walkthrough of the 2025 Programming paper, with every mark-scheme detail, plus likely 2026 variations of each question type.</p>
+    <div class="q-meta">
+      <span><strong>8</strong> question types</span>
+      <span><strong>60</strong> marks</span>
+      <span><strong>2h</strong> duration</span>
+      <span><strong>~2 min</strong> per mark</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-target="overview"><span class="num">★</span>Overview</button>
+    <button class="nav-btn" data-target="q1"><span class="num">Q1</span>Sorting<span class="marks">·5</span></button>
+    <button class="nav-btn" data-target="q2"><span class="num">Q2</span>LMC Assembly<span class="marks">·9</span></button>
+    <button class="nav-btn" data-target="q3"><span class="num">Q3</span>Search<span class="marks">·8</span></button>
+    <button class="nav-btn" data-target="q4"><span class="num">Q4</span>Stack/Queue<span class="marks">·2</span></button>
+    <button class="nav-btn" data-target="q5"><span class="num">Q5</span>BST<span class="marks">·6</span></button>
+    <button class="nav-btn" data-target="q6"><span class="num">Q6</span>Prolog<span class="marks">·11</span></button>
+    <button class="nav-btn" data-target="q7"><span class="num">Q7</span>Web+Errors<span class="marks">·16</span></button>
+    <button class="nav-btn" data-target="q8"><span class="num">Q8</span>PHP<span class="marks">·3</span></button>
+    <button class="nav-btn" data-target="extras"><span class="num">+</span>Likely Extras</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ========== OVERVIEW ========== -->
+<section class="section active" id="overview">
+  <div class="q-header">
+    <h2 class="q-title">Strategy <em>map</em></h2>
+    <div class="q-info">
+      <div>// 60 marks · 120 minutes</div>
+      <div>// ≈ 2 minutes per mark</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>What you'll see</h3><span class="tag">based on 2025 P3</span></div>
+    <table>
+      <tr><th>Q</th><th>Topic</th><th>Marks</th><th>Time</th><th>Difficulty</th></tr>
+      <tr><td>Q1</td><td>Sorting + data structure choice</td><td>5</td><td>10 min</td><td>★★☆☆</td></tr>
+      <tr><td>Q2</td><td>LMC assembly trace + analysis</td><td>9</td><td>18 min</td><td>★★★☆</td></tr>
+      <tr><td>Q3</td><td>Search algorithm + complexity</td><td>8</td><td>16 min</td><td>★★★☆</td></tr>
+      <tr><td>Q4</td><td>Stack/Queue operations</td><td>2</td><td>4 min</td><td>★☆☆☆</td></tr>
+      <tr><td>Q5</td><td>Binary Search Tree</td><td>6</td><td>12 min</td><td>★★★☆</td></tr>
+      <tr><td>Q6</td><td>Prolog facts/rules/queries</td><td>11</td><td>22 min</td><td>★★★★</td></tr>
+      <tr><td>Q7</td><td>HTML / CSS / JS + error analysis</td><td>16</td><td>32 min</td><td>★★★★</td></tr>
+      <tr><td>Q8</td><td>PHP database connection</td><td>3</td><td>6 min</td><td>★★☆☆</td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Mark-yield priority <em>(highest ROI first)</em></h3><span class="tag warn">do these well</span></div>
+    <ol>
+      <li><strong>Q7 (16 marks)</strong> — HTML form + CSS + error analysis. Half the paper depends on this.</li>
+      <li><strong>Q6 (11 marks)</strong> — Prolog. Memorise <code>:-</code> · <code>,</code>=AND · <code>;</code>=OR · <code>\=</code>=not equal.</li>
+      <li><strong>Q2 (9 marks)</strong> — LMC trace. Slow and methodical.</li>
+      <li><strong>Q3 (8 marks)</strong> — Binary search pseudocode + complexity.</li>
+      <li><strong>Q5 (6 marks)</strong> — BST construction.</li>
+      <li><strong>Q1 (5 marks)</strong> — Sort pseudocode.</li>
+      <li><strong>Q8 (3 marks)</strong> — Easy PHP — get all 3.</li>
+      <li><strong>Q4 (2 marks)</strong> — Stack ops — easy 2 marks.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Universal mistakes that lose marks <em>(read twice)</em></h3><span class="tag warn">⚠</span></div>
+    <ul>
+      <li>Stack values: <strong>quote strings</strong> (<code>"C++"</code> not <code>C++</code>)</li>
+      <li>SQL: always specify <code>VARCHAR(n)</code> length</li>
+      <li>Pseudocode: always close blocks with <code>ENDIF</code> / <code>ENDFOR</code> / <code>ENDWHILE</code></li>
+      <li>Prolog: rules end with <code>.</code> period</li>
+      <li>HTML radio buttons: must share the same <code>name</code> attribute</li>
+      <li>PHP: variables start with <code>$</code> · concatenation is <code>.</code> not <code>+</code></li>
+      <li>Trace tables: include <strong>condition</strong> column even if blank</li>
+      <li>BST node format: each node gets <code>[Left | Data | Right]</code> with pointers</li>
+      <li>Errors: name the <strong>exact</strong> type (Runtime / Syntax / Logic)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== Q1 SORTING ========== -->
+<section class="section" id="q1">
+  <div class="q-header">
+    <h2 class="q-title">Q1 · <em>Sorting</em></h2>
+    <div class="q-info">
+      <div>// 2025: bubble sort descending</div>
+      <div>// 5 marks · 10 min</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 Question</h3><span class="tag">verbatim</span></div>
+    <p><em>"A teacher records the scores of 20 maths tests. (a) Suggest a suitable data structure to store student scores. (b) Write a code or pseudocode to sort the student scores in descending order using bubble sort."</em></p>
+
+    <h4>Answer (a) — 1 mark</h4>
+    <p><strong>1D array</strong> (also accepted: list, vector).</p>
+
+    <h4>Answer (b) — 4 marks</h4>
+    <pre><code><span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">18</span> <span class="kw">DO</span>          <span class="com">// 1 mark: outer loop</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">18</span>-i <span class="kw">DO</span>      <span class="com">// 1 mark: inner loop with valid range</span>
+        <span class="kw">IF</span> arr[j] &lt; arr[j+<span class="num">1</span>] <span class="kw">THEN</span>  <span class="com">// 1 mark: comparison (DESCENDING uses &lt;)</span>
+            t ← arr[j]
+            arr[j] ← arr[j+<span class="num">1</span>]         <span class="com">// 1 mark: swap with temp variable</span>
+            arr[j+<span class="num">1</span>] ← t
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></code></pre>
+
+    <div class="callout warn"><strong>Common errors:</strong> using <code>&gt;</code> instead of <code>&lt;</code> for descending · forgetting the temp variable · wrong loop bounds (off-by-one).</div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Bubble sort — both directions <em>(memorise both)</em></h3><span class="tag acc2">core</span></div>
+    <div class="grid-2">
+      <div>
+        <h4>Ascending (smallest first)</h4>
+        <pre><code><span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> n-<span class="num">2</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> n-<span class="num">2</span>-i <span class="kw">DO</span>
+        <span class="kw">IF</span> arr[j] &gt; arr[j+<span class="num">1</span>] <span class="kw">THEN</span>
+            <span class="com">// swap</span>
+            t ← arr[j]
+            arr[j] ← arr[j+<span class="num">1</span>]
+            arr[j+<span class="num">1</span>] ← t
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></code></pre>
+      </div>
+      <div>
+        <h4>Descending (largest first)</h4>
+        <pre><code><span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> n-<span class="num">2</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> n-<span class="num">2</span>-i <span class="kw">DO</span>
+        <span class="kw">IF</span> arr[j] &lt; arr[j+<span class="num">1</span>] <span class="kw">THEN</span>
+            <span class="com">// swap</span>
+            t ← arr[j]
+            arr[j] ← arr[j+<span class="num">1</span>]
+            arr[j+<span class="num">1</span>] ← t
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></code></pre>
+      </div>
+    </div>
+    <p><strong>Only difference:</strong> the comparison operator (<code>&gt;</code> vs <code>&lt;</code>).</p>
+  </div>
+
+  <div class="callout forecast">
+    <strong>2026 Forecast — Insertion Sort.</strong> The syllabus (11.5.2.4) lists "<em>sort by insert and bubble</em>". Bubble was tested in 2025; insertion sort is overdue. Memorise it now:
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Insertion Sort <em>(forecast)</em></h3><span class="tag warn">2026 likely</span></div>
+    <h4>Idea</h4>
+    <p>Build a sorted prefix one element at a time. For each new element, shift larger values right until it lands in the correct spot.</p>
+    <pre><code><span class="kw">FOR</span> i ← <span class="num">1</span> <span class="kw">TO</span> n-<span class="num">1</span> <span class="kw">DO</span>
+    key ← arr[i]
+    j ← i - <span class="num">1</span>
+    <span class="kw">WHILE</span> j &gt;= <span class="num">0</span> <span class="kw">AND</span> arr[j] &gt; key <span class="kw">DO</span>
+        arr[j+<span class="num">1</span>] ← arr[j]   <span class="com">// shift right</span>
+        j ← j - <span class="num">1</span>
+    <span class="kw">ENDWHILE</span>
+    arr[j+<span class="num">1</span>] ← key      <span class="com">// insert at correct slot</span>
+<span class="kw">ENDFOR</span></code></pre>
+    <h4>Trace [5, 2, 8, 1] ascending</h4>
+    <table>
+      <tr><th>Step</th><th>Array</th><th>Comment</th></tr>
+      <tr><td>start</td><td>[5, 2, 8, 1]</td><td>—</td></tr>
+      <tr><td>i=1, key=2</td><td>[2, 5, 8, 1]</td><td>shift 5 right, insert 2</td></tr>
+      <tr><td>i=2, key=8</td><td>[2, 5, 8, 1]</td><td>8 &gt; 5, no shift</td></tr>
+      <tr><td>i=3, key=1</td><td>[1, 2, 5, 8]</td><td>shift 8, 5, 2 right, insert 1</td></tr>
+    </table>
+    <p><strong>Complexity:</strong> O(n²) worst · O(n) best (already sorted). <strong>Stable</strong> sort.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice tasks</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T1.1</span><span class="tag">5 marks · bubble</span></div>
+      <div class="task-q">Write pseudocode to sort an array <code>names</code> of 100 strings <strong>alphabetically (ascending)</strong> using bubble sort.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+<pre><code><span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">98</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">98</span>-i <span class="kw">DO</span>
+        <span class="kw">IF</span> names[j] &gt; names[j+<span class="num">1</span>] <span class="kw">THEN</span>
+            t ← names[j]
+            names[j] ← names[j+<span class="num">1</span>]
+            names[j+<span class="num">1</span>] ← t
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T1.2</span><span class="tag">5 marks · insertion</span></div>
+      <div class="task-q">Sort an array <code>scores</code> of 50 integers in <strong>ascending</strong> order using insertion sort.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+<pre><code><span class="kw">FOR</span> i ← <span class="num">1</span> <span class="kw">TO</span> <span class="num">49</span> <span class="kw">DO</span>
+    key ← scores[i]
+    j ← i - <span class="num">1</span>
+    <span class="kw">WHILE</span> j &gt;= <span class="num">0</span> <span class="kw">AND</span> scores[j] &gt; key <span class="kw">DO</span>
+        scores[j+<span class="num">1</span>] ← scores[j]
+        j ← j - <span class="num">1</span>
+    <span class="kw">ENDWHILE</span>
+    scores[j+<span class="num">1</span>] ← key
+<span class="kw">ENDFOR</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T1.3</span><span class="tag">tracing</span></div>
+      <div class="task-q">Trace bubble sort on [4, 1, 3, 2] ascending, showing the array after each <strong>swap</strong>.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+          <table>
+            <tr><th>State</th><th>Array</th></tr>
+            <tr><td>start</td><td>[4, 1, 3, 2]</td></tr>
+            <tr><td>swap 4↔1</td><td>[1, 4, 3, 2]</td></tr>
+            <tr><td>swap 4↔3</td><td>[1, 3, 4, 2]</td></tr>
+            <tr><td>swap 4↔2</td><td>[1, 3, 2, 4]</td></tr>
+            <tr><td>swap 3↔2</td><td>[1, 2, 3, 4] ✓</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Q2 LMC ========== -->
+<section class="section" id="q2">
+  <div class="q-header">
+    <h2 class="q-title">Q2 · <em>LMC Assembly</em></h2>
+    <div class="q-info">
+      <div>// trace tables · analysis</div>
+      <div>// 9 marks · 18 min</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Mnemonic Reference</h3><span class="tag">memorise all 10</span></div>
+    <table>
+      <tr><th>Mnemonic</th><th>Meaning</th></tr>
+      <tr><td><code>INP</code></td><td>Read user input → store in Accumulator</td></tr>
+      <tr><td><code>OUT</code></td><td>Output the value in the Accumulator</td></tr>
+      <tr><td><code>LDA n</code></td><td>Load contents of memory[n] into Accumulator</td></tr>
+      <tr><td><code>STA n</code></td><td>Store Accumulator into memory[n]</td></tr>
+      <tr><td><code>ADD n</code></td><td>Accumulator ← Accumulator + memory[n]</td></tr>
+      <tr><td><code>SUB n</code></td><td>Accumulator ← Accumulator − memory[n]</td></tr>
+      <tr><td><code>BRP n</code></td><td>Branch to n if Accumulator is positive or zero</td></tr>
+      <tr><td><code>BRZ n</code></td><td>Branch to n if Accumulator is zero</td></tr>
+      <tr><td><code>BRA n</code></td><td>Branch to n always (unconditional jump)</td></tr>
+      <tr><td><code>HLT</code></td><td>Stop execution</td></tr>
+      <tr><td><code>DAT v</code></td><td>Reserve memory; optional initial value</td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 Question — full walkthrough</h3><span class="tag">verbatim</span></div>
+    <h4>The program</h4>
+    <pre><code>Line  Addr  Instruction
+  1    00   LDA 08
+  2    01   SUB 09
+  3    02   BRP 06
+  4    03   LDA 08
+  5    04   OUT
+  6    05   HLT
+  7    06   STA 08
+  8    07   BRA 00
+  9    08   DAT 6
+ 10    09   DAT 4</code></pre>
+
+    <h4>Trace step-by-step (m[08] = 6, m[09] = 4)</h4>
+    <table class="trace">
+      <tr><th>Addr</th><th>AC</th><th>m[08]</th><th>m[09]</th><th>Cond</th><th>Out</th></tr>
+      <tr><td>—</td><td>—</td><td>6</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr class="row-active"><td>00</td><td>6</td><td>6</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr><td>01</td><td>2</td><td>6</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr><td>02</td><td>2</td><td>6</td><td>4</td><td>TRUE (≥0)</td><td>—</td></tr>
+      <tr><td>06</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr><td>07→00</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr class="row-active"><td>00</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr><td>01</td><td>−2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr><td>02</td><td>−2</td><td>2</td><td>4</td><td>FALSE</td><td>—</td></tr>
+      <tr><td>03</td><td>2</td><td>2</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr><td>04</td><td>2</td><td>2</td><td>4</td><td>—</td><td><strong>2</strong></td></tr>
+      <tr><td>05</td><td colspan="5">HLT</td></tr>
+    </table>
+
+    <h4>Analysis</h4>
+    <ul>
+      <li><strong>(b)</strong> Condition is on line <strong>3</strong> (BRP 06)</li>
+      <li><strong>(c)</strong> Loop body lines: <strong>1, 2, 3, 7, 8</strong></li>
+      <li><strong>(d)</strong> Purpose: computes <strong>m[08] mod m[09]</strong> — i.e. the remainder of dividing 6 by 4 = 2</li>
+      <li><strong>(e)</strong> If BRZ replaces BRP: only <strong>1 iteration</strong> (because AC = 2 ≠ 0 on first check, so the branch fails and goes to OUT immediately)</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>How to trace systematically</h3><span class="tag tip">technique</span></div>
+    <ol>
+      <li>Set up columns: <strong>Address · AC · each memory address used · Condition · Output</strong></li>
+      <li>Initialise the DAT values in the first row (don't run any instruction yet)</li>
+      <li>For each instruction, copy the previous row's values, then update only what changes</li>
+      <li>For branches, write <code>TRUE</code>/<code>FALSE</code> in the Condition column</li>
+      <li>Track the address column carefully — branches change the next instruction</li>
+    </ol>
+    <div class="callout warn"><strong>Mark scheme:</strong> awards 1 mark per column correctly filled. Even if AC values are wrong, you get marks for filling memory and condition columns correctly.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice — write your own programs</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T2.1</span><span class="tag">read & double</span></div>
+      <div class="task-q">Write LMC code to read a number, double it, and output the result.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+<pre><code>00 INP        <span class="com">// read number into AC</span>
+01 STA 05     <span class="com">// store at memory 5</span>
+02 ADD 05     <span class="com">// AC = AC + memory[5] = 2x</span>
+03 OUT
+04 HLT
+05 DAT</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T2.2</span><span class="tag">sum two numbers</span></div>
+      <div class="task-q">Write LMC code that reads two numbers and outputs their sum.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+<pre><code>00 INP        <span class="com">// first number</span>
+01 STA 06     <span class="com">// store</span>
+02 INP        <span class="com">// second number</span>
+03 ADD 06     <span class="com">// add stored value</span>
+04 OUT
+05 HLT
+06 DAT</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T2.3</span><span class="tag">find max</span></div>
+      <div class="task-q">Trace this program with m[08]=12, m[09]=7. What does it output?
+<pre><code>00 LDA 08
+01 SUB 09
+02 BRP 05
+03 LDA 09
+04 BRA 06
+05 LDA 08
+06 OUT
+07 HLT
+08 DAT
+09 DAT</code></pre></div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+          <p>AC = 12 − 7 = 5 → BRP TRUE (positive) → jump to line 5 → LDA 08 → AC = 12 → OUT → <strong>12</strong></p>
+          <p>This program outputs the <strong>maximum</strong> of m[08] and m[09].</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout forecast">
+    <strong>2026 Forecast.</strong> Trace tables are highly likely to repeat (9 marks). Expect a different program — possibly using BRZ instead of BRP, or with a counting loop. The technique is the same: column-by-column.
+  </div>
+</section>
+
+<!-- ========== Q3 SEARCH ========== -->
+<section class="section" id="q3">
+  <div class="q-header">
+    <h2 class="q-title">Q3 · <em>Search</em></h2>
+    <div class="q-info">
+      <div>// completing pseudocode + complexity</div>
+      <div>// 8 marks · 16 min</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 — Binary Search Pseudocode (completed)</h3><span class="tag ok">model answer</span></div>
+    <pre><code><span class="kw">INPUT</span> name
+low ← <span class="num">0</span>
+index ← <span class="num">-1</span>
+high ← <span class="fn">LENGTH</span>(PhoneBook) - <span class="num">1</span>
+flag ← <span class="kw">FALSE</span>
+
+<span class="kw">WHILE</span> (<span class="hl">low &lt;= high</span> <span class="kw">OR</span> flag &lt;&gt; <span class="kw">TRUE</span>)        <span class="com">// blank #1</span>
+    mid ← <span class="fn">INT</span>((low + high) / <span class="num">2</span>)
+    <span class="kw">IF</span> <span class="hl">PhoneBook[mid] = name</span> <span class="kw">THEN</span>          <span class="com">// blank #2</span>
+        <span class="hl">index ← mid</span>                            <span class="com">// blank #3</span>
+        <span class="hl">flag ← TRUE</span>                             <span class="com">// blank #4</span>
+    <span class="kw">ELSE IF</span> PhoneBook[mid] &gt; name <span class="kw">THEN</span>
+        <span class="hl">high ← mid - <span class="num">1</span></span>                          <span class="com">// blank #5</span>
+    <span class="kw">ELSE</span>
+        low ← mid + <span class="num">1</span>
+    <span class="kw">ENDIF</span>
+<span class="kw">ENDWHILE</span>
+
+<span class="kw">IF</span> <span class="hl">flag = TRUE</span> <span class="kw">THEN</span>                          <span class="com">// blank #6</span>
+    <span class="fn">OUTPUT</span>(<span class="str">"Found at index:"</span>, index)
+<span class="kw">ELSE</span>
+    <span class="fn">OUTPUT</span>(<span class="str">"Not in array"</span>)
+<span class="kw">ENDIF</span></code></pre>
+    <h4>Complexity (1 mark each)</h4>
+    <ul>
+      <li><strong>Time complexity:</strong> O(log n) — also accepted O(log 100)</li>
+      <li><strong>Worst-case iterations for n=100:</strong> 7 (because ⌈log₂ 100⌉ = 7)</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>How binary search works</h3><span class="tag">step by step</span></div>
+    <p>Sorted array. Repeatedly check the middle. If too small → search right half. If too big → search left half. Halves the search space each iteration.</p>
+
+    <h4>Trace example: search for 23 in [3, 8, 12, 17, 23, 29, 35, 41]</h4>
+    <table>
+      <tr><th>Iter</th><th>low</th><th>high</th><th>mid</th><th>arr[mid]</th><th>Action</th></tr>
+      <tr><td>1</td><td>0</td><td>7</td><td>3</td><td>17</td><td>17 &lt; 23 → low = 4</td></tr>
+      <tr><td>2</td><td>4</td><td>7</td><td>5</td><td>29</td><td>29 &gt; 23 → high = 4</td></tr>
+      <tr><td>3</td><td>4</td><td>4</td><td>4</td><td>23</td><td>match — return 4 ✓</td></tr>
+    </table>
+    <p>3 iterations for n=8. Worst case ≈ ⌈log₂ 8⌉ = 3.</p>
+  </div>
+
+  <div class="callout forecast">
+    <strong>2026 Forecast.</strong> Could be: <strong>linear search</strong> instead of binary (different complexity O(n)), OR a binary search variant (find first occurrence, find insertion point). Could also ask to convert recursive ↔ iterative.
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Linear Search <em>(forecast — easier alternative)</em></h3><span class="tag warn">2026 backup</span></div>
+    <pre><code><span class="kw">FUNCTION</span> linearSearch(arr, target)
+    <span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> <span class="fn">LENGTH</span>(arr) - <span class="num">1</span> <span class="kw">DO</span>
+        <span class="kw">IF</span> arr[i] = target <span class="kw">THEN</span>
+            <span class="kw">RETURN</span> i
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+    <span class="kw">RETURN</span> -<span class="num">1</span>
+<span class="kw">ENDFUNCTION</span></code></pre>
+    <p><strong>Complexity:</strong> O(n) worst case · O(1) best case (target at index 0). Works on <strong>unsorted</strong> arrays.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Comparison Table <em>(must memorise)</em></h3><span class="tag acc2">key facts</span></div>
+    <table>
+      <tr><th></th><th>Linear Search</th><th>Binary Search</th></tr>
+      <tr><td>Sorted required?</td><td>No</td><td>Yes</td></tr>
+      <tr><td>Time complexity</td><td>O(n)</td><td>O(log n)</td></tr>
+      <tr><td>Best case</td><td>O(1)</td><td>O(1)</td></tr>
+      <tr><td>n = 100, worst</td><td>100</td><td>7</td></tr>
+      <tr><td>n = 1024, worst</td><td>1024</td><td>10</td></tr>
+      <tr><td>n = 1,000,000, worst</td><td>1,000,000</td><td>20</td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T3.1</span><span class="tag">complexity</span></div>
+      <div class="task-q">An array has 1000 elements (sorted). What is the maximum number of comparisons binary search needs?</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+          <p>⌈log₂ 1000⌉ = 10 (because 2¹⁰ = 1024 ≥ 1000)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T3.2</span><span class="tag">trace</span></div>
+      <div class="task-q">Trace binary search for target 7 on [1, 3, 5, 7, 9, 11, 13]. Show low, high, mid each iteration.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+          <table>
+            <tr><th>Iter</th><th>low</th><th>high</th><th>mid</th><th>arr[mid]</th><th>Action</th></tr>
+            <tr><td>1</td><td>0</td><td>6</td><td>3</td><td>7</td><td>match — return 3 ✓</td></tr>
+          </table>
+          <p>Found in <strong>1</strong> iteration (lucky middle).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T3.3</span><span class="tag">writing code</span></div>
+      <div class="task-q">Write a <strong>linear search</strong> pseudocode that returns the index of the first occurrence of target in an array, or −1 if not found.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show solution</div>
+        <div class="collapse-body">
+<pre><code><span class="kw">FUNCTION</span> findFirst(arr, target)
+    <span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> <span class="fn">LENGTH</span>(arr)-<span class="num">1</span> <span class="kw">DO</span>
+        <span class="kw">IF</span> arr[i] = target <span class="kw">THEN</span>
+            <span class="kw">RETURN</span> i
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+    <span class="kw">RETURN</span> -<span class="num">1</span>
+<span class="kw">ENDFUNCTION</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Q4 STACK/QUEUE ========== -->
+<section class="section" id="q4">
+  <div class="q-header">
+    <h2 class="q-title">Q4 · <em>Stack &amp; Queue</em></h2>
+    <div class="q-info">
+      <div>// 2025: stack transformation</div>
+      <div>// 2 marks · easy points</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 — State A → State B</h3><span class="tag">verbatim</span></div>
+    <p>Pointer points to the top. Stack A: [Java, Python, Kotlin] (Kotlin on top). Stack B: [Java, C#, C++] (C++ on top).</p>
+
+    <h4>Solution</h4>
+    <pre><code><span class="fn">pop</span>()           <span class="com">// removes Kotlin → [Java, Python]</span>
+<span class="fn">pop</span>()           <span class="com">// removes Python → [Java]</span>
+<span class="fn">push</span>(<span class="str">"C#"</span>)      <span class="com">// → [Java, C#]</span>
+<span class="fn">push</span>(<span class="str">"C++"</span>)     <span class="com">// → [Java, C#, C++]</span></code></pre>
+
+    <div class="callout warn"><strong>Mark scheme strict on:</strong> <strong>quotes around strings</strong>. <code>push("C#")</code> ✓ · <code>push(C#)</code> ✗ (no marks).</div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Stack vs Queue <em>(memorise)</em></h3><span class="tag">core</span></div>
+    <div class="grid-2">
+      <div class="mini-card">
+        <h5>Stack — LIFO</h5>
+        <p><strong>Last In First Out.</strong> Add and remove from the same end (top). Operations: <code>push(x)</code>, <code>pop()</code>, <code>peek()</code>, <code>isEmpty()</code>, <code>isFull()</code>. Use cases: function call stack, undo, browser back.</p>
+      </div>
+      <div class="mini-card">
+        <h5>Queue — FIFO</h5>
+        <p><strong>First In First Out.</strong> Add at rear, remove from front. Operations: <code>enqueue(x)</code>, <code>dequeue()</code>, <code>front()</code>, <code>isEmpty()</code>, <code>isFull()</code>. Use cases: print spool, task scheduling, BFS.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout forecast">
+    <strong>2026 Forecast — Queue.</strong> Syllabus 12.5.2.1 says "stack <strong>and queue</strong>". Stack appeared in 2025; queue is overdue. Same kind of question (transform State A → State B), but with <code>enqueue</code>/<code>dequeue</code>.
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Queue Operations <em>(forecast)</em></h3><span class="tag warn">2026 likely</span></div>
+    <p>Front pointer on the left. New items <strong>enqueue</strong> at the rear. <strong>Dequeue</strong> removes from the front.</p>
+    <pre><code><span class="com">// Initial queue: [A, B, C]   front→A, rear→C</span>
+
+<span class="fn">enqueue</span>(<span class="str">"D"</span>)    <span class="com">// [A, B, C, D]</span>
+<span class="fn">dequeue</span>()       <span class="com">// removes A → [B, C, D]</span>
+<span class="fn">front</span>()         <span class="com">// returns B (no removal)</span>
+<span class="fn">enqueue</span>(<span class="str">"E"</span>)    <span class="com">// [B, C, D, E]</span></code></pre>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice — Stack &amp; Queue Transformations</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T4.1</span><span class="tag">stack</span></div>
+      <div class="task-q">Stack A: [3, 7, 1, 9] (top: 9) → Stack B: [3, 7, 4]. Operations?</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code><span class="fn">pop</span>()      <span class="com">// 9 → [3, 7, 1]</span>
+<span class="fn">pop</span>()      <span class="com">// 1 → [3, 7]</span>
+<span class="fn">push</span>(<span class="num">4</span>)   <span class="com">// → [3, 7, 4]</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T4.2</span><span class="tag">queue</span></div>
+      <div class="task-q">Queue A: [Alice, Bob, Carol] (front: Alice) → Queue B: [Bob, Carol, Dan, Eve]. Operations?</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code><span class="fn">dequeue</span>()             <span class="com">// removes Alice → [Bob, Carol]</span>
+<span class="fn">enqueue</span>(<span class="str">"Dan"</span>)        <span class="com">// → [Bob, Carol, Dan]</span>
+<span class="fn">enqueue</span>(<span class="str">"Eve"</span>)        <span class="com">// → [Bob, Carol, Dan, Eve]</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T4.3</span><span class="tag">tracking state</span></div>
+      <div class="task-q">Empty stack. Apply: push(5), push(10), push(15), pop(), push(20), pop(). What's the final stack? Top?</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+          <p>[5] → [5,10] → [5,10,15] → [5,10] → [5,10,20] → [5,10]</p>
+          <p>Final: <strong>[5, 10]</strong> · Top: <strong>10</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Q5 BST ========== -->
+<section class="section" id="q5">
+  <div class="q-header">
+    <h2 class="q-title">Q5 · <em>Binary Search Tree</em></h2>
+    <div class="q-info">
+      <div>// build from array · node format</div>
+      <div>// 6 marks · 12 min</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>BST Rules</h3><span class="tag">core</span></div>
+    <ul>
+      <li><strong>Root</strong> = the <strong>first</strong> element inserted</li>
+      <li>For each node: <strong>left subtree</strong> contains values <strong>less than</strong> the node, <strong>right subtree</strong> contains values <strong>greater than</strong> the node</li>
+      <li>Insert one element at a time. Walk down: if smaller go left, if larger go right. Place at first empty spot.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 — BST from ["M","B","A","K","H","V","T"]</h3><span class="tag ok">model answer</span></div>
+
+    <h4>Step-by-step insertion</h4>
+    <ol>
+      <li><strong>M</strong> → root</li>
+      <li><strong>B</strong> &lt; M → goes <strong>left</strong> of M</li>
+      <li><strong>A</strong> &lt; M → left · &lt; B → left of B</li>
+      <li><strong>K</strong> &lt; M → left · &gt; B → <strong>right</strong> of B</li>
+      <li><strong>H</strong> &lt; M → left · &gt; B → right of B (=K) · &lt; K → <strong>left</strong> of K</li>
+      <li><strong>V</strong> &gt; M → <strong>right</strong> of M</li>
+      <li><strong>T</strong> &gt; M → right · &lt; V → <strong>left</strong> of V</li>
+    </ol>
+
+    <h4>Final structure</h4>
+    <pre><code>            [M]
+           /   \
+         [B]   [V]
+         / \   /
+       [A] [K][T]
+           /
+         [H]</code></pre>
+
+    <h4>Node format with pointers (the table the exam asks for)</h4>
+    <table>
+      <tr><th>idx</th><th>Left ptr</th><th>Data</th><th>Right ptr</th></tr>
+      <tr><td>1</td><td>2</td><td>M</td><td>5</td></tr>
+      <tr><td>2</td><td>3</td><td>B</td><td>4</td></tr>
+      <tr><td>3</td><td>—</td><td>A</td><td>—</td></tr>
+      <tr><td>4</td><td>7</td><td>K</td><td>—</td></tr>
+      <tr><td>5</td><td>6</td><td>V</td><td>—</td></tr>
+      <tr><td>6</td><td>—</td><td>T</td><td>—</td></tr>
+      <tr><td>7</td><td>—</td><td>H</td><td>—</td></tr>
+    </table>
+    <p><strong>Root value = M</strong> (1 mark).</p>
+
+    <div class="callout warn"><strong>Mark scheme:</strong> empty pointers can be written as <code>—</code>, <code>NULL</code>, <code>-1</code>, or simply blank. But <strong>each node MUST have left and right pointer cells</strong> — missing them = no marks.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>BST Traversals <em>(forecast — could be asked)</em></h3><span class="tag warn">memorise all 3</span></div>
+
+    <h4>Pre-order: Root → Left → Right</h4>
+    <p>For our tree: <strong>M, B, A, K, H, V, T</strong></p>
+
+    <h4>In-order: Left → Root → Right (gives sorted order!)</h4>
+    <p>For our tree: <strong>A, B, H, K, M, T, V</strong></p>
+
+    <h4>Post-order: Left → Right → Root</h4>
+    <p>For our tree: <strong>A, H, K, B, T, V, M</strong></p>
+
+    <pre><code><span class="com">// pseudocode for in-order</span>
+<span class="kw">PROCEDURE</span> inOrder(node)
+    <span class="kw">IF</span> node = <span class="kw">NULL</span> <span class="kw">THEN RETURN</span>
+    inOrder(node.left)
+    <span class="fn">OUTPUT</span>(node.data)
+    inOrder(node.right)
+<span class="kw">ENDPROCEDURE</span></code></pre>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T5.1</span><span class="tag">build BST</span></div>
+      <div class="task-q">Build a BST from [50, 30, 70, 20, 40, 60, 80]. Draw the structure.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>          [50]
+         /    \
+      [30]    [70]
+      / \     / \
+   [20][40][60][80]</code></pre>
+          <p>Perfectly balanced tree.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T5.2</span><span class="tag">traversal</span></div>
+      <div class="task-q">For the tree from T5.1, give the in-order traversal.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+          <p><strong>20, 30, 40, 50, 60, 70, 80</strong> (always sorted ascending — that's a key property of BST in-order).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T5.3</span><span class="tag">root identification</span></div>
+      <div class="task-q">A BST is built from [5, 3, 7, 1, 4, 8, 2]. What is the root? What is in the left subtree?</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+          <p>Root = <strong>5</strong> (first inserted). Left subtree contains: 3, 1, 4, 2 (all values &lt; 5).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Q6 PROLOG ========== -->
+<section class="section" id="q6">
+  <div class="q-header">
+    <h2 class="q-title">Q6 · <em>Prolog</em></h2>
+    <div class="q-info">
+      <div>// facts · rules · queries</div>
+      <div>// 11 marks · 22 min</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Prolog Cheat-sheet <em>(memorise before everything else)</em></h3><span class="tag warn">essential</span></div>
+    <table>
+      <tr><th>Symbol</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td><code>:-</code></td><td>"if" — defines a rule</td><td><code>parent(X,Y) :- father(X,Y).</code></td></tr>
+      <tr><td><code>,</code></td><td>logical AND</td><td><code>a(X), b(X)</code></td></tr>
+      <tr><td><code>;</code></td><td>logical OR</td><td><code>a(X); b(X)</code></td></tr>
+      <tr><td><code>\=</code></td><td>not equal</td><td><code>X \= Y</code></td></tr>
+      <tr><td><code>=</code></td><td>unifies (matches)</td><td><code>X = 5</code></td></tr>
+      <tr><td><code>.</code></td><td>terminator (every clause)</td><td><code>likes(tom, ice).</code></td></tr>
+      <tr><td>Lowercase</td><td>atom (constant)</td><td><code>maryam, jiger</code></td></tr>
+      <tr><td>Uppercase</td><td>variable</td><td><code>X, Y, Person</code></td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 — The family database</h3><span class="tag">verbatim</span></div>
+    <pre><code><span class="num">1</span>  parent_child(maryam, lisa).      <span class="com">% maryam is parent of lisa</span>
+<span class="num">2</span>  parent_child(jiger, maryam).
+<span class="num">3</span>  parent_child(jiger, alma).
+<span class="num">4</span>  parent_child(tamila, maryam).
+<span class="num">5</span>  parent_child(tamila, alma).
+<span class="num">6</span>  parent_child(berik, lisa).
+<span class="num">7</span>  parent_child(bolat, jiger).
+<span class="num">8</span>  spouse(jiger, tamila).
+<span class="num">9</span>  spouse(berik, maryam).
+<span class="num">10</span> spouse(bolat, elmira).
+<span class="num">11</span> parent(X, Y) :- parent_child(X, Y).
+<span class="num">12</span> child(X, Y) :- parent_child(Y, X).</code></pre>
+
+    <h4>Answers</h4>
+    <ul>
+      <li><strong>(a)(i)</strong> Facts: lines <strong>1–10</strong> (concrete statements with no <code>:-</code>)</li>
+      <li><strong>(a)(ii)</strong> Rules: lines <strong>11–12</strong> (use <code>:-</code>)</li>
+      <li><strong>(b)</strong> <code>child(jiger, Y).</code> — find Y where parent_child(Y, jiger). Line 7: parent_child(<strong>bolat</strong>, jiger) → <strong>Y = bolat</strong></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 — Writing Rules (4+4 marks)</h3><span class="tag">model answers</span></div>
+
+    <h4>(c)(i) sibling(X, Y) — share the same parent</h4>
+    <pre><code>sibling(X, Y) :-
+    parent_child(Z, X),    <span class="com">% Z is parent of X</span>
+    parent_child(Z, Y),    <span class="com">% Z is parent of Y too</span>
+    X \= Y.                <span class="com">% but X is not Y</span></code></pre>
+    <p>Mark points: same Z parent for both · X ≠ Y · proper Prolog syntax with <code>:-</code> and <code>.</code> · two ANDs.</p>
+
+    <h4>(c)(ii) family(X, Y) — X is in family with Y</h4>
+    <pre><code>family(X, Y) :-
+    spouse(X, Y);          <span class="com">% married, OR</span>
+    parent_child(X, Y);    <span class="com">% X is parent of Y, OR</span>
+    parent_child(Y, X).    <span class="com">% Y is parent of X</span></code></pre>
+    <p>Mark points: three OR cases (semicolons) · spouse OR parent both directions · proper syntax.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>How to write Prolog rules <em>(method)</em></h3><span class="tag tip">technique</span></div>
+    <ol>
+      <li>Start with the <strong>head</strong>: <code>relationName(X, Y) :-</code></li>
+      <li>List all the <strong>conditions</strong> that must be true, separated by <code>,</code> (AND)</li>
+      <li>If there are <strong>alternative</strong> definitions, use <code>;</code> (OR)</li>
+      <li>Use <code>X \= Y</code> when you need things to be different</li>
+      <li>End the whole rule with <strong>one period</strong></li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Common Family Rules <em>(memorise all)</em></h3><span class="tag warn">forecast — likely</span></div>
+    <pre><code><span class="com">% basic relationships</span>
+parent(X, Y) :- parent_child(X, Y).
+child(X, Y)  :- parent_child(Y, X).
+
+<span class="com">% gendered (if mother/father facts given)</span>
+mother(X, Y) :- parent_child(X, Y), female(X).
+father(X, Y) :- parent_child(X, Y), male(X).
+
+<span class="com">% siblings (share a parent)</span>
+sibling(X, Y) :-
+    parent_child(P, X),
+    parent_child(P, Y),
+    X \= Y.
+
+<span class="com">% grandparent (parent of parent)</span>
+grandparent(X, Y) :-
+    parent_child(X, P),
+    parent_child(P, Y).
+
+<span class="com">% ancestor — RECURSIVE</span>
+ancestor(X, Y) :- parent_child(X, Y).
+ancestor(X, Y) :-
+    parent_child(X, Z),
+    ancestor(Z, Y).
+
+<span class="com">% uncle / aunt</span>
+uncle(X, Y) :-
+    parent_child(P, Y),
+    sibling(X, P),
+    male(X).
+
+<span class="com">% cousin (parents are siblings)</span>
+cousin(X, Y) :-
+    parent_child(PX, X),
+    parent_child(PY, Y),
+    sibling(PX, PY).</code></pre>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T6.1</span><span class="tag">query result</span></div>
+      <div class="task-q">From the 2025 family database, what does <code>parent(jiger, X).</code> return?</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+          <p>Looks for parent_child(jiger, X). Lines 2 and 3: parent_child(jiger, maryam) and parent_child(jiger, alma).</p>
+          <p>Result: <strong>X = maryam</strong>; then <strong>X = alma</strong> (two solutions).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T6.2</span><span class="tag">writing rule</span></div>
+      <div class="task-q">Write a Prolog rule <code>grandchild(X, Y)</code> that's true if X is a grandchild of Y.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>grandchild(X, Y) :-
+    parent_child(Y, P),
+    parent_child(P, X).</code></pre>
+          <p>Y is parent of some P · P is parent of X · therefore X is Y's grandchild.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T6.3</span><span class="tag">writing rule</span></div>
+      <div class="task-q">Given <code>likes/2</code> facts, write a rule <code>mutual(X, Y)</code> true when X and Y like each other.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>mutual(X, Y) :-
+    likes(X, Y),
+    likes(Y, X),
+    X \= Y.</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T6.4</span><span class="tag">recursive</span></div>
+      <div class="task-q">Write a rule <code>ancestor(X, Y)</code> — X is an ancestor of Y if X is a parent of Y, or X is a parent of someone who is Y's ancestor.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>ancestor(X, Y) :- parent_child(X, Y).      <span class="com">% base case</span>
+ancestor(X, Y) :-
+    parent_child(X, Z),                     <span class="com">% recursive</span>
+    ancestor(Z, Y).</code></pre>
+          <p>Two clauses with the same head — that's the OR. The second clause recurses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Q7 WEB ========== -->
+<section class="section" id="q7">
+  <div class="q-header">
+    <h2 class="q-title">Q7 · <em>Web + Errors</em></h2>
+    <div class="q-info">
+      <div>// HTML form · CSS · errors · pseudocode fix</div>
+      <div>// 16 marks · 32 min · BIGGEST</div>
+    </div>
+  </div>
+
+  <div class="callout warn"><strong>This is the most important question.</strong> Worth 16 of 60 marks (27%). Spend a full half hour. Read the rest of this section twice.</div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 (a) — Filling HTML form (4 marks)</h3><span class="tag ok">model answer</span></div>
+    <pre><code>&lt;<span class="kw">input</span> type=<span class="str">"text"</span> id=<span class="str">"message"</span>&gt;&lt;br&gt;            <span class="com">// 1 mark: text input</span>
+
+&lt;<span class="kw">input</span> type=<span class="str">"radio"</span> name=<span class="str">"operation"</span>            <span class="com">// 1 mark: type=radio</span>
+       value=<span class="str">"encrypt"</span>&gt;
+&lt;<span class="kw">input</span> type=<span class="str">"radio"</span> name=<span class="str">"operation"</span>            <span class="com">// 1 mark: SAME name (group)</span>
+       value=<span class="str">"decrypt"</span>&gt;
+
+&lt;<span class="kw">input</span> type=<span class="str">"submit"</span> value=<span class="str">"Go"</span>&gt;&lt;br&gt;          <span class="com">// 1 mark: submit/button</span>
+
+<span class="com">// alternatives accepted for last:</span>
+&lt;<span class="kw">button</span>&gt;Go&lt;/<span class="kw">button</span>&gt;
+&lt;<span class="kw">input</span> type=<span class="str">"button"</span> value=<span class="str">"Go"</span>&gt;</code></pre>
+
+    <div class="callout warn"><strong>Critical:</strong> the two radio buttons MUST share the <strong>same <code>name</code></strong> attribute. That's what groups them so only one can be selected. Without same name = no mark.</div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>HTML Form Elements <em>(complete reference)</em></h3><span class="tag">memorise</span></div>
+    <pre><code>&lt;<span class="kw">input</span> type=<span class="str">"text"</span>&gt;            <span class="com">// single-line text</span>
+&lt;<span class="kw">input</span> type=<span class="str">"password"</span>&gt;        <span class="com">// hidden text</span>
+&lt;<span class="kw">input</span> type=<span class="str">"number"</span>&gt;          <span class="com">// numeric input</span>
+&lt;<span class="kw">input</span> type=<span class="str">"email"</span>&gt;           <span class="com">// validated email</span>
+&lt;<span class="kw">input</span> type=<span class="str">"checkbox"</span>&gt;        <span class="com">// multi-select</span>
+&lt;<span class="kw">input</span> type=<span class="str">"radio"</span> name=<span class="str">"x"</span>&gt;   <span class="com">// single-select group</span>
+&lt;<span class="kw">input</span> type=<span class="str">"submit"</span>&gt;          <span class="com">// submit button</span>
+&lt;<span class="kw">input</span> type=<span class="str">"button"</span> value=<span class="str">"x"</span>&gt;   <span class="com">// generic button</span>
+&lt;<span class="kw">input</span> type=<span class="str">"date"</span>&gt;            <span class="com">// date picker</span>
+&lt;<span class="kw">input</span> type=<span class="str">"file"</span>&gt;            <span class="com">// file upload</span>
+
+&lt;<span class="kw">textarea</span>&gt;multi-line&lt;/<span class="kw">textarea</span>&gt;
+
+&lt;<span class="kw">select</span>&gt;
+  &lt;<span class="kw">option</span> value=<span class="str">"1"</span>&gt;Choice 1&lt;/<span class="kw">option</span>&gt;
+&lt;/<span class="kw">select</span>&gt;
+
+&lt;<span class="kw">label</span> for=<span class="str">"id"</span>&gt;Caption&lt;/<span class="kw">label</span>&gt;</code></pre>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 (b) — CSS to style heading (3+1 marks)</h3><span class="tag ok">model answer</span></div>
+    <pre><code>&lt;<span class="kw">head</span>&gt;
+  &lt;<span class="kw">style</span>&gt;
+    h1 {                              <span class="com">// 1 mark: h1 selector with braces</span>
+      color: red;                     <span class="com">// 1 mark: red color</span>
+      text-decoration: underline;     <span class="com">// 1 mark: underline</span>
+    }
+  &lt;/<span class="kw">style</span>&gt;
+&lt;/<span class="kw">head</span>&gt;</code></pre>
+    <p><strong>(b)(ii) Type of CSS used:</strong> <strong>Internal CSS</strong> (1 mark) — because the styles are inside <code>&lt;style&gt;</code> in <code>&lt;head&gt;</code>.</p>
+
+    <h4>The three CSS types</h4>
+    <table>
+      <tr><th>Type</th><th>Where</th><th>Example</th></tr>
+      <tr><td>Inline</td><td>Inside <code>style="..."</code> attribute</td><td><code>&lt;p style="color:red"&gt;</code></td></tr>
+      <tr><td><strong>Internal</strong></td><td>In <code>&lt;style&gt;</code> in <code>&lt;head&gt;</code></td><td>The 2025 answer</td></tr>
+      <tr><td>External</td><td>Linked .css file</td><td><code>&lt;link rel="stylesheet" href="x.css"&gt;</code></td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 (c) — Test Data &amp; Errors</h3><span class="tag">3 sub-parts</span></div>
+
+    <h4>(c)(i) Normal data — 1 mark</h4>
+    <p>Any text without 'z': <code>"apple"</code>, <code>"hello"</code>, <code>"world"</code>.</p>
+
+    <h4>(c)(ii) Erroneous data — 1 mark</h4>
+    <p>Text containing 'z' (causes the bug), or non-letters: <code>"buzz"</code>, <code>"123"</code>, <code>"hi!"</code>, <code>"buZz"</code>.</p>
+
+    <h4>(c)(iii) Error type when input is "buZz" — 2 marks</h4>
+    <ul>
+      <li><strong>Type of error:</strong> Runtime error (also called execution error)</li>
+      <li><strong>Justification:</strong> Out-of-range array access. When the program processes 'z', it finds <code>z = alphabet[25]</code>, then tries <code>alphabet[26]</code> — which doesn't exist.</li>
+    </ul>
+
+    <h4>(c)(iv) Pseudocode fix — 3 marks</h4>
+    <pre><code><span class="kw">IF</span> text[i] = alphabet[j] <span class="kw">THEN</span>
+    <span class="kw">IF</span> text[i] = <span class="str">'z'</span> <span class="kw">THEN</span>             <span class="com">// 1 mark: handle z</span>
+        result ← result + alphabet[<span class="num">0</span>]   <span class="com">// 1 mark: wrap to 'a'</span>
+    <span class="kw">ELSE</span>
+        result ← result + alphabet[j+<span class="num">1</span>]  <span class="com">// 1 mark: keep else case</span>
+    <span class="kw">ENDIF</span>
+<span class="kw">ENDIF</span></code></pre>
+
+    <h4>(d) Good programming style — 1 mark</h4>
+    <p>Any one of: <strong>indentation</strong> · <strong>meaningful identifier names</strong> · <strong>comments</strong> · <strong>modularity</strong> (functions/procedures) · consistent naming convention.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>The Three Error Types <em>(forecast — could be tested directly)</em></h3><span class="tag warn">memorise definitions</span></div>
+    <table>
+      <tr><th>Error</th><th>When detected</th><th>Description</th><th>Example</th></tr>
+      <tr><td><strong>Syntax</strong></td><td>Compile / parse time</td><td>Code violates language grammar; won't run at all</td><td><code>if x = 5</code> (missing colon, wrong operator)</td></tr>
+      <tr><td><strong>Runtime</strong></td><td>During execution</td><td>Code runs but fails on actual data</td><td>Division by zero, array out of range</td></tr>
+      <tr><td><strong>Logic</strong></td><td>Never (program completes)</td><td>Runs without error but gives wrong answer</td><td><code>area = base + height</code> (should be <code>×</code>)</td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Test Data Types <em>(forecast — extreme is the missing one)</em></h3><span class="tag warn">2026 likely</span></div>
+    <table>
+      <tr><th>Type</th><th>Definition</th><th>Example (age 0–120)</th></tr>
+      <tr><td>Normal</td><td>Typical valid input</td><td>25, 67, 40</td></tr>
+      <tr><td><strong>Extreme</strong> / boundary</td><td>Valid data <strong>at the limits</strong> of the range</td><td>0, 120 (and 1, 119)</td></tr>
+      <tr><td>Erroneous</td><td>Invalid data the program should reject</td><td>−5, 200, "abc"</td></tr>
+    </table>
+    <div class="callout"><strong>Don't confuse:</strong> 121 is <strong>erroneous</strong>, not extreme. Extreme = "valid but on the edge".</div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T7.1</span><span class="tag">HTML form</span></div>
+      <div class="task-q">Write the HTML for a login form: a text input for username, a password input, a "Remember me" checkbox, and a submit button.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>&lt;<span class="kw">form</span>&gt;
+  &lt;<span class="kw">label</span>&gt;Username:&lt;/<span class="kw">label</span>&gt;
+  &lt;<span class="kw">input</span> type=<span class="str">"text"</span> name=<span class="str">"user"</span>&gt;&lt;br&gt;
+
+  &lt;<span class="kw">label</span>&gt;Password:&lt;/<span class="kw">label</span>&gt;
+  &lt;<span class="kw">input</span> type=<span class="str">"password"</span> name=<span class="str">"pwd"</span>&gt;&lt;br&gt;
+
+  &lt;<span class="kw">input</span> type=<span class="str">"checkbox"</span> name=<span class="str">"remember"</span>&gt;
+  &lt;<span class="kw">label</span>&gt;Remember me&lt;/<span class="kw">label</span>&gt;&lt;br&gt;
+
+  &lt;<span class="kw">input</span> type=<span class="str">"submit"</span> value=<span class="str">"Login"</span>&gt;
+&lt;/<span class="kw">form</span>&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T7.2</span><span class="tag">CSS</span></div>
+      <div class="task-q">Write internal CSS that styles all paragraphs to have blue text, font size 16px, and a green left border 3px wide.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>&lt;<span class="kw">style</span>&gt;
+  p {
+    color: blue;
+    font-size: 16px;
+    border-left: 3px solid green;
+  }
+&lt;/<span class="kw">style</span>&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T7.3</span><span class="tag">error type</span></div>
+      <div class="task-q">Identify the error type:
+<pre><code>x = <span class="num">10</span>
+y = <span class="num">0</span>
+result = x / y</code></pre></div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+          <p><strong>Runtime error</strong> — division by zero. The code is syntactically valid; it crashes only when executed with these specific values.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T7.4</span><span class="tag">error type</span></div>
+      <div class="task-q">Identify the error type:
+<pre><code>function area(width, height) {
+    return width + height;
+}</code></pre></div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+          <p><strong>Logic error</strong> — code runs successfully but gives wrong answer. Should be <code>width * height</code>, not <code>+</code>. No language rule was broken; it just produces incorrect output.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T7.5</span><span class="tag">test data</span></div>
+      <div class="task-q">A function accepts a percentage (0–100). Give one example each of normal, extreme, and erroneous test data.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+          <ul>
+            <li>Normal: <code>50</code> (or 25, 78, etc.)</li>
+            <li>Extreme: <code>0</code> or <code>100</code> (the boundaries)</li>
+            <li>Erroneous: <code>-5</code>, <code>150</code>, <code>"hello"</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Q8 PHP ========== -->
+<section class="section" id="q8">
+  <div class="q-header">
+    <h2 class="q-title">Q8 · <em>PHP</em></h2>
+    <div class="q-info">
+      <div>// 2025: MySQL connection</div>
+      <div>// 3 marks · easy</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>2025 — MySQL connection (3 marks)</h3><span class="tag ok">model answer</span></div>
+    <pre><code>&lt;?php
+$servername = <span class="str">"localhost"</span>;
+$username   = <span class="str">"username"</span>;
+$password   = <span class="str">"password"</span>;
+$db         = <span class="str">"library"</span>;
+
+$conn = <span class="fn">mysqli_connect</span>(           <span class="com">// 1 mark: function name</span>
+    $servername,
+    $username,
+    $password,
+    $db
+);                                <span class="com">// 1 mark: all 4 arguments</span>
+
+<span class="kw">if</span> (!$conn) {                     <span class="com">// 1 mark: !$conn check</span>
+    <span class="fn">die</span>(<span class="str">"Connection failed: "</span> . <span class="fn">mysqli_connect_error</span>());
+}
+<span class="kw">echo</span> <span class="str">"Connected successfully"</span>;
+?&gt;</code></pre>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>PHP Syntax Essentials</h3><span class="tag">cheat</span></div>
+    <pre><code><span class="com">// variables (always start with $)</span>
+$name = <span class="str">"Alice"</span>;
+$age = <span class="num">17</span>;
+
+<span class="com">// concatenation: dot, NOT plus</span>
+<span class="kw">echo</span> <span class="str">"Hello "</span> . $name;       <span class="com">// "Hello Alice"</span>
+
+<span class="com">// conditionals</span>
+<span class="kw">if</span> ($age &gt;= <span class="num">18</span>) {
+    <span class="kw">echo</span> <span class="str">"Adult"</span>;
+} <span class="kw">elseif</span> ($age &gt;= <span class="num">13</span>) {
+    <span class="kw">echo</span> <span class="str">"Teen"</span>;
+} <span class="kw">else</span> {
+    <span class="kw">echo</span> <span class="str">"Child"</span>;
+}
+
+<span class="com">// loops</span>
+<span class="kw">for</span> ($i = <span class="num">0</span>; $i &lt; <span class="num">10</span>; $i++) {
+    <span class="kw">echo</span> $i;
+}
+
+<span class="kw">while</span> ($x &gt; <span class="num">0</span>) { $x--; }
+
+<span class="com">// arrays</span>
+$colours = [<span class="str">"red"</span>, <span class="str">"green"</span>, <span class="str">"blue"</span>];
+<span class="kw">foreach</span> ($colours <span class="kw">as</span> $c) {
+    <span class="kw">echo</span> $c;
+}
+
+<span class="com">// functions</span>
+<span class="kw">function</span> <span class="fn">add</span>($a, $b) {
+    <span class="kw">return</span> $a + $b;
+}</code></pre>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>PHP + MySQL — All Common Operations <em>(forecast — could be tested)</em></h3><span class="tag warn">2026 likely</span></div>
+
+    <h4>Running a SELECT</h4>
+    <pre><code>$sql = <span class="str">"SELECT * FROM books"</span>;
+$result = <span class="fn">mysqli_query</span>($conn, $sql);
+
+<span class="kw">while</span> ($row = <span class="fn">mysqli_fetch_assoc</span>($result)) {
+    <span class="kw">echo</span> $row[<span class="str">'title'</span>] . <span class="str">"&lt;br&gt;"</span>;
+}</code></pre>
+
+    <h4>INSERT</h4>
+    <pre><code>$sql = <span class="str">"INSERT INTO users (name, email)
+        VALUES ('$name', '$email')"</span>;
+<span class="fn">mysqli_query</span>($conn, $sql);</code></pre>
+
+    <h4>UPDATE</h4>
+    <pre><code>$sql = <span class="str">"UPDATE products SET price = 100 WHERE id = 5"</span>;
+<span class="fn">mysqli_query</span>($conn, $sql);</code></pre>
+
+    <h4>Form handling</h4>
+    <pre><code>&lt;?php
+<span class="kw">if</span> ($_SERVER[<span class="str">"REQUEST_METHOD"</span>] == <span class="str">"POST"</span>) {
+    $name = $_POST[<span class="str">"name"</span>];
+    $email = $_POST[<span class="str">"email"</span>];
+    <span class="com">// process...</span>
+}
+?&gt;
+&lt;<span class="kw">form</span> method=<span class="str">"post"</span>&gt;
+  &lt;<span class="kw">input</span> name=<span class="str">"name"</span>&gt;
+  &lt;<span class="kw">input</span> name=<span class="str">"email"</span>&gt;
+  &lt;<span class="kw">input</span> type=<span class="str">"submit"</span>&gt;
+&lt;/<span class="kw">form</span>&gt;</code></pre>
+
+    <h4>Close the connection</h4>
+    <pre><code><span class="fn">mysqli_close</span>($conn);</code></pre>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Practice</h3><span class="tag">drill</span></div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T8.1</span><span class="tag">connection</span></div>
+      <div class="task-q">Write PHP code to connect to a MySQL database called <code>school</code> on <code>localhost</code> with user <code>admin</code> and password <code>secret</code>, with proper error handling.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>&lt;?php
+$conn = <span class="fn">mysqli_connect</span>(<span class="str">"localhost"</span>, <span class="str">"admin"</span>, <span class="str">"secret"</span>, <span class="str">"school"</span>);
+
+<span class="kw">if</span> (!$conn) {
+    <span class="fn">die</span>(<span class="str">"Connection failed: "</span> . <span class="fn">mysqli_connect_error</span>());
+}
+<span class="kw">echo</span> <span class="str">"Connected"</span>;
+?&gt;</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T8.2</span><span class="tag">SELECT</span></div>
+      <div class="task-q">Write PHP that selects all books from a <code>books</code> table and outputs their titles.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>$sql = <span class="str">"SELECT * FROM books"</span>;
+$result = <span class="fn">mysqli_query</span>($conn, $sql);
+
+<span class="kw">while</span> ($row = <span class="fn">mysqli_fetch_assoc</span>($result)) {
+    <span class="kw">echo</span> $row[<span class="str">'title'</span>] . <span class="str">"&lt;br&gt;"</span>;
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <div class="task-head"><span class="task-num">T8.3</span><span class="tag">INSERT from form</span></div>
+      <div class="task-q">Write PHP that takes <code>$_POST['name']</code> and <code>$_POST['age']</code> and inserts them into a <code>students</code> table.</div>
+      <div class="collapse">
+        <div class="collapse-toggle" onclick="this.parentElement.classList.toggle('open')">▸ Show</div>
+        <div class="collapse-body">
+<pre><code>$name = $_POST[<span class="str">'name'</span>];
+$age  = $_POST[<span class="str">'age'</span>];
+
+$sql = <span class="str">"INSERT INTO students (name, age)
+        VALUES ('$name', '$age')"</span>;
+<span class="fn">mysqli_query</span>($conn, $sql);</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EXTRAS ========== -->
+<section class="section" id="extras">
+  <div class="q-header">
+    <h2 class="q-title">Likely <em>Extras</em></h2>
+    <div class="q-info">
+      <div>// in syllabus, NOT tested in 2025</div>
+      <div>// likely to appear in 2026</div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <strong>These topics</strong> are explicitly in the Grade 11/12 syllabus but did NOT appear in the 2025 paper. NIS often rotates, so they're high-probability for 2026.
+  </div>
+
+  <!-- Declarative vs Imperative -->
+  <div class="block">
+    <div class="block-head"><h3>Declarative vs Imperative <em>(12.5.1.1)</em></h3><span class="tag warn">forecast</span></div>
+    <table>
+      <tr><th>Imperative</th><th>Declarative</th></tr>
+      <tr><td>Specifies <strong>HOW</strong> to do it</td><td>Specifies <strong>WHAT</strong> the result is</td></tr>
+      <tr><td>Step-by-step instructions, state changes</td><td>Describes outcome; engine figures out how</td></tr>
+      <tr><td>Examples: Python, C, Java, JavaScript</td><td>Examples: SQL, Prolog, HTML</td></tr>
+    </table>
+    <h4>Same task, different paradigms — sum a list</h4>
+    <pre><code><span class="com">// Imperative (Python)</span>
+total = <span class="num">0</span>
+<span class="kw">for</span> n <span class="kw">in</span> nums:
+    total += n
+
+<span class="com">// Declarative (SQL)</span>
+<span class="kw">SELECT SUM</span>(value) <span class="kw">FROM</span> nums;</code></pre>
+  </div>
+
+  <!-- Expert systems -->
+  <div class="block">
+    <div class="block-head"><h3>Expert Systems <em>(12.5.1.2)</em></h3><span class="tag warn">forecast</span></div>
+    <p>An <strong>expert system</strong> is an AI program that emulates a human expert's decision-making in a specific field.</p>
+    <h4>Four components</h4>
+    <ol>
+      <li><strong>Knowledge base</strong> — facts and rules from human experts</li>
+      <li><strong>Inference engine</strong> — applies rules to facts to draw conclusions</li>
+      <li><strong>User interface</strong> — how user asks questions</li>
+      <li><strong>Explanation facility</strong> — explains why a conclusion was reached</li>
+    </ol>
+    <h4>Simple expert system in Prolog</h4>
+    <pre><code><span class="com">% knowledge base — facts</span>
+symptom(flu, fever).
+symptom(flu, cough).
+symptom(cold, runny_nose).
+
+<span class="com">% rule — diagnose by matching symptoms</span>
+diagnose(P, D) :-
+    has_symptom(P, S),
+    symptom(D, S).
+
+<span class="com">% query: diagnose(jake, X).</span></code></pre>
+    <p><strong>Use cases:</strong> medical diagnosis · financial advice · troubleshooting · legal reasoning.</p>
+  </div>
+
+  <!-- 2D arrays -->
+  <div class="block">
+    <div class="block-head"><h3>2D Arrays <em>(11.5.2.2)</em></h3><span class="tag warn">forecast</span></div>
+    <p>Only 1D arrays were tested in 2025 (Q1). 2D arrays could be tested in a similar style.</p>
+    <h4>Common patterns</h4>
+    <pre><code><span class="com">// declare a 3×4 grid</span>
+matrix ← <span class="kw">DIM</span> arr[<span class="num">3</span>][<span class="num">4</span>]
+
+<span class="com">// traverse all cells (row-major)</span>
+<span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">2</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> <span class="num">3</span> <span class="kw">DO</span>
+        <span class="fn">OUTPUT</span>(matrix[i][j])
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span>
+
+<span class="com">// sum all elements</span>
+total ← <span class="num">0</span>
+<span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> rows-<span class="num">1</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> cols-<span class="num">1</span> <span class="kw">DO</span>
+        total ← total + matrix[i][j]
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span>
+
+<span class="com">// find max</span>
+max ← matrix[<span class="num">0</span>][<span class="num">0</span>]
+<span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> rows-<span class="num">1</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> cols-<span class="num">1</span> <span class="kw">DO</span>
+        <span class="kw">IF</span> matrix[i][j] &gt; max <span class="kw">THEN</span>
+            max ← matrix[i][j]
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></code></pre>
+    <p><strong>Uses:</strong> spreadsheets, game boards (chess, tic-tac-toe), images, schedules.</p>
+  </div>
+
+  <!-- Compiler vs Interpreter -->
+  <div class="block">
+    <div class="block-head"><h3>Compiler vs Interpreter <em>(11.5.1.7-8)</em></h3><span class="tag warn">forecast</span></div>
+    <table>
+      <tr><th>Compiler</th><th>Interpreter</th></tr>
+      <tr><td>Translates <strong>whole program</strong> at once</td><td>Translates <strong>line by line</strong></td></tr>
+      <tr><td>Produces an executable file</td><td>No executable; runs immediately</td></tr>
+      <tr><td>Faster execution after compiling</td><td>Slower execution</td></tr>
+      <tr><td>All errors reported together</td><td>Stops at first error</td></tr>
+      <tr><td>Examples: C, C++, Go, Rust</td><td>Examples: Python, JavaScript, Ruby</td></tr>
+    </table>
+  </div>
+
+  <!-- Generations -->
+  <div class="block">
+    <div class="block-head"><h3>Programming Language Generations <em>(11.5.1.1)</em></h3><span class="tag warn">forecast</span></div>
+    <table>
+      <tr><th>Gen</th><th>Type</th><th>Examples</th></tr>
+      <tr><td>1G</td><td>Machine code (binary)</td><td><code>10110000 01100001</code></td></tr>
+      <tr><td>2G</td><td>Assembly language</td><td><code>MOV AL, 61h</code></td></tr>
+      <tr><td>3G</td><td>High-level procedural</td><td>C, Java, Python, C++</td></tr>
+      <tr><td>4G</td><td>Domain-specific / declarative</td><td>SQL, MATLAB, R</td></tr>
+      <tr><td>5G</td><td>Logic / AI</td><td>Prolog, LISP</td></tr>
+    </table>
+  </div>
+
+  <!-- JS algorithms -->
+  <div class="block">
+    <div class="block-head"><h3>JavaScript — common patterns <em>(could be tested)</em></h3><span class="tag warn">forecast</span></div>
+    <pre><code><span class="com">// declare</span>
+<span class="kw">let</span> x = <span class="num">5</span>;          <span class="com">// can change</span>
+<span class="kw">const</span> PI = <span class="num">3.14</span>;     <span class="com">// constant</span>
+
+<span class="com">// conditional</span>
+<span class="kw">if</span> (x &gt; <span class="num">0</span>) { ... }
+<span class="kw">else if</span> (x === <span class="num">0</span>) { ... }
+<span class="kw">else</span> { ... }
+
+<span class="com">// loop</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; <span class="num">10</span>; i++) { ... }
+<span class="kw">while</span> (x &gt; <span class="num">0</span>) { x--; }
+
+<span class="com">// function</span>
+<span class="kw">function</span> <span class="fn">add</span>(a, b) {
+    <span class="kw">return</span> a + b;
+}
+
+<span class="com">// DOM manipulation</span>
+<span class="kw">const</span> el = <span class="fn">document.getElementById</span>(<span class="str">'msg'</span>);
+el.textContent = <span class="str">'Hello'</span>;
+el.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, () =&gt; { ... });
+
+<span class="com">// arrays</span>
+<span class="kw">let</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+arr.<span class="fn">push</span>(<span class="num">4</span>);    <span class="com">// add to end</span>
+arr.<span class="fn">pop</span>();      <span class="com">// remove last</span>
+arr.length;    <span class="com">// 4</span></code></pre>
+  </div>
+
+  <!-- 24h plan -->
+  <div class="block">
+    <div class="block-head"><h3>24-Hour Cram Plan</h3><span class="tag ok">strategy</span></div>
+    <ol>
+      <li><strong>Tonight (3h):</strong> Q7 (HTML/CSS/errors) + Q6 (Prolog) — 27 marks combined</li>
+      <li><strong>Sleep (8h):</strong> non-negotiable</li>
+      <li><strong>Morning (2h):</strong> Q2 (LMC) + Q3 (Search) — 17 marks</li>
+      <li><strong>Late morning (1h):</strong> Q5 (BST) + Q1 (Sort) — 11 marks</li>
+      <li><strong>Just before exam (30 min):</strong> Q4 (Stack/Queue) + Q8 (PHP) — 5 marks · easy points</li>
+      <li><strong>Skim Extras (30 min):</strong> declarative vs imperative, expert systems, error types</li>
+    </ol>
+  </div>
+
+  <div class="callout tip" style="margin-top:24px;text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:18px">
+    Сәттілік тілеймін! · Удачи завтра.
+  </div>
+</section>
+
+</main>
+
+<footer>МЭСК Paper 3 · Programming · based on 2025 official mark scheme</footer>
+
+<script>
+document.querySelectorAll('.nav-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(x => x.classList.toggle('active', x === b));
+    document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === b.dataset.target));
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+</script>
+
+</body>
+</html>
