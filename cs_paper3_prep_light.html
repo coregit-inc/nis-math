@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science Grade 12 / Paper 3 — Exam Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f3ec;           /* warm off-white / paper */
+    --bg-2: #ede8dd;         /* slightly darker paper */
+    --bg-3: #e3dccd;         /* card hover */
+    --border: #d4ccb8;       /* warm border */
+    --text: #1a1814;         /* near-black with warm tint */
+    --text-dim: #6b6555;     /* muted brown-gray */
+    --text-faded: #9b9483;   /* faded text */
+    --accent: #2d5d3a;       /* deep forest green */
+    --accent-2: #c8431f;     /* burnt orange */
+    --accent-3: #3a4a8a;     /* navy ink */
+    --accent-4: #a83269;     /* deep magenta */
+    --code-bg: #1a1814;      /* dark code on light bg */
+    --code-text: #f0ebe0;    /* light text for code */
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .serif { font-family: 'Fraunces', serif; }
+
+  /* ============ NOISE TEXTURE OVERLAY ============ */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 92vh;
+    padding: 4rem 6vw 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(45,93,58,0.08), transparent 50%);
+    pointer-events: none;
+  }
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .top-bar .blink {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: blink 1.5s infinite;
+    box-shadow: 0 0 8px rgba(45,93,58,0.5);
+  }
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.3; }
+  }
+
+  .hero-title {
+    margin: auto 0;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::after {
+    content: '';
+    flex: 1; max-width: 200px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+  h1.title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 9vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    color: var(--text);
+  }
+  h1.title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  h1.title .kicker {
+    display: block;
+    font-size: 0.4em;
+    font-weight: 400;
+    color: var(--text-dim);
+    letter-spacing: -0.02em;
+    margin-top: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    margin-top: 4rem;
+    border: 1px solid var(--border);
+  }
+  .meta-cell {
+    background: var(--bg);
+    padding: 1.5rem;
+  }
+  .meta-cell .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-faded);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+  .meta-cell .value {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    color: var(--text);
+    font-weight: 400;
+  }
+  .meta-cell .value .unit {
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-left: 0.25rem;
+  }
+
+  /* ============ SECTION BASE ============ */
+  section {
+    padding: 6rem 6vw;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+  }
+  h2.section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+  h2.section-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .section-intro {
+    color: var(--text-dim);
+    max-width: 700px;
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+  }
+
+  /* ============ MAP / DISTRIBUTION CHART ============ */
+  .dist-chart {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .dist-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 60px;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .dist-row .name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  .dist-row .bar {
+    height: 28px;
+    background: var(--bg-3);
+    position: relative;
+    overflow: hidden;
+  }
+  .dist-row .bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dist-row .pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-align: right;
+  }
+  @media (max-width: 600px) {
+    .dist-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    .dist-row .name { font-size: 0.85rem; }
+  }
+
+  /* ============ TOPIC CARDS ============ */
+  .topics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+  .topic {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .topic:hover {
+    background: var(--bg-2);
+  }
+  .topic-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-faded);
+    margin-bottom: 0.5rem;
+  }
+  .topic-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .topic-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .topic-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .topic-body {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .topic-body strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .topic-must-know {
+    margin: 1rem 0;
+  }
+  .topic-must-know .h {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .topic-must-know ul {
+    list-style: none;
+    padding: 0;
+  }
+  .topic-must-know li {
+    font-size: 0.9rem;
+    color: var(--text);
+    padding: 0.35rem 0 0.35rem 1.2rem;
+    position: relative;
+    border-bottom: 1px dashed var(--border);
+  }
+  .topic-must-know li:last-child { border: none; }
+  .topic-must-know li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .years {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+  .year-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .year-tag.hot {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ============ CODE BLOCK ============ */
+  pre.code {
+    background: var(--code-bg);
+    border: 1px solid var(--code-bg);
+    padding: 1.25rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--code-text);
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  pre.code .kw { color: #ff8aa8; }     /* pink */
+  pre.code .fn { color: #c8e87a; }     /* lime */
+  pre.code .str { color: #ffb37a; }    /* orange */
+  pre.code .cm { color: #888073; font-style: italic; }
+  pre.code .num { color: #a5b8ff; }    /* lavender */
+
+  /* ============ CHEAT SHEET ============ */
+  .cheat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .cheat-card {
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    padding: 1.5rem;
+  }
+  .cheat-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+  .cheat-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+  .cheat-card td {
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed var(--border);
+    vertical-align: top;
+  }
+  .cheat-card td:first-child {
+    color: var(--accent);
+    padding-right: 1rem;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .cheat-card td:last-child {
+    color: var(--text-dim);
+  }
+  .cheat-card tr:last-child td { border: none; }
+
+  /* ============ EXAMPLE BOXES ============ */
+  .example {
+    background: var(--bg-2);
+    border-left: 2px solid var(--accent);
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  .example .ex-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+  .example .ex-q {
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .example .ex-a {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ============ TRAP / WARNING BOX ============ */
+  .trap {
+    background: rgba(200, 67, 31, 0.06);
+    border: 1px solid rgba(200, 67, 31, 0.25);
+    border-left: 3px solid var(--accent-2);
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  .trap .trap-label {
+    color: var(--accent-2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  /* ============ CHECKLIST ============ */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  .checklist li {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+  }
+  .checklist li:hover {
+    border-color: var(--accent);
+    background: var(--bg-3);
+  }
+  .checklist li::before {
+    content: '';
+    position: absolute;
+    left: 1rem; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px;
+    border: 1px solid var(--text-faded);
+    transition: all 0.2s;
+  }
+  .checklist li.done {
+    color: var(--text-faded);
+    text-decoration: line-through;
+  }
+  .checklist li.done::before {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .checklist li.done::after {
+    content: '✓';
+    position: absolute;
+    left: 1.25rem; top: 50%; transform: translateY(-58%);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  /* ============ TRACE TABLE EXAMPLE ============ */
+  table.trace {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    margin: 1rem 0;
+    border: 1px solid var(--border);
+  }
+  table.trace th, table.trace td {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  table.trace th {
+    background: var(--bg-3);
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  table.trace td {
+    color: var(--text-dim);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 4rem 6vw 2rem;
+    text-align: center;
+    color: var(--text-faded);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+  }
+  footer .ascii {
+    color: var(--accent);
+    font-size: 0.7rem;
+    line-height: 1;
+    margin: 2rem 0;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  /* ============ NAV ============ */
+  nav.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(246, 243, 236, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 6vw;
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  nav.sticky-nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav.sticky-nav a:hover {
+    color: var(--accent);
+  }
+  nav.sticky-nav .logo {
+    color: var(--accent);
+    margin-right: auto;
+  }
+
+  /* ============ STARS / DECORATION ============ */
+  .star {
+    position: absolute;
+    color: var(--accent);
+    font-size: 1.2rem;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="top-bar">
+    <span><span class="blink"></span>NIS / G12 / Computer Science / Paper 3</span>
+    <span>2023 · 2024 · 2025 · analysis</span>
+  </div>
+
+  <div class="hero-title">
+    <div class="hero-eyebrow">Exam Preparation Guide</div>
+    <h1 class="title">
+      Paper&nbsp;<em>03</em>
+      <span class="kicker">— подготовка по 3 экзаменам / 60 баллов / 2 часа / темы, шпаргалки, ловушки</span>
+    </h1>
+  </div>
+
+  <div class="hero-meta">
+    <div class="meta-cell">
+      <div class="label">Total marks</div>
+      <div class="value">60</div>
+    </div>
+    <div class="meta-cell">
+      <div class="label">Duration</div>
+      <div class="value">2<span class="unit">hours</span></div>
+    </div>
+    <div class="meta-cell">
+      <div class="label">Questions</div>
+      <div class="value">6–8</div>
+    </div>
+    <div class="meta-cell">
+      <div class="label">Core topics</div>
+      <div class="value">10</div>
+    </div>
+    <div class="meta-cell">
+      <div class="label">Language</div>
+      <div class="value">EN</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STICKY NAV ============ -->
+<nav class="sticky-nav">
+  <a href="#dist" class="logo">◆ CS_PREP</a>
+  <a href="#dist">Распределение</a>
+  <a href="#topics">Темы</a>
+  <a href="#assembly">Assembly</a>
+  <a href="#sort">Алгоритмы</a>
+  <a href="#ds">Структуры</a>
+  <a href="#prolog">Prolog</a>
+  <a href="#web">Web/HTML</a>
+  <a href="#errors">Ошибки</a>
+  <a href="#cheat">Шпаргалки</a>
+  <a href="#checklist">Чеклист</a>
+</nav>
+
+<!-- ============ DISTRIBUTION ============ -->
+<section id="dist">
+  <div class="section-tag">→ 01 / Анализ</div>
+  <h2 class="section-title">Что встречается <em>чаще всего</em></h2>
+  <p class="section-intro">
+    Анализ всех трёх экзаменов (2023, 2024, 2025) показал, что вопросы повторяются в очень стабильных пропорциях. Эта карта показывает, какую долю баллов занимает каждая тема — фокус подготовки должен быть на верхней половине.
+  </p>
+
+  <div class="dist-chart">
+    <div class="dist-row"><span class="name">Assembly / LMC (трассировка)</span><div class="bar"><div class="fill" style="width: 95%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">HTML / CSS / Web forms</span><div class="bar"><div class="fill" style="width: 92%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">Структуры данных (массивы, BST)</span><div class="bar"><div class="fill" style="width: 88%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">Алгоритмы сортировки/поиска</span><div class="bar"><div class="fill" style="width: 85%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">Скриптовые языки (JS / PHP)</span><div class="bar"><div class="fill" style="width: 80%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">Псевдокод / трассировка</span><div class="bar"><div class="fill" style="width: 75%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">Prolog (факты/правила/запросы)</span><div class="bar"><div class="fill" style="width: 70%"></div></div><span class="pct">2/3</span></div>
+    <div class="dist-row"><span class="name">Типы ошибок программ</span><div class="bar"><div class="fill" style="width: 60%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">Тестовые данные (normal/extreme/erroneous)</span><div class="bar"><div class="fill" style="width: 55%"></div></div><span class="pct">3/3</span></div>
+    <div class="dist-row"><span class="name">Оптимизация / стиль кода</span><div class="bar"><div class="fill" style="width: 45%"></div></div><span class="pct">2/3</span></div>
+    <div class="dist-row"><span class="name">Базы данных (SQL/PHP MySQLi)</span><div class="bar"><div class="fill" style="width: 25%"></div></div><span class="pct">1/3</span></div>
+  </div>
+</section>
+
+<!-- ============ TOPICS ============ -->
+<section id="topics">
+  <div class="section-tag">→ 02 / Темы экзамена</div>
+  <h2 class="section-title">10 главных тем, <em>которые нужно знать</em></h2>
+  <p class="section-intro">
+    Каждая карточка — отдельная тема. Внутри: что это, что обязательно знать, в каких годах встречалось.
+  </p>
+
+  <div class="topics">
+
+    <!-- Topic 1: Assembly -->
+    <div class="topic" id="assembly">
+      <div class="topic-num">01 / 10</div>
+      <div class="topic-title">Assembly language <em>(LMC)</em></div>
+      <div class="topic-sub">Низкоуровневое программирование</div>
+      <div class="topic-body">
+        Вопрос с <strong>таблицей трассировки</strong> ассемблерного кода встречается каждый год. Дают программу с инструкциями, и нужно пошагово показать, что происходит в аккумуляторе и памяти.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Что нужно знать</div>
+        <ul>
+          <li>Все мнемоники: INP, OUT, LDA, STA, ADD, SUB, BRP, BRZ, BRA, HLT, DAT</li>
+          <li>Разница BRP (≥0) vs BRZ (=0)</li>
+          <li>Заполнение trace table (instruction address, accumulator, memory, condition, output)</li>
+          <li>Определить цель программы (умножение, деление, остаток и т.д.)</li>
+          <li>Найти строки с условием и циклом</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2023</span>
+        <span class="year-tag hot">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 2: Sorting -->
+    <div class="topic" id="sort">
+      <div class="topic-num">02 / 10</div>
+      <div class="topic-title">Bubble Sort <em>сортировка</em></div>
+      <div class="topic-sub">Алгоритм сортировки пузырьком</div>
+      <div class="topic-body">
+        Самый часто запрашиваемый алгоритм. Нужно уметь написать на псевдокоде <strong>с двумя вложенными циклами</strong>, сравнением соседних элементов и обменом.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Структура кода — 4 балла</div>
+        <ul>
+          <li>Внешний цикл с правильным диапазоном (1 балл)</li>
+          <li>Внутренний цикл с правильным диапазоном (1 балл)</li>
+          <li>Сравнение соседних элементов (1 балл)</li>
+          <li>Обмен через временную переменную (1 балл)</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 3: Binary Search -->
+    <div class="topic">
+      <div class="topic-num">03 / 10</div>
+      <div class="topic-title">Binary <em>Search</em></div>
+      <div class="topic-sub">Бинарный поиск + сложность</div>
+      <div class="topic-body">
+        Заполнение пропусков в коде, плюс вопросы про <strong>временную сложность O(log N)</strong> и максимальное число итераций для массива размера N.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Ключевые моменты</div>
+        <ul>
+          <li>Условие цикла: low &lt;= high (или с флагом)</li>
+          <li>mid = INT((low+high)/2)</li>
+          <li>Если найдено: index = mid, flag = TRUE</li>
+          <li>Если PhoneBook[mid] &gt; name: high = mid - 1</li>
+          <li>Иначе: low = mid + 1</li>
+          <li>Сложность: O(log N), для N=100 → 7 итераций</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 4: Data Structures -->
+    <div class="topic" id="ds">
+      <div class="topic-num">04 / 10</div>
+      <div class="topic-title">Структуры <em>данных</em></div>
+      <div class="topic-sub">Stack, Queue, Array, BST</div>
+      <div class="topic-body">
+        Нужно узнавать типы по описанию: <strong>Stack — LIFO</strong>, <strong>Queue — FIFO</strong>, плюс уметь рисовать <strong>Binary Search Tree</strong> с указателями.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Операции и определения</div>
+        <ul>
+          <li>Stack: push, pop, peek, is_empty, is_full</li>
+          <li>"item added last is removed first" → Stack</li>
+          <li>"item added first is removed first" → Queue</li>
+          <li>BST: меньшие элементы — слева, большие — справа</li>
+          <li>Формат узла: [Left ptr | Data | Right ptr]</li>
+          <li>NULL или -1 для пустого указателя</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2023</span>
+        <span class="year-tag hot">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 5: Prolog -->
+    <div class="topic" id="prolog">
+      <div class="topic-num">05 / 10</div>
+      <div class="topic-title">Prolog <em>/ Логика</em></div>
+      <div class="topic-sub">Декларативное программирование</div>
+      <div class="topic-body">
+        Различать <strong>факты</strong> (parent(a,b).) и <strong>правила</strong> (sibling(X,Y) :- ...). Уметь писать запросы и составлять новые правила (AND через запятую, OR через ";").
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Синтаксис</div>
+        <ul>
+          <li>Факт: имя(аргументы). — заканчивается точкой</li>
+          <li>Правило: голова :- тело.</li>
+          <li>AND = "," (запятая)</li>
+          <li>OR = ";" (точка с запятой)</li>
+          <li>X \= Y — X не равно Y</li>
+          <li>Переменные с большой буквы, константы с маленькой</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2023</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 6: HTML Forms -->
+    <div class="topic" id="web">
+      <div class="topic-num">06 / 10</div>
+      <div class="topic-title">HTML <em>формы</em></div>
+      <div class="topic-sub">Web-приложения, ввод данных</div>
+      <div class="topic-body">
+        Заполнить HTML код по картинке. Часто: <strong>radio buttons</strong>, text input, submit button, select.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Теги и атрибуты</div>
+        <ul>
+          <li>&lt;input type="text"&gt; — поле ввода</li>
+          <li>&lt;input type="radio" name="X"&gt; — общий name!</li>
+          <li>&lt;input type="submit" value="Go"&gt;</li>
+          <li>&lt;form method="POST" action="..."&gt;</li>
+          <li>&lt;label for="id"&gt;Текст&lt;/label&gt;</li>
+          <li>&lt;select&gt;&lt;option value="1"&gt;1&lt;/option&gt;</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2023</span>
+        <span class="year-tag hot">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 7: CSS -->
+    <div class="topic">
+      <div class="topic-num">07 / 10</div>
+      <div class="topic-title">CSS <em>стилизация</em></div>
+      <div class="topic-sub">Цвета, шрифты, типы CSS</div>
+      <div class="topic-body">
+        Создавать CSS-правила в &lt;style&gt; внутри &lt;head&gt;. Знать <strong>3 типа CSS</strong>: Inline, Internal, External.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Свойства</div>
+        <ul>
+          <li>color: red; — цвет текста</li>
+          <li>text-decoration: underline; — подчёркивание</li>
+          <li>background-color: ...; </li>
+          <li>Inline = в атрибуте style=""</li>
+          <li>Internal = в &lt;style&gt; в &lt;head&gt;</li>
+          <li>External = подключаемый .css файл</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 8: Scripts -->
+    <div class="topic">
+      <div class="topic-num">08 / 10</div>
+      <div class="topic-title">Скрипты <em>(JS / PHP)</em></div>
+      <div class="topic-sub">Обработка форм, расчёты</div>
+      <div class="topic-body">
+        Написать код для обработки данных формы: посчитать стоимость, проверить PIN, применить скидку. Обычно <strong>JavaScript или PHP</strong>.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Шаблоны</div>
+        <ul>
+          <li>JS: document.getElementById("x").value</li>
+          <li>PHP: $_POST['name']</li>
+          <li>JS: prompt(), alert()</li>
+          <li>Циклы и условия для попыток ввода</li>
+          <li>parseFloat() / parseInt() для чисел</li>
+          <li>Скидка: total = total * 0.9</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2023</span>
+        <span class="year-tag hot">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 9: Errors -->
+    <div class="topic" id="errors">
+      <div class="topic-num">09 / 10</div>
+      <div class="topic-title">Типы <em>ошибок</em></div>
+      <div class="topic-sub">Syntax / Runtime / Logic</div>
+      <div class="topic-body">
+        По описанию определить тип ошибки. Это самые лёгкие баллы экзамена — главное не путать.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Три типа</div>
+        <ul>
+          <li><strong>Syntax</strong> — опечатка, неправильный синтаксис</li>
+          <li><strong>Runtime</strong> — выход за границы массива, деление на 0, неправильный тип ввода</li>
+          <li><strong>Logic</strong> — программа работает, но результат неверный (например, count вместо compnum)</li>
+          <li>Если строка text[i] = alphabet[j+1] для 'z' → Runtime (out of range)</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2023</span>
+        <span class="year-tag hot">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+    <!-- Topic 10: Test Data -->
+    <div class="topic">
+      <div class="topic-num">10 / 10</div>
+      <div class="topic-title">Тестовые <em>данные</em></div>
+      <div class="topic-sub">Normal / Extreme / Erroneous</div>
+      <div class="topic-body">
+        Дают алгоритм и просят примеры данных. Главное — понимать <strong>разницу между тремя категориями</strong>.
+      </div>
+      <div class="topic-must-know">
+        <div class="h">Категории</div>
+        <ul>
+          <li><strong>Normal</strong> — данные внутри допустимого диапазона (для месяца: 5)</li>
+          <li><strong>Extreme</strong> — границы диапазона (1 или 12)</li>
+          <li><strong>Erroneous</strong> — за пределами или неверный тип (0, -5, 13, "июль")</li>
+          <li>Для Encrypt() normal = "buy", erroneous = "buzz" или "123"</li>
+        </ul>
+      </div>
+      <div class="years">
+        <span class="year-tag hot">2024</span>
+        <span class="year-tag hot">2025</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ ASSEMBLY DEEP DIVE ============ -->
+<section>
+  <div class="section-tag">→ 03 / Глубокое погружение</div>
+  <h2 class="section-title">Assembly: <em>как заполнять trace table</em></h2>
+  <p class="section-intro">
+    Этот вопрос даёт 5-9 баллов каждый год. Алгоритм трассировки одинаковый — нужно лишь понимать каждую инструкцию.
+  </p>
+
+  <pre class="code">
+<span class="cm">// Пример из экзамена 2025</span>
+00  <span class="kw">LDA</span> 08      <span class="cm">// Загрузить значение из ячейки 08 в Accumulator</span>
+01  <span class="kw">SUB</span> 09      <span class="cm">// Вычесть значение ячейки 09 из ACC</span>
+02  <span class="kw">BRP</span> 06      <span class="cm">// Если ACC >= 0, прыгнуть на адрес 06</span>
+03  <span class="kw">LDA</span> 08      <span class="cm">// Иначе: загрузить 08</span>
+04  <span class="kw">OUT</span>         <span class="cm">// Вывести ACC</span>
+05  <span class="kw">HLT</span>         <span class="cm">// Остановиться</span>
+06  <span class="kw">STA</span> 08      <span class="cm">// Сохранить ACC в 08</span>
+07  <span class="kw">BRA</span> 00      <span class="cm">// Прыгнуть на 00 (цикл)</span>
+08  <span class="kw">DAT</span> <span class="num">6</span>       <span class="cm">// Данные</span>
+09  <span class="kw">DAT</span> <span class="num">4</span>       <span class="cm">// Данные</span></pre>
+
+  <p style="color: var(--text-dim); margin-top: 1rem;">Эта программа находит <strong style="color: var(--text);">остаток от деления</strong> 6 на 4. Результат: 2.</p>
+
+  <table class="trace">
+    <thead>
+      <tr><th>Address</th><th>ACC</th><th>[08]</th><th>[09]</th><th>Condition</th><th>Output</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>—</td><td>—</td><td>6</td><td>4</td><td>—</td><td>—</td></tr>
+      <tr><td>00</td><td>6</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>01</td><td>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>02</td><td>—</td><td>—</td><td>—</td><td>TRUE</td><td>—</td></tr>
+      <tr><td>06</td><td>—</td><td>2</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>07</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>00</td><td>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>01</td><td>-2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>02</td><td>—</td><td>—</td><td>—</td><td>FALSE</td><td>—</td></tr>
+      <tr><td>03</td><td>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>04</td><td>—</td><td>—</td><td>—</td><td>—</td><td>2</td></tr>
+      <tr><td>05</td><td>HLT</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Типичные ловушки</span>
+    Не забывайте обновлять значение в ячейке памяти при STA. И помните: BRP срабатывает и при нуле, и при положительном — а BRZ только при нуле.
+  </div>
+</section>
+
+<!-- ============ BUBBLE SORT DEEP ============ -->
+<section>
+  <div class="section-tag">→ 04 / Шаблон кода</div>
+  <h2 class="section-title">Bubble Sort — <em>заучить наизусть</em></h2>
+  <p class="section-intro">
+    Этот код должен выходить автоматически. Различие только в направлении сортировки (descending — знак &lt; меняется на &gt;).
+  </p>
+
+  <pre class="code">
+<span class="cm">// Сортировка по убыванию (2025 экзамен)</span>
+<span class="kw">FOR</span> i ← <span class="num">0</span> <span class="kw">TO</span> length(arr) - <span class="num">2</span> <span class="kw">DO</span>
+    <span class="kw">FOR</span> j ← <span class="num">0</span> <span class="kw">TO</span> length(arr) - i - <span class="num">2</span> <span class="kw">DO</span>
+        <span class="kw">IF</span> arr[j] &lt; arr[j+<span class="num">1</span>] <span class="kw">THEN</span>     <span class="cm">// для возрастания: arr[j] > arr[j+1]</span>
+            temp ← arr[j]
+            arr[j] ← arr[j+<span class="num">1</span>]
+            arr[j+<span class="num">1</span>] ← temp
+        <span class="kw">ENDIF</span>
+    <span class="kw">ENDFOR</span>
+<span class="kw">ENDFOR</span></pre>
+
+  <div class="example">
+    <div class="ex-tag">Памятка</div>
+    <div class="ex-q">Запомнить нужно <strong>4 элемента</strong>:</div>
+    <div class="ex-a">
+      1) Два вложенных цикла<br>
+      2) Сравнение соседних: arr[j] и arr[j+1]<br>
+      3) Обмен через временную переменную<br>
+      4) Каждый "проход" — самое большое (или маленькое) "всплывает" к концу
+    </div>
+  </div>
+</section>
+
+<!-- ============ BST DEEP ============ -->
+<section>
+  <div class="section-tag">→ 05 / Структуры</div>
+  <h2 class="section-title">Binary Search Tree — <em>как строить</em></h2>
+  <p class="section-intro">
+    Дают массив. Первый элемент становится корнем. Каждый следующий: меньше — налево, больше — направо.
+  </p>
+
+  <pre class="code">
+<span class="cm">// Массив из 2025 экзамена</span>
+["M", "B", "A", "K", "H", "V", "T"]
+
+<span class="cm">// Построение пошагово:</span>
+<span class="num">1</span>. M → корень
+<span class="num">2</span>. B &lt; M → B налево от M
+<span class="num">3</span>. A &lt; M, A &lt; B → A налево от B
+<span class="num">4</span>. K &lt; M, K &gt; B → K направо от B
+<span class="num">5</span>. H &lt; M, H &gt; B, H &lt; K → H налево от K
+<span class="num">6</span>. V &gt; M → V направо от M
+<span class="num">7</span>. T &gt; M, T &lt; V → T налево от V
+
+<span class="cm">// Формат узла: [Left ptr | Data | Right ptr]</span>
+<span class="cm">// Указатель = индекс узла, или NULL (-1) если нет</span></pre>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Важно</span>
+    Не забывайте <strong>указатели</strong> (либо номер связанного узла, либо NULL/-1 для пустых ветвей). Без указателей баллы не даются.
+  </div>
+</section>
+
+<!-- ============ PROLOG DEEP ============ -->
+<section>
+  <div class="section-tag">→ 06 / Декларативка</div>
+  <h2 class="section-title">Prolog — <em>правила и запросы</em></h2>
+
+  <pre class="code">
+<span class="cm">% Факты (что-то является правдой)</span>
+parent_child(maryam, lisa).
+parent_child(jiger, maryam).
+spouse(jiger, tamila).
+
+<span class="cm">% Правила (если ... то ...)</span>
+parent(X, Y) :- parent_child(X, Y).
+
+<span class="cm">% Sibling: X и Y — родственники, если у них общий родитель</span>
+<span class="fn">sibling</span>(X, Y) :- 
+    parent_child(Z, X),   <span class="cm">% Z родитель X</span>
+    parent_child(Z, Y),   <span class="cm">% AND Z родитель Y</span>
+    X \= Y.               <span class="cm">% AND X ≠ Y</span>
+
+<span class="cm">% Family: X в семье с Y, если они супруги ИЛИ родитель-ребёнок</span>
+<span class="fn">family</span>(X, Y) :-
+    spouse(X, Y);                <span class="cm">% OR</span>
+    parent_child(X, Y);          <span class="cm">% OR</span>
+    parent_child(Y, X).</pre>
+
+  <div class="cheat" style="margin-top: 2rem;">
+    <div class="cheat-card">
+      <h3>Запросы (queries)</h3>
+      <table>
+        <tr><td>flies(Y, sunqar).</td><td>Кто летает рейсом sunqar?</td></tr>
+        <tr><td>child(jiger, Y).</td><td>Дети jiger? Возвращает Y</td></tr>
+        <tr><td>direct(shymkent, Z).</td><td>Прямые рейсы из Шымкента</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHEAT SHEETS ============ -->
+<section id="cheat">
+  <div class="section-tag">→ 07 / Шпаргалки</div>
+  <h2 class="section-title">Quick <em>reference</em></h2>
+  <p class="section-intro">Ключевые конструкции, которые часто нужны.</p>
+
+  <div class="cheat">
+
+    <div class="cheat-card">
+      <h3>Assembly Mnemonics</h3>
+      <table>
+        <tr><td>INP</td><td>Ввод в ACC</td></tr>
+        <tr><td>OUT</td><td>Вывод ACC</td></tr>
+        <tr><td>LDA n</td><td>ACC ← [n]</td></tr>
+        <tr><td>STA n</td><td>[n] ← ACC</td></tr>
+        <tr><td>ADD n</td><td>ACC ← ACC + [n]</td></tr>
+        <tr><td>SUB n</td><td>ACC ← ACC − [n]</td></tr>
+        <tr><td>BRP n</td><td>Прыжок если ACC ≥ 0</td></tr>
+        <tr><td>BRZ n</td><td>Прыжок если ACC = 0</td></tr>
+        <tr><td>BRA n</td><td>Безусловный прыжок</td></tr>
+        <tr><td>HLT</td><td>Остановка</td></tr>
+        <tr><td>DAT</td><td>Метка данных</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>HTML Form Elements</h3>
+      <table>
+        <tr><td>text</td><td>Однострочный ввод</td></tr>
+        <tr><td>radio</td><td>Выбор одного из (один name!)</td></tr>
+        <tr><td>checkbox</td><td>Множественный выбор</td></tr>
+        <tr><td>submit</td><td>Кнопка отправки</td></tr>
+        <tr><td>button</td><td>Обычная кнопка</td></tr>
+        <tr><td>select</td><td>Выпадающий список</td></tr>
+        <tr><td>label</td><td>Подпись (for="id")</td></tr>
+        <tr><td>method=</td><td>GET или POST</td></tr>
+        <tr><td>action=</td><td>Куда отправлять</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Структуры данных</h3>
+      <table>
+        <tr><td>Stack</td><td>LIFO — push, pop, peek</td></tr>
+        <tr><td>Queue</td><td>FIFO — enqueue, dequeue</td></tr>
+        <tr><td>Array</td><td>Индексы 0..N-1</td></tr>
+        <tr><td>1D / 2D</td><td>arr[i] / arr[i][j]</td></tr>
+        <tr><td>BST</td><td>Слева &lt;, справа &gt;</td></tr>
+        <tr><td>Linked list</td><td>Узлы + указатели</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Сложность алгоритмов</h3>
+      <table>
+        <tr><td>O(1)</td><td>Доступ к элементу массива</td></tr>
+        <tr><td>O(log N)</td><td>Binary search</td></tr>
+        <tr><td>O(N)</td><td>Linear search</td></tr>
+        <tr><td>O(N log N)</td><td>Merge / quick sort</td></tr>
+        <tr><td>O(N²)</td><td>Bubble sort</td></tr>
+        <tr><td>N=100</td><td>Binary = 7 итераций</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Типы CSS</h3>
+      <table>
+        <tr><td>Inline</td><td>style="..." в теге</td></tr>
+        <tr><td>Internal</td><td>&lt;style&gt; в &lt;head&gt;</td></tr>
+        <tr><td>External</td><td>&lt;link rel="stylesheet"&gt;</td></tr>
+        <tr><td>color:</td><td>цвет текста</td></tr>
+        <tr><td>text-decoration:</td><td>underline / none</td></tr>
+        <tr><td>background:</td><td>фон</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>PHP / MySQLi</h3>
+      <table>
+        <tr><td>$_POST['x']</td><td>Данные из POST формы</td></tr>
+        <tr><td>$_GET['x']</td><td>Данные из URL</td></tr>
+        <tr><td>mysqli_connect()</td><td>Подключение к БД</td></tr>
+        <tr><td>if (!$conn)</td><td>Проверка подключения</td></tr>
+        <tr><td>echo</td><td>Вывод на страницу</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Хороший стиль кода</h3>
+      <table>
+        <tr><td>Indentation</td><td>Отступы</td></tr>
+        <tr><td>Comments</td><td>Комментарии</td></tr>
+        <tr><td>Names</td><td>Понятные имена переменных</td></tr>
+        <tr><td>Modules</td><td>Разбивка на функции</td></tr>
+        <tr><td>Constants</td><td>Заглавными буквами</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Оптимизация</h3>
+      <table>
+        <tr><td>Время</td><td>Меньше итераций</td></tr>
+        <tr><td>Время</td><td>Лучший алгоритм</td></tr>
+        <tr><td>Время</td><td>Убрать повторные вычисления</td></tr>
+        <tr><td>Память</td><td>Подходящие структуры</td></tr>
+        <tr><td>Память</td><td>Удалить дубликаты</td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ EXAM TRAPS ============ -->
+<section>
+  <div class="section-tag">→ 08 / Ловушки</div>
+  <h2 class="section-title">На что <em>обратить внимание</em></h2>
+  <p class="section-intro">Типичные ошибки, на которых теряют баллы.</p>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Stack operations</span>
+    Когда пишете список операций со стеком, <strong>значения должны быть в кавычках</strong>: push("C#"), а не push(C#). Иначе баллы не дают.
+  </div>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Prolog</span>
+    Константы пишутся с <strong>маленькой буквы</strong> (bolat, а не Bolat). С большой буквы — только переменные.
+  </div>
+
+  <div class="trap">
+    <span class="trap-label">⚠ BST</span>
+    Не забывайте <strong>указатели</strong> (Left ptr, Right ptr). Узел без указателей — это не узел дерева, баллов не получите.
+  </div>
+
+  <div class="trap">
+    <span class="trap-label">⚠ HTML radio buttons</span>
+    У всех radio в одной группе должен быть <strong>одинаковый name=""</strong>. Иначе можно будет выбрать все одновременно — задание считается невыполненным.
+  </div>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Brand names</span>
+    Из инструкции: <strong>"No marks will be awarded for using brand names"</strong>. Не пишите "Python", "Excel", "Word" в ответах — пишите "high-level language", "spreadsheet software" и т.п.
+  </div>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Trace table — Condition</span>
+    Заполняйте колонку Condition <strong>только когда выполняется BRP/BRZ</strong>. На обычных инструкциях оставляйте пустым.
+  </div>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Bubble sort range</span>
+    Внутренний цикл должен идти <strong>до n - i - 1</strong>, иначе будет выход за границы массива (runtime error).
+  </div>
+
+  <div class="trap">
+    <span class="trap-label">⚠ Encrypt 'z'</span>
+    В алгоритме Цезаря если буква 'z', то alphabet[j+1] = alphabet[26] — runtime error (out of range). Решение: <strong>проверка if char='z' → wrap to 'a'</strong>.
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section id="checklist">
+  <div class="section-tag">→ 09 / Готовность</div>
+  <h2 class="section-title">Чеклист <em>подготовки</em></h2>
+  <p class="section-intro">
+    Кликни на пункт, чтобы отметить готовность. Цель — закрыть все пункты.
+  </p>
+
+  <ul class="checklist" id="cklist">
+    <li>Знаю все 11 мнемоник ассемблера наизусть</li>
+    <li>Могу заполнить trace table без ошибок</li>
+    <li>Отличаю BRP от BRZ</li>
+    <li>Могу написать Bubble Sort по памяти за 3 минуты</li>
+    <li>Понимаю время O(log N) и могу посчитать итерации</li>
+    <li>Заполняю пропуски в Binary Search</li>
+    <li>Знаю операции Stack: push, pop, peek, is_empty, is_full</li>
+    <li>Stack = LIFO, Queue = FIFO — без раздумий</li>
+    <li>Могу построить BST из массива с указателями</li>
+    <li>Различаю факты и правила в Prolog</li>
+    <li>Знаю синтаксис AND (,) и OR (;) в Prolog</li>
+    <li>Могу написать правило sibling/family</li>
+    <li>Заполняю HTML формы с radio buttons</li>
+    <li>Знаю атрибуты form: method, action</li>
+    <li>Помню 3 типа CSS: inline / internal / external</li>
+    <li>Пишу CSS для цвета и подчёркивания</li>
+    <li>Различаю Syntax / Runtime / Logic errors</li>
+    <li>Помню normal / extreme / erroneous test data</li>
+    <li>Могу написать JavaScript для обработки формы</li>
+    <li>Знаю $_POST в PHP</li>
+    <li>Помню mysqli_connect() и проверку !$conn</li>
+    <li>Могу назвать 3 признака хорошего стиля кода</li>
+    <li>Знаю 2 способа оптимизации по времени</li>
+    <li>Прорешал все 3 экзамена под таймер 2ч</li>
+  </ul>
+</section>
+
+<!-- ============ FINAL TIPS ============ -->
+<section>
+  <div class="section-tag">→ 10 / Стратегия</div>
+  <h2 class="section-title">В день <em>экзамена</em></h2>
+
+  <div class="cheat" style="margin-top: 2rem;">
+    <div class="cheat-card">
+      <h3>За день до</h3>
+      <table>
+        <tr><td>1</td><td>Повторить все мнемоники Assembly</td></tr>
+        <tr><td>2</td><td>Написать Bubble Sort на бумаге</td></tr>
+        <tr><td>3</td><td>Построить BST из случайного массива</td></tr>
+        <tr><td>4</td><td>Перечитать типы ошибок</td></tr>
+        <tr><td>5</td><td>Лечь спать вовремя</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Время на экзамене</h3>
+      <table>
+        <tr><td>120 мин</td><td>= 60 баллов</td></tr>
+        <tr><td>2 мин</td><td>на 1 балл</td></tr>
+        <tr><td>5 мин</td><td>пробежать весь paper в начале</td></tr>
+        <tr><td>15 мин</td><td>оставить на проверку в конце</td></tr>
+        <tr><td>—</td><td>Trace table = ~20 мин</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Порядок решения</h3>
+      <table>
+        <tr><td>1.</td><td>Прочитать все вопросы за 5 мин</td></tr>
+        <tr><td>2.</td><td>Сначала лёгкие (errors, definitions)</td></tr>
+        <tr><td>3.</td><td>Потом средние (HTML, псевдокод)</td></tr>
+        <tr><td>4.</td><td>В конце — trace table и сложные</td></tr>
+        <tr><td>5.</td><td>Не оставляйте пустых полей!</td></tr>
+      </table>
+    </div>
+
+    <div class="cheat-card">
+      <h3>Что брать</h3>
+      <table>
+        <tr><td>✓</td><td>Тёмно-синяя или чёрная ручка</td></tr>
+        <tr><td>✓</td><td>Запасная ручка</td></tr>
+        <tr><td>✓</td><td>Карандаш для черновика</td></tr>
+        <tr><td>✓</td><td>Линейка (для trace table)</td></tr>
+        <tr><td>✗</td><td>Без степлеров, клея, корректора</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="ascii">
+   ____  ____    ____   ____  _____ ____      _____  _____ 
+  / ___||  _ \  |  _ \ |  _ \| ____|  _ \    |___ /  |___ / 
+ | |    | |_) | | |_) || |_) |  _| | |_) |     |_ \    |_ \ 
+ | |___ |  __/  |  __/ |  _ &lt;| |___|  __/    ___) |  ___) |
+  \____||_|     |_|    |_| \_\_____|_|      |____/  |____/ 
+  </div>
+  <p>Подготовка к NIS Computer Science Grade 12 / Paper 3</p>
+  <p style="margin-top: 0.5rem; opacity: 0.5;">основано на экзаменах 2023 · 2024 · 2025</p>
+  <p style="margin-top: 2rem; opacity: 0.4;">good luck — удачи на экзамене ⌁</p>
+</footer>
+
+<script>
+  // Checklist interactivity
+  document.querySelectorAll('#cklist li').forEach(li => {
+    li.addEventListener('click', () => {
+      li.classList.toggle('done');
+      // Save to localStorage would work in standalone, omitted for portability
+    });
+  });
+
+  // Animate distribution bars on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.fill').forEach(f => {
+          const w = f.style.width;
+          f.style.width = '0';
+          setTimeout(() => f.style.width = w, 100);
+        });
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const distSection = document.getElementById('dist');
+  if (distSection) observer.observe(distSection);
+</script>
+
+</body>
+</html>
