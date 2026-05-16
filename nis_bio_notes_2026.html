@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIS Biology Grade 12 — Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --surface: #13161d;
+  --surface2: #1a1e28;
+  --border: #232836;
+  --accent: #00e5a0;
+  --accent2: #ff6b35;
+  --accent3: #4d9fff;
+  --accent4: #ffd60a;
+  --accent5: #c084fc;
+  --text: #e8eaf0;
+  --muted: #6b7280;
+  --muted2: #9ca3af;
+  --sidebar: 280px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar);
+  min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0;
+  overflow-y: auto;
+  z-index: 100;
+  flex-shrink: 0;
+}
+.sidebar-logo {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+.sidebar-logo h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.sidebar-logo p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.nav-section {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.nav-term {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding: 10px 20px 4px;
+}
+.nav-item {
+  display: block;
+  padding: 7px 20px;
+  font-size: 12px;
+  color: var(--muted2);
+  text-decoration: none;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+}
+.nav-item:hover { color: var(--text); background: var(--surface2); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--surface2); }
+.nav-item .tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-right: 6px;
+  font-weight: 600;
+}
+.tag.t1 { background: #00e5a015; color: var(--accent); }
+.tag.t2 { background: #ffd60a15; color: var(--accent4); }
+.tag.t3 { background: #4d9fff15; color: var(--accent3); }
+.tag.t4 { background: #ff6b3515; color: var(--accent2); }
+
+/* MAIN CONTENT */
+.main { margin-left: var(--sidebar); flex: 1; max-width: 100%; }
+
+/* TOPBAR */
+.topbar {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+}
+.topbar-title { font-size: 13px; color: var(--muted); }
+.topbar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 6px 12px;
+}
+.topbar-search input {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  width: 200px;
+}
+.topbar-search input::placeholder { color: var(--muted); }
+.topbar-search svg { color: var(--muted); flex-shrink: 0; }
+
+/* CONTENT */
+.content { padding: 48px; max-width: 900px; }
+
+/* TOPIC SECTION */
+.topic-section {
+  margin-bottom: 72px;
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+.topic-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.topic-code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+.tc-t1 { background: #00e5a015; color: var(--accent); border: 1px solid #00e5a030; }
+.tc-t2 { background: #ffd60a15; color: var(--accent4); border: 1px solid #ffd60a30; }
+.tc-t3 { background: #4d9fff15; color: var(--accent3); border: 1px solid #4d9fff30; }
+.tc-t4 { background: #ff6b3515; color: var(--accent2); border: 1px solid #ff6b3530; }
+
+.topic-title-group h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 1.5px;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.topic-title-group p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.lo-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+/* CONCEPT BLOCKS */
+.concept {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.concept-header {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.concept-header:hover { background: var(--surface2); }
+.concept-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.concept-title .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-green { background: var(--accent); }
+.dot-yellow { background: var(--accent4); }
+.dot-blue { background: var(--accent3); }
+.dot-orange { background: var(--accent2); }
+.dot-purple { background: var(--accent5); }
+
+.concept-toggle {
+  font-size: 12px;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.concept.open .concept-toggle { transform: rotate(180deg); }
+.concept-body {
+  display: none;
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+.concept.open .concept-body { display: block; }
+
+/* TYPOGRAPHY IN BODY */
+.concept-body h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 18px 0 8px;
+}
+.concept-body h4:first-child { margin-top: 16px; }
+.concept-body p { font-size: 13px; color: var(--muted2); line-height: 1.8; margin-bottom: 8px; }
+.concept-body strong { color: var(--text); font-weight: 600; }
+.concept-body em { color: var(--accent3); font-style: normal; font-weight: 500; }
+
+/* DEFINITION BOX */
+.def-box {
+  background: var(--surface2);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  margin: 10px 0;
+  border-radius: 0 3px 3px 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.def-box .term {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* STEP SEQUENCE */
+.steps { margin: 10px 0; }
+.step {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted2);
+}
+.step-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+  width: 20px;
+  margin-top: 2px;
+}
+.step strong { color: var(--text); }
+
+/* KEY POINTS */
+.key-points { margin: 10px 0; }
+.key-point {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--muted2);
+  line-height: 1.6;
+  padding-left: 2px;
+}
+.key-point::before {
+  content: '→';
+  color: var(--accent);
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.key-point strong { color: var(--text); }
+
+/* COMPARE TABLE */
+.cmp-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+.cmp-table th {
+  background: var(--surface2);
+  padding: 8px 12px;
+  text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.cmp-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted2);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.cmp-table td:first-child { color: var(--text); font-weight: 500; }
+.cmp-table tr:last-child td { border-bottom: none; }
+
+/* EQUATION */
+.equation {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: 3px;
+  margin: 10px 0;
+  color: var(--accent4);
+  letter-spacing: 0.5px;
+}
+
+/* CALLOUT */
+.callout {
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.callout.warn { border-color: #f59e0b40; background: #f59e0b08; color: var(--muted2); }
+.callout.warn::before { content: '⚠ '; color: #f59e0b; }
+.callout.exam { border-color: #00e5a040; background: #00e5a008; color: var(--muted2); }
+.callout.exam::before { content: '✓ EXAM TIP: '; color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1px; }
+
+/* TERM DIVIDER */
+.term-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 48px 0 32px;
+}
+.term-divider h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 4px;
+  white-space: nowrap;
+}
+.term-divider.t1 h3 { color: var(--accent); }
+.term-divider.t2 h3 { color: var(--accent4); }
+.term-divider.t3 h3 { color: var(--accent3); }
+.term-divider.t4 h3 { color: var(--accent2); }
+.term-divider::after { content:''; flex:1; height:1px; background: var(--border); }
+
+/* MOBILE MENU */
+.menu-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px; right: 20px;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 48px; height: 48px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 200;
+  font-weight: 700;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+  position: fixed;
+  top: 0; left: var(--sidebar); right: 0;
+  height: 2px;
+  background: var(--border);
+  z-index: 200;
+}
+.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.1s; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.sidebar::-webkit-scrollbar { width: 3px; }
+
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .topbar { padding: 14px 20px; }
+  .content { padding: 24px 20px; }
+  .menu-btn { display: flex; align-items: center; justify-content: center; }
+  .progress-bar { left: 0; }
+}
+
+/* HIGHLIGHT */
+.hl { background: #00e5a020; color: var(--accent); padding: 1px 5px; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+.hl.orange { background: #ff6b3520; color: var(--accent2); }
+.hl.blue { background: #4d9fff20; color: var(--accent3); }
+.hl.yellow { background: #ffd60a20; color: var(--accent4); }
+.hl.purple { background: #c084fc20; color: var(--accent5); }
+
+mark { background: #ffd60a25; color: var(--accent4); padding: 1px 3px; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <h1>BIO GRADE 12<br>STUDY NOTES</h1>
+    <p>NIS · Advanced · 2025–2026</p>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-term">Term 1</div>
+    <a href="#s-cell-bio" class="nav-item"><span class="tag t1">12.1B</span>Cell Biology</a>
+    <a href="#s-mol-bio" class="nav-item"><span class="tag t1">12.1C</span>Molecular Biology</a>
+    <a href="#s-transport" class="nav-item"><span class="tag t1">12.1D</span>Transport</a>
+    <a href="#s-ecology" class="nav-item"><span class="tag t1">12.1A</span>Ecology</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-term">Term 2</div>
+    <a href="#s-photosynthesis" class="nav-item"><span class="tag t2">12.2A</span>Photosynthesis</a>
+    <a href="#s-respiration" class="nav-item"><span class="tag t2">12.2B</span>Respiration</a>
+    <a href="#s-coordination" class="nav-item"><span class="tag t2">12.2C</span>Coordination</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-term">Term 3</div>
+    <a href="#s-reproduction" class="nav-item"><span class="tag t3">12.3A</span>Reproduction</a>
+    <a href="#s-stem-cells" class="nav-item"><span class="tag t3">12.3B</span>Stem Cells</a>
+    <a href="#s-heredity" class="nav-item"><span class="tag t3">12.3C</span>Heredity & Genetics</a>
+    <a href="#s-microbiology" class="nav-item"><span class="tag t3">12.3D</span>Microbiology</a>
+    <a href="#s-biotechnology" class="nav-item"><span class="tag t3">12.3E</span>Biotechnology</a>
+  </div>
+</nav>
+
+<button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title">Biology Grade 12 — Complete Study Notes</span>
+    <div class="topbar-search">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search topics..." oninput="search(this.value)">
+    </div>
+  </div>
+
+  <div class="content" id="mainContent">
+
+    <!-- ══════════════════════════════════ TERM 1 ══════════════════════════════════ -->
+    <div class="term-divider t1"><h3>TERM 1</h3></div>
+
+    <!-- ── CELL BIOLOGY ── -->
+    <section class="topic-section" id="s-cell-bio">
+      <div class="topic-header">
+        <span class="topic-code tc-t1">12.1B</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.4.2.1 · 12.4.2.2 · 12.4.2.3</span>
+          <h2>Cell Biology</h2>
+          <p>Cell components from micrographs · Magnification calculations · Osmosis in cells</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-cell-components">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Cell Components from Micrographs</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Key Organelles — TEM Identification</h4>
+          <table class="cmp-table">
+            <tr><th>Organelle</th><th>Key features to identify</th><th>Function</th></tr>
+            <tr><td>Mitochondrion</td><td>Double membrane; cristae (inner folds); matrix</td><td>Aerobic respiration; ATP synthesis</td></tr>
+            <tr><td>Chloroplast</td><td>Double membrane; thylakoid stacks (grana); stroma</td><td>Photosynthesis</td></tr>
+            <tr><td>Nucleus</td><td>Nuclear envelope (double membrane); nuclear pores; nucleolus</td><td>Contains DNA; controls cell activity</td></tr>
+            <tr><td>Rough ER</td><td>Membrane-bound sacs; ribosomes on surface</td><td>Protein synthesis and transport</td></tr>
+            <tr><td>Smooth ER</td><td>Membrane-bound sacs; no ribosomes</td><td>Lipid synthesis; detoxification</td></tr>
+            <tr><td>Golgi apparatus</td><td>Stacked, curved membrane sacs (cisternae)</td><td>Protein modification and packaging</td></tr>
+            <tr><td>Ribosome</td><td>Small dense particles (free or on RER)</td><td>Protein synthesis</td></tr>
+            <tr><td>Lysosome</td><td>Small, membrane-bound vesicle</td><td>Intracellular digestion</td></tr>
+          </table>
+
+          <h4>TEM vs SEM</h4>
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>TEM (Transmission)</th><th>SEM (Scanning)</th></tr>
+            <tr><td>Image type</td><td>2D cross-section; internal detail</td><td>3D surface image</td></tr>
+            <tr><td>Resolution</td><td>Higher (~0.1 nm)</td><td>Lower (~10 nm)</td></tr>
+            <tr><td>Specimen</td><td>Ultra-thin section; dead tissue</td><td>Surface coating required</td></tr>
+            <tr><td>Use</td><td>Internal organelle structure</td><td>Surface morphology</td></tr>
+          </table>
+          <div class="callout exam">Use TEM when asked to see internal structure of an organelle (e.g. cristae of mitochondria). SEM for external surface features.</div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-magnification">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-yellow"></div>Magnification Calculations</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Formula</h4>
+          <div class="equation">Magnification (M) = Image size (I) ÷ Actual size (A)</div>
+          <div class="equation">Actual size (A) = Image size (I) ÷ Magnification (M)</div>
+
+          <h4>Step-by-step Method</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Measure the image</strong> with a ruler (in mm or µm)</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Convert units</strong> — use the scale bar on the micrograph to find real size. 1 mm = 1000 µm; 1 µm = 1000 nm</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Calculate:</strong> M = image size ÷ actual size (both in same units)</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>No units</strong> — magnification is a ratio, not a measurement</div></div>
+          </div>
+
+          <h4>Eyepiece Graticule Method (Paper 2)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Find how much of the <strong>stage micrometer</strong> the graticule covers (e.g. 7 divisions = 0.07 mm = 70 µm)</div></div>
+            <div class="step"><div class="step-num">02</div><div>Value per graticule division = 70 µm ÷ 10 = <strong>7 µm</strong></div></div>
+            <div class="step"><div class="step-num">03</div><div>Count graticule divisions occupied by specimen; multiply by value per division</div></div>
+          </div>
+          <div class="callout exam">Always show all working. State the formula, substitute values with units, give answer with correct unit (usually µm).</div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-osmosis-cells">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-blue"></div>Osmosis in Cells</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">OSMOSIS</span>The net movement of water molecules from a region of <strong>higher water potential</strong> to a region of <strong>lower water potential</strong> through a partially permeable membrane.</div>
+
+          <h4>Water Potential (Ψ)</h4>
+          <div class="equation">Ψ (cell) = Ψs (solute potential) + Ψp (pressure potential)</div>
+          <div class="key-points">
+            <div class="key-point">Pure water: Ψ = 0 kPa (highest possible)</div>
+            <div class="key-point">Adding solutes <strong>lowers</strong> water potential (makes it more negative)</div>
+            <div class="key-point">Pressure potential (Ψp) is positive in turgid cells; zero in plasmolysed cells</div>
+          </div>
+
+          <h4>Cells in Different Solutions</h4>
+          <table class="cmp-table">
+            <tr><th>Solution</th><th>Animal cell</th><th>Plant cell</th></tr>
+            <tr><td>Hypotonic (dilute)</td><td>Swells → lysis (bursts)</td><td>Swells → turgid (wall prevents burst)</td></tr>
+            <tr><td>Isotonic</td><td>No change</td><td>No change (flaccid)</td></tr>
+            <tr><td>Hypertonic (concentrated)</td><td>Shrinks → crenation</td><td>Plasmolysis (membrane pulls from wall)</td></tr>
+          </table>
+          <div class="callout exam">Liver cells have no cell wall — they lyse in pure water. Plant cells become turgid (not lysed) because the cell wall provides inward pressure potential.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MOLECULAR BIOLOGY ── -->
+    <section class="topic-section" id="s-mol-bio">
+      <div class="topic-header">
+        <span class="topic-code tc-t1">12.1C</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.4.1.1 – 12.4.1.8</span>
+          <h2>Molecular Biology</h2>
+          <p>Antigen-antibody · Enzyme inhibition · Transcription · Translation · Digestive enzymes</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-antigen-antibody">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-purple"></div>Antigen–Antibody Reactions</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">ANTIGEN</span>A molecule (usually a protein or glycoprotein on a pathogen's surface) that triggers an immune response.</div>
+          <div class="def-box"><span class="term">ANTIBODY (IMMUNOGLOBULIN)</span>A Y-shaped glycoprotein produced by plasma cells (B lymphocytes) that binds to a specific antigen via the <strong>variable region</strong> (paratope).</div>
+
+          <h4>Antibody Structure</h4>
+          <div class="key-points">
+            <div class="key-point">4 polypeptide chains: <strong>2 heavy + 2 light</strong>, linked by disulfide bonds</div>
+            <div class="key-point"><strong>Variable region</strong> (paratope) — unique antigen-binding site; complementary to specific antigen</div>
+            <div class="key-point"><strong>Constant region</strong> — same in all antibodies of a class; binds to immune cells</div>
+            <div class="key-point"><strong>Idiotope</strong> — unique variable domain; <strong>paratope</strong> — specific antigen-binding part</div>
+          </div>
+
+          <h4>Mechanism of Antigen–Antibody Interaction</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Antigen enters body → recognised as foreign</div></div>
+            <div class="step"><div class="step-num">02</div><div>B cells with complementary receptor are activated → clonal selection</div></div>
+            <div class="step"><div class="step-num">03</div><div>B cells differentiate into <strong>plasma cells</strong> (secrete antibodies) and <strong>memory cells</strong></div></div>
+            <div class="step"><div class="step-num">04</div><div>Antibody binds antigen → <strong>antigen-antibody complex</strong> (lock-and-key specificity)</div></div>
+            <div class="step"><div class="step-num">05</div><div>Complex triggers destruction: agglutination, phagocytosis, or complement activation</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-inhibition">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-orange"></div>Enzyme Inhibition</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Competitive Inhibition</th><th>Non-competitive Inhibition</th></tr>
+            <tr><td>Binding site</td><td>Active site</td><td>Allosteric site</td></tr>
+            <tr><td>Structure</td><td>Similar shape to substrate</td><td>Different shape to substrate</td></tr>
+            <tr><td>Effect on Vmax</td><td>Unchanged (can be overcome)</td><td>Decreased (cannot be overcome)</td></tr>
+            <tr><td>Effect on Km</td><td>Increased (apparent)</td><td>Unchanged</td></tr>
+            <tr><td>Overcome by?</td><td>Adding excess substrate</td><td>No — enzyme permanently altered</td></tr>
+            <tr><td>Example</td><td>Pepstatin / pepsin; malonate / succinate dehydrogenase</td><td>Sarin / acetylcholinesterase; heavy metal ions</td></tr>
+          </table>
+
+          <h4>Irreversible Inhibition</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Sarin</strong> forms a covalent bond with serine residue in the active site of acetylcholinesterase</div>
+            <div class="key-point">ACh cannot be broken down → <strong>accumulates</strong> in synapse → continuous nerve firing</div>
+            <div class="key-point">Symptoms: muscle spasms, paralysis, excessive secretions</div>
+          </div>
+          <div class="callout exam">Pepstatin is a competitive inhibitor of pepsin — it has a similar shape to the substrate (protein) and competes for the active site. Adding more substrate reduces the inhibitory effect.</div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-transcription">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Transcription & mRNA Modification</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Transcription — 3 Stages</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Initiation</strong> — RNA polymerase II binds to the <em>promoter</em> region (with transcription factors); DNA unwinds</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Elongation</strong> — RNA polymerase reads template strand 3'→5'; adds complementary RNA nucleotides 5'→3'; U pairs with A (not T)</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Termination</strong> — RNA polymerase reaches terminator sequence; pre-mRNA released</div></div>
+          </div>
+
+          <h4>Post-transcriptional Modification (pre-mRNA → mature mRNA)</h4>
+          <div class="def-box"><span class="term">5' CAPPING</span>A methylated guanosine cap is added to the 5' end. Protects mRNA from degradation by enzymes; required for ribosome attachment during translation.</div>
+          <div class="def-box"><span class="term">POLY-A TAIL</span>100–200 adenine nucleotides added to 3' end. Protects mRNA from degradation; aids export from nucleus; prolongs mRNA lifespan.</div>
+          <div class="def-box"><span class="term">SPLICING</span>Introns (non-coding sequences) are removed by a spliceosome; exons are joined to form the coding sequence.</div>
+
+          <h4>DNA → RNA Base Rules</h4>
+          <table class="cmp-table">
+            <tr><th>Template DNA</th><th>mRNA codon</th></tr>
+            <tr><td>A (adenine)</td><td>U (uracil)</td></tr>
+            <tr><td>T (thymine)</td><td>A (adenine)</td></tr>
+            <tr><td>G (guanine)</td><td>C (cytosine)</td></tr>
+            <tr><td>C (cytosine)</td><td>G (guanine)</td></tr>
+          </table>
+          <div class="callout exam">The non-template (coding) strand has the same sequence as mRNA but with T instead of U. If given mRNA: ACUAAGGCC → coding DNA strand: ACTAAGGCC → template DNA strand: TGATTTCGG</div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-translation">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-blue"></div>Translation (Protein Synthesis)</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Ribosome Sites</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>A site (aminoacyl)</strong> — where charged tRNA brings the next amino acid</div>
+            <div class="key-point"><strong>P site (peptidyl)</strong> — holds the growing polypeptide chain</div>
+            <div class="key-point"><strong>E site (exit)</strong> — empty tRNA leaves here</div>
+            <div class="key-point"><strong>Peptidyl transferase</strong> — catalyses peptide bond formation between amino acids</div>
+          </div>
+
+          <h4>Stages of Translation</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Initiation</strong> — small ribosome subunit binds to 5' cap; moves to AUG (start codon); large subunit assembles; Met-tRNA enters P site</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Elongation</strong> — tRNA with anticodon complementary to codon enters A site; peptide bond forms; ribosome <em>translocates</em> 3 nucleotides along mRNA (one codon); empty tRNA exits E site; cycle repeats</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Termination</strong> — stop codon (UAA, UAG, UGA) reached; release factor enters A site; polypeptide released; ribosome disassembles</div></div>
+          </div>
+
+          <h4>Properties of the Genetic Code</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Triplet</strong> — 3 bases = 1 codon = 1 amino acid</div>
+            <div class="key-point"><strong>Degenerate</strong> — most amino acids coded by multiple codons (64 codons, only 20 amino acids)</div>
+            <div class="key-point"><strong>Non-overlapping</strong> — each base is part of only one codon</div>
+            <div class="key-point"><strong>Universal</strong> — same code in virtually all organisms (evidence of common ancestry)</div>
+            <div class="key-point"><strong>Unambiguous</strong> — each codon codes for only one amino acid</div>
+          </div>
+          <div class="callout exam">To find the amino acid sequence: mRNA codons → use genetic code table → name amino acids. The non-template DNA strand has same bases as mRNA (T instead of U).</div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-digestive-enzymes">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-yellow"></div>Digestive Enzymes</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Enzyme</th><th>Substrate</th><th>Product</th><th>Optimum pH</th><th>Location</th></tr>
+            <tr><td>Pepsin (from pepsinogen)</td><td>Protein</td><td>Polypeptides</td><td>pH 2 (stomach)</td><td>Stomach</td></tr>
+            <tr><td>Trypsin (from trypsinogen)</td><td>Protein/polypeptides</td><td>Shorter peptides</td><td>pH 8</td><td>Small intestine</td></tr>
+            <tr><td>Endopeptidase</td><td>Peptide bonds within chain</td><td>Peptide fragments</td><td>Varies</td><td>GI tract</td></tr>
+            <tr><td>Exopeptidase</td><td>Terminal amino acids</td><td>Free amino acids</td><td>Varies</td><td>GI tract</td></tr>
+            <tr><td>Amylase (salivary/pancreatic)</td><td>Starch</td><td>Maltose</td><td>pH 7</td><td>Mouth / duodenum</td></tr>
+            <tr><td>Maltase</td><td>Maltose</td><td>Glucose</td><td>pH 6–7</td><td>Small intestine</td></tr>
+            <tr><td>Lipase</td><td>Triglycerides (lipids)</td><td>Fatty acids + glycerol</td><td>pH 7–8</td><td>Duodenum</td></tr>
+          </table>
+
+          <h4>Activation of Digestive Enzymes</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Pepsinogen → Pepsin</strong>: activated by HCl in stomach (low pH)</div>
+            <div class="key-point"><strong>Trypsinogen → Trypsin</strong>: activated by enterokinase (brush border enzyme)</div>
+            <div class="key-point">Zymogen (inactive form) prevents <strong>self-digestion</strong> of secreting cells</div>
+          </div>
+          <div class="callout exam">Lipase hydrolyses ester bonds in triglycerides. Products are fatty acids and glycerol. This lowers the pH of the solution (fatty acids are acidic) — this is the basis of the lipase + cream lab.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRANSPORT ── -->
+    <section class="topic-section" id="s-transport">
+      <div class="topic-header">
+        <span class="topic-code tc-t1">12.1D</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.1.3.1 – 12.1.3.6</span>
+          <h2>Transport of Substances</h2>
+          <p>Membrane transport · Na-K pump · Membrane potential · Water potential · Plant transport</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-membrane-transport">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Types of Membrane Transport</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Energy?</th><th>Direction</th><th>Examples</th></tr>
+            <tr><td>Simple diffusion</td><td>No (passive)</td><td>High → low conc.</td><td>O₂, CO₂, lipid-soluble molecules</td></tr>
+            <tr><td>Facilitated diffusion</td><td>No (passive)</td><td>High → low conc.</td><td>Glucose, ions (via channels)</td></tr>
+            <tr><td>Osmosis</td><td>No (passive)</td><td>High Ψ → low Ψ</td><td>Water</td></tr>
+            <tr><td>Active transport</td><td>Yes (ATP)</td><td>Low → high conc.</td><td>Na-K pump, Ca²⁺ pump, H⁺ pump</td></tr>
+            <tr><td>Endocytosis</td><td>Yes (ATP)</td><td>Into cell</td><td>Phagocytosis, pinocytosis</td></tr>
+            <tr><td>Exocytosis</td><td>Yes (ATP)</td><td>Out of cell</td><td>Neurotransmitter release, secretion</td></tr>
+          </table>
+
+          <h4>Cotransport</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Symport</strong> — two substances move in the same direction (e.g. Na⁺ and glucose into intestinal cells)</div>
+            <div class="key-point"><strong>Antiport</strong> — two substances move in opposite directions (e.g. Na⁺-K⁺ pump: Na⁺ out, K⁺ in)</div>
+            <div class="key-point"><strong>Uniport</strong> — single substance moves in one direction</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-na-k-pump">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-blue"></div>Sodium-Potassium Pump & Membrane Potential</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Na⁺-K⁺ Pump Mechanism</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>3 Na⁺</strong> ions bind to pump protein from inside the cell</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>ATP is hydrolysed</strong> → ADP + Pi; phosphate attaches to pump, causing shape change</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>3 Na⁺ released</strong> outside the cell</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>2 K⁺ bind</strong> from outside; Pi released → pump returns to original shape</div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>2 K⁺ released</strong> inside the cell</div></div>
+          </div>
+
+          <h4>Membrane Potential</h4>
+          <div class="def-box"><span class="term">RESTING MEMBRANE POTENTIAL</span>The electrical potential difference across the membrane of a resting neurone: approximately <strong>−70 mV</strong> (inside negative relative to outside). Maintained by the Na⁺-K⁺ pump creating unequal ion distribution.</div>
+
+          <h4>Action Potential Sequence</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Depolarisation</strong> — stimulus opens Na⁺ channels; Na⁺ rushes in; membrane becomes less negative (−70 → +40 mV)</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Repolarisation</strong> — Na⁺ channels close; K⁺ channels open; K⁺ rushes out; membrane returns toward −70 mV</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Hyperpolarisation</strong> — briefly more negative than resting potential; K⁺ channels slowly close</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Refractory period</strong> — Na⁺ channels inactivated; action potential cannot be re-triggered (ensures one-way propagation)</div></div>
+          </div>
+          <div class="callout exam">The Na-K pump is essential for maintaining resting potential. It pumps out 3 Na⁺ for every 2 K⁺ brought in, keeping the inside negative.</div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-plant-transport">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-orange"></div>Plant Transport — Symplast, Apoplast & Translocation</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Pathways Across Root</h4>
+          <table class="cmp-table">
+            <tr><th>Pathway</th><th>Route</th><th>Features</th></tr>
+            <tr><td>Apoplast</td><td>Through cell walls and intercellular spaces (not through cytoplasm)</td><td>Fast; passive; stopped by Casparian strip in endodermis</td></tr>
+            <tr><td>Symplast</td><td>Through cytoplasm via plasmodesmata</td><td>Slower; can be regulated</td></tr>
+            <tr><td>Vacuolar</td><td>Through vacuoles and tonoplast membranes</td><td>Slowest</td></tr>
+          </table>
+
+          <div class="def-box"><span class="term">CASPARIAN STRIP</span>A waterproof suberin band around endodermal cells. Forces water from apoplast into symplast — allows selective ion uptake. Controls mineral ions entering xylem.</div>
+
+          <h4>Translocation (Phloem)</h4>
+          <div class="def-box"><span class="term">MASS FLOW HYPOTHESIS (Münch)</span>Assimilates move from <strong>source</strong> (e.g. leaves — high sucrose) to <strong>sink</strong> (e.g. roots, fruit — low sucrose) by bulk flow driven by osmotic pressure differences.</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Sucrose actively loaded into sieve tubes at source → water potential decreases</div></div>
+            <div class="step"><div class="step-num">02</div><div>Water enters by osmosis → <strong>high turgor pressure</strong> at source end</div></div>
+            <div class="step"><div class="step-num">03</div><div>Sucrose unloaded at sink → water moves back to xylem → <strong>low turgor pressure</strong> at sink</div></div>
+            <div class="step"><div class="step-num">04</div><div>Pressure gradient drives mass flow of phloem sap from source to sink</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ECOLOGY ── -->
+    <section class="topic-section" id="s-ecology">
+      <div class="topic-header">
+        <span class="topic-code tc-t1">12.1A</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.3.1.1 · 12.3.1.2</span>
+          <h2>Ecology</h2>
+          <p>Species diversity · Ecosystem resilience · Statistical analysis</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-biodiversity">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Biodiversity & Ecosystem Resilience</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">SPECIES DIVERSITY</span>Measure of both the <strong>number of species</strong> (richness) and the <strong>relative abundance</strong> of each species in a community.</div>
+          <div class="def-box"><span class="term">SIMPSON'S DIVERSITY INDEX (D)</span>D = 1 − Σ(n/N)² where n = number of individuals of each species, N = total individuals. Higher D = greater diversity.</div>
+
+          <h4>Diversity → Resilience</h4>
+          <div class="key-points">
+            <div class="key-point">Higher species diversity → more complex food webs → greater <strong>ecosystem resilience</strong></div>
+            <div class="key-point">If one species is lost, others can fill its ecological role (redundancy)</div>
+            <div class="key-point">Low diversity → ecosystem vulnerable to disease, climate change, or species loss</div>
+          </div>
+
+          <h4>Statistical Methods</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>χ² test</strong> — compares observed vs expected frequency; tests if differences are significant or due to chance</div>
+            <div class="key-point"><strong>t-test</strong> — compares means of two sets of data; determines if difference is statistically significant</div>
+            <div class="key-point">p &lt; 0.05 → result is statistically significant (less than 5% probability it occurred by chance)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════ TERM 2 ══════════════════════════════════ -->
+    <div class="term-divider t2"><h3>TERM 2</h3></div>
+
+    <!-- ── PHOTOSYNTHESIS ── -->
+    <section class="topic-section" id="s-photosynthesis">
+      <div class="topic-header">
+        <span class="topic-code tc-t2">12.2A</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.1.2.1 – 12.1.2.8</span>
+          <h2>Photosynthesis</h2>
+          <p>Chloroplast structure · Light reactions · Calvin cycle · C3 vs C4 · Chemosynthesis</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-chloroplast">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Chloroplast Structure & Pigments</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Chloroplast Compartments</h4>
+          <table class="cmp-table">
+            <tr><th>Structure</th><th>Function</th></tr>
+            <tr><td>Outer membrane</td><td>Freely permeable to small molecules</td></tr>
+            <tr><td>Inner membrane</td><td>Selectively permeable; contains transport proteins</td></tr>
+            <tr><td>Thylakoid membranes</td><td>Site of light-dependent reactions; contain photosystems, ATP synthase, electron carriers</td></tr>
+            <tr><td>Grana (stacks of thylakoids)</td><td>Maximise surface area for light absorption</td></tr>
+            <tr><td>Stroma</td><td>Fluid surrounding grana; site of Calvin cycle (light-independent reactions)</td></tr>
+          </table>
+
+          <h4>Photosynthetic Pigments</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Chlorophyll a</strong> — primary pigment; absorbs red (700 nm) and blue (430 nm); reflects green</div>
+            <div class="key-point"><strong>Chlorophyll b</strong> — accessory; absorbs different wavelengths; passes energy to chlorophyll a</div>
+            <div class="key-point"><strong>Carotenoids</strong> (carotene, xanthophyll) — accessory pigments; protect from photooxidation; broaden absorption spectrum</div>
+            <div class="key-point"><strong>Photosystem I (PS I)</strong> — reaction centre P700; involved in cyclic and non-cyclic phosphorylation</div>
+            <div class="key-point"><strong>Photosystem II (PS II)</strong> — reaction centre P680; water splitting (photolysis); produces O₂</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-light-reactions">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-yellow"></div>Light-Dependent Reactions (Z-Scheme)</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Non-Cyclic Photophosphorylation</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>PS II</strong> absorbs light → chlorophyll P680 excited → electrons raised to higher energy level</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Photolysis of water</strong>: 2H₂O → 4H⁺ + 4e⁻ + O₂ (electrons replace those lost from P680)</div></div>
+            <div class="step"><div class="step-num">03</div><div>Excited electrons pass through <strong>electron transport chain</strong> (plastoquinone, cytochrome b6f, plastocyanin) → energy used to pump H⁺ across thylakoid membrane</div></div>
+            <div class="step"><div class="step-num">04</div><div>H⁺ gradient drives <strong>ATP synthesis</strong> via ATP synthase (chemiosmosis) → <span class="hl">ATP</span></div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>PS I</strong> absorbs light → P700 excited → electrons further raised in energy</div></div>
+            <div class="step"><div class="step-num">06</div><div>Electrons passed to NADP⁺ reductase → <span class="hl">NADPH</span> formed (with H⁺ from stroma)</div></div>
+          </div>
+          <div class="equation">Overall: 12H₂O + 12NADP⁺ + 18ADP + 18Pi → 6O₂ + 12NADPH + 18ATP</div>
+
+          <h4>Cyclic Photophosphorylation</h4>
+          <div class="key-points">
+            <div class="key-point">Only PS I involved; electrons cycle back to PS I via electron transport chain</div>
+            <div class="key-point">Only <strong>ATP</strong> produced (no NADPH, no O₂)</div>
+            <div class="key-point">Used when the cell needs extra ATP but not NADPH</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-calvin-cycle">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-blue"></div>Calvin Cycle (Light-Independent Reactions)</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Three Stages (in Stroma)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Carbon fixation</strong> — CO₂ combines with <em>RuBP</em> (ribulose bisphosphate, 5C) via <strong>RuBisCO</strong> enzyme → unstable 6C compound → 2× GP (glycerate-3-phosphate, 3C)</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Reduction</strong> — GP reduced using <span class="hl">ATP + NADPH</span> from light reactions → G3P (glyceraldehyde-3-phosphate, 3C)</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Regeneration of RuBP</strong> — most G3P used to regenerate RuBP using <span class="hl">ATP</span>; some G3P used to make glucose, fatty acids, amino acids</div></div>
+          </div>
+          <div class="equation">3CO₂ + 6NADPH + 9ATP → G3P + 6NADP⁺ + 9ADP + 8Pi</div>
+
+          <h4>Limiting Factors</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Light intensity</strong> — limits rate of ATP and NADPH production</div>
+            <div class="key-point"><strong>CO₂ concentration</strong> — limits carbon fixation step (rate of RuBisCO activity)</div>
+            <div class="key-point"><strong>Temperature</strong> — affects enzyme activity (Calvin cycle enzymes); above optimum → denaturation</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-c3-c4">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-orange"></div>C3 vs C4 Plants</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>C3 Plants</th><th>C4 Plants</th></tr>
+            <tr><td>First product of CO₂ fixation</td><td>3-carbon GP (3C compound)</td><td>4-carbon oxaloacetate (OAA, 4C)</td></tr>
+            <tr><td>Carbon fixation enzyme</td><td>RuBisCO only</td><td>PEP carboxylase (mesophyll) + RuBisCO (bundle sheath)</td></tr>
+            <tr><td>CO₂ acceptor</td><td>RuBP (5C)</td><td>PEP (phosphoenolpyruvate, 3C)</td></tr>
+            <tr><td>Leaf anatomy</td><td>Normal mesophyll; no Kranz</td><td>Kranz anatomy: mesophyll + bundle sheath cells</td></tr>
+            <tr><td>Chloroplast location</td><td>Only in mesophyll</td><td>In mesophyll AND bundle sheath (dimorphic chloroplasts)</td></tr>
+            <tr><td>Photorespiration</td><td>High (especially at high temp)</td><td>Minimal (CO₂ concentrated around RuBisCO)</td></tr>
+            <tr><td>Efficiency at high temp</td><td>Low</td><td>High</td></tr>
+            <tr><td>Examples</td><td>Wheat, rice, most trees</td><td>Maize (corn), sugarcane, sorghum</td></tr>
+          </table>
+
+          <h4>C4 Mechanism (Hatch-Slack Pathway)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>CO₂ fixed by <strong>PEP carboxylase</strong> in mesophyll cells → OAA (4C)</div></div>
+            <div class="step"><div class="step-num">02</div><div>OAA → malate (4C); transported to bundle sheath cells</div></div>
+            <div class="step"><div class="step-num">03</div><div>CO₂ released from malate → enters Calvin cycle via <strong>RuBisCO</strong></div></div>
+            <div class="step"><div class="step-num">04</div><div>High local [CO₂] prevents photorespiration; pyruvate returned to mesophyll</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RESPIRATION ── -->
+    <section class="topic-section" id="s-respiration">
+      <div class="topic-header">
+        <span class="topic-code tc-t2">12.2B</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.1.4.1</span>
+          <h2>Cellular Respiration</h2>
+          <p>Stages of energy exchange · ATP synthesis · Mitochondria</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-respiration-stages">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-orange"></div>Stages of Aerobic Respiration</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Stage</th><th>Location</th><th>Inputs</th><th>Outputs</th><th>ATP yield</th></tr>
+            <tr><td>Glycolysis</td><td>Cytoplasm</td><td>Glucose (6C)</td><td>2× Pyruvate (3C), 2 NADH</td><td>Net 2 ATP (substrate level)</td></tr>
+            <tr><td>Link reaction (pyruvate decarboxylation)</td><td>Mitochondrial matrix</td><td>Pyruvate, CoA, NAD⁺</td><td>Acetyl-CoA (2C), CO₂, NADH</td><td>0 ATP</td></tr>
+            <tr><td>Krebs cycle</td><td>Mitochondrial matrix</td><td>Acetyl-CoA (2C)</td><td>CO₂, 3NADH, 1FADH₂, 1 ATP (per turn)</td><td>2 ATP total (substrate level)</td></tr>
+            <tr><td>Oxidative phosphorylation (ETC)</td><td>Inner mitochondrial membrane</td><td>NADH, FADH₂, O₂</td><td>H₂O, NAD⁺, FAD</td><td>~34 ATP (chemiosmosis)</td></tr>
+          </table>
+
+          <h4>Chemiosmosis (Oxidative Phosphorylation)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>NADH and FADH₂ donate electrons to <strong>electron transport chain</strong> (Complex I–IV) in inner membrane</div></div>
+            <div class="step"><div class="step-num">02</div><div>Energy from electrons pumps <strong>H⁺ ions</strong> from matrix → intermembrane space → creates electrochemical gradient (proton motive force)</div></div>
+            <div class="step"><div class="step-num">03</div><div>H⁺ flow back through <strong>ATP synthase</strong> (Complex V) → drives synthesis of ATP from ADP + Pi</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>O₂ is the final electron acceptor</strong> → combines with electrons and H⁺ to form H₂O</div></div>
+          </div>
+
+          <h4>Why Isolated Mitochondria Need Pyruvate (Not Glucose)</h4>
+          <div class="key-points">
+            <div class="key-point">Glycolysis occurs in the <strong>cytoplasm</strong> (not inside mitochondria)</div>
+            <div class="key-point">Isolated mitochondria cannot convert glucose → pyruvate (no glycolytic enzymes)</div>
+            <div class="key-point">Adding pyruvate → link reaction occurs inside mitochondria → Krebs + ETC → O₂ consumed</div>
+          </div>
+          <div class="callout exam">This is exactly what Paper 2 (2025) Q3 tested! Solution A (glucose) = NO decrease in O₂ in isolated mitochondria. Solution B (pyruvate) = O₂ decreases as respiration occurs.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COORDINATION ── -->
+    <section class="topic-section" id="s-coordination">
+      <div class="topic-header">
+        <span class="topic-code tc-t2">12.2C</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.1.7.1 – 12.1.7.4</span>
+          <h2>Coordination & Regulation</h2>
+          <p>Higher nervous activity · Hormone mechanisms · Plant growth regulators</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-hormones">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-purple"></div>Hormone Mechanisms</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Steroid Hormones (e.g. oestrogen)</th><th>Peptide Hormones (e.g. insulin, ADH)</th></tr>
+            <tr><td>Solubility</td><td>Lipid-soluble</td><td>Water-soluble</td></tr>
+            <tr><td>Receptor location</td><td>Intracellular (nucleus or cytoplasm)</td><td>Cell surface membrane</td></tr>
+            <tr><td>Mechanism</td><td>Diffuse through membrane → bind receptor → hormone-receptor complex enters nucleus → activates gene transcription → new protein made</td><td>Binds to receptor → activates second messenger (cAMP) → enzyme cascade → rapid effect</td></tr>
+            <tr><td>Speed of effect</td><td>Slow (hours to days)</td><td>Fast (seconds to minutes)</td></tr>
+            <tr><td>Duration</td><td>Long-lasting</td><td>Short-lived</td></tr>
+          </table>
+
+          <h4>Second Messenger (cAMP) System</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Hormone binds to G-protein coupled receptor on cell surface</div></div>
+            <div class="step"><div class="step-num">02</div><div>G-protein activated → stimulates <strong>adenylyl cyclase</strong></div></div>
+            <div class="step"><div class="step-num">03</div><div>Adenylyl cyclase converts ATP → <strong>cAMP</strong> (second messenger)</div></div>
+            <div class="step"><div class="step-num">04</div><div>cAMP activates <strong>protein kinase A</strong> → enzyme cascade → cellular response</div></div>
+          </div>
+          <div class="callout exam">Glucagon uses cAMP system → activates phosphorylase → glycogen → glucose (glycogenolysis in liver). Insulin does NOT use cAMP; it activates glucose transporters (GLUT4).</div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-higher-nervous">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-blue"></div>Higher Nervous Activity</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="key-points">
+            <div class="key-point"><strong>Cerebral cortex</strong> — site of conscious thought, memory, speech, perception</div>
+            <div class="key-point"><strong>Broca's area</strong> (frontal lobe) — speech production</div>
+            <div class="key-point"><strong>Wernicke's area</strong> (temporal lobe) — speech comprehension</div>
+            <div class="key-point"><strong>Short-term memory</strong> — hippocampus; limited capacity; seconds to minutes</div>
+            <div class="key-point"><strong>Long-term memory</strong> — consolidated by repetition; cerebral cortex storage; involves synaptic strengthening (LTP)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════ TERM 3 ══════════════════════════════════ -->
+    <div class="term-divider t3"><h3>TERM 3</h3></div>
+
+    <!-- ── REPRODUCTION ── -->
+    <section class="topic-section" id="s-reproduction">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">12.3A</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.2.1.1 – 12.2.1.3</span>
+          <h2>Reproduction</h2>
+          <p>Gametogenesis · Spermatogenesis vs oogenesis · IVF</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-gametogenesis">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-blue"></div>Gametogenesis</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Spermatogenesis</th><th>Oogenesis</th></tr>
+            <tr><td>Location</td><td>Seminiferous tubules (testes)</td><td>Ovary (follicles)</td></tr>
+            <tr><td>Timing</td><td>Continuous from puberty</td><td>Begins before birth; arrests at prophase I; resumed at ovulation</td></tr>
+            <tr><td>Products per meiosis</td><td>4 equal spermatids → 4 sperm</td><td>1 large egg + 2–3 polar bodies (discarded)</td></tr>
+            <tr><td>Cell size</td><td>Small, motile (flagellum, mitochondria)</td><td>Large (cytoplasm with nutrients/yolk)</td></tr>
+            <tr><td>Continuous/cyclical?</td><td>Continuous (millions per day)</td><td>Cyclical (one egg per month)</td></tr>
+            <tr><td>Meiosis completion</td><td>Completed during spermatogenesis</td><td>Meiosis II completed only after fertilisation</td></tr>
+          </table>
+
+          <h4>Stages of Spermatogenesis</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Mitosis</strong> — spermatogonia (2n) divide to maintain stem cell population</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Growth</strong> — primary spermatocytes (2n) grow in size</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Meiosis I</strong> — 2 secondary spermatocytes (n)</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Meiosis II</strong> — 4 spermatids (n)</div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>Spermiogenesis</strong> — spermatids differentiate into spermatozoa (acrosome, flagellum, loss of cytoplasm)</div></div>
+          </div>
+
+          <h4>IVF (Extracorporeal Insemination)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Ovarian stimulation with FSH/LH → multiple eggs matured</div></div>
+            <div class="step"><div class="step-num">02</div><div>Egg retrieval by laparoscopy</div></div>
+            <div class="step"><div class="step-num">03</div><div>Eggs fertilised in vitro with prepared sperm</div></div>
+            <div class="step"><div class="step-num">04</div><div>Embryo cultured 3–5 days to blastocyst stage</div></div>
+            <div class="step"><div class="step-num">05</div><div>1–2 embryos transferred to uterus; excess stored frozen</div></div>
+          </div>
+          <div class="callout warn">Ethical issues: destruction of unused embryos; selection of embryos; multiple pregnancies; age limits; cost and access.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STEM CELLS ── -->
+    <section class="topic-section" id="s-stem-cells">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">12.3B</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.2.3.1</span>
+          <h2>Stem Cells</h2>
+          <p>Definition · Types · Specialisation · Ethics</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-stem">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Stem Cell Biology</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">STEM CELL</span>An undifferentiated cell capable of: (1) self-renewal by mitosis and (2) differentiation into specialised cell types.</div>
+
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Source</th><th>Potency</th><th>Ethic concern?</th></tr>
+            <tr><td>Embryonic (ES cells)</td><td>Inner cell mass of blastocyst</td><td>Pluripotent — can become any cell type</td><td>Yes — embryo destruction</td></tr>
+            <tr><td>Adult (somatic)</td><td>Bone marrow, fat, brain</td><td>Multipotent — limited range of cells</td><td>Minimal</td></tr>
+            <tr><td>iPSC (induced pluripotent)</td><td>Adult cells reprogrammed</td><td>Pluripotent</td><td>Minimal — no embryo needed</td></tr>
+          </table>
+
+          <h4>Specialisation Process</h4>
+          <div class="key-points">
+            <div class="key-point">Different genes are <strong>switched on or off</strong> during differentiation (epigenetic changes)</div>
+            <div class="key-point">Signals from surrounding cells (cell signalling) determine which genes are expressed</div>
+            <div class="key-point">Once differentiated, most cells cannot revert (except iPSC technology)</div>
+          </div>
+
+          <h4>Medical Applications</h4>
+          <div class="key-points">
+            <div class="key-point">Bone marrow transplant — treating leukaemia (haematopoietic stem cells)</div>
+            <div class="key-point">Skin grafts for burns</div>
+            <div class="key-point">Potential: Parkinson's, diabetes, spinal cord injury</div>
+          </div>
+
+          <div class="callout exam">Link to telomerase: stem cells have high telomerase activity → can divide many times without telomere shortening → this is shared with cancer cells (2025 Paper 2 Q4).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HEREDITY & GENETICS ── -->
+    <section class="topic-section" id="s-heredity">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">12.3C</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.2.4.1 – 12.2.4.6</span>
+          <h2>Heredity, Gene Regulation & Epigenetics</h2>
+          <p>Gene organisation · Operons · Epigenetics · DNA repair · Human Genome Project</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-gene-org">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-yellow"></div>Gene Organisation — Prokaryotes vs Eukaryotes</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Prokaryotic</th><th>Eukaryotic</th></tr>
+            <tr><td>Gene structure</td><td>Continuous (no introns)</td><td>Split genes: exons + introns</td></tr>
+            <tr><td>Organisation</td><td>Operons (polycistronic mRNA)</td><td>Individual gene regulation</td></tr>
+            <tr><td>Control elements</td><td>Promoter, operator, regulatory gene</td><td>Promoter, enhancers, silencers, transcription factors</td></tr>
+            <tr><td>mRNA processing</td><td>None (transcription-translation coupled)</td><td>5' cap, poly-A tail, splicing</td></tr>
+          </table>
+
+          <h4>Lac Operon (E. coli)</h4>
+          <div class="def-box"><span class="term">OPERON</span>A cluster of genes under control of a single promoter, transcribed as a single polycistronic mRNA. Efficient for prokaryotes — switch several related genes on/off simultaneously.</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>No lactose</strong>: repressor protein binds operator → RNA polymerase blocked → lac Z, Y, A NOT transcribed</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Lactose present</strong>: allolactose (inducer) binds repressor → repressor changes shape → cannot bind operator</div></div>
+            <div class="step"><div class="step-num">03</div><div>RNA polymerase binds promoter → transcribes lac genes → β-galactosidase, permease, transacetylase produced</div></div>
+          </div>
+
+          <h4>Eukaryotic Gene Regulation</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Promoter</strong> — sequence upstream of gene; binding site for RNA polymerase (with transcription factors)</div>
+            <div class="key-point"><strong>Enhancers</strong> — distant DNA sequences that increase transcription when bound by activator proteins</div>
+            <div class="key-point"><strong>Transcription factors</strong> — proteins that bind to promoter/enhancer regions to regulate gene expression</div>
+            <div class="key-point"><strong>Reporter genes</strong> (e.g. GFP, lacZ) — used to study which promoter regions control gene expression; inserted downstream of a promoter to show when/where it is active</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-epigenetics">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-purple"></div>Epigenetics</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">EPIGENETICS</span>Heritable changes in gene expression that do NOT alter the DNA nucleotide sequence. Caused by chemical modifications to DNA or histones.</div>
+
+          <h4>Mechanisms</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>DNA methylation</strong> — methyl groups (–CH₃) added to cytosine bases (especially CpG islands in promoters) → <strong>silences gene expression</strong></div>
+            <div class="key-point"><strong>Histone modification</strong> — acetylation of histones loosens DNA winding → <strong>increases transcription</strong>. Deacetylation → chromatin condenses → gene silenced</div>
+            <div class="key-point">Epigenetic marks can be passed to daughter cells (mitosis) and sometimes to offspring (transgenerational)</div>
+          </div>
+
+          <h4>Significance</h4>
+          <div class="key-points">
+            <div class="key-point">Explains cell differentiation — all cells have same DNA but different genes expressed</div>
+            <div class="key-point">Environmental factors (diet, stress, toxins) can alter epigenome</div>
+            <div class="key-point">Implicated in cancer (hypermethylation of tumour suppressor genes)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-dna-repair">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-orange"></div>Mutations, DNA Repair & Replication Errors</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Nucleotide Excision Repair (NER)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Damage recognition</strong> — damage-sensing proteins detect distortion in DNA helix (e.g. UV-induced thymine dimers)</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Nuclease cuts</strong> — endonucleases cut phosphodiester backbone on both sides of damage; ~25–30 nucleotides removed</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Gap filling</strong> — DNA polymerase fills gap using complementary strand as template</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Ligation</strong> — DNA ligase seals the nick (phosphodiester bond formed)</div></div>
+          </div>
+
+          <h4>Types of Mutations</h4>
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+            <tr><td>Point mutation (substitution)</td><td>One base replaced by another</td><td>Sickle cell: GAG → GTG (HbA → HbS)</td></tr>
+            <tr><td>Insertion / Deletion</td><td>Base added or removed → frameshift</td><td>Shifts all downstream codons</td></tr>
+            <tr><td>Chromosomal mutation</td><td>Part of chromosome deleted, duplicated, inverted, or translocated</td><td>Cri-du-chat syndrome</td></tr>
+            <tr><td>Genomic mutation (non-disjunction)</td><td>Wrong number of chromosomes</td><td>Down syndrome (trisomy 21)</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept" id="c-hgp">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Human Genome Project</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">HUMAN GENOME PROJECT (HGP)</span>International scientific effort (1990–2003) that sequenced all ~3 billion base pairs of the human genome and identified ~20,000–25,000 genes.</div>
+
+          <h4>Significance</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Medical diagnostics</strong> — identify genetic basis of diseases (BRCA1/2 → breast cancer; CFTR → cystic fibrosis)</div>
+            <div class="key-point"><strong>Personalised medicine</strong> — drugs tailored to individual genotype</div>
+            <div class="key-point"><strong>Gene therapy</strong> — replacing defective genes</div>
+            <div class="key-point"><strong>Evolutionary biology</strong> — comparing genomes across species reveals evolutionary relationships</div>
+            <div class="key-point"><strong>Pharmacogenomics</strong> — understanding how genetic variation affects drug response</div>
+            <div class="key-point">Revealed that only ~2% of genome codes for proteins; rest is regulatory, repetitive, or "junk" DNA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MICROBIOLOGY ── -->
+    <section class="topic-section" id="s-microbiology">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">12.3D</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.4.3.1 – 12.4.3.5</span>
+          <h2>Microbiology</h2>
+          <p>Sterilisation · Culture media · Gram staining · Strains</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-microbiology">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-blue"></div>Microbiology Techniques</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Sterilisation & Aseptic Technique</h4>
+          <table class="cmp-table">
+            <tr><th>Method</th><th>Principle</th><th>Use</th></tr>
+            <tr><td>Autoclave</td><td>High pressure steam (121°C, 15 min)</td><td>Glassware, culture media, instruments</td></tr>
+            <tr><td>Dry heat oven</td><td>160°C for 2 hours</td><td>Glassware that can't get wet</td></tr>
+            <tr><td>UV radiation</td><td>Damages DNA of microbes</td><td>Laminar flow hoods, surfaces</td></tr>
+            <tr><td>Filtration</td><td>0.22 µm filter removes bacteria</td><td>Heat-sensitive solutions</td></tr>
+            <tr><td>Chemical disinfection</td><td>Alcohol, bleach, formaldehyde</td><td>Bench surfaces, instruments</td></tr>
+          </table>
+
+          <h4>Culture Media</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Liquid (broth)</strong> — microbes grow throughout; used for large-scale growth; easier to extract products</div>
+            <div class="key-point"><strong>Solid (agar)</strong> — microbes form colonies; used for isolation, identification, and colony counting</div>
+            <div class="key-point"><strong>Selective media</strong> — contain antibiotics or dyes to allow only certain bacteria to grow</div>
+            <div class="key-point"><strong>Differential media</strong> — allows distinction between bacteria by colour change (e.g. MacConkey agar)</div>
+          </div>
+
+          <h4>Gram Staining</h4>
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Gram-positive</th><th>Gram-negative</th></tr>
+            <tr><td>Cell wall structure</td><td>Thick peptidoglycan layer</td><td>Thin peptidoglycan + outer lipopolysaccharide membrane</td></tr>
+            <tr><td>Colour after staining</td><td>Purple/violet (crystal violet retained)</td><td>Pink/red (safranin counterstain)</td></tr>
+            <tr><td>Antibiotic sensitivity</td><td>More sensitive to penicillin</td><td>Outer membrane = additional barrier</td></tr>
+            <tr><td>Examples</td><td>Staphylococcus, Streptococcus, Bacillus</td><td>E. coli, Salmonella, Neisseria</td></tr>
+          </table>
+
+          <div class="def-box"><span class="term">STRAIN</span>A pure culture of microorganisms with distinctive characteristics. A subset of a species; all descended from a single parent cell (clonal lineage). Different strains can have different antibiotic resistance or virulence.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BIOTECHNOLOGY ── -->
+    <section class="topic-section" id="s-biotechnology">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">12.3E</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">12.4.3.6 – 12.4.3.13</span>
+          <h2>Biotechnology</h2>
+          <p>Monoclonal antibodies · Recombinant DNA · Cloning · Micropropagation</p>
+        </div>
+      </div>
+
+      <div class="concept open" id="c-monoclonal">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-purple"></div>Monoclonal Antibodies (mAbs)</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Hybridoma Method</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Immunise</strong> a small mammal (mouse) with the target antigen → B cells produce specific antibodies</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Harvest B cells</strong> from spleen</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Fuse</strong> B cells with <em>myeloma cells</em> (immortal cancer cells) → <strong>hybridomas</strong></div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>HAT selection</strong> — grow in HAT medium; only hybridomas survive (myeloma cells die; unfused B cells die)</div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>Screen</strong> hybridomas for correct antibody production (ELISA)</div></div>
+            <div class="step"><div class="step-num">06</div><div><strong>Clone</strong> positive hybridoma → grow in bioreactor → harvest mAbs</div></div>
+          </div>
+
+          <h4>Why Fuse with Myeloma Cells?</h4>
+          <div class="key-points">
+            <div class="key-point">B cells normally have <strong>short lifespan</strong> and cannot grow indefinitely in culture</div>
+            <div class="key-point">Myeloma cells are <strong>immortal</strong> — can divide indefinitely</div>
+            <div class="key-point">Hybridoma = immortality of myeloma + antibody production of B cell</div>
+          </div>
+
+          <h4>mAbs vs Polyclonal Antibodies</h4>
+          <table class="cmp-table">
+            <tr><th></th><th>Monoclonal</th><th>Polyclonal</th></tr>
+            <tr><td>Specificity</td><td>Single epitope</td><td>Multiple epitopes</td></tr>
+            <tr><td>Consistency</td><td>Highly consistent (same batch = same mAb)</td><td>Variable between batches</td></tr>
+            <tr><td>Production</td><td>Expensive; hybridoma required</td><td>Cheaper; from immunised animals</td></tr>
+            <tr><td>Use</td><td>Targeted cancer therapy, diagnostics</td><td>Research, some diagnostics</td></tr>
+          </table>
+
+          <h4>Why mAbs May Cause Immune Response in Patients</h4>
+          <div class="key-points">
+            <div class="key-point">Mouse-derived mAbs are recognised as <strong>foreign antigens</strong> by the patient's immune system</div>
+            <div class="key-point">Patient produces anti-mouse antibodies → mAb neutralised → treatment ineffective</div>
+            <div class="key-point">Solution: <strong>humanised mAbs</strong> — replace murine constant regions with human sequences</div>
+          </div>
+
+          <h4>Applications of mAbs</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Cancer therapy</strong> (e.g. Herceptin/trastuzumab targets HER2 receptor on breast cancer cells)</div>
+            <div class="key-point"><strong>Pregnancy test</strong> — detects hCG hormone in urine</div>
+            <div class="key-point"><strong>HIV diagnosis</strong> — detects viral antigens</div>
+            <div class="key-point"><strong>Immunofluorescence</strong> — mAb linked to fluorescent dye to locate proteins in cells</div>
+            <div class="key-point"><strong>ELISA</strong> — enzyme-linked immunosorbent assay for disease diagnosis</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-recombinant-dna">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-green"></div>Recombinant DNA Technology</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Steps to Produce Recombinant DNA</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Isolation</strong> — target gene isolated using restriction enzymes (cut at specific recognition sites) OR synthesised using mRNA + reverse transcriptase (→ cDNA)</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Cut vector</strong> — same restriction enzyme cuts plasmid (leaves sticky ends complementary to gene)</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Ligation</strong> — DNA ligase joins gene into plasmid → <strong>recombinant plasmid</strong></div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Transformation</strong> — plasmid introduced into host cell (E. coli) by heat shock or electroporation</div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>Selection</strong> — antibiotic resistance markers identify transformed bacteria</div></div>
+            <div class="step"><div class="step-num">06</div><div><strong>Expression</strong> — bacteria grown in fermenters → express human protein (e.g. insulin, growth hormone)</div></div>
+          </div>
+
+          <h4>Plasmid Structure</h4>
+          <div class="key-points">
+            <div class="key-point">Small, circular, double-stranded DNA (extrachromosomal)</div>
+            <div class="key-point">Contains origin of replication, antibiotic resistance gene(s), multiple cloning site (MCS)</div>
+            <div class="key-point">Acts as a <strong>vector</strong> to carry the gene of interest into host cell</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept" id="c-cloning">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-orange"></div>Cloning</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Animal Cloning (Somatic Cell Nuclear Transfer — SCNT)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Remove nucleus from donor egg cell (enucleate)</div></div>
+            <div class="step"><div class="step-num">02</div><div>Insert nucleus from somatic cell of animal to be cloned</div></div>
+            <div class="step"><div class="step-num">03</div><div>Stimulate with electric pulse → cell divides (embryo development)</div></div>
+            <div class="step"><div class="step-num">04</div><div>Implant embryo into surrogate mother</div></div>
+          </div>
+
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Plant Cloning</th><th>Animal Cloning</th></tr>
+            <tr><td>Method</td><td>Micropropagation (tissue culture)</td><td>SCNT (nuclear transfer)</td></tr>
+            <tr><td>Efficiency</td><td>High; relatively easy</td><td>Very low success rate (e.g. Dolly: 1/277 attempts)</td></tr>
+            <tr><td>Basis</td><td>Totipotency of plant cells</td><td>Reprogramming of differentiated nucleus</td></tr>
+            <tr><td>Risks</td><td>Genetic uniformity → disease vulnerability</td><td>Early ageing; developmental abnormalities</td></tr>
+          </table>
+
+          <h4>Plant Micropropagation</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Take explant (small piece of tissue) from meristem (shoot tip, axillary bud)</div></div>
+            <div class="step"><div class="step-num">02</div><div>Surface sterilise explant</div></div>
+            <div class="step"><div class="step-num">03</div><div>Culture on sterile agar medium with growth regulators (auxins + cytokinins) → callus formation</div></div>
+            <div class="step"><div class="step-num">04</div><div>Alter hormone ratio → adventitious shoots and roots form</div></div>
+            <div class="step"><div class="step-num">05</div><div>Transfer to soil → harden off</div></div>
+          </div>
+
+          <div class="callout warn">Human cloning — ethical issues: loss of individual uniqueness; exploitation; unknown long-term effects; religious objections; risk of abnormalities; consent of clone. Legally prohibited in most countries.</div>
+        </div>
+      </div>
+    </section>
+
+    <div style="height: 80px;"></div>
+  </div>
+</div>
+
+<script>
+// Toggle concept blocks
+function toggle(header) {
+  const concept = header.parentElement;
+  concept.classList.toggle('open');
+}
+
+// Tab switching
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Progress bar
+window.addEventListener('scroll', () => {
+  const main = document.getElementById('mainContent');
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+});
+
+// Active nav on scroll
+const sections = document.querySelectorAll('.topic-section');
+const navItems = document.querySelectorAll('.nav-item');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === '#' + id) item.classList.add('active');
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// Search
+function search(query) {
+  if (!query) {
+    document.querySelectorAll('.concept').forEach(c => c.style.display = '');
+    document.querySelectorAll('.topic-section').forEach(s => s.style.display = '');
+    return;
+  }
+  const q = query.toLowerCase();
+  document.querySelectorAll('.concept').forEach(c => {
+    const text = c.textContent.toLowerCase();
+    c.style.display = text.includes(q) ? '' : 'none';
+    if (text.includes(q)) c.classList.add('open');
+  });
+  document.querySelectorAll('.topic-section').forEach(s => {
+    const visible = [...s.querySelectorAll('.concept')].some(c => c.style.display !== 'none');
+    s.style.display = visible ? '' : 'none';
+  });
+}
+
+// Open all on load
+document.querySelectorAll('.concept').forEach((c, i) => {
+  if (i > 0) c.classList.remove('open');
+});
+</script>
+
+</body>
+</html>

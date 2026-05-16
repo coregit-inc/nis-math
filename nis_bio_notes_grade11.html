@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIS Biology Grade 11 — Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --surface: #13161d;
+  --surface2: #1a1e28;
+  --border: #232836;
+  --accent: #a78bfa;
+  --accent2: #fb923c;
+  --accent3: #38bdf8;
+  --accent4: #facc15;
+  --accent5: #34d399;
+  --text: #e8eaf0;
+  --muted: #6b7280;
+  --muted2: #9ca3af;
+  --sidebar: 280px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);min-height:100vh;background:var(--surface);border-right:1px solid var(--border);position:fixed;top:0;left:0;overflow-y:auto;z-index:100;}
+.sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1;}
+.sidebar-logo h1{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--accent);line-height:1.1;}
+.sidebar-logo p{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:4px;text-transform:uppercase;}
+.nav-section{padding:8px 0;border-bottom:1px solid var(--border);}
+.nav-term{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:10px 20px 4px;}
+.nav-item{display:block;padding:7px 20px;font-size:12px;color:var(--muted2);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4;}
+.nav-item:hover{color:var(--text);background:var(--surface2);}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--surface2);}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:1px 5px;border-radius:2px;margin-right:6px;font-weight:600;}
+.tag.t1{background:#a78bfa15;color:var(--accent);}
+.tag.t2{background:#facc1515;color:var(--accent4);}
+.tag.t3{background:#38bdf815;color:var(--accent3);}
+.tag.t4{background:#fb923c15;color:var(--accent2);}
+
+/* MAIN */
+.main{margin-left:var(--sidebar);flex:1;}
+.progress-bar{position:fixed;top:0;left:var(--sidebar);right:0;height:2px;background:var(--border);z-index:200;}
+.progress-fill{height:100%;background:var(--accent);width:0%;transition:width .1s;}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 48px;display:flex;align-items:center;justify-content:space-between;z-index:50;backdrop-filter:blur(8px);}
+.topbar-title{font-size:13px;color:var(--muted);}
+.topbar-search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:6px 12px;}
+.topbar-search input{background:none;border:none;outline:none;color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:12px;width:200px;}
+.topbar-search input::placeholder{color:var(--muted);}
+
+/* CONTENT */
+.content{padding:48px;max-width:900px;}
+.topic-section{margin-bottom:72px;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.topic-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.topic-code{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border-radius:3px;font-weight:600;white-space:nowrap;margin-top:4px;}
+.tc-t1{background:#a78bfa15;color:var(--accent);border:1px solid #a78bfa30;}
+.tc-t2{background:#facc1515;color:var(--accent4);border:1px solid #facc1530;}
+.tc-t3{background:#38bdf815;color:var(--accent3);border:1px solid #38bdf830;}
+.tc-t4{background:#fb923c15;color:var(--accent2);border:1px solid #fb923c30;}
+
+.topic-title-group h2{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;color:var(--text);line-height:1;margin-bottom:6px;}
+.topic-title-group p{font-size:13px;color:var(--muted);line-height:1.5;}
+.lo-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);border:1px solid var(--border);padding:2px 8px;border-radius:2px;display:inline-block;margin-bottom:4px;}
+
+/* CONCEPT */
+.concept{background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:16px;overflow:hidden;}
+.concept-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background .15s;}
+.concept-header:hover{background:var(--surface2);}
+.concept-title{font-weight:600;font-size:14px;color:var(--text);display:flex;align-items:center;gap:10px;}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.dot-v{background:var(--accent);}
+.dot-y{background:var(--accent4);}
+.dot-b{background:var(--accent3);}
+.dot-o{background:var(--accent2);}
+.dot-g{background:var(--accent5);}
+.concept-toggle{font-size:12px;color:var(--muted);transition:transform .2s;}
+.concept.open .concept-toggle{transform:rotate(180deg);}
+.concept-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border);}
+.concept.open .concept-body{display:block;}
+
+/* BODY ELEMENTS */
+.concept-body h4{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:18px 0 8px;}
+.concept-body h4:first-child{margin-top:16px;}
+.concept-body p{font-size:13px;color:var(--muted2);line-height:1.8;margin-bottom:8px;}
+.concept-body strong{color:var(--text);font-weight:600;}
+.concept-body em{color:var(--accent3);font-style:normal;font-weight:500;}
+
+.def-box{background:var(--surface2);border-left:3px solid var(--accent);padding:12px 16px;margin:10px 0;border-radius:0 3px 3px 0;font-size:13px;color:var(--text);line-height:1.7;}
+.def-box .term{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:1px;display:block;margin-bottom:4px;}
+
+.steps{margin:10px 0;}
+.step{display:flex;gap:12px;margin-bottom:8px;font-size:13px;line-height:1.6;color:var(--muted2);}
+.step-num{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--accent);flex-shrink:0;width:20px;margin-top:2px;}
+.step strong{color:var(--text);}
+
+.key-points{margin:10px 0;}
+.key-point{display:flex;gap:10px;margin-bottom:6px;font-size:13px;color:var(--muted2);line-height:1.6;padding-left:2px;}
+.key-point::before{content:'→';color:var(--accent);font-size:11px;flex-shrink:0;margin-top:3px;}
+.key-point strong{color:var(--text);}
+
+.cmp-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px;}
+.cmp-table th{background:var(--surface2);padding:8px 12px;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border);}
+.cmp-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted2);vertical-align:top;line-height:1.5;}
+.cmp-table td:first-child{color:var(--text);font-weight:500;}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table tr:hover td{background:var(--surface2);}
+
+.equation{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--surface2);border:1px solid var(--border);padding:10px 16px;border-radius:3px;margin:10px 0;color:var(--accent4);letter-spacing:.5px;}
+
+.callout{border:1px solid;border-radius:3px;padding:12px 16px;margin:12px 0;font-size:12px;line-height:1.7;}
+.callout.warn{border-color:#f59e0b40;background:#f59e0b08;color:var(--muted2);}
+.callout.warn::before{content:'⚠ ';color:#f59e0b;}
+.callout.exam{border-color:#a78bfa40;background:#a78bfa08;color:var(--muted2);}
+.callout.exam::before{content:'✓ EXAM TIP: ';color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;}
+
+.term-divider{display:flex;align-items:center;gap:16px;margin:48px 0 32px;}
+.term-divider h3{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;white-space:nowrap;}
+.term-divider.t1 h3{color:var(--accent);}
+.term-divider.t2 h3{color:var(--accent4);}
+.term-divider.t3 h3{color:var(--accent3);}
+.term-divider.t4 h3{color:var(--accent2);}
+.term-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.hl{background:#a78bfa20;color:var(--accent);padding:1px 5px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+.hl.y{background:#facc1520;color:var(--accent4);}
+.hl.b{background:#38bdf820;color:var(--accent3);}
+.hl.o{background:#fb923c20;color:var(--accent2);}
+.hl.g{background:#34d39920;color:var(--accent5);}
+
+.menu-btn{display:none;position:fixed;bottom:20px;right:20px;background:var(--accent);color:#000;border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;z-index:200;font-weight:700;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform .3s;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .topbar{padding:14px 20px;}
+  .content{padding:24px 20px;}
+  .menu-btn{display:flex;align-items:center;justify-content:center;}
+  .progress-bar{left:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <h1>BIO GRADE 11<br>STUDY NOTES</h1>
+    <p>NIS · Advanced · 2025–2026</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-term">Term 1</div>
+    <a href="#s-ecology" class="nav-item"><span class="tag t1">11.1A</span>Ecology</a>
+    <a href="#s-cell-bio" class="nav-item"><span class="tag t1">11.1B</span>Cell Biology</a>
+    <a href="#s-mol-bio-1" class="nav-item"><span class="tag t1">11.1C</span>Molecular Biology I</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-term">Term 2</div>
+    <a href="#s-nucleic-acids" class="nav-item"><span class="tag t2">11.2A</span>Nucleic Acids & Biosynthesis</a>
+    <a href="#s-transport" class="nav-item"><span class="tag t2">11.2B</span>Transport & Circulation</a>
+    <a href="#s-respiration" class="nav-item"><span class="tag t2">11.2C</span>Respiration & Excretion</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-term">Term 3</div>
+    <a href="#s-coordination" class="nav-item"><span class="tag t3">11.3A</span>Coordination & Regulation</a>
+    <a href="#s-cell-cycle" class="nav-item"><span class="tag t3">11.3B</span>Cell Cycle & Division</a>
+    <a href="#s-growth" class="nav-item"><span class="tag t3">11.3C</span>Growth, Ageing & Movement</a>
+    <a href="#s-heredity" class="nav-item"><span class="tag t3">11.3D</span>Heredity</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-term">Term 4</div>
+    <a href="#s-variability" class="nav-item"><span class="tag t4">11.4A</span>Variability & Mutations</a>
+    <a href="#s-evolution" class="nav-item"><span class="tag t4">11.4B</span>Evolution & Selection</a>
+    <a href="#s-cladistics" class="nav-item"><span class="tag t4">11.4C</span>Cladistics</a>
+    <a href="#s-microbio" class="nav-item"><span class="tag t4">11.4D</span>Microbiology & Biotech</a>
+  </div>
+</nav>
+
+<button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title">Biology Grade 11 — Complete Study Notes</span>
+    <div class="topbar-search">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search topics..." oninput="search(this.value)">
+    </div>
+  </div>
+
+  <div class="content" id="mainContent">
+
+    <!-- ═══════════════ TERM 1 ═══════════════ -->
+    <div class="term-divider t1"><h3>TERM 1</h3></div>
+
+    <!-- ECOLOGY -->
+    <section class="topic-section" id="s-ecology">
+      <div class="topic-header">
+        <span class="topic-code tc-t1">11.1A</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.3.1.1 · 11.3.1.2 · 11.3.2.1 · 11.3.2.2</span>
+          <h2>Ecology & Environment</h2>
+          <p>Ecosystem investigation · Ecological groups · Global warming · Kazakhstan</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>Ecological Groups & Abiotic Factors</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Abiotic Factor Groups</h4>
+          <table class="cmp-table">
+            <tr><th>Factor</th><th>Ecological Groups</th><th>Examples</th></tr>
+            <tr><td>Light</td><td>Heliophytes (light-loving) vs Sciophytes (shade-loving)</td><td>Sunflower vs fern</td></tr>
+            <tr><td>Temperature</td><td>Thermophiles (warm) vs Cryophiles (cold); stenothermal vs eurythermal</td><td>Tropical fish vs arctic fox</td></tr>
+            <tr><td>Water/humidity</td><td>Hydrophytes (aquatic), Hygrophytes (moist), Mesophytes (moderate), Xerophytes (dry)</td><td>Water lily, fern, oak, cactus</td></tr>
+            <tr><td>Salinity</td><td>Halophytes (high salt) vs Glycophytes (low salt)</td><td>Mangrove vs most crop plants</td></tr>
+          </table>
+          <h4>Field Investigation Methods</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Quadrat sampling</strong> — count organisms within a defined area; calculate frequency and abundance</div>
+            <div class="key-point"><strong>Transect</strong> — line through habitat; record organisms along it; shows zonation</div>
+            <div class="key-point"><strong>Capture-recapture</strong> — for mobile animals; Lincoln-Petersen estimate: N = (n₁ × n₂) / m</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-o"></div>Global Climate Change</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Causes of Global Warming</h4>
+          <div class="key-points">
+            <div class="key-point">Combustion of fossil fuels → CO₂↑ (greenhouse gas)</div>
+            <div class="key-point">Deforestation → less CO₂ absorbed</div>
+            <div class="key-point">Agriculture → CH₄ (methane from rice fields, livestock) and N₂O</div>
+            <div class="key-point">Industrial processes → CFC, HFC (ozone-depleting)</div>
+          </div>
+          <h4>Consequences</h4>
+          <div class="key-points">
+            <div class="key-point">Rising sea levels (melting ice caps) → coastal flooding</div>
+            <div class="key-point">More extreme weather events (hurricanes, droughts, floods)</div>
+            <div class="key-point">Shifts in species distribution; habitat loss; extinction risk</div>
+            <div class="key-point">Ocean acidification (CO₂ + H₂O → H₂CO₃) → harm to coral, molluscs</div>
+            <div class="key-point">Altered agricultural zones; food security risks</div>
+          </div>
+          <div class="callout exam">Kazakhstan-specific issues: Aral Sea shrinkage, desertification, industrial pollution from mining/smelting, steppe degradation. Solutions: reforestation, renewable energy, water management.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CELL BIOLOGY -->
+    <section class="topic-section" id="s-cell-bio">
+      <div class="topic-header">
+        <span class="topic-code tc-t1">11.1B</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.4.2.1 – 11.4.2.5</span>
+          <h2>Cell Biology</h2>
+          <p>Microscopy · Cell membrane · Organelles · Prokaryotes vs Eukaryotes</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-v"></div>Microscopy</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Light Microscope</th><th>Electron Microscope (TEM/SEM)</th></tr>
+            <tr><td>Radiation</td><td>Visible light</td><td>Electron beam</td></tr>
+            <tr><td>Maximum magnification</td><td>×1500</td><td>×500,000+</td></tr>
+            <tr><td>Resolution</td><td>~200 nm</td><td>~0.1–10 nm</td></tr>
+            <tr><td>Specimen</td><td>Can be living or dead</td><td>Must be dead (vacuum; electron beam)</td></tr>
+            <tr><td>Colour</td><td>Natural colour possible</td><td>Black and white (false colour added)</td></tr>
+            <tr><td>Cost</td><td>Cheap</td><td>Very expensive</td></tr>
+            <tr><td>Use</td><td>Tissue sections, live cells, cell division</td><td>Organelle ultrastructure</td></tr>
+          </table>
+          <div class="equation">Magnification = Image size ÷ Actual size &nbsp;|&nbsp; Actual = Image ÷ Magnification</div>
+          <div class="callout exam">1 mm = 1000 µm = 1,000,000 nm. Always convert to same units before calculating.</div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Cell Membrane — Fluid Mosaic Model</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">FLUID MOSAIC MODEL (Singer & Nicolson, 1972)</span>The membrane consists of a <strong>phospholipid bilayer</strong> (fluid) with proteins embedded throughout (mosaic). The bilayer is not rigid — molecules can move laterally.</div>
+          <h4>Components & Functions</h4>
+          <table class="cmp-table">
+            <tr><th>Component</th><th>Structure</th><th>Function</th></tr>
+            <tr><td>Phospholipids</td><td>Hydrophilic head (glycerol + phosphate) + 2 hydrophobic fatty acid tails</td><td>Bilayer barrier; selectively permeable to small nonpolar molecules</td></tr>
+            <tr><td>Cholesterol</td><td>Sterol molecule between phospholipids</td><td>Stabilises membrane; prevents it being too fluid or too rigid</td></tr>
+            <tr><td>Intrinsic proteins</td><td>Span entire bilayer</td><td>Ion channels, carriers, pumps (active transport)</td></tr>
+            <tr><td>Extrinsic proteins</td><td>On surface only</td><td>Cell recognition, enzymes, structural support</td></tr>
+            <tr><td>Glycoproteins</td><td>Protein + carbohydrate chains</td><td>Cell recognition, receptor sites, antigens (ABO blood groups)</td></tr>
+            <tr><td>Glycolipids</td><td>Lipid + carbohydrate</td><td>Cell-cell recognition; tissue formation</td></tr>
+          </table>
+          <h4>Factors Affecting Membrane Fluidity</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Temperature↑</strong> → phospholipids move faster → membrane more fluid → leaky</div>
+            <div class="key-point"><strong>Unsaturated fatty acids</strong> → kinked tails → less packing → more fluid</div>
+            <div class="key-point"><strong>Cholesterol</strong> → buffers fluidity: prevents too fluid at high temp, prevents too rigid at low temp</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>Cell Organelles</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Organelle</th><th>Structure</th><th>Function</th></tr>
+            <tr><td>Nucleus</td><td>Double membrane (nuclear envelope) with pores; contains chromatin, nucleolus</td><td>Contains DNA; controls cell activity; nucleolus makes rRNA</td></tr>
+            <tr><td>Mitochondria</td><td>Double membrane; cristae (inner folds); matrix</td><td>Aerobic respiration; ATP synthesis</td></tr>
+            <tr><td>Ribosomes</td><td>rRNA + protein; 70S (prokaryote), 80S (eukaryote)</td><td>Protein synthesis (translation)</td></tr>
+            <tr><td>Rough ER</td><td>Membrane-bound sacs with ribosomes</td><td>Protein synthesis and transport</td></tr>
+            <tr><td>Smooth ER</td><td>Membrane sacs without ribosomes</td><td>Lipid/steroid synthesis; Ca²⁺ storage</td></tr>
+            <tr><td>Golgi apparatus</td><td>Stacked curved cisternae; vesicles bud off</td><td>Modification, sorting, packaging proteins and lipids for secretion</td></tr>
+            <tr><td>Lysosome</td><td>Membrane vesicle containing hydrolytic enzymes (pH 5)</td><td>Intracellular digestion; autophagy</td></tr>
+            <tr><td>Chloroplast</td><td>Double membrane; thylakoids (grana); stroma</td><td>Photosynthesis (plant cells only)</td></tr>
+            <tr><td>Vacuole (plant)</td><td>Large central; tonoplast membrane</td><td>Water storage; turgor; waste storage</td></tr>
+            <tr><td>Cell wall (plant)</td><td>Cellulose microfibrils</td><td>Structural support; prevents lysis</td></tr>
+            <tr><td>Centriole</td><td>9+0 microtubule arrangement</td><td>Organises spindle fibres during cell division (animal cells)</td></tr>
+          </table>
+
+          <h4>Prokaryote vs Eukaryote</h4>
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Prokaryote</th><th>Eukaryote</th></tr>
+            <tr><td>Nucleus</td><td>No (nucleoid region; no nuclear membrane)</td><td>Yes (true nucleus with double membrane)</td></tr>
+            <tr><td>Chromosomes</td><td>Single circular chromosome + plasmids</td><td>Multiple linear chromosomes (with histones)</td></tr>
+            <tr><td>Membrane-bound organelles</td><td>No</td><td>Yes (mitochondria, ER, Golgi, etc.)</td></tr>
+            <tr><td>Ribosomes</td><td>70S (smaller)</td><td>80S (larger); 70S in mitochondria/chloroplasts</td></tr>
+            <tr><td>Cell wall</td><td>Peptidoglycan (bacteria)</td><td>Cellulose (plants), chitin (fungi), absent (animals)</td></tr>
+            <tr><td>Size</td><td>1–10 µm</td><td>10–100 µm</td></tr>
+            <tr><td>DNA</td><td>Circular, not associated with histones</td><td>Linear, wrapped around histones (nucleosomes)</td></tr>
+          </table>
+          <div class="callout exam">Bacterial structures NOT in plant/animal cells: pili, flagellum (different from eukaryote), plasmids, peptidoglycan cell wall, mesosome (infolding of plasma membrane).</div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>Surface Area : Volume Ratio</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="equation">SA:V ratio = Surface area ÷ Volume</div>
+          <div class="key-points">
+            <div class="key-point">As cell size increases → SA:V ratio <strong>decreases</strong></div>
+            <div class="key-point">Smaller cells have <strong>larger SA:V</strong> → more efficient exchange of gases and nutrients</div>
+            <div class="key-point">Very large cells need internal transport systems (e.g. ER, cytoplasmic streaming)</div>
+            <div class="key-point">Adaptations for exchange: microvilli (intestine), alveoli, root hair cells → all increase SA</div>
+          </div>
+          <div class="callout exam">Cube of side 1 cm: SA = 6 cm², V = 1 cm³, SA:V = 6. Cube of side 2 cm: SA = 24, V = 8, SA:V = 3. Doubling size → ratio halves.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOLECULAR BIOLOGY I -->
+    <section class="topic-section" id="s-mol-bio-1">
+      <div class="topic-header">
+        <span class="topic-code tc-t1">11.1C</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.4.1.1 – 11.4.1.7</span>
+          <h2>Molecular Biology I — Biomolecules</h2>
+          <p>Water · Lipids · Protein structure · Haemoglobin · Collagen · Denaturation</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Water — Properties & Biological Significance</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Why Water is Polar</h4>
+          <p>Oxygen is more electronegative than hydrogen → electrons are pulled towards O → O carries partial negative charge (δ−); H carries partial positive charge (δ+). This polarity allows water molecules to form <strong>hydrogen bonds</strong> with each other and with other polar molecules.</p>
+          <h4>Biologically Important Properties</h4>
+          <table class="cmp-table">
+            <tr><th>Property</th><th>Explanation</th><th>Biological significance</th></tr>
+            <tr><td>High specific heat capacity</td><td>Many H-bonds must be broken to raise temperature</td><td>Stable aquatic habitat; body temperature regulation</td></tr>
+            <tr><td>High latent heat of vaporisation</td><td>Much energy needed to evaporate water</td><td>Sweating/transpiration cools organisms efficiently</td></tr>
+            <tr><td>Cohesion</td><td>H-bonds between water molecules</td><td>Water columns in xylem; surface tension</td></tr>
+            <tr><td>Adhesion</td><td>Water sticks to polar surfaces</td><td>Capillary action in plants</td></tr>
+            <tr><td>Solvent</td><td>Polar water dissolves ionic/polar substances</td><td>Medium for biochemical reactions; transport</td></tr>
+            <tr><td>Transparent</td><td>Light passes through</td><td>Photosynthesis in aquatic plants</td></tr>
+            <tr><td>Ice less dense than water</td><td>H-bonds in ice form regular lattice</td><td>Ice floats → insulates water below; aquatic life survives</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>Proteins — Structure & Function</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>4 Levels of Protein Structure</h4>
+          <table class="cmp-table">
+            <tr><th>Level</th><th>Description</th><th>Bonds</th></tr>
+            <tr><td>Primary (1°)</td><td>Sequence of amino acids in polypeptide chain</td><td>Peptide bonds (covalent)</td></tr>
+            <tr><td>Secondary (2°)</td><td>α-helix or β-pleated sheet; local folding</td><td>Hydrogen bonds between backbone C=O and N-H</td></tr>
+            <tr><td>Tertiary (3°)</td><td>3D overall shape of polypeptide; folding of secondary structures</td><td>H-bonds, disulfide bridges (S–S), ionic bonds, hydrophobic interactions</td></tr>
+            <tr><td>Quaternary (4°)</td><td>Multiple polypeptide chains assembled</td><td>Same as tertiary + between subunits</td></tr>
+          </table>
+
+          <h4>Haemoglobin</h4>
+          <div class="def-box"><span class="term">HAEMOGLOBIN</span><strong>Quaternary structure</strong>: 4 polypeptide chains (2α + 2β), each with a <strong>haem group</strong> containing Fe²⁺. Each haem binds one O₂. Total: 4 O₂ per haemoglobin molecule. Cooperative binding → sigmoidal dissociation curve.</div>
+
+          <h4>Collagen</h4>
+          <div class="def-box"><span class="term">COLLAGEN</span><strong>Quaternary structure</strong>: 3 polypeptide chains wound into a <strong>triple helix</strong>; rich in glycine, proline, hydroxyproline. Very strong (tensile strength). Found in skin, tendons, bones, blood vessels. Insoluble → structural role.</div>
+
+          <div class="callout exam">Haemoglobin = globular (soluble, spherical, functional role). Collagen = fibrous (insoluble, structural role). Both are quaternary. Key difference: haemoglobin has haem prosthetic group; collagen is purely protein.</div>
+
+          <h4>Protein Denaturation</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Denaturation</strong> — disruption of non-covalent bonds (H-bonds, ionic bonds) → loss of 3D shape → loss of function. Peptide bonds NOT broken.</div>
+            <div class="key-point">Caused by: high temperature (breaks H-bonds), extreme pH (disrupts ionic interactions)</div>
+            <div class="key-point"><strong>Renaturation</strong> — possible if conditions are restored gently; primary structure intact → can refold (e.g. ribonuclease A)</div>
+            <div class="key-point">Irreversible denaturation: e.g. cooking egg white (albumin) — protein aggregates</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-o"></div>Lipids — Structure & Functions</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Phospholipid Structure</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Head</strong>: glycerol + phosphate group — hydrophilic (water-loving)</div>
+            <div class="key-point"><strong>Tails</strong>: 2 fatty acid chains — hydrophobic (water-repelling)</div>
+            <div class="key-point">Amphipathic → spontaneously forms bilayer in water</div>
+            <div class="key-point"><strong>Saturated fatty acids</strong>: no double bonds; straight chains; solid at room temp; more stable</div>
+            <div class="key-point"><strong>Unsaturated fatty acids</strong>: one or more C=C double bonds; kinked chains; liquid at room temp (oils)</div>
+          </div>
+          <h4>Functions of Lipids</h4>
+          <div class="key-points">
+            <div class="key-point">Energy storage (triglycerides): 2× energy per gram compared to carbohydrates</div>
+            <div class="key-point">Membrane structure (phospholipids, cholesterol)</div>
+            <div class="key-point">Insulation: thermal (adipose tissue) and electrical (myelin sheath)</div>
+            <div class="key-point">Hormones: steroid hormones (sex hormones, cortisol) are lipid-derived</div>
+            <div class="key-point">Fat-soluble vitamins (A, D, E, K) transport and absorption</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ TERM 2 ═══════════════ -->
+    <div class="term-divider t2"><h3>TERM 2</h3></div>
+
+    <!-- NUCLEIC ACIDS -->
+    <section class="topic-section" id="s-nucleic-acids">
+      <div class="topic-header">
+        <span class="topic-code tc-t2">11.2A</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.4.1.8 – 11.4.1.15</span>
+          <h2>Nucleic Acids & Protein Biosynthesis</h2>
+          <p>DNA structure · Replication · RNA types · Transcription · Translation · Genetic code</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-v"></div>DNA Structure</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Nucleotide Structure</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Deoxyribose sugar</strong> (5-carbon, pentose)</div>
+            <div class="key-point"><strong>Phosphate group</strong> (attached to 5' carbon)</div>
+            <div class="key-point"><strong>Nitrogenous base</strong>: Purines (A, G — double ring) or Pyrimidines (T, C — single ring)</div>
+          </div>
+          <h4>DNA Double Helix (Watson & Crick, 1953)</h4>
+          <div class="key-points">
+            <div class="key-point">Two antiparallel polynucleotide strands: one runs 5'→3', the other 3'→5'</div>
+            <div class="key-point">Strands held by <strong>hydrogen bonds</strong> between complementary bases: A=T (2 H-bonds); G≡C (3 H-bonds)</div>
+            <div class="key-point">Sugar-phosphate backbone on outside; bases point inward</div>
+            <div class="key-point"><strong>Chargaff's rules</strong>: %A = %T; %G = %C in any DNA sample</div>
+          </div>
+
+          <h4>DNA vs RNA</h4>
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>DNA</th><th>RNA</th></tr>
+            <tr><td>Sugar</td><td>Deoxyribose</td><td>Ribose</td></tr>
+            <tr><td>Bases</td><td>A, T, G, C</td><td>A, U, G, C (Uracil instead of Thymine)</td></tr>
+            <tr><td>Strands</td><td>Double-stranded</td><td>Single-stranded (usually)</td></tr>
+            <tr><td>Location</td><td>Nucleus (mainly)</td><td>Nucleus and cytoplasm</td></tr>
+            <tr><td>Stability</td><td>Very stable (years)</td><td>Less stable (short-lived)</td></tr>
+          </table>
+
+          <h4>Types of RNA</h4>
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Structure</th><th>Function</th></tr>
+            <tr><td>mRNA</td><td>Linear; codons (3 bases each)</td><td>Carries genetic code from DNA to ribosome</td></tr>
+            <tr><td>tRNA</td><td>Cloverleaf; anticodon loop; amino acid attachment site (3' end)</td><td>Carries specific amino acid to ribosome; anticodon pairs with mRNA codon</td></tr>
+            <tr><td>rRNA</td><td>Structural component of ribosomes</td><td>Forms ribosome; catalyses peptide bond formation (ribozyme)</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>DNA Replication</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">SEMI-CONSERVATIVE REPLICATION</span>Each daughter DNA molecule contains one original (parental) strand and one newly synthesised strand. Proved by Meselson & Stahl (1958) using ¹⁵N/¹⁴N isotope labelling.</div>
+          <h4>Steps of Replication</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Helicase</strong> unwinds and separates (unzips) double helix at the replication fork; breaks H-bonds between base pairs</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Primase</strong> adds short RNA primer (provides free 3'-OH for DNA polymerase)</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>DNA polymerase III</strong> adds complementary deoxyribonucleotides in 5'→3' direction; uses each strand as template</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Leading strand</strong>: synthesised continuously (same direction as replication fork); <strong>Lagging strand</strong>: synthesised discontinuously as Okazaki fragments</div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>DNA polymerase I</strong> removes RNA primers; fills gaps</div></div>
+            <div class="step"><div class="step-num">06</div><div><strong>DNA ligase</strong> joins Okazaki fragments (seals nicks in sugar-phosphate backbone)</div></div>
+          </div>
+          <div class="callout exam">DNA polymerase can only add nucleotides to the 3' end of an existing strand (needs a primer). It cannot synthesise DNA de novo.</div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>Genetic Code Properties</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="key-points">
+            <div class="key-point"><strong>Triplet</strong> — 3 nucleotides (codon) codes for 1 amino acid</div>
+            <div class="key-point"><strong>Degenerate</strong> — most amino acids coded by more than one codon (64 codons; only 20 amino acids). Protects against mutations.</div>
+            <div class="key-point"><strong>Non-overlapping</strong> — each base read only once; belongs to only one codon</div>
+            <div class="key-point"><strong>Universal</strong> — same code in virtually all organisms (evidence of common ancestry)</div>
+            <div class="key-point"><strong>Unambiguous</strong> — each codon codes for only one specific amino acid</div>
+            <div class="key-point"><strong>Start codon</strong>: AUG (codes for methionine); <strong>Stop codons</strong>: UAA, UAG, UGA (no amino acid)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSPORT & CIRCULATION -->
+    <section class="topic-section" id="s-transport">
+      <div class="topic-header">
+        <span class="topic-code tc-t2">11.2B</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.1.2.1 · 11.1.3.1 – 11.1.3.6</span>
+          <h2>Transport, Enzymes & Circulation</h2>
+          <p>Enzyme activity · Passive transport · Cardiac cycle · Haemoglobin · Bohr effect</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-v"></div>Enzyme Activity & Factors</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>How Enzymes Work</h4>
+          <div class="def-box"><span class="term">ENZYME</span>A biological catalyst (globular protein) that lowers the <strong>activation energy</strong> of a reaction. Specific shape of active site is complementary to its substrate (induced fit model).</div>
+          <h4>Effect of Conditions on Enzyme Activity</h4>
+          <table class="cmp-table">
+            <tr><th>Factor</th><th>Effect of increase</th><th>Explanation</th></tr>
+            <tr><td>Temperature</td><td>Increases rate to optimum; above optimum → rapid decrease</td><td>More kinetic energy → more collisions. Above optimum: H-bonds break → enzyme denatures → active site changes shape</td></tr>
+            <tr><td>pH</td><td>Optimum pH varies by enzyme; extremes decrease activity</td><td>Disrupts ionic bonds and H-bonds → changes active site shape</td></tr>
+            <tr><td>[Substrate]</td><td>Increases rate until Vmax (all active sites occupied)</td><td>At Vmax, enzyme is saturated; adding more substrate has no effect</td></tr>
+            <tr><td>[Enzyme]</td><td>Increases rate proportionally (if substrate is in excess)</td><td>More active sites available</td></tr>
+            <tr><td>Competitive inhibitor</td><td>Decreases rate; overcome by more substrate</td><td>Blocks active site; competes with substrate; increases apparent Km</td></tr>
+            <tr><td>Non-competitive inhibitor</td><td>Decreases Vmax; cannot be overcome</td><td>Binds allosteric site; changes active site shape; independent of substrate</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Cardiac Cycle & ECG</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Cardiac Automatics (Intrinsic Conduction)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>SA node</strong> (sinoatrial; right atrium) — spontaneous depolarisation; <em>pacemaker</em>; sets heart rate (~70 bpm)</div></div>
+            <div class="step"><div class="step-num">02</div><div>Electrical impulse spreads through <strong>atrial muscle</strong> → both atria contract (atrial systole)</div></div>
+            <div class="step"><div class="step-num">03</div><div>Impulse reaches <strong>AV node</strong> (atrioventricular; between atria and ventricles) — <em>brief delay</em> (0.1 s) allows atria to finish emptying</div></div>
+            <div class="step"><div class="step-num">04</div><div>Impulse passes down <strong>Bundle of His</strong> → left and right bundle branches → <strong>Purkinje fibres</strong></div></div>
+            <div class="step"><div class="step-num">05</div><div>Ventricles depolarise from apex upwards → <strong>ventricular systole</strong> → blood ejected into aorta and pulmonary artery</div></div>
+            <div class="step"><div class="step-num">06</div><div><strong>Diastole</strong> — heart muscle relaxes; valves closed; heart fills again</div></div>
+          </div>
+
+          <h4>ECG Components</h4>
+          <table class="cmp-table">
+            <tr><th>Wave</th><th>Event</th></tr>
+            <tr><td>P wave</td><td>Atrial depolarisation (atria contract)</td></tr>
+            <tr><td>QRS complex</td><td>Ventricular depolarisation (ventricles contract) — atrial repolarisation hidden within</td></tr>
+            <tr><td>T wave</td><td>Ventricular repolarisation (ventricles relax)</td></tr>
+          </table>
+          <div class="callout exam">Valves: atrioventricular valves (mitral, tricuspid) close at start of ventricular systole; semilunar valves (aortic, pulmonary) close at end of ventricular systole when pressure in ventricle drops below aorta/pulmonary artery.</div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-o"></div>Oxygen Dissociation Curves & Bohr Effect</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Oxygen Dissociation Curve</h4>
+          <div class="key-points">
+            <div class="key-point">S-shaped (sigmoidal) because of <strong>cooperative binding</strong>: binding of first O₂ makes subsequent binding easier (conformational change)</div>
+            <div class="key-point"><strong>High pO₂</strong> (e.g. lungs, 13 kPa) → haemoglobin almost fully saturated (~98%)</div>
+            <div class="key-point"><strong>Low pO₂</strong> (e.g. respiring tissues, 2–5 kPa) → haemoglobin releases O₂ readily</div>
+            <div class="key-point"><strong>Foetal haemoglobin (HbF)</strong>: curve shifted LEFT → higher affinity for O₂ → takes O₂ from maternal HbA across placenta</div>
+            <div class="key-point"><strong>Myoglobin</strong>: hyperbolic curve; even higher affinity; stores O₂ in muscle; releases only at very low pO₂</div>
+          </div>
+          <div class="def-box"><span class="term">BOHR EFFECT</span>An increase in CO₂ concentration (from respiring tissues) lowers blood pH (CO₂ + H₂O → H₂CO₃ → H⁺ + HCO₃⁻). H⁺ ions bind to haemoglobin → change in shape → <strong>lower affinity for O₂</strong> → O₂ released more readily to tissues that need it. The dissociation curve shifts RIGHT.</div>
+          <div class="callout exam">Bohr shift is adaptive: most active tissues produce most CO₂ → most O₂ released where it is most needed. This is the basis of the "Explain the importance of the Bohr effect for respiring muscle cells" question type.</div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>Passive Transport</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Mechanism</th><th>Examples</th></tr>
+            <tr><td>Simple diffusion</td><td>Random movement of molecules from high to low concentration; directly through bilayer</td><td>O₂, CO₂, ethanol, steroid hormones</td></tr>
+            <tr><td>Facilitated diffusion</td><td>Down concentration gradient via protein channels or carriers; no ATP</td><td>Glucose (GLUT transporters), ions (Na⁺, K⁺ channels)</td></tr>
+            <tr><td>Osmosis</td><td>Net movement of water from high Ψ to low Ψ through partially permeable membrane</td><td>Water in plant cells, kidney tubules</td></tr>
+          </table>
+          <div class="key-points">
+            <div class="key-point"><strong>Rate of diffusion</strong> increased by: larger surface area, steeper concentration gradient, shorter distance, smaller molecules, higher temperature, lipid-soluble (nonpolar) molecules</div>
+            <div class="key-point"><strong>Fick's Law</strong>: Rate ∝ (Surface area × concentration difference) ÷ thickness</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESPIRATION & EXCRETION -->
+    <section class="topic-section" id="s-respiration">
+      <div class="topic-header">
+        <span class="topic-code tc-t2">11.2C</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.1.4.1 – 11.1.4.7 · 11.1.5.1 – 11.1.5.4</span>
+          <h2>Respiration & Excretion</h2>
+          <p>ATP · Glycolysis · Krebs · ETC · Oxidative phosphorylation · Nephron · ADH · Dialysis</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>ATP — Structure & Function</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">ADENOSINE TRIPHOSPHATE (ATP)</span>Universal energy currency of the cell. Consists of: <strong>adenine</strong> (nitrogenous base) + <strong>ribose</strong> (5-carbon sugar) + <strong>3 phosphate groups</strong>. Hydrolysis of the terminal phosphate bond (by ATPase) releases ~30.5 kJ/mol energy.</div>
+          <div class="equation">ATP + H₂O → ADP + Pi + energy (30.5 kJ/mol)</div>
+          <h4>Why ATP is the Perfect Energy Currency</h4>
+          <div class="key-points">
+            <div class="key-point">Releases manageable amounts of energy (not too much at once)</div>
+            <div class="key-point">Easily regenerated from ADP + Pi by cellular respiration</div>
+            <div class="key-point">Soluble — easily transported within cell</div>
+            <div class="key-point">Cannot leave the cell → energy stays where needed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-o"></div>Stages of Aerobic Respiration</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Stage 1 — Glycolysis (Cytoplasm)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Phosphorylation</strong>: Glucose (6C) + 2ATP → glucose-6-phosphate → fructose-1,6-bisphosphate</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Splitting</strong>: Fructose-1,6-bisphosphate (6C) → 2× triose phosphate (3C)</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Oxidation/substrate phosphorylation</strong>: Triose phosphate oxidised → 2× pyruvate; produces 4 ATP and 2 NADH</div></div>
+          </div>
+          <div class="equation">Glucose → 2 Pyruvate + 2 ATP (net) + 2 NADH</div>
+
+          <h4>Stage 2 — Link Reaction (Mitochondrial Matrix)</h4>
+          <div class="key-points">
+            <div class="key-point">Pyruvate (3C) + CoA → Acetyl-CoA (2C) + CO₂ + NADH</div>
+            <div class="key-point">Decarboxylation (CO₂ removed) + dehydrogenation (NADH formed)</div>
+            <div class="key-point">No ATP produced at this stage</div>
+          </div>
+
+          <h4>Stage 3 — Krebs Cycle (Matrix)</h4>
+          <div class="key-points">
+            <div class="key-point">Acetyl-CoA (2C) + oxaloacetate (4C) → citrate (6C)</div>
+            <div class="key-point">2 turns per glucose; per turn: 3 NADH, 1 FADH₂, 1 ATP, 2 CO₂ released</div>
+            <div class="key-point">Oxaloacetate regenerated at end of each turn (cycle)</div>
+            <div class="key-point">Substrate-level phosphorylation produces 1 ATP per turn</div>
+          </div>
+
+          <h4>Stage 4 — Oxidative Phosphorylation (Inner Mitochondrial Membrane)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>NADH and FADH₂ donate <strong>electrons</strong> to electron transport chain (Complex I, II, III, IV)</div></div>
+            <div class="step"><div class="step-num">02</div><div>Energy from electrons pumps <strong>H⁺ ions</strong> from matrix → intermembrane space</div></div>
+            <div class="step"><div class="step-num">03</div><div>H⁺ gradient (proton motive force) drives H⁺ back through <strong>ATP synthase</strong> → ATP synthesis (chemiosmosis)</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>O₂ = final electron acceptor</strong>: O₂ + 2H⁺ + 2e⁻ → H₂O</div></div>
+          </div>
+          <div class="equation">Total ATP yield (aerobic): ~38 ATP per glucose molecule</div>
+
+          <h4>Anaerobic Respiration</h4>
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>In animals/fungi (lactate)</th><th>In plants/yeast (ethanol)</th></tr>
+            <tr><td>Pathway</td><td>Glycolysis → pyruvate → lactate</td><td>Glycolysis → pyruvate → ethanol + CO₂</td></tr>
+            <tr><td>Purpose of reduction</td><td>Regenerate NAD⁺ so glycolysis can continue</td><td>Regenerate NAD⁺ so glycolysis can continue</td></tr>
+            <tr><td>ATP yield</td><td>2 ATP</td><td>2 ATP</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Nephron & Kidney Function</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Urine Formation — 3 Processes</h4>
+          <table class="cmp-table">
+            <tr><th>Process</th><th>Location</th><th>What happens</th></tr>
+            <tr><td>Ultrafiltration</td><td>Glomerulus / Bowman's capsule</td><td>Blood pressure forces small molecules (water, glucose, urea, ions, amino acids) out of blood into Bowman's capsule. Large proteins and red blood cells stay.</td></tr>
+            <tr><td>Selective reabsorption</td><td>Proximal convoluted tubule (mainly)</td><td>All glucose, most water, amino acids, some ions actively transported back into blood. Microvilli (brush border) increase SA. Mitochondria provide ATP.</td></tr>
+            <tr><td>Concentration</td><td>Loop of Henle, DCT, collecting duct</td><td>Loop of Henle creates osmotic gradient in medulla. ADH controls water reabsorption in collecting duct.</td></tr>
+          </table>
+
+          <div class="def-box"><span class="term">ADH (ANTIDIURETIC HORMONE)</span>Released from <strong>posterior pituitary</strong> when blood osmolarity increases (detected by hypothalamus osmoreceptors). ADH increases permeability of collecting duct to water (inserts aquaporin channels) → more water reabsorbed → concentrated urine produced. Low ADH → dilute urine.</div>
+
+          <h4>Haemodialysis</h4>
+          <div class="key-points">
+            <div class="key-point">Blood removed from patient, passed through semi-permeable dialysis membrane</div>
+            <div class="key-point">Dialysate fluid has same composition as normal blood (no urea, correct glucose/ion levels)</div>
+            <div class="key-point">Urea and excess ions diffuse out of blood into dialysate (down concentration gradient)</div>
+            <div class="key-point">Glucose and useful substances do NOT diffuse out (same concentration both sides)</div>
+            <div class="key-point"><strong>Heparin</strong> added to prevent blood clotting in the machine</div>
+            <div class="key-point">Counter-current flow (blood and dialysate flow in opposite directions) → maintains maximum gradient</div>
+          </div>
+          <div class="callout exam">Dialysis advantage: immediately available, no rejection. Disadvantage: time-consuming (3×/week, 4 hrs each), diet restrictions, not permanent solution. Transplant: more natural, once successful = normal life. Risk: rejection, need immunosuppressants.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ TERM 3 ═══════════════ -->
+    <div class="term-divider t3"><h3>TERM 3</h3></div>
+
+    <!-- COORDINATION -->
+    <section class="topic-section" id="s-coordination">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">11.3A</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.1.7.1 – 11.1.7.5</span>
+          <h2>Coordination & Regulation</h2>
+          <p>Brain structure · Mechanoreceptors · Action potential · Myelin · Cholinergic synapse</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Brain Structure & Functions</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Region</th><th>Function</th></tr>
+            <tr><td>Cerebral cortex (cerebrum)</td><td>Conscious thought, memory, learning, speech (Broca's/Wernicke's areas), sensory perception, voluntary movement</td></tr>
+            <tr><td>Cerebellum</td><td>Coordination of movement, balance, posture, fine motor control</td></tr>
+            <tr><td>Medulla oblongata</td><td>Autonomic functions: heart rate, breathing rate, blood pressure, vomiting, swallowing</td></tr>
+            <tr><td>Hypothalamus</td><td>Homeostasis: temperature, osmolarity, hunger; controls pituitary gland; produces ADH, oxytocin</td></tr>
+            <tr><td>Thalamus</td><td>Relay station: processes and relays sensory information to cortex</td></tr>
+            <tr><td>Hippocampus</td><td>Memory formation (long-term memory consolidation)</td></tr>
+            <tr><td>Spinal cord</td><td>Conducts impulses to/from brain; controls spinal reflexes</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>Action Potential in Myelinated Neurons</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Resting Potential (−70 mV)</h4>
+          <div class="key-points">
+            <div class="key-point">Na⁺-K⁺ pump maintains: 3 Na⁺ out per 2 K⁺ in per ATP → inside negative</div>
+            <div class="key-point">Membrane more permeable to K⁺ (leak channels) → K⁺ diffuses out → adds to negativity inside</div>
+          </div>
+          <h4>Action Potential Stages</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Threshold</strong> reached (~−55 mV) → voltage-gated Na⁺ channels open</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Depolarisation</strong>: Na⁺ rushes in (electrochemical gradient) → inside becomes positive (+40 mV)</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Repolarisation</strong>: Na⁺ channels close; voltage-gated K⁺ channels open → K⁺ rushes out → inside becomes negative again</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Hyperpolarisation</strong>: K⁺ channels slow to close → briefly more negative than resting</div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>Refractory period</strong>: Na⁺ channels inactivated; another action potential cannot be triggered → ensures one-way propagation; limits frequency of impulses</div></div>
+          </div>
+          <h4>Myelin Sheath</h4>
+          <div class="key-points">
+            <div class="key-point">Produced by Schwann cells (PNS) or oligodendrocytes (CNS); wraps around axon</div>
+            <div class="key-point"><strong>Saltatory conduction</strong>: action potential jumps between Nodes of Ranvier (unmyelinated gaps) → much faster than in unmyelinated fibres</div>
+            <div class="key-point">Faster conduction; less energy used (Na⁺-K⁺ pump only needed at nodes)</div>
+            <div class="key-point">MS (multiple sclerosis): autoimmune destruction of myelin → slowed/blocked impulse transmission</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-v"></div>Cholinergic Synapse</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Synaptic Transmission Steps</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Action potential reaches <strong>presynaptic terminal</strong></div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Ca²⁺ channels</strong> open → Ca²⁺ ions enter presynaptic terminal</div></div>
+            <div class="step"><div class="step-num">03</div><div>Ca²⁺ causes <strong>synaptic vesicles</strong> to fuse with presynaptic membrane → exocytosis of <strong>acetylcholine (ACh)</strong></div></div>
+            <div class="step"><div class="step-num">04</div><div>ACh diffuses across <strong>synaptic cleft</strong> (20 nm)</div></div>
+            <div class="step"><div class="step-num">05</div><div>ACh binds to <strong>nicotinic receptors</strong> on postsynaptic membrane → Na⁺ channels open → depolarisation → new action potential (if threshold reached)</div></div>
+            <div class="step"><div class="step-num">06</div><div><strong>Acetylcholinesterase</strong> breaks ACh → acetate + choline (prevents continuous stimulation)</div></div>
+            <div class="step"><div class="step-num">07</div><div>Choline taken back up by presynaptic terminal → resynthesised into ACh</div></div>
+          </div>
+          <h4>Role in Coordination</h4>
+          <div class="key-points">
+            <div class="key-point">Synapses ensure <strong>unidirectional</strong> signal transmission (receptors only on postsynaptic side)</div>
+            <div class="key-point"><strong>Summation</strong>: temporal (repeated impulses from one neurone) or spatial (impulses from multiple neurones) → allows threshold to be reached or not</div>
+            <div class="key-point">Synapses allow <strong>integration</strong> of signals: excitatory and inhibitory inputs summed</div>
+            <div class="key-point"><strong>Pacinian corpuscle</strong>: mechanoreceptor; onion-like layers of connective tissue around dendrite ending; deformation of layers opens Na⁺ channels → generator potential → action potential if threshold reached</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CELL CYCLE -->
+    <section class="topic-section" id="s-cell-cycle">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">11.3B</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.2.2.1 – 11.2.2.7</span>
+          <h2>Cell Cycle & Division</h2>
+          <p>Mitosis · Meiosis · Gametogenesis · Cancer</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>Mitosis</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Cell Cycle Phases</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Interphase</strong> — G1 (cell growth, protein synthesis) → S phase (DNA replication) → G2 (preparation for division, organelle replication)</div>
+            <div class="key-point"><strong>M phase</strong> — mitosis + cytokinesis</div>
+          </div>
+          <h4>Stages of Mitosis (PMAT)</h4>
+          <table class="cmp-table">
+            <tr><th>Stage</th><th>Key Events</th></tr>
+            <tr><td>Prophase</td><td>Chromosomes condense (visible); spindle forms from centrioles; nuclear envelope breaks down; nucleolus disappears</td></tr>
+            <tr><td>Metaphase</td><td>Chromosomes align at metaphase plate (equator); spindle fibres attach to centromeres</td></tr>
+            <tr><td>Anaphase</td><td>Sister chromatids pulled to opposite poles by spindle fibres shortening; centromeres split</td></tr>
+            <tr><td>Telophase</td><td>Chromosomes decondense; nuclear envelope reforms; nucleolus reappears; cytokinesis begins</td></tr>
+          </table>
+          <div class="callout exam">Mitosis produces 2 genetically identical daughter cells. Chromosome number maintained (2n → 2n). Used for: growth, repair, asexual reproduction. NOT meiosis.</div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-o"></div>Meiosis & Genetic Recombination</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Meiosis vs Mitosis</h4>
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Mitosis</th><th>Meiosis</th></tr>
+            <tr><td>Number of divisions</td><td>1</td><td>2 (Meiosis I + Meiosis II)</td></tr>
+            <tr><td>Daughter cells</td><td>2</td><td>4</td></tr>
+            <tr><td>Chromosome number</td><td>Same as parent (2n)</td><td>Half of parent (n)</td></tr>
+            <tr><td>Genetic variation</td><td>None (genetically identical)</td><td>Yes (crossing over + independent assortment)</td></tr>
+            <tr><td>Purpose</td><td>Growth, repair, asexual reproduction</td><td>Sexual reproduction (gamete formation)</td></tr>
+          </table>
+          <h4>Sources of Genetic Variation in Meiosis</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Crossing over (recombination)</strong> — during Prophase I: homologous chromosomes (bivalents) exchange segments at chiasmata → new combinations of alleles</div>
+            <div class="key-point"><strong>Independent assortment</strong> — during Metaphase I: homologous pairs align randomly → 2²³ possible combinations in humans</div>
+            <div class="key-point"><strong>Random fertilisation</strong> — any egg can combine with any sperm</div>
+          </div>
+
+          <h4>Cancer</h4>
+          <div class="key-points">
+            <div class="key-point">Uncontrolled cell division due to mutations in <strong>proto-oncogenes</strong> (become oncogenes) or <strong>tumour suppressor genes</strong> (e.g. p53)</div>
+            <div class="key-point">Causes: mutagens (ionising radiation, UV, carcinogens, viral infections), hereditary mutations</div>
+            <div class="key-point"><strong>Tumour</strong>: benign (does not spread) vs malignant (metastasis — spreads to other tissues)</div>
+            <div class="key-point">Cells lose contact inhibition; divide without limit; may avoid apoptosis</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Gametogenesis in Plants & Animals</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Animal Gametogenesis</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Spermatogenesis</strong>: spermatogonia → (mitosis) → primary spermatocyte → (meiosis I) → secondary spermatocytes → (meiosis II) → spermatids → (spermiogenesis) → spermatozoa. 4 sperm per meiosis.</div>
+            <div class="key-point"><strong>Oogenesis</strong>: oogonium → primary oocyte (arrested in prophase I until puberty) → (meiosis I at ovulation) → secondary oocyte + first polar body → (meiosis II at fertilisation) → egg + second polar body. 1 egg per meiosis.</div>
+          </div>
+          <h4>Plant Gametogenesis</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Sporogenesis</strong> (in anthers): diploid microsporocytes → (meiosis) → 4 haploid microspores → (mitosis) → pollen grains (male gametophyte)</div>
+            <div class="key-point"><strong>Female gametophyte</strong>: megaspore mother cell → (meiosis) → 4 megaspores; 3 degenerate; 1 undergoes 3 rounds of mitosis → embryo sac with 7 cells (including egg cell + 2 polar nuclei)</div>
+            <div class="key-point"><strong>Double fertilisation</strong>: one sperm + egg → zygote (embryo); other sperm + 2 polar nuclei → endosperm (3n)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROWTH, AGEING & MOVEMENT -->
+    <section class="topic-section" id="s-growth">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">11.3C</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.2.3.1 · 11.2.3.2 · 11.1.6.1 · 11.1.6.2</span>
+          <h2>Growth, Ageing & Muscle Movement</h2>
+          <p>Ageing theories · Sliding filament theory · Fast vs slow muscle fibres</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-v"></div>Ageing</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="key-points">
+            <div class="key-point">Ageing is a <strong>universal biological law</strong> — all multicellular organisms age and die</div>
+            <div class="key-point"><strong>Telomeric theory</strong>: telomeres shorten with each mitosis; eventually reach critical length → cell cannot divide → senescence or apoptosis</div>
+            <div class="key-point"><strong>Free radical theory</strong>: reactive oxygen species (ROS) damage DNA, proteins, and lipids; accumulates over time</div>
+            <div class="key-point"><strong>Accumulation theory</strong>: waste products (e.g. lipofuscin) accumulate in cells → dysfunction</div>
+            <div class="key-point"><strong>Error catastrophe theory</strong>: errors in protein synthesis accumulate → dysfunctional proteins</div>
+            <div class="key-point"><strong>Genetic theory</strong>: genes that promote survival early in life may cause decline later (antagonistic pleiotropy)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-o"></div>Muscle Contraction — Sliding Filament Theory</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Sarcomere Structure</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Thick filaments</strong>: myosin (heads can bind actin and hydrolyse ATP)</div>
+            <div class="key-point"><strong>Thin filaments</strong>: actin + tropomyosin + troponin (regulatory proteins)</div>
+            <div class="key-point"><strong>A band</strong>: region of thick filaments; does not shorten during contraction</div>
+            <div class="key-point"><strong>I band</strong>: actin only; shortens during contraction</div>
+            <div class="key-point"><strong>H zone</strong>: myosin only; disappears during full contraction</div>
+            <div class="key-point"><strong>Z line</strong>: anchors actin; boundaries of sarcomere; Z lines move closer together</div>
+          </div>
+          <h4>Mechanism of Contraction</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div>Action potential travels down T-tubules → stimulates sarcoplasmic reticulum → <strong>Ca²⁺ released</strong> into sarcomere</div></div>
+            <div class="step"><div class="step-num">02</div><div>Ca²⁺ binds <strong>troponin</strong> → conformational change → <strong>tropomyosin moves</strong> → reveals myosin-binding sites on actin</div></div>
+            <div class="step"><div class="step-num">03</div><div>Myosin head (with ADP + Pi) binds actin → forms <strong>cross-bridge</strong></div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Power stroke</strong>: Pi released → myosin head pivots → actin filament slides toward centre; ADP released</div></div>
+            <div class="step"><div class="step-num">05</div><div>New <strong>ATP binds</strong> myosin head → cross-bridge detaches from actin</div></div>
+            <div class="step"><div class="step-num">06</div><div>ATP hydrolysed → myosin head returns to original position → cycle repeats while Ca²⁺ present</div></div>
+          </div>
+
+          <h4>Fast vs Slow Muscle Fibres</h4>
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Slow (Type I)</th><th>Fast (Type II)</th></tr>
+            <tr><td>Colour</td><td>Red (myoglobin-rich)</td><td>White (low myoglobin)</td></tr>
+            <tr><td>Mitochondria</td><td>Many</td><td>Few</td></tr>
+            <tr><td>Respiration</td><td>Mainly aerobic</td><td>Mainly anaerobic glycolysis</td></tr>
+            <tr><td>Contraction speed</td><td>Slow</td><td>Fast</td></tr>
+            <tr><td>Fatigue resistance</td><td>High (long endurance)</td><td>Low (fatigues quickly)</td></tr>
+            <tr><td>Use</td><td>Posture, marathon running</td><td>Sprinting, power movements</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- HEREDITY -->
+    <section class="topic-section" id="s-heredity">
+      <div class="topic-header">
+        <span class="topic-code tc-t3">11.3D</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.2.4.1 – 11.2.4.13</span>
+          <h2>Heredity — Laws of Inheritance</h2>
+          <p>Mendelian genetics · Chromosome theory · Crossing-over · Allele interactions · Chromosomal diseases</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>Genetics Vocabulary & Monohybrid Crossing</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Term</th><th>Definition</th></tr>
+            <tr><td>Allele</td><td>Alternative forms of a gene at the same locus</td></tr>
+            <tr><td>Homozygous</td><td>Two identical alleles (AA or aa)</td></tr>
+            <tr><td>Heterozygous</td><td>Two different alleles (Aa)</td></tr>
+            <tr><td>Genotype</td><td>Genetic makeup (e.g. Aa)</td></tr>
+            <tr><td>Phenotype</td><td>Observable characteristics (e.g. tall)</td></tr>
+            <tr><td>Dominant</td><td>Allele expressed even when heterozygous</td></tr>
+            <tr><td>Recessive</td><td>Allele expressed only when homozygous (aa)</td></tr>
+            <tr><td>Locus</td><td>Specific position of gene on chromosome</td></tr>
+          </table>
+          <h4>Monohybrid Cross (Aa × Aa)</h4>
+          <div class="equation">Aa × Aa → 1 AA : 2 Aa : 1 aa (genotypic 1:2:1) → 3 dominant : 1 recessive (phenotypic 3:1)</div>
+          <div class="key-points">
+            <div class="key-point"><strong>Cytological basis</strong>: alleles are on homologous chromosomes; they separate during meiosis I (Law of Segregation); gametes are haploid</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>Allele Interactions</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+            <tr><td>Complete dominance</td><td>One allele fully masks the other</td><td>Aa = AA phenotype</td></tr>
+            <tr><td>Incomplete dominance</td><td>Heterozygote intermediate phenotype</td><td>Red (RR) × White (WW) → Pink (RW)</td></tr>
+            <tr><td>Codominance</td><td>Both alleles expressed simultaneously</td><td>ABO blood groups (Iᴬ and Iᴮ codominant); MN blood groups</td></tr>
+            <tr><td>Multiple allelism</td><td>More than 2 alleles in population (though individual has 2)</td><td>ABO blood groups (Iᴬ, Iᴮ, i)</td></tr>
+            <tr><td>Epistasis</td><td>One gene masks expression of another non-allelic gene</td><td>Coat colour in Labrador dogs</td></tr>
+            <tr><td>Complementarity</td><td>Two genes together produce phenotype neither produces alone</td><td>Flower pigmentation</td></tr>
+          </table>
+
+          <h4>X-Linked Inheritance</h4>
+          <div class="key-points">
+            <div class="key-point">Gene on X chromosome; males (XY) only have one copy (hemizygous) → always express X-linked alleles</div>
+            <div class="key-point">Carrier females (X^H X^h): normal phenotype, but can pass allele to sons</div>
+            <div class="key-point">Examples: haemophilia, colour blindness, Duchenne muscular dystrophy</div>
+            <div class="key-point">X-linked recessive: affects more males than females; never passed father → son (father gives Y to sons)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Chromosome Theory & Linkage</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">CHROMOSOME THEORY OF HEREDITY</span>Genes are carried on chromosomes. Genes on the same chromosome are <strong>linked</strong> and tend to be inherited together (do not follow independent assortment independently).</div>
+          <h4>Crossing Over</h4>
+          <div class="key-points">
+            <div class="key-point">During Prophase I, homologous chromosomes form bivalents → exchange segments at <strong>chiasmata</strong></div>
+            <div class="key-point">Creates <strong>recombinant chromosomes</strong> → new allele combinations not present in parents</div>
+            <div class="key-point">The further apart two genes are on the same chromosome, the more likely a crossover will occur between them → higher recombination frequency</div>
+            <div class="key-point"><strong>Recombination frequency</strong> used to map gene distances: 1% recombination = 1 centimorgan (cM)</div>
+          </div>
+
+          <h4>Chromosomal Diseases</h4>
+          <table class="cmp-table">
+            <tr><th>Syndrome</th><th>Karyotype</th><th>Cause</th></tr>
+            <tr><td>Down syndrome</td><td>Trisomy 21 (2n=47)</td><td>Non-disjunction at meiosis I or II</td></tr>
+            <tr><td>Patau syndrome</td><td>Trisomy 13</td><td>Non-disjunction</td></tr>
+            <tr><td>Edward syndrome</td><td>Trisomy 18</td><td>Non-disjunction</td></tr>
+            <tr><td>Turner syndrome</td><td>45, XO (monosomy X)</td><td>Non-disjunction (female, infertile)</td></tr>
+            <tr><td>Klinefelter syndrome</td><td>47, XXY</td><td>Non-disjunction (male, infertile)</td></tr>
+          </table>
+          <div class="callout exam">Non-disjunction: homologous chromosomes (meiosis I) or sister chromatids (meiosis II) fail to separate → one gamete gets extra chromosome (n+1); fertilisation gives 2n+1 (trisomy). Karyotype: chromosomes arranged in homologous pairs by size.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ TERM 4 ═══════════════ -->
+    <div class="term-divider t4"><h3>TERM 4</h3></div>
+
+    <!-- VARIABILITY -->
+    <section class="topic-section" id="s-variability">
+      <div class="topic-header">
+        <span class="topic-code tc-t4">11.4A</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.2.4.9 – 11.2.4.13</span>
+          <h2>Variability & Mutations</h2>
+          <p>Modification variability · Phenotypic plasticity · Mutation types · Hugo de Vries</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-o"></div>Types of Variability</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Cause</th><th>Heritable?</th><th>Examples</th></tr>
+            <tr><td>Modification (phenotypic)</td><td>Environment; no change in DNA</td><td>No</td><td>Skin tan, muscle mass, height variations due to nutrition</td></tr>
+            <tr><td>Combinative (recombination)</td><td>Crossing over + independent assortment</td><td>Yes</td><td>New allele combinations in offspring</td></tr>
+            <tr><td>Mutational</td><td>Changes in DNA sequence</td><td>Yes (if germline)</td><td>Gene mutations, chromosomal mutations</td></tr>
+          </table>
+          <h4>Modification Variability</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Norm of reaction</strong> — range of phenotypes that one genotype can produce under different environmental conditions</div>
+            <div class="key-point"><strong>Variation series</strong>: arrange measurements from min to max; plot frequency → normal (bell-shaped) curve</div>
+            <div class="key-point">Most individuals near the <strong>mean</strong>; fewer at extremes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-v"></div>Mutation Types</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Level</th><th>Type</th><th>Description</th><th>Example</th></tr>
+            <tr><td>Gene (point)</td><td>Substitution</td><td>One base replaced by another</td><td>Sickle cell anaemia (GAG→GTG)</td></tr>
+            <tr><td>Gene (point)</td><td>Insertion/Deletion</td><td>Base added or removed → frameshift</td><td>All downstream codons changed</td></tr>
+            <tr><td>Chromosomal</td><td>Deletion</td><td>Segment of chromosome lost</td><td>Cri-du-chat (5p−)</td></tr>
+            <tr><td>Chromosomal</td><td>Duplication</td><td>Segment repeated</td><td>BRCA1 duplication</td></tr>
+            <tr><td>Chromosomal</td><td>Inversion</td><td>Segment reversed</td><td>Various hereditary disorders</td></tr>
+            <tr><td>Chromosomal</td><td>Translocation</td><td>Segment moves to different chromosome</td><td>Philadelphia chromosome (CML)</td></tr>
+            <tr><td>Genomic</td><td>Aneuploidy</td><td>Wrong number of chromosomes</td><td>Down syndrome (+21)</td></tr>
+            <tr><td>Genomic</td><td>Polyploidy</td><td>Extra complete sets of chromosomes</td><td>Common in plants; wheat (6n)</td></tr>
+          </table>
+          <h4>Mutagenesis</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Physical mutagens</strong>: UV light (thymine dimers), ionising radiation (X-rays, gamma rays)</div>
+            <div class="key-point"><strong>Chemical mutagens</strong>: alkylating agents (mustard gas), base analogues, intercalating agents</div>
+            <div class="key-point"><strong>Biological mutagens</strong>: viruses (HPV, hepatitis B) integrating into host genome</div>
+            <div class="key-point">Hugo de Vries (1901): proposed mutation theory — sudden heritable changes in organisms; mutations are the raw material of evolution</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVOLUTION -->
+    <section class="topic-section" id="s-evolution">
+      <div class="topic-header">
+        <span class="topic-code tc-t4">11.4B</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.2.6.1 – 11.2.6.5 · 11.2.5.1</span>
+          <h2>Evolution & Selection</h2>
+          <p>Evidence for evolution · Natural selection · Speciation · Anthropogenesis · Selection methods</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>Evidence for Evolution</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Evidence</th><th>Example</th></tr>
+            <tr><td>Comparative anatomy</td><td>Homologous structures — same basic structure, different functions → common ancestor</td><td>Pentadactyl limb (human arm, whale flipper, bat wing, cat leg)</td></tr>
+            <tr><td>Comparative anatomy</td><td>Analogous structures — same function, different origin → convergent evolution</td><td>Insect wing vs bird wing</td></tr>
+            <tr><td>Comparative anatomy</td><td>Vestigial organs — reduced remnants of once-functional structures</td><td>Human appendix, coccyx, whale pelvis</td></tr>
+            <tr><td>Molecular biology</td><td>DNA and protein sequence similarity → evolutionary relatedness</td><td>Cytochrome c differences between species</td></tr>
+            <tr><td>Palaeontology</td><td>Fossil record shows progression of life forms; transitional fossils</td><td>Tiktaalik (fish→tetrapod); Archaeopteryx (dinosaur→bird)</td></tr>
+            <tr><td>Embryology</td><td>Similar embryonic stages in related organisms</td><td>All vertebrate embryos have gill slits and tails</td></tr>
+            <tr><td>Biogeography</td><td>Geographical distribution of organisms matches evolutionary history</td><td>Darwin's finches (Galapagos); marsupials in Australia</td></tr>
+            <tr><td>Direct observation</td><td>Evolution observed in real time</td><td>Antibiotic resistance, industrial melanism (pepper moth)</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Natural Selection & Allele Frequency</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Mechanisms of Evolution</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Natural selection</strong>: organisms with advantageous alleles → higher survival and reproduction → alleles increase in frequency. Requires: variation, inheritance, differential reproductive success.</div>
+            <div class="key-point"><strong>Genetic drift</strong>: random changes in allele frequency; most significant in small populations; can fix neutral or even harmful alleles</div>
+            <div class="key-point"><strong>Founder effect</strong>: small group establishes new population → limited gene pool → certain alleles become very common or rare</div>
+            <div class="key-point"><strong>Bottleneck effect</strong>: population drastically reduced → low genetic diversity in survivors</div>
+            <div class="key-point"><strong>Gene flow</strong>: exchange of alleles between populations via migration → tends to homogenise gene pools</div>
+            <div class="key-point"><strong>Population waves</strong>: periodic fluctuations in population size → affects genetic diversity</div>
+          </div>
+
+          <h4>Types of Natural Selection</h4>
+          <table class="cmp-table">
+            <tr><th>Type</th><th>Effect on distribution</th><th>Example</th></tr>
+            <tr><td>Stabilising</td><td>Extremes selected against; intermediate favoured; reduces variation</td><td>Birth weight in humans</td></tr>
+            <tr><td>Directional</td><td>One extreme selected for; distribution shifts</td><td>Antibiotic resistance, industrial melanism</td></tr>
+            <tr><td>Disruptive</td><td>Both extremes favoured; middle selected against; can lead to speciation</td><td>Beak size in African seedcrackers</td></tr>
+          </table>
+
+          <h4>Speciation</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Allopatric speciation</strong>: geographical isolation (e.g. mountain range, sea) → populations evolve separately → reproductive isolation → new species</div>
+            <div class="key-point"><strong>Sympatric speciation</strong>: same geographical area; reproductive isolation via polyploidy (common in plants) or behavioural/ecological isolation</div>
+            <div class="key-point"><strong>Species</strong>: group of organisms that can interbreed and produce <strong>fertile offspring</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>Anthropogenesis</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Stage</th><th>Species</th><th>Features</th><th>~Age</th></tr>
+            <tr><td>Proanthropes (Australopithecines)</td><td>Australopithecus afarensis ("Lucy")</td><td>Bipedal; small brain (~450 cc); used tools</td><td>4–2 mya</td></tr>
+            <tr><td>Archanthropes</td><td>Homo habilis, Homo erectus</td><td>Larger brain (600–900 cc); made stone tools (Oldowan); fire (H. erectus)</td><td>2.5–0.3 mya</td></tr>
+            <tr><td>Paleoanthropes</td><td>Homo neanderthalensis</td><td>Large brain (~1500 cc); complex tools; buried dead; coexisted with H. sapiens</td><td>400–40 kya</td></tr>
+            <tr><td>Neoanthropes</td><td>Homo sapiens</td><td>Largest brain; complex language, art, culture; global spread</td><td>300 kya–present</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLADISTICS -->
+    <section class="topic-section" id="s-cladistics">
+      <div class="topic-header">
+        <span class="topic-code tc-t4">11.4C</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.1.1.1 · 11.1.1.2</span>
+          <h2>Cladistics & Phylogenetic Trees</h2>
+          <p>Cladograms · Phylogenetic trees · LUCA</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-b"></div>Cladograms vs Phylogenetic Trees</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Feature</th><th>Cladogram</th><th>Phylogenetic Tree</th></tr>
+            <tr><td>Shows time?</td><td>No (relative branching order only)</td><td>Yes (branch length proportional to time/evolutionary change)</td></tr>
+            <tr><td>Basis</td><td>Shared derived characters (synapomorphies)</td><td>Evolutionary relationships + time</td></tr>
+            <tr><td>Construction</td><td>Parsimony (fewest evolutionary changes)</td><td>Molecular clock, fossil dates</td></tr>
+            <tr><td>Purpose</td><td>Shows which species share most recent common ancestor</td><td>Shows evolutionary history and divergence time</td></tr>
+          </table>
+          <div class="def-box"><span class="term">LUCA</span>Last Universal Common Ancestor — the most recent organism from which all current life descends. Not necessarily the first life, but the ancestor of all three domains (Bacteria, Archaea, Eukarya).</div>
+          <h4>Reading Cladograms</h4>
+          <div class="key-points">
+            <div class="key-point">Species at tips of branches</div>
+            <div class="key-point">Node = common ancestor of all species branching from that point</div>
+            <div class="key-point">Two species sharing a more recent node are more closely related</div>
+            <div class="key-point">Built using shared <strong>derived characters</strong> (synapomorphies) — NOT ancestral (plesiomorphies)</div>
+          </div>
+          <div class="callout exam">To build a cladogram from a difference table: species with fewest differences are most closely related (share most recent common ancestor). In 2024 Paper 2 Q3: use cytochrome C amino acid differences — fewer differences = more closely related.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MICROBIOLOGY & BIOTECHNOLOGY -->
+    <section class="topic-section" id="s-microbio">
+      <div class="topic-header">
+        <span class="topic-code tc-t4">11.4D</span>
+        <div class="topic-title-group">
+          <span class="lo-badge">11.4.3.1 – 11.4.3.9</span>
+          <h2>Microbiology & Biotechnology</h2>
+          <p>Microorganism nutrition · Fermentor · Genetic engineering · PCR · GMOs</p>
+        </div>
+      </div>
+
+      <div class="concept open">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-v"></div>Microorganism Nutrition & Metabolism</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <table class="cmp-table">
+            <tr><th>Category</th><th>Energy source</th><th>Carbon source</th><th>Example</th></tr>
+            <tr><td>Photoautotroph</td><td>Light</td><td>CO₂</td><td>Cyanobacteria, algae</td></tr>
+            <tr><td>Photoheterotroph</td><td>Light</td><td>Organic compounds</td><td>Purple non-sulfur bacteria</td></tr>
+            <tr><td>Chemoautotroph</td><td>Inorganic chemicals</td><td>CO₂</td><td>Nitrifying bacteria, sulfur bacteria</td></tr>
+            <tr><td>Chemoheterotroph</td><td>Organic chemicals</td><td>Organic compounds</td><td>Most bacteria, fungi, animals</td></tr>
+          </table>
+          <h4>Fermentor (Bioreactor)</h4>
+          <div class="key-points">
+            <div class="key-point">Closed vessel for controlled growth of microorganisms at large scale</div>
+            <div class="key-point">Components: <strong>impeller</strong> (stirrer), <strong>sparger</strong> (air inlet), cooling jacket (temperature control), pH monitor and controls, sampling port</div>
+            <div class="key-point">Batch fermentation: closed system; all nutrients added at start; product harvested at end</div>
+            <div class="key-point">Continuous fermentation: nutrients added continuously; product harvested continuously; more efficient</div>
+            <div class="key-point">Products: insulin (E. coli), antibiotics (Penicillium), beer/wine (Saccharomyces), enzymes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-g"></div>PCR — Polymerase Chain Reaction</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <div class="def-box"><span class="term">PCR</span>In vitro technique to amplify a specific DNA sequence exponentially. Starting from tiny amounts of DNA (even from a single cell), millions of copies can be made in 2–3 hours.</div>
+          <h4>PCR Cycle (Thermocycling)</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Denaturation</strong> (94–96°C): H-bonds between DNA strands broken → two single strands</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Annealing</strong> (50–65°C): short synthetic <strong>primers</strong> bind to complementary sequences on each strand (flank the target region)</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Extension/Elongation</strong> (72°C): <strong>Taq polymerase</strong> (thermostable, from Thermus aquaticus) extends from primers; adds complementary nucleotides 5'→3'</div></div>
+            <div class="step"><div class="step-num">04</div><div>Cycle repeats ~30–40 times → 2ⁿ copies after n cycles (exponential amplification)</div></div>
+          </div>
+          <h4>Applications of PCR</h4>
+          <div class="key-points">
+            <div class="key-point"><strong>Forensics</strong>: DNA profiling from trace evidence (blood, hair, saliva)</div>
+            <div class="key-point"><strong>Medical diagnosis</strong>: detect pathogens (HIV, COVID-19); identify genetic mutations</div>
+            <div class="key-point"><strong>Paternity testing</strong></div>
+            <div class="key-point"><strong>Palaeontology</strong>: amplify DNA from fossils/archaeological remains</div>
+            <div class="key-point"><strong>Gene cloning</strong>: produce large amounts of target gene for genetic engineering</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header" onclick="toggle(this)">
+          <div class="concept-title"><div class="dot dot-y"></div>Genetic Engineering & GMOs</div>
+          <span class="concept-toggle">▼</span>
+        </div>
+        <div class="concept-body">
+          <h4>Steps of Genetic Engineering</h4>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><strong>Identify target gene</strong>: using gene libraries, mRNA → cDNA (via reverse transcriptase)</div></div>
+            <div class="step"><div class="step-num">02</div><div><strong>Isolate gene</strong>: restriction endonucleases cut at specific recognition sites → sticky ends</div></div>
+            <div class="step"><div class="step-num">03</div><div><strong>Insert into vector</strong>: same restriction enzyme cuts plasmid; DNA ligase joins gene into plasmid → recombinant plasmid</div></div>
+            <div class="step"><div class="step-num">04</div><div><strong>Transform host cell</strong>: bacteria take up plasmid (heat shock, electroporation)</div></div>
+            <div class="step"><div class="step-num">05</div><div><strong>Select transformants</strong>: using antibiotic resistance markers or fluorescent markers</div></div>
+            <div class="step"><div class="step-num">06</div><div><strong>Express gene</strong>: grow in fermentor; extract and purify protein product</div></div>
+          </div>
+
+          <h4>GMO Examples & Uses</h4>
+          <div class="key-points">
+            <div class="key-point">Human insulin produced by <em>E. coli</em> with human INS gene</div>
+            <div class="key-point">Bt crops: Bacillus thuringiensis toxin gene in maize → insect resistance</div>
+            <div class="key-point">Golden rice: β-carotene genes inserted → vitamin A production</div>
+            <div class="key-point">HGH (human growth hormone), clotting factors, vaccines</div>
+          </div>
+
+          <div class="callout warn">Ethical issues of GMOs: unpredictable effects on ecosystems; gene transfer to wild plants (gene flow); loss of biodiversity; corporate control of food supply; long-term health effects unknown; "playing God" arguments. Counter: reduce pesticide use, drought resistance, nutritional enhancement, reduced food insecurity.</div>
+        </div>
+      </div>
+    </section>
+
+    <div style="height:80px;"></div>
+  </div>
+</div>
+
+<script>
+function toggle(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  document.getElementById('progressFill').style.width = (el.scrollTop / (el.scrollHeight - el.clientHeight) * 100) + '%';
+});
+
+const sections = document.querySelectorAll('.topic-section');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === '#' + id) item.classList.add('active');
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+function search(q) {
+  if (!q) {
+    document.querySelectorAll('.concept, .topic-section').forEach(el => el.style.display = '');
+    return;
+  }
+  const query = q.toLowerCase();
+  document.querySelectorAll('.concept').forEach(c => {
+    const show = c.textContent.toLowerCase().includes(query);
+    c.style.display = show ? '' : 'none';
+    if (show) c.classList.add('open');
+  });
+  document.querySelectorAll('.topic-section').forEach(s => {
+    s.style.display = [...s.querySelectorAll('.concept')].some(c => c.style.display !== 'none') ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
